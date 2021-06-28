@@ -1,0 +1,28 @@
+export default {
+  baseline_cancel: require("./Auth/baseline-cancel.png"),
+  usa_flag: require("./Auth/usa-flag.png"),
+  arrow_down: require("./Auth/arrow-down.png"),
+  avatar: require("./Auth/avatar_profile.png"),
+  gift: require("./Navigation/Gift.png"),
+  home: require("./Navigation/Home.png"),
+  store: require("./Navigation/Store.png"),
+  today: require("./Navigation/Today.png"),
+  tone: require("./Navigation/tone.png"),
+  drawer: require("./Navigation/drawer.png"),
+  //-------------- Drawer ------------------//
+  reward_profile_drawer: require("./drawer/reward_profile.png"),
+  favorites_drawer: require("./drawer/favorites.png"),
+  setting_drawer: require("./drawer/setting.png"),
+  about_harmony_pay_drawer: require("./drawer/about_harmony_pay.png"),
+  signout_drawer: require("./drawer/signout.png"),
+  wishlist_drawer: require("./drawer/wishlist.png"),
+  //-------------- Home ------------------//
+  header_home: require("./Home/header_home.png"),
+  card_sample: require("./Home/card_sample.png"),
+  card_placeholder: require("./Home/card_placeholder.png"),
+  giftcard_placeholder: require("./Home/giftcard_placeholder.png"),
+  paynow_button: require("./Home/paynow_button.png"),
+  booking_button: require("./Home/booking_button.png"),
+  phone_auth: require("./Auth/phone.png"),
+  biometric: require("./Auth/biometric.png"),
+};

@@ -1,0 +1,8 @@
+<resources>
+    <string name="facebook_app_id">1817108161776434</string>
+    <string name="fb_login_protocol_scheme">fb1817108161776434</string>
+
+    <string name="app_name_release">Harmony Pay</string>
+    <string name="app_name_development">Development</string>
+    <string name="app_name_staging">Staging</string>
+</resources>
