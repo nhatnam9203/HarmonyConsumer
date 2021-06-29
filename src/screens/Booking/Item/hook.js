@@ -14,8 +14,10 @@ export default function hook(props) {
   const [tempExtras, setExtras] = useState([]);
 
   const scrollY = useRef(new Animated.Value(0)).current;
-
+  const token = useSelector((state) => state.datalocalReducer.token);
   const bookingReducer = useSelector((state) => state.bookingReducer);
+  const merchant = useSelector((state) => state.storeReducer.merchant_detail);
+
   let { services, extras, products, isReview, staffId, isEditAppointment, fromTime } =
     bookingReducer;
 
@@ -118,6 +120,10 @@ export default function hook(props) {
     // dispatch(actions.bookingAction.addService(tempServices));
   };
 
+  const getStaffList = (serviceId, date = null) => {
+    dispatch(actions.staffAction.getStaffService(token, serviceId, date, merchant.merchantId));
+  };
+
   const book = (item) => {
     if (isEditAppointment) {
       dispatch(actions.bookingAction.checkEdit(true));
@@ -143,7 +149,7 @@ export default function hook(props) {
 
     if (item.productId && staffId === "") {
       // assig stasff for appointment only have product
-      RootNavigationn.navigate("StaffList", { item });
+      RootNavigationn.navigate("StaffList", { item, isProduct: true });
       return;
     }
 
@@ -163,6 +169,9 @@ export default function hook(props) {
       dispatch(actions.bookingAction.setReview(false));
     } else {
       RootNavigationn.navigate("StaffList", { item }); // add item with staff available
+      if (item.serviceId) {
+        getStaffList(item.serviceId);
+      }
     }
   };
 

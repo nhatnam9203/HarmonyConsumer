@@ -8,12 +8,17 @@ import { scaleWidth } from "utils";
 import useHook from "./hook";
 
 export default function index(props) {
-  const [status, selectedStaffId, selectStaff, selectDate] = useHook(props);
+  const [status, selectedStaffId, selectStaff, selectDate, isProduct] = useHook(props);
 
   return (
     <View style={styles.container}>
       <Header title={`Select Staff`} step={2} />
-      <ListStaff status={status} selectedStaffId={selectedStaffId} selectStaff={selectStaff} />
+      <ListStaff
+        status={status}
+        selectedStaffId={selectedStaffId}
+        selectStaff={selectStaff}
+        isProduct={isProduct}
+      />
       {selectedStaffId !== "" && (
         <View style={styles.bottom}>
           <TouchableRipple borderless={true} onPress={selectDate} style={styles.btn}>

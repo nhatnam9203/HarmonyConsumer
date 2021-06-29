@@ -3,6 +3,7 @@ const initialState = {
   staff_available_time: [],
   staff_favourites: [],
   staff_appointment: [],
+  staff_service: [],
 };
 
 function staffReducer(state = initialState, action) {
@@ -28,6 +29,12 @@ function staffReducer(state = initialState, action) {
       return {
         ...state,
         staff_appointment: action.payload,
+      };
+
+    case "SET_STAFF_SERVICE":
+      return {
+        ...state,
+        staff_service: action.payload,
       };
     default:
       return state;
