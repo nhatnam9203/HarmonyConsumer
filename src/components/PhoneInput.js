@@ -67,7 +67,7 @@ export default function PhoneInput({
           <MenuItem
             onPress={() => hideMenu("US")}
             style={{ justifyContent: "center", alignItems: "flex-start" }}>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", paddingLeft: 10 }}>
               <Image source={images.us} style={{ width: scaleWidth(7), height: scaleWidth(5) }} />
               <View style={{ width: scaleWidth(3) }} />
               <Text>{"+1"}</Text>
@@ -79,6 +79,7 @@ export default function PhoneInput({
             <View
               style={{
                 flexDirection: "row",
+                paddingLeft: 10,
               }}>
               <Image
                 source={images.canada}
@@ -94,6 +95,7 @@ export default function PhoneInput({
             <View
               style={{
                 flexDirection: "row",
+                paddingLeft: 10,
               }}>
               <Image
                 source={images.vn_flag}
