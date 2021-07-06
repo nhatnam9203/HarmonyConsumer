@@ -97,7 +97,7 @@ export const requestAPI = async (action, header = {}) => {
 
 export const upload = async (url = "", body = []) => {
   const config = {
-    url: `https://staging2.harmonypayment.com/api/${url}`,
+    url: `${env.API_URL}${url}`,
     method: "POST",
     headers: {
       Accept: "application/json",
