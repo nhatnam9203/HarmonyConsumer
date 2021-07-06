@@ -6,25 +6,9 @@ import { scaleHeight } from "utils";
 import Anonymous from "./Anonymous";
 import Staff from "./Staff";
 import styles from "./styles";
-import { useSelector } from "react-redux";
 
 function List(props) {
-  const { selectStaff, selectedStaffId, isProduct } = props;
-
-  let staff_service = useSelector((state) => state.staffReducer.staff_service);
-  let staffMerchant = useSelector((state) => state.staffReducer.staff_by_merchant);
-  staffMerchant = staffMerchant.filter((obj) => obj.isDisabled == 0 && obj.isActive == true);
-
-  const convertStaffService = () => {
-    let tempt = [];
-    for (let i = 0; i < staffMerchant.length; i++) {
-      let temptStaff = staff_service.find((s) => s.staffId == staffMerchant[i].staffId);
-      if (temptStaff) tempt.push(staffMerchant[i]);
-    }
-    return tempt;
-  };
-
-  let staffList = isProduct ? staffMerchant : convertStaffService();
+  const { selectStaff, selectedStaffId, staffList } = props;
 
   const renderWaitingAnyStaff = () => {
     return (

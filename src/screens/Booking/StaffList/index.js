@@ -6,9 +6,29 @@ import ListStaff from "./List";
 import Header from "./Header";
 import { scaleWidth } from "utils";
 import useHook from "./hook";
+import { useSelector } from "react-redux";
 
 export default function index(props) {
   const [status, selectedStaffId, selectStaff, selectDate, isProduct] = useHook(props);
+
+  let staff_service = useSelector((state) => state.staffReducer.staff_service);
+  let staffMerchant = useSelector((state) => state.staffReducer.staff_by_merchant);
+  staffMerchant = staffMerchant.filter((obj) => obj.isDisabled == 0 && obj.isActive == true);
+
+  const convertStaffService = () => {
+    let tempt = [];
+    for (let i = 0; i < staffMerchant.length; i++) {
+      let temptStaff = staff_service.find((s) => s.staffId == staffMerchant[i].staffId);
+      if (temptStaff) tempt.push(staffMerchant[i]);
+    }
+    return tempt;
+  };
+
+  let staffList = isProduct ? staffMerchant : convertStaffService();
+
+  const isShowButtonBook = staffList.find((s) => parseInt(s.staffId) === selectedStaffId)
+    ? true
+    : false;
 
   return (
     <View style={styles.container}>
@@ -18,8 +38,9 @@ export default function index(props) {
         selectedStaffId={selectedStaffId}
         selectStaff={selectStaff}
         isProduct={isProduct}
+        staffList={staffList}
       />
-      {selectedStaffId !== "" && (
+      {selectedStaffId !== "" && isShowButtonBook && (
         <View style={styles.bottom}>
           <TouchableRipple borderless={true} onPress={selectDate} style={styles.btn}>
             <Text style={styles.txtBook}>Book</Text>
