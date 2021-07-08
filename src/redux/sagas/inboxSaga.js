@@ -22,8 +22,8 @@ function* getNotify(action) {
 function* readNotify(action) {
   try {
     const response = yield requestAPI(action);
-    console.log("read notify");
-    console.log({ action, response });
+    // console.log("read notify");
+    // console.log({ action, response });
     switch (parseInt(response.codeNumber)) {
       case 200:
         yield put({ type: "UPDATE_NOTIFY", payload: action.ids });

@@ -17,7 +17,7 @@ export default function index(props) {
   const token = useSelector((state) => state.datalocalReducer.token);
   const merchant = useSelector((state) => state.storeReducer.merchant_detail);
   const { invoice } = props.route.params;
-  console.log({ invoice });
+  // console.log({ invoice });
   let {
     appointmentId,
     customDiscountFixed,

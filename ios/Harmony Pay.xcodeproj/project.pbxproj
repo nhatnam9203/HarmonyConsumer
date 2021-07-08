@@ -15,15 +15,15 @@
 		363F6B2D264E59C200880288 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		363F6B2E264E59C200880288 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D5B5EA2641BD5B00973CC5 /* File.swift */; };
 		363F6B2F264E59C200880288 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		363F6B33264E59C200880288 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AFF0D8249B7EF600081ABB /* Launch Screen.storyboard */; };
 		363F6B35264E59C200880288 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF424DC5042000A7E57 /* SFProDisplay-Semibold.ttf */; };
 		363F6B36264E59C200880288 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF224DC5042000A7E57 /* SFProDisplay-Medium.ttf */; };
 		363F6B37264E59C200880288 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF524DC5042000A7E57 /* SFProDisplay-Regular.ttf */; };
 		363F6B38264E59C200880288 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF324DC5042000A7E57 /* SFProDisplay-Bold.ttf */; };
 		363F6B39264E59C200880288 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		36D5B5EB2641BD5B00973CC5 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D5B5EA2641BD5B00973CC5 /* File.swift */; };
+		36EDC8C4269701C600816A3D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		36EDC8C52697021400816A3D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		36F4D47E2641A86800A5BFBF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36F4D47D2641A86800A5BFBF /* GoogleService-Info.plist */; };
-		40AFF0D9249B7EF600081ABB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AFF0D8249B7EF600081ABB /* Launch Screen.storyboard */; };
 		40D41AF624DC5042000A7E57 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF224DC5042000A7E57 /* SFProDisplay-Medium.ttf */; };
 		40D41AF724DC5042000A7E57 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF324DC5042000A7E57 /* SFProDisplay-Bold.ttf */; };
 		40D41AF824DC5042000A7E57 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF424DC5042000A7E57 /* SFProDisplay-Semibold.ttf */; };
@@ -32,7 +32,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* harmonypayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = harmonypayTests.m; sourceTree = "<group>"; };
 		079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.release.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.release.xcconfig"; sourceTree = "<group>"; };
@@ -53,7 +52,6 @@
 		36D5B5EA2641BD5B00973CC5 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = harmonypay/File.swift; sourceTree = "<group>"; };
 		36F4D47D2641A86800A5BFBF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D58C6B22519D9DC003AF54D /* HarmonyPay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HarmonyPay.entitlements; path = harmonypay/HarmonyPay.entitlements; sourceTree = "<group>"; };
-		40AFF0D8249B7EF600081ABB /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "harmonypay/Images.xcassets/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		40D41AF224DC5042000A7E57 /* SFProDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProDisplay-Medium.ttf"; path = "../src/assets/fonts/SFProDisplay-Medium.ttf"; sourceTree = "<group>"; };
 		40D41AF324DC5042000A7E57 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProDisplay-Bold.ttf"; path = "../src/assets/fonts/SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		40D41AF424DC5042000A7E57 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProDisplay-Semibold.ttf"; path = "../src/assets/fonts/SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
@@ -124,11 +122,9 @@
 				36D5B5EA2641BD5B00973CC5 /* File.swift */,
 				36F4D47D2641A86800A5BFBF /* GoogleService-Info.plist */,
 				3D58C6B22519D9DC003AF54D /* HarmonyPay.entitlements */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				40AFF0D8249B7EF600081ABB /* Launch Screen.storyboard */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -317,10 +313,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40AFF0D9249B7EF600081ABB /* Launch Screen.storyboard in Resources */,
 				36F4D47E2641A86800A5BFBF /* GoogleService-Info.plist in Resources */,
 				40D41AF824DC5042000A7E57 /* SFProDisplay-Semibold.ttf in Resources */,
 				40D41AF624DC5042000A7E57 /* SFProDisplay-Medium.ttf in Resources */,
+				36EDC8C52697021400816A3D /* LaunchScreen.xib in Resources */,
 				40D41AF924DC5042000A7E57 /* SFProDisplay-Regular.ttf in Resources */,
 				40D41AF724DC5042000A7E57 /* SFProDisplay-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -331,7 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				363F6B33264E59C200880288 /* Launch Screen.storyboard in Resources */,
+				36EDC8C4269701C600816A3D /* LaunchScreen.xib in Resources */,
 				3613C562264E5F8B00E8897D /* GoogleService-Info.plist in Resources */,
 				363F6B35264E59C200880288 /* SFProDisplay-Semibold.ttf in Resources */,
 				363F6B36264E59C200880288 /* SFProDisplay-Medium.ttf in Resources */,
@@ -913,7 +909,8 @@
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1020,7 +1017,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1047,7 +1044,8 @@
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = "$(SRCROOT)/harmonypay/staging/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1142,7 +1140,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

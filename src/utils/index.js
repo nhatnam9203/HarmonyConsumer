@@ -459,7 +459,7 @@ export const sendWhatsApp = (mobile) => {
       let url = "whatsapp://send?text=" + msg + "&phone=" + mobile;
       Linking.openURL(url)
         .then((data) => {
-          console.log("WhatsApp Opened");
+          // console.log("WhatsApp Opened");
         })
         .catch(() => {
           alert("Make sure WhatsApp installed on your device");

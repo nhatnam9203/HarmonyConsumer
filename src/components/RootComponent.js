@@ -7,6 +7,7 @@ import {
   Platform,
   AppState,
   Keyboard,
+  ActivityIndicator,
 } from "react-native";
 import { scaleWidth, scaleHeight, convertLatLongToAddress } from "utils";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,11 +26,9 @@ import env from "react-native-config";
 
 var PushNotification = require("react-native-push-notification");
 
-let codePushOptions = { checkFrequency: CodePush.CheckFrequency.MANUAL };
-
 const signalR = require("@microsoft/signalr");
 
-const RootComponent = (props) => {
+const RootComponent: () => React$Node = (props) => {
   const dispatch = useDispatch();
   const general = useSelector((state) => state.generalReducer);
   const token = useSelector((state) => state.datalocalReducer.token);
@@ -46,6 +45,8 @@ const RootComponent = (props) => {
   const [idAppointmentDetail, setIdDetail] = useState("");
   const timezone = new Date().getTimezoneOffset();
 
+  const [waitingLoadApp, setWaitingLoadApp] = useState(true);
+
   React.useEffect(() => {
     if (idAppointmentDetail && idAppointmentDetail == appointmentId) {
       dispatch(actions.appointmentAction.getDetailAppointment(token, idAppointmentDetail));
@@ -56,7 +57,10 @@ const RootComponent = (props) => {
   }, [idAppointmentDetail]);
 
   const checkFlow = () => {
-    SplashScreen.hide();
+    setTimeout(() => {
+      console.log("Check Flow");
+      setWaitingLoadApp(false);
+    }, 300);
   };
 
   const openPopupUpdate = () => {
@@ -64,41 +68,72 @@ const RootComponent = (props) => {
     Keyboard.dismiss();
   };
 
-  checkUpdate = () => {
+  const checkUpdate = async () => {
+    const timeOutNetWork = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("NET_WORK_TIME_OUT");
+      }, 10000);
+    });
+
     try {
-      CodePush.checkForUpdate()
-        .then((update) => {
-          console.log({ update });
-          if (update) {
-            if (update.failedInstall) {
-              checkFlow();
-            } else {
-              const dataUpdate = update?.description || "update new version";
-              if (dataUpdate.toString().includes("isPopup")) {
-                SplashScreen.hide();
-                setContentUpdate(dataUpdate.toString().replace("isPopup", ""));
-                openPopupUpdate();
-                Keyboard.dismiss();
-              } else {
-                let options = {
-                  installMode: CodePush.InstallMode.IMMEDIATE,
-                  mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-                };
-                CodePush.sync(
-                  options,
-                  (status) => {},
-                  (progress) => {},
-                );
-              }
-            }
-          } else {
-            checkFlow();
-          }
-        })
-        .catch((err) => {
+      const update = await new Promise.race([CodePush.checkForUpdate(), timeOutNetWork]);
+      if (update) {
+        if (update === "NET_WORK_TIME_OUT" || update?.failedInstall) {
           checkFlow();
-        });
+        } else {
+          // const dataUpdate = update?.description || "update new code";
+          // if (dataUpdate.toString().includes("isPopup")) {
+          //   SplashScreen.hide();
+          //   setContentUpdate(dataUpdate.toString().replace("isPopup", ""));
+          //   openPopupUpdate();
+          //   Keyboard.dismiss();
+          // } else {
+
+          // }
+
+          const options = {
+            updateDialog: false,
+            installMode: CodePush.InstallMode.ON_NEXT_RESTART,
+            mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+          };
+          console.log(update);
+
+          await CodePush.sync(
+            options,
+            (status) => {
+              console.log(status);
+
+              if (
+                status === CodePush.SyncStatus.UP_TO_DATE ||
+                status === CodePush.SyncStatus.UPDATE_IGNORED ||
+                status === CodePush.SyncStatus.UNKNOWN_ERROR
+              ) {
+                checkFlow();
+
+                return;
+              }
+
+              if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
+                CodePush.allowRestart();
+                setTimeout(() => {
+                  console.log("code push update complete ");
+
+                  CodePush.restartApp();
+                  CodePush.disallowRestart();
+                }, 300);
+
+                return;
+              }
+            },
+            (progress) => {},
+          );
+        }
+      } else {
+        checkFlow();
+      }
     } catch (err) {
+      console.log(err);
+
       checkFlow();
     }
   };
@@ -106,8 +141,9 @@ const RootComponent = (props) => {
   const updateCodePush = () => {
     dispatch({ type: "START_FETCH_API" });
     let options = {
-      installMode: CodePush.InstallMode.IMMEDIATE,
-      mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+      updateDialog: false,
+      mandatoryInstallMode: CodePush.InstallMode.ON_NEXT_RESTART,
+      installMode: CodePush.InstallMode.ON_NEXT_RESTART,
     };
     CodePush.sync(
       options,
@@ -138,7 +174,7 @@ const RootComponent = (props) => {
   const checkPermission = async () => {
     try {
       const enabled = await firebase.messaging().hasPermission();
-      console.log(enabled);
+      // console.log(enabled);
       if (enabled) {
         await getToken();
       } else {
@@ -153,7 +189,7 @@ const RootComponent = (props) => {
     const fcmToken = await firebase.messaging().getToken();
 
     if (fcmToken) {
-      console.log("fcmToken");
+      // console.log("fcmToken");
       runSignalR(fcmToken);
     } else {
       console.log("fcmToken", fcmToken);
@@ -179,7 +215,7 @@ const RootComponent = (props) => {
       messageJson.type == "update_pay"
     ) {
       if (isInbox) {
-        console.log("PushNotification dkm lcm skskadkasdaks");
+        // console.log("PushNotification dkm lcm skskadkasdaks");
 
         PushNotification.localNotification({
           title: "HarmonyPay",
@@ -190,6 +226,7 @@ const RootComponent = (props) => {
   };
 
   useEffect(() => {
+    CodePush.disallowRestart();
     checkUpdate();
   }, []);
 
@@ -264,7 +301,7 @@ const RootComponent = (props) => {
         .build();
 
       connection.on("Message", (message) => {
-        console.log("PushNotification dkm lcm skskadkasdaks", message);
+        // console.log("PushNotification dkm lcm skskadkasdaks", message);
 
         dispatch(actions.inboxAction.getNotifyToday(timezone, token));
         dispatch(actions.inboxAction.countUnread(token));
@@ -290,7 +327,7 @@ const RootComponent = (props) => {
   };
 
   const receiveMessage = (messageJson) => {
-    console.log(messageJson);
+    // console.log(messageJson);
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === "update_data" ||
@@ -372,13 +409,21 @@ const RootComponent = (props) => {
     );
   }
 
-  return (
+  return waitingLoadApp ? (
+    <View style={styles.containerAwaitingLoad}>
+      <ActivityIndicator animating={true} color="#0764f9" size="small" />
+    </View>
+  ) : (
     <View style={styles.container}>
       {props.children}
       {renderPopupUpdate()}
       {renderCustomPopupError()}
     </View>
   );
+};
+
+const codePushOptions = {
+  checkFrequency: CodePush.CheckFrequency.MANUAL, //  only check when CodePush.sync() is called in app code
 };
 
 const Root = CodePush(codePushOptions)(RootComponent);
@@ -388,6 +433,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
+  containerAwaitingLoad: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   containerPopup: {
     width: scaleWidth(80),
     backgroundColor: "white",

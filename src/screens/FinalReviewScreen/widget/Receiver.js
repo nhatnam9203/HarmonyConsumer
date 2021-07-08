@@ -8,7 +8,7 @@ import ICONS from "assets";
 export default function index({ receiver = {}, infoReceiver = null }) {
   const { fullName, phone, avatarURL } = receiver;
   const avatar = avatarURL ? { uri: avatarURL } : ICONS["personal"];
-  console.log({ fullName });
+  // console.log({ fullName });
   return (
     <View style={styles.container}>
       <Image source={avatar} style={styles.image} />
