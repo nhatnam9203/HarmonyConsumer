@@ -17,7 +17,6 @@ import { checkNotifications } from "react-native-permissions";
 import Modal from "./Modal2";
 import actions from "@redux/actions";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import API from "../configs/api";
 import CodePush from "react-native-code-push";
 import firebase from "react-native-firebase";
 import SplashScreen from "react-native-splash-screen";
