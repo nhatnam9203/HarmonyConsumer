@@ -1,4 +1,3 @@
-import API from "../configs/api";
 import axios from "axios";
 import Config from "../configs";
 import ICONS from "assets";
