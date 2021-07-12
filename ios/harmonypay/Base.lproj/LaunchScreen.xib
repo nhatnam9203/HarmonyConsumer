@@ -33,7 +33,7 @@
         </view>
     </objects>
     <resources>
-        <image name="LaunchImage" width="1024" height="768"/>
+        <image name="LaunchImage" width="310" height="672"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
