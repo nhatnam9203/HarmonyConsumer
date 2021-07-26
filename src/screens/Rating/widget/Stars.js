@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "components";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Ionicons";
 import { scaleWidth, scaleHeight } from "utils";
 import styleRoot from "../styles";
 
@@ -28,7 +28,7 @@ export default function Starts({ businessName, rating, setRating, list }) {
         {rating.map((obj, index) => {
           return (
             <TouchableOpacity key={index + "star"} onPress={() => setActive(obj)}>
-              <Ionicons
+              <Icon
                 name="star"
                 style={styles.icon}
                 color={obj.isActive ? "#FFB700" : "#E5E5E5"}

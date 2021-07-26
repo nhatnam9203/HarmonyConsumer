@@ -150,6 +150,7 @@ function* updateStatusAppointment(action) {
 }
 
 function* updateAppointment(action) {
+  // console.log(JSON.stringify(action));
   try {
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
@@ -225,6 +226,8 @@ function* getDetailAppointment(action) {
 
     switch (parseInt(response.codeNumber)) {
       case 200:
+        console.log(JSON.stringify(response.data));
+
         yield put({
           type: "SET_APPOINTMENT_DETAIL",
           appointment: response.data,

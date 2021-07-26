@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     borderColor: "#dddddd",
   },
   text_input: {
-    width: "100%",
+    // width: "100%",
     fontSize: scaleSize(17),
     color: "#404040",
     fontWeight: "bold",

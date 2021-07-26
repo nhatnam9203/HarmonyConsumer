@@ -4,6 +4,38 @@ import * as RootNavigation from "navigations/RootNavigation";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
 
+const ServiceFilterKeys = [
+  "appointmentId",
+  "bookingServiceId",
+  "duration",
+  "price",
+  "serviceId",
+  "serviceName",
+  "staffId",
+];
+
+const ProductFilterKeys = [
+  "appointmentId",
+  "bookingProductId",
+  "price",
+  "quantity",
+  "productId",
+  "productName",
+];
+
+const ExtraFilterKeys = [
+  "appointmentId",
+  "bookingExtraId",
+  "extraId",
+  "price",
+  "duration",
+  "extraName",
+];
+
+const GiftCardsFilterKeys = ["bookingGiftCardId", "giftCardId", "quantity", "price"];
+
+const NotesFilterKeys = ["appointmentNoteId", "note"];
+
 export default function useHook() {
   const dispatch = useDispatch();
 
@@ -74,17 +106,50 @@ export default function useHook() {
   };
 
   const reScheduleAction = () => {
-    // console.log("reScheduleAction");
+    if (!appointment_detail_customer) return;
+
     const date = moment(day).format("YYYY-MM-DD");
     const date_reschedule = `${moment(date).format("YYYY-MM-DD")}T${timePicker}`;
-    const body = {
-      ...appointment_detail_customer,
-      fromTime: date_reschedule,
-      status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
-    };
+    // const body = {
+    //   ...appointment_detail_customer,
+    //   fromTime: date_reschedule,
+    //   status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
+    // };
+    // console.log(JSON.stringify(body));
 
     dispatch({ type: "START_FETCH_API" });
     dispatch(actions.bookingAction.selectDate(date_reschedule));
+    const body = {
+      staffId: appointment_detail_customer.staffId,
+      fromTime: date_reschedule,
+      toTime: appointment_detail_customer.toTime,
+      status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
+      services: appointment_detail_customer.services?.map((it) =>
+        Object.fromEntries(
+          Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
+        ),
+      ),
+      products: appointment_detail_customer.products?.map((it) =>
+        Object.fromEntries(
+          Object.entries(it).filter(([key, val]) => ProductFilterKeys.includes(key)),
+        ),
+      ),
+      extras: appointment_detail_customer.extras?.map((it) =>
+        Object.fromEntries(
+          Object.entries(it).filter(([key, val]) => ExtraFilterKeys.includes(key)),
+        ),
+      ),
+      giftCards: appointment_detail_customer.giftCards?.map((it) =>
+        Object.fromEntries(
+          Object.entries(it).filter(([key, val]) => GiftCardsFilterKeys.includes(key)),
+        ),
+      ),
+      notes: appointment_detail_customer.notes?.map((it) =>
+        Object.fromEntries(
+          Object.entries(it).filter(([key, val]) => NotesFilterKeys.includes(key)),
+        ),
+      ),
+    };
     dispatch(actions.appointmentAction.updateAppointment(body, token, appointmentId, onBack, true));
   };
 

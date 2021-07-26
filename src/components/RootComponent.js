@@ -168,6 +168,23 @@ const RootComponent: () => React$Node = (props) => {
       popInitialNotification: true,
       requestPermissions: true,
     });
+
+    PushNotification.getChannels(function (channels) {
+      // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
+      if (channels && channels?.length > 0) return;
+      PushNotification.createChannel(
+        {
+          channelId: "hp_consumer", // (required)
+          channelName: `Harmony Pay`, // (required)
+          channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
+          playSound: true, // (optional) default: true
+          // soundName: 'jollibeesound.wav', // (optional) See `soundName` parameter of `localNotification` function
+          importance: 4, // (optional) default: 4. Int value of the Android notification importance
+          vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+        },
+        (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+      );
+    });
   };
 
   const checkPermission = async () => {
@@ -214,11 +231,11 @@ const RootComponent: () => React$Node = (props) => {
       messageJson.type == "update_pay"
     ) {
       if (isInbox) {
-        // console.log("PushNotification dkm lcm skskadkasdaks");
-
         PushNotification.localNotification({
           title: "HarmonyPay",
           message: messageJson.message,
+          largeIcon: "ic_launcher",
+          smallIcon: "ic_launcher",
         });
       }
     }
@@ -343,15 +360,16 @@ const RootComponent: () => React$Node = (props) => {
       if (messageJson.type === "appointment_add") {
         getMyAppointmentList();
       }
-      if (
-        messageJson.type === "pay" ||
-        messageJson.type === "cancel_pay" ||
-        messageJson.type === "update_pay"
-      ) {
+      if (messageJson.type === "pay" || messageJson.type === "update_pay") {
         const { id } = messageJson;
         dispatch(actions.appointmentAction.getGroupAppointmentById(token, id));
         dispatch(actions.paymentAction.get_number_invoice(token));
         // dispatch(actions.generalAction.set_tips(tips));
+      }
+      if (messageJson.type === "cancel_pay") {
+        const { id } = messageJson;
+        // dispatch(actions.appointmentAction.getGroupAppointmentById(token, id));
+        dispatch(actions.paymentAction.get_number_invoice(token));
       }
       if (messageJson.type === "order" || messageJson.type === "appointment_update_status") {
         dispatch(actions.customerAction.getPoint(1, timezone, token, () => {}));
