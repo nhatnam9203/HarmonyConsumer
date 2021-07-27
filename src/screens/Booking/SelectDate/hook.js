@@ -12,6 +12,9 @@ const ServiceFilterKeys = [
   "serviceId",
   "serviceName",
   "staffId",
+  "status",
+  "note",
+  "fromTime",
 ];
 
 const ProductFilterKeys = [
@@ -119,7 +122,7 @@ export default function useHook() {
 
     dispatch({ type: "START_FETCH_API" });
     dispatch(actions.bookingAction.selectDate(date_reschedule));
-    const body = {
+    const body = Object.assign({}, appointment_detail_customer, {
       staffId: appointment_detail_customer.staffId,
       fromTime: date_reschedule,
       toTime: appointment_detail_customer.toTime,
@@ -129,27 +132,27 @@ export default function useHook() {
           Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
         ),
       ),
-      products: appointment_detail_customer.products?.map((it) =>
-        Object.fromEntries(
-          Object.entries(it).filter(([key, val]) => ProductFilterKeys.includes(key)),
-        ),
-      ),
-      extras: appointment_detail_customer.extras?.map((it) =>
-        Object.fromEntries(
-          Object.entries(it).filter(([key, val]) => ExtraFilterKeys.includes(key)),
-        ),
-      ),
-      giftCards: appointment_detail_customer.giftCards?.map((it) =>
-        Object.fromEntries(
-          Object.entries(it).filter(([key, val]) => GiftCardsFilterKeys.includes(key)),
-        ),
-      ),
-      notes: appointment_detail_customer.notes?.map((it) =>
-        Object.fromEntries(
-          Object.entries(it).filter(([key, val]) => NotesFilterKeys.includes(key)),
-        ),
-      ),
-    };
+      // products: appointment_detail_customer.products?.map((it) =>
+      //   Object.fromEntries(
+      //     Object.entries(it).filter(([key, val]) => ProductFilterKeys.includes(key)),
+      //   ),
+      // ),
+      // extras: appointment_detail_customer.extras?.map((it) =>
+      //   Object.fromEntries(
+      //     Object.entries(it).filter(([key, val]) => ExtraFilterKeys.includes(key)),
+      //   ),
+      // ),
+      // giftCards: appointment_detail_customer.giftCards?.map((it) =>
+      //   Object.fromEntries(
+      //     Object.entries(it).filter(([key, val]) => GiftCardsFilterKeys.includes(key)),
+      //   ),
+      // ),
+      // notes: appointment_detail_customer.notes?.map((it) =>
+      //   Object.fromEntries(
+      //     Object.entries(it).filter(([key, val]) => NotesFilterKeys.includes(key)),
+      //   ),
+      // ),
+    });
     dispatch(actions.appointmentAction.updateAppointment(body, token, appointmentId, onBack, true));
   };
 
