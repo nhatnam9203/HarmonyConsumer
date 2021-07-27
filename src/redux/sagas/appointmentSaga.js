@@ -226,7 +226,7 @@ function* getDetailAppointment(action) {
 
     switch (parseInt(response.codeNumber)) {
       case 200:
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
 
         yield put({
           type: "SET_APPOINTMENT_DETAIL",

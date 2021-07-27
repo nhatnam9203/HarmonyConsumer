@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   container_center: {
     // paddingHorizontal: scaleSize(15),
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   header_card: {
     flexDirection: "row",

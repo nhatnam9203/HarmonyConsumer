@@ -7,7 +7,7 @@ import styles from "./styles";
 const Summary = ({ rating = 0, count = 0 }) => {
   return (
     <View style={styles.summary}>
-      <Text style={styles.txtRating}>{`${rating} / 5`}</Text>
+      <Text style={styles.txtRating}>{`${parseFloat(rating).toFixed(1)} / 5`}</Text>
       <View style={{ flexDirection: "row", marginVertical: scaleHeight(0.3) }}>
         {new Array(Math.ceil(parseInt(rating))).fill().map(() => (
           <FontAwesome key={Math.random()} name="star" color="#FDB62B" size={scaleWidth(4.5)} />

@@ -39,11 +39,21 @@ target 'harmonypay' do
           config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
         end
       end
+      target.build_configurations.each do |config|
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
+      end
     end
   end
-  
+
   target 'staging' do
    end
-  
+
+   target 'ImageNotification' do
+    pod 'Firebase/Messaging', '~> 6.13.0' # eg 6.31.0
+  end
+   target 'ImageNotificationStaging' do
+    pod 'Firebase/Messaging', '~> 6.13.0' # eg 6.31.0
+  end
+
 end
 

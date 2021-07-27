@@ -22,7 +22,8 @@
     "build-android": "rm -rf ~/.gradle/caches && cd android && ./gradlew --stop && ./gradlew cleanBuildCache && ./gradlew bundleRelease && cd ..",
     "remove:web": "grep -r UIWebView node_modules/*",
     "run:android-staging": "npx react-native run-android --variant=staging",
-    "run:android-production": "npx react-native run-android --variant=release"
+    "run:android-production": "npx react-native run-android --variant=release",
+    "run:ios-staging-device": "npx react-native run-ios --scheme='staging' --device 'iPhone'"
   },
   "dependencies": {
     "@hackinggate/react-native-twitter-signin": "^1.2.6",

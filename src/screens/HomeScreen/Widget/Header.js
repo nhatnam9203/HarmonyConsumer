@@ -8,7 +8,7 @@ import * as RootNavigation from "navigations/RootNavigation";
 
 const { width } = Dimensions.get("window");
 
-export default function Header({ openDrawer }) {
+export default function Header({ openDrawer, reloadView }) {
   let { count } = useSelector((state) => state.inboxReducer);
   const userInfo = useSelector((state) => state.datalocalReducer.userInfo);
   const userName = useMemo(() => {
@@ -27,6 +27,7 @@ export default function Header({ openDrawer }) {
           <Button onPress={openDrawer}>
             <Image source={ICONS["drawer"]} style={styles.icon_drawer} />
           </Button>
+
           <Text
             fontSize={20}
             color="#FFFF"
@@ -34,6 +35,10 @@ export default function Header({ openDrawer }) {
             {`Hello ${userName}!`}
           </Text>
         </View>
+        <Button onPress={reloadView} style={{ marginRight: 16 }}>
+          <Image source={ICONS["reload"]} style={styles.icon_drawer} />
+        </Button>
+
         <Button style={{ position: "relative" }} onPress={openInbox}>
           <Image source={ICONS["tone"]} style={styles.icon_tone} />
           {count > 0 && (

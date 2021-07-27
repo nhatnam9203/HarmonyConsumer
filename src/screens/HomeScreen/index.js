@@ -1,5 +1,13 @@
 import React from "react";
-import { ScrollView, View, StatusBar, BackHandler, Alert } from "react-native";
+import {
+  ScrollView,
+  View,
+  RefreshControl,
+  BackHandler,
+  Alert,
+  ImageBackground,
+  ActivityIndicator,
+} from "react-native";
 
 import { Container, Text, FocusAwareStatusBar } from "components";
 import { Header, GiftCard, GiftCardActive, ButtonList, Banner, MerchantList } from "./Widget";
@@ -7,6 +15,11 @@ import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
 import * as RootNavigation from "navigations/RootNavigation";
+import ICONS from "assets";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 export default function index(props) {
   const dispatch = useDispatch();
@@ -18,6 +31,7 @@ export default function index(props) {
   const userInfo = useSelector((state) => state.datalocalReducer.userInfo);
   const userCard = userInfo.userCard ? userInfo.userCard : null;
   const number_invoice = invoice.id ? 1 : 0;
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const { lat, lng } =
     current_location && current_location.location ? current_location.location : 0;
@@ -125,14 +139,26 @@ export default function index(props) {
     });
   };
 
+  const _onRefresh = () => {
+    setRefreshing(true);
+    dispatch(actions.inboxAction.countUnread(token));
+    dispatch(actions.paymentAction.get_number_invoice(token));
+    fetchListCreditAndBankCard();
+    getCardByUser();
+    updateAccount();
+    wait(2000).then(() => setRefreshing(false));
+  };
+
   return (
     <Container showStatusBar={false} paddingBottom={0}>
       <FocusAwareStatusBar barStyle="light-content" backgroundColor="transparent" />
       <ScrollView
+        // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />}
         bounces={false}
+        horizontal={false}
         contentContainerStyle={styles.container_center}
         showsVerticalScrollIndicator={false}>
-        <Header openDrawer={openDrawer} />
+        <Header openDrawer={openDrawer} reloadView={_onRefresh} />
 
         {userCard && <GiftCard onaddMoney={addMoney} onAddCard={addCard} card={userCard} />}
         {!userCard && <GiftCardActive onPress={activeFirstCard} />}
@@ -146,6 +172,36 @@ export default function index(props) {
         </View>
         <MerchantList goToStoreDetail={goToStoreDetail} />
       </ScrollView>
+      {refreshing && (
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }}>
+          <LoadingIndicator animating={refreshing} color="#0764f9" size="large" />
+        </View>
+      )}
     </Container>
   );
 }
+
+const LoadingIndicator = () => {
+  return (
+    <View
+      style={{
+        width: 50,
+        height: 50,
+        borderRadius: 6,
+        backgroundColor: "#0005",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <ActivityIndicator color="#fff" />
+    </View>
+  );
+};

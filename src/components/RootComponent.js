@@ -203,9 +203,11 @@ const RootComponent: () => React$Node = (props) => {
 
   const getToken = async () => {
     const fcmToken = await firebase.messaging().getToken();
+    // conso
 
     if (fcmToken) {
-      // console.log("fcmToken");
+      console.log("fcmToken");
+      console.log(fcmToken);
       runSignalR(fcmToken);
     } else {
       console.log("fcmToken", fcmToken);
@@ -309,7 +311,7 @@ const RootComponent: () => React$Node = (props) => {
   const runSignalR = (fcmToken) => {
     if (token && userInfo) {
       const url = `${env.SOCKET_URL}?title=User&userId=${userInfo.userId}&token=${fcmToken}`;
-      console.log(url);
+      // console.log(url);
       const connection = new signalR.HubConnectionBuilder()
         .configureLogging(signalR.LogLevel.Debug)
         .withUrl(url)

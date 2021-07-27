@@ -11,6 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		36005D4E26B0068C0041661A /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36005D4D26B0068B0041661A /* File.swift */; };
+		36005D4F26B0068C0041661A /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36005D4D26B0068B0041661A /* File.swift */; };
 		3613C562264E5F8B00E8897D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3613C560264E5F8A00E8897D /* GoogleService-Info.plist */; };
 		363F6B2D264E59C200880288 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		363F6B2E264E59C200880288 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D5B5EA2641BD5B00973CC5 /* File.swift */; };
@@ -20,6 +22,10 @@
 		363F6B37264E59C200880288 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF524DC5042000A7E57 /* SFProDisplay-Regular.ttf */; };
 		363F6B38264E59C200880288 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF324DC5042000A7E57 /* SFProDisplay-Bold.ttf */; };
 		363F6B39264E59C200880288 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		364DE14F26AFFD3A00358C65 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 364DE14E26AFFD3A00358C65 /* NotificationService.m */; };
+		364DE15326AFFD3A00358C65 /* ImageNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 364DE14B26AFFD3A00358C65 /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		364DE15F26AFFD6800358C65 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 364DE15E26AFFD6800358C65 /* NotificationService.m */; };
+		364DE16326AFFD6800358C65 /* ImageNotificationStaging.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 364DE15B26AFFD6800358C65 /* ImageNotificationStaging.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		36D5B5EB2641BD5B00973CC5 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D5B5EA2641BD5B00973CC5 /* File.swift */; };
 		36EDC8C4269701C600816A3D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		36EDC8C52697021400816A3D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -28,13 +34,59 @@
 		40D41AF724DC5042000A7E57 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF324DC5042000A7E57 /* SFProDisplay-Bold.ttf */; };
 		40D41AF824DC5042000A7E57 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF424DC5042000A7E57 /* SFProDisplay-Semibold.ttf */; };
 		40D41AF924DC5042000A7E57 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF524DC5042000A7E57 /* SFProDisplay-Regular.ttf */; };
+		878B3D9ECA9CF13FA58B0820 /* libPods-harmonypay-ImageNotificationStaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB85B2D5202352597117CCFD /* libPods-harmonypay-ImageNotificationStaging.a */; };
 		A38E6ECB6616B0EBA96FE719 /* libPods-harmonypay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE806788AD65F9BDB8AF88F3 /* libPods-harmonypay.a */; };
+		BC9F6F231AD56001A57F1A34 /* libPods-harmonypay-ImageNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC737C64E50FA0F6E939C025 /* libPods-harmonypay-ImageNotification.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		364DE15126AFFD3A00358C65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 364DE14A26AFFD3A00358C65;
+			remoteInfo = ImageNotification;
+		};
+		364DE16126AFFD6800358C65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 364DE15A26AFFD6800358C65;
+			remoteInfo = ImageNotificationStaging;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		364DE14626AFFBA000358C65 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				364DE15326AFFD3A00358C65 /* ImageNotification.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364DE16726AFFD6800358C65 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				364DE16326AFFD6800358C65 /* ImageNotificationStaging.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* harmonypayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = harmonypayTests.m; sourceTree = "<group>"; };
 		079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.release.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.release.xcconfig"; sourceTree = "<group>"; };
+		0A661919C804ECAFC3305E3E /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotificationStaging.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging.debug.xcconfig"; sourceTree = "<group>"; };
+		0B436C55DCFAD33239CB862C /* Pods-harmonypay-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		0DB663523752446CA9409E67 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Harmony Pay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Harmony Pay.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = harmonypay/AppDelegate.h; sourceTree = "<group>"; };
@@ -45,9 +97,20 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = harmonypay/main.m; sourceTree = "<group>"; };
 		28F6B98C738841729CA6057A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2E9030BF19452B52B793C32E /* Pods-harmonypay-staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-staging.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging.release.xcconfig"; sourceTree = "<group>"; };
+		36005D4B26B0068B0041661A /* ImageNotification-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageNotification-Bridging-Header.h"; sourceTree = "<group>"; };
+		36005D4C26B0068B0041661A /* ImageNotificationStaging-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageNotificationStaging-Bridging-Header.h"; sourceTree = "<group>"; };
+		36005D4D26B0068B0041661A /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		3613C560264E5F8A00E8897D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3613C561264E5F8A00E8897D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		363F6B42264E59C200880288 /* harmonypay-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "harmonypay-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		364DE14B26AFFD3A00358C65 /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		364DE14D26AFFD3A00358C65 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		364DE14E26AFFD3A00358C65 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		364DE15026AFFD3A00358C65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		364DE15B26AFFD6800358C65 /* ImageNotificationStaging.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotificationStaging.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		364DE15D26AFFD6800358C65 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		364DE15E26AFFD6800358C65 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		364DE16026AFFD6800358C65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36D5B5E92641BD5B00973CC5 /* harmonypay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harmonypay-Bridging-Header.h"; sourceTree = "<group>"; };
 		36D5B5EA2641BD5B00973CC5 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = harmonypay/File.swift; sourceTree = "<group>"; };
 		36F4D47D2641A86800A5BFBF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -58,6 +121,7 @@
 		40D41AF524DC5042000A7E57 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProDisplay-Regular.ttf"; path = "../src/assets/fonts/SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		434DF1E4DFA6408D90A512D2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		55B2DC41C456FA9C4C7E5776 /* Pods-harmonypay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.debug.xcconfig"; sourceTree = "<group>"; };
+		57495BCC866B8A20308C4292 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotificationStaging.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging.release.xcconfig"; sourceTree = "<group>"; };
 		5F6A5B93B8C642C682F3F450 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		6758E75052614C0386108891 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		75FFAE3901F54C89B55FD3C1 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -70,12 +134,15 @@
 		BE806788AD65F9BDB8AF88F3 /* libPods-harmonypay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE773945848DC4CF7F897B9 /* Pods-harmonypay-staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-staging.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging.debug.xcconfig"; sourceTree = "<group>"; };
 		C303C6A9D22E49A789BAE887 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		CC737C64E50FA0F6E939C025 /* libPods-harmonypay-ImageNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-ImageNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A79FF33FE14E448718FB5E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D99BA29008B341DB82219273 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		E1B1709009C9466E87384446 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E7A586E9CD0FBBBF9FA52902 /* libPods-harmonypay-staging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-staging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB85B2D5202352597117CCFD /* libPods-harmonypay-ImageNotificationStaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-ImageNotificationStaging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		FFF5D4433BE229C28D35693E /* Pods-harmonypay-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +159,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C60795D405BEBCDA209696B /* libPods-harmonypay-staging.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364DE14826AFFD3A00358C65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC9F6F231AD56001A57F1A34 /* libPods-harmonypay-ImageNotification.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364DE15826AFFD6800358C65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				878B3D9ECA9CF13FA58B0820 /* libPods-harmonypay-ImageNotificationStaging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +222,8 @@
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				BE806788AD65F9BDB8AF88F3 /* libPods-harmonypay.a */,
 				E7A586E9CD0FBBBF9FA52902 /* libPods-harmonypay-staging.a */,
+				CC737C64E50FA0F6E939C025 /* libPods-harmonypay-ImageNotification.a */,
+				EB85B2D5202352597117CCFD /* libPods-harmonypay-ImageNotificationStaging.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -153,6 +238,26 @@
 			path = harmonypay/staging;
 			sourceTree = "<group>";
 		};
+		364DE14C26AFFD3A00358C65 /* ImageNotification */ = {
+			isa = PBXGroup;
+			children = (
+				364DE14D26AFFD3A00358C65 /* NotificationService.h */,
+				364DE14E26AFFD3A00358C65 /* NotificationService.m */,
+				364DE15026AFFD3A00358C65 /* Info.plist */,
+			);
+			path = ImageNotification;
+			sourceTree = "<group>";
+		};
+		364DE15C26AFFD6800358C65 /* ImageNotificationStaging */ = {
+			isa = PBXGroup;
+			children = (
+				364DE15D26AFFD6800358C65 /* NotificationService.h */,
+				364DE15E26AFFD6800358C65 /* NotificationService.m */,
+				364DE16026AFFD6800358C65 /* Info.plist */,
+			);
+			path = ImageNotificationStaging;
+			sourceTree = "<group>";
+		};
 		4195556C7872C05A5E444280 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +265,10 @@
 				079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */,
 				BFE773945848DC4CF7F897B9 /* Pods-harmonypay-staging.debug.xcconfig */,
 				2E9030BF19452B52B793C32E /* Pods-harmonypay-staging.release.xcconfig */,
+				0B436C55DCFAD33239CB862C /* Pods-harmonypay-ImageNotification.debug.xcconfig */,
+				FFF5D4433BE229C28D35693E /* Pods-harmonypay-ImageNotification.release.xcconfig */,
+				0A661919C804ECAFC3305E3E /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */,
+				57495BCC866B8A20308C4292 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -201,14 +310,19 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				36005D4D26B0068B0041661A /* File.swift */,
 				13B07FAE1A68108700A75B9A /* harmonypay */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* harmonypayTests */,
+				364DE14C26AFFD3A00358C65 /* ImageNotification */,
+				364DE15C26AFFD6800358C65 /* ImageNotificationStaging */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4195556C7872C05A5E444280 /* Pods */,
 				7A955A0F42C0482981FAC6A6 /* Resources */,
 				36D5B5E92641BD5B00973CC5 /* harmonypay-Bridging-Header.h */,
+				36005D4B26B0068B0041661A /* ImageNotification-Bridging-Header.h */,
+				36005D4C26B0068B0041661A /* ImageNotificationStaging-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -220,6 +334,8 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Harmony Pay.app */,
 				363F6B42264E59C200880288 /* harmonypay-iPad.app */,
+				364DE14B26AFFD3A00358C65 /* ImageNotification.appex */,
+				364DE15B26AFFD6800358C65 /* ImageNotificationStaging.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,10 +355,12 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				A2D1FAA4D01F2C348E20DB0C /* [CP] Embed Pods Frameworks */,
 				F1A72C332625BEB655BE12A4 /* [CP] Copy Pods Resources */,
+				364DE14626AFFBA000358C65 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				364DE15226AFFD3A00358C65 /* PBXTargetDependency */,
 			);
 			name = harmonypay;
 			productName = harmonypay;
@@ -261,15 +379,55 @@
 				363F6B3B264E59C200880288 /* Bundle React Native code and images */,
 				BE3E90A25D793FAEA1C8A13A /* [CP] Embed Pods Frameworks */,
 				35B1B17FB098CE658A7E979D /* [CP] Copy Pods Resources */,
+				364DE16726AFFD6800358C65 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				364DE16226AFFD6800358C65 /* PBXTargetDependency */,
 			);
 			name = staging;
 			productName = harmonypay;
 			productReference = 363F6B42264E59C200880288 /* harmonypay-iPad.app */;
 			productType = "com.apple.product-type.application";
+		};
+		364DE14A26AFFD3A00358C65 /* ImageNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 364DE15426AFFD3A00358C65 /* Build configuration list for PBXNativeTarget "ImageNotification" */;
+			buildPhases = (
+				9305E069FC349660E836776B /* [CP] Check Pods Manifest.lock */,
+				364DE14726AFFD3A00358C65 /* Sources */,
+				364DE14826AFFD3A00358C65 /* Frameworks */,
+				364DE14926AFFD3A00358C65 /* Resources */,
+				3A05B0F279FF41A58E4F86A7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageNotification;
+			productName = ImageNotification;
+			productReference = 364DE14B26AFFD3A00358C65 /* ImageNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		364DE15A26AFFD6800358C65 /* ImageNotificationStaging */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 364DE16426AFFD6800358C65 /* Build configuration list for PBXNativeTarget "ImageNotificationStaging" */;
+			buildPhases = (
+				39FB1FCEDF92FD8AF3834AEF /* [CP] Check Pods Manifest.lock */,
+				364DE15726AFFD6800358C65 /* Sources */,
+				364DE15826AFFD6800358C65 /* Frameworks */,
+				364DE15926AFFD6800358C65 /* Resources */,
+				FBD4ECC10CA906A5BAFE7E2E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageNotificationStaging;
+			productName = ImageNotificationStaging;
+			productReference = 364DE15B26AFFD6800358C65 /* ImageNotificationStaging.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -277,6 +435,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
@@ -285,6 +444,19 @@
 						ProvisioningStyle = Automatic;
 					};
 					363F6B29264E59C200880288 = {
+						DevelopmentTeam = 69WQLJ9K8N;
+						ProvisioningStyle = Automatic;
+					};
+					364DE14A26AFFD3A00358C65 = {
+						CreatedOnToolsVersion = 12.5.1;
+						DevelopmentTeam = 69WQLJ9K8N;
+						LastSwiftMigration = 1250;
+						ProvisioningStyle = Automatic;
+					};
+					364DE15A26AFFD6800358C65 = {
+						CreatedOnToolsVersion = 12.5.1;
+						DevelopmentTeam = 69WQLJ9K8N;
+						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -304,6 +476,8 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* harmonypay */,
 				363F6B29264E59C200880288 /* staging */,
+				364DE14A26AFFD3A00358C65 /* ImageNotification */,
+				364DE15A26AFFD6800358C65 /* ImageNotificationStaging */,
 			);
 		};
 /* End PBXProject section */
@@ -334,6 +508,20 @@
 				363F6B37264E59C200880288 /* SFProDisplay-Regular.ttf in Resources */,
 				363F6B38264E59C200880288 /* SFProDisplay-Bold.ttf in Resources */,
 				363F6B39264E59C200880288 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364DE14926AFFD3A00358C65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364DE15926AFFD6800358C65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +632,108 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		39FB1FCEDF92FD8AF3834AEF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-harmonypay-ImageNotificationStaging-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A05B0F279FF41A58E4F86A7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9305E069FC349660E836776B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-harmonypay-ImageNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		A2D1FAA4D01F2C348E20DB0C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -591,6 +881,64 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FBD4ECC10CA906A5BAFE7E2E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,7 +981,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		364DE14726AFFD3A00358C65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364DE14F26AFFD3A00358C65 /* NotificationService.m in Sources */,
+				36005D4E26B0068C0041661A /* File.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364DE15726AFFD6800358C65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364DE15F26AFFD6800358C65 /* NotificationService.m in Sources */,
+				36005D4F26B0068C0041661A /* File.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		364DE15226AFFD3A00358C65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 364DE14A26AFFD3A00358C65 /* ImageNotification */;
+			targetProxy = 364DE15126AFFD3A00358C65 /* PBXContainerItemProxy */;
+		};
+		364DE16226AFFD6800358C65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 364DE15A26AFFD6800358C65 /* ImageNotificationStaging */;
+			targetProxy = 364DE16126AFFD6800358C65 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
@@ -652,13 +1031,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 55B2DC41C456FA9C4C7E5776 /* Pods-harmonypay.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -666,6 +1046,7 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = harmonypay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,7 +1145,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 3.9.7;
+				MARKETING_VERSION = 3.9.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -784,15 +1165,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = harmonypay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -884,7 +1267,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 3.9.7;
+				MARKETING_VERSION = 3.9.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -903,22 +1286,23 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BFE773945848DC4CF7F897B9 /* Pods-harmonypay-staging.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/harmonypay/staging/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1017,7 +1401,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1038,17 +1422,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E9030BF19452B52B793C32E /* Pods-harmonypay-staging.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = "$(SRCROOT)/harmonypay/staging/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1140,7 +1525,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1153,6 +1538,135 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		364DE15526AFFD3A00358C65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B436C55DCFAD33239CB862C /* Pods-harmonypay-ImageNotification.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ImageNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.ImageNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ImageNotification-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		364DE15626AFFD3A00358C65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFF5D4433BE229C28D35693E /* Pods-harmonypay-ImageNotification.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ImageNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.ImageNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ImageNotification-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		364DE16526AFFD6800358C65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A661919C804ECAFC3305E3E /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ImageNotificationStaging/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.staging.ImageNotificationStaging;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ImageNotificationStaging-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		364DE16626AFFD6800358C65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57495BCC866B8A20308C4292 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ImageNotificationStaging/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.staging.ImageNotificationStaging;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Image notify consumer staging";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ImageNotificationStaging-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1286,6 +1800,24 @@
 			buildConfigurations = (
 				363F6B3F264E59C200880288 /* Debug */,
 				363F6B40264E59C200880288 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		364DE15426AFFD3A00358C65 /* Build configuration list for PBXNativeTarget "ImageNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				364DE15526AFFD3A00358C65 /* Debug */,
+				364DE15626AFFD3A00358C65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		364DE16426AFFD6800358C65 /* Build configuration list for PBXNativeTarget "ImageNotificationStaging" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				364DE16526AFFD6800358C65 /* Debug */,
+				364DE16626AFFD6800358C65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

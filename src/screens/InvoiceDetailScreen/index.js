@@ -33,18 +33,21 @@ export default function index(props) {
     getGroupAppointment();
     setTimeout(() => {
       setFirstLoading(false);
-    }, 2000);
+    }, 500);
   }, []);
 
   React.useEffect(() => {
-    if (isEmpty(invoice) && firstLoading == false) {
+    if (isEmpty(invoice) && firstLoading === false) {
       RootNavigation.navigate("Home");
     }
+
     const unsubscribe = props.navigation.addListener("focus", () => {
       setFirstLoading(true);
     });
+
     return () => {
       setFirstLoading(true);
+      unsubscribe();
     };
   }, [invoice]);
 

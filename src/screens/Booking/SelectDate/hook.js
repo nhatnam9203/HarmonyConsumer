@@ -128,8 +128,12 @@ export default function useHook() {
       toTime: appointment_detail_customer.toTime,
       status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
       services: appointment_detail_customer.services?.map((it) =>
-        Object.fromEntries(
-          Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
+        Object.assign(
+          {},
+          Object.fromEntries(
+            Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
+          ),
+          { fromTime: date_reschedule },
         ),
       ),
       // products: appointment_detail_customer.products?.map((it) =>
@@ -153,6 +157,12 @@ export default function useHook() {
       //   ),
       // ),
     });
+    delete body.merchant;
+    delete body.staff;
+    delete body.apppointmentHistory;
+    delete body.staff;
+
+    console.log(JSON.stringify(body));
     dispatch(actions.appointmentAction.updateAppointment(body, token, appointmentId, onBack, true));
   };
 
