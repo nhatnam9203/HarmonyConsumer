@@ -228,7 +228,6 @@ const RootComponent: () => React$Node = (props) => {
       messageJson.type == "update_status" ||
       messageJson.type == "appointment_update_status" ||
       messageJson.type == "pay" ||
-      messageJson.type == "checkin" ||
       messageJson.type == "cancel_pay" ||
       messageJson.type == "update_pay"
     ) {
