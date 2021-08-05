@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C60795D405BEBCDA209696B /* libPods-harmonypay-staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A586E9CD0FBBBF9FA52902 /* libPods-harmonypay-staging.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -26,17 +25,18 @@
 		364DE15326AFFD3A00358C65 /* ImageNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 364DE14B26AFFD3A00358C65 /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		364DE15F26AFFD6800358C65 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 364DE15E26AFFD6800358C65 /* NotificationService.m */; };
 		364DE16326AFFD6800358C65 /* ImageNotificationStaging.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 364DE15B26AFFD6800358C65 /* ImageNotificationStaging.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3653DEEB26BA50E90036768B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3653DEEA26BA50E90036768B /* LaunchScreen.storyboard */; };
+		3653DEEC26BA50E90036768B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3653DEEA26BA50E90036768B /* LaunchScreen.storyboard */; };
 		36D5B5EB2641BD5B00973CC5 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D5B5EA2641BD5B00973CC5 /* File.swift */; };
-		36EDC8C4269701C600816A3D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		36EDC8C52697021400816A3D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		36F4D47E2641A86800A5BFBF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36F4D47D2641A86800A5BFBF /* GoogleService-Info.plist */; };
 		40D41AF624DC5042000A7E57 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF224DC5042000A7E57 /* SFProDisplay-Medium.ttf */; };
 		40D41AF724DC5042000A7E57 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF324DC5042000A7E57 /* SFProDisplay-Bold.ttf */; };
 		40D41AF824DC5042000A7E57 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF424DC5042000A7E57 /* SFProDisplay-Semibold.ttf */; };
 		40D41AF924DC5042000A7E57 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40D41AF524DC5042000A7E57 /* SFProDisplay-Regular.ttf */; };
-		878B3D9ECA9CF13FA58B0820 /* libPods-harmonypay-ImageNotificationStaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB85B2D5202352597117CCFD /* libPods-harmonypay-ImageNotificationStaging.a */; };
-		A38E6ECB6616B0EBA96FE719 /* libPods-harmonypay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE806788AD65F9BDB8AF88F3 /* libPods-harmonypay.a */; };
-		BC9F6F231AD56001A57F1A34 /* libPods-harmonypay-ImageNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC737C64E50FA0F6E939C025 /* libPods-harmonypay-ImageNotification.a */; };
+		6DBBE930818DCF8E8978143E /* libPods-harmonypay-ImageNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C16587D08B65E3CA99B77892 /* libPods-harmonypay-ImageNotification.a */; };
+		A35593739EBFB3001AC96ADE /* libPods-harmonypay-staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7530C861ABADCCA130EA343 /* libPods-harmonypay-staging.a */; };
+		E0F72410835408C895B57A09 /* libPods-harmonypay-ImageNotificationStaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C35272EC02852866B1E26E /* libPods-harmonypay-ImageNotificationStaging.a */; };
+		FF5494B90E9F1D7C24679718 /* libPods-harmonypay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7868322F83E63E0CE0E31048 /* libPods-harmonypay.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,19 +84,16 @@
 /* Begin PBXFileReference section */
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* harmonypayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = harmonypayTests.m; sourceTree = "<group>"; };
-		079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.release.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.release.xcconfig"; sourceTree = "<group>"; };
-		0A661919C804ECAFC3305E3E /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotificationStaging.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging.debug.xcconfig"; sourceTree = "<group>"; };
-		0B436C55DCFAD33239CB862C /* Pods-harmonypay-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		0DB663523752446CA9409E67 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Harmony Pay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Harmony Pay.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = harmonypay/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = harmonypay/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = harmonypay/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = harmonypay/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = harmonypay/main.m; sourceTree = "<group>"; };
+		175CAC2966247D9B27DB3D26 /* Pods-harmonypay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.debug.xcconfig"; sourceTree = "<group>"; };
 		28F6B98C738841729CA6057A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		2E9030BF19452B52B793C32E /* Pods-harmonypay-staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-staging.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging.release.xcconfig"; sourceTree = "<group>"; };
+		345616391123CD739E037583 /* Pods-harmonypay-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		36005D4B26B0068B0041661A /* ImageNotification-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageNotification-Bridging-Header.h"; sourceTree = "<group>"; };
 		36005D4C26B0068B0041661A /* ImageNotificationStaging-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageNotificationStaging-Bridging-Header.h"; sourceTree = "<group>"; };
 		36005D4D26B0068B0041661A /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -111,6 +108,7 @@
 		364DE15D26AFFD6800358C65 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		364DE15E26AFFD6800358C65 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		364DE16026AFFD6800358C65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3653DEEA26BA50E90036768B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36D5B5E92641BD5B00973CC5 /* harmonypay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harmonypay-Bridging-Header.h"; sourceTree = "<group>"; };
 		36D5B5EA2641BD5B00973CC5 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = harmonypay/File.swift; sourceTree = "<group>"; };
 		36F4D47D2641A86800A5BFBF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -120,29 +118,31 @@
 		40D41AF424DC5042000A7E57 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProDisplay-Semibold.ttf"; path = "../src/assets/fonts/SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		40D41AF524DC5042000A7E57 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProDisplay-Regular.ttf"; path = "../src/assets/fonts/SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		434DF1E4DFA6408D90A512D2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		55B2DC41C456FA9C4C7E5776 /* Pods-harmonypay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.debug.xcconfig"; sourceTree = "<group>"; };
-		57495BCC866B8A20308C4292 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotificationStaging.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging.release.xcconfig"; sourceTree = "<group>"; };
 		5F6A5B93B8C642C682F3F450 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		649B37DB818AD2EF21B13C6D /* Pods-harmonypay-staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-staging.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging.debug.xcconfig"; sourceTree = "<group>"; };
 		6758E75052614C0386108891 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		6C05FF77E41887B3D358776D /* Pods-harmonypay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay.release.xcconfig"; path = "Target Support Files/Pods-harmonypay/Pods-harmonypay.release.xcconfig"; sourceTree = "<group>"; };
+		708534FA2215A70FD85D68B4 /* Pods-harmonypay-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
 		75FFAE3901F54C89B55FD3C1 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		7868322F83E63E0CE0E31048 /* libPods-harmonypay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9256E359CACA4F3EAD688E0A /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A1CB0BF61DD649DE99969536 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		A9DBB3E124CF4D60AEA2F5A5 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		AD65EE8DECC54080909CC1E2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		B7530C861ABADCCA130EA343 /* libPods-harmonypay-staging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-staging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9E2E54A503348169E0E2385 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		BE588D1C66A24097AED48965 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		BE806788AD65F9BDB8AF88F3 /* libPods-harmonypay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BFE773945848DC4CF7F897B9 /* Pods-harmonypay-staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-staging.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging.debug.xcconfig"; sourceTree = "<group>"; };
+		C16587D08B65E3CA99B77892 /* libPods-harmonypay-ImageNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-ImageNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C303C6A9D22E49A789BAE887 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		CC737C64E50FA0F6E939C025 /* libPods-harmonypay-ImageNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-ImageNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A79FF33FE14E448718FB5E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		D8CBA09D0AA0ECBF22670578 /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotificationStaging.debug.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging.debug.xcconfig"; sourceTree = "<group>"; };
 		D99BA29008B341DB82219273 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		DF291AC5AB66F0F1D3184D73 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotificationStaging.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging.release.xcconfig"; sourceTree = "<group>"; };
+		E0DE5E4817E2AFFC86BB8A4B /* Pods-harmonypay-staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-staging.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging.release.xcconfig"; sourceTree = "<group>"; };
 		E1B1709009C9466E87384446 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		E7A586E9CD0FBBBF9FA52902 /* libPods-harmonypay-staging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-staging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB85B2D5202352597117CCFD /* libPods-harmonypay-ImageNotificationStaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-ImageNotificationStaging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FFF5D4433BE229C28D35693E /* Pods-harmonypay-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harmonypay-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
+		F3C35272EC02852866B1E26E /* libPods-harmonypay-ImageNotificationStaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-harmonypay-ImageNotificationStaging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A38E6ECB6616B0EBA96FE719 /* libPods-harmonypay.a in Frameworks */,
+				FF5494B90E9F1D7C24679718 /* libPods-harmonypay.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C60795D405BEBCDA209696B /* libPods-harmonypay-staging.a in Frameworks */,
+				A35593739EBFB3001AC96ADE /* libPods-harmonypay-staging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC9F6F231AD56001A57F1A34 /* libPods-harmonypay-ImageNotification.a in Frameworks */,
+				6DBBE930818DCF8E8978143E /* libPods-harmonypay-ImageNotification.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				878B3D9ECA9CF13FA58B0820 /* libPods-harmonypay-ImageNotificationStaging.a in Frameworks */,
+				E0F72410835408C895B57A09 /* libPods-harmonypay-ImageNotificationStaging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,7 +209,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				3653DEEA26BA50E90036768B /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = harmonypay;
@@ -220,10 +220,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				BE806788AD65F9BDB8AF88F3 /* libPods-harmonypay.a */,
-				E7A586E9CD0FBBBF9FA52902 /* libPods-harmonypay-staging.a */,
-				CC737C64E50FA0F6E939C025 /* libPods-harmonypay-ImageNotification.a */,
-				EB85B2D5202352597117CCFD /* libPods-harmonypay-ImageNotificationStaging.a */,
+				7868322F83E63E0CE0E31048 /* libPods-harmonypay.a */,
+				C16587D08B65E3CA99B77892 /* libPods-harmonypay-ImageNotification.a */,
+				F3C35272EC02852866B1E26E /* libPods-harmonypay-ImageNotificationStaging.a */,
+				B7530C861ABADCCA130EA343 /* libPods-harmonypay-staging.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -261,14 +261,14 @@
 		4195556C7872C05A5E444280 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				55B2DC41C456FA9C4C7E5776 /* Pods-harmonypay.debug.xcconfig */,
-				079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */,
-				BFE773945848DC4CF7F897B9 /* Pods-harmonypay-staging.debug.xcconfig */,
-				2E9030BF19452B52B793C32E /* Pods-harmonypay-staging.release.xcconfig */,
-				0B436C55DCFAD33239CB862C /* Pods-harmonypay-ImageNotification.debug.xcconfig */,
-				FFF5D4433BE229C28D35693E /* Pods-harmonypay-ImageNotification.release.xcconfig */,
-				0A661919C804ECAFC3305E3E /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */,
-				57495BCC866B8A20308C4292 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */,
+				175CAC2966247D9B27DB3D26 /* Pods-harmonypay.debug.xcconfig */,
+				6C05FF77E41887B3D358776D /* Pods-harmonypay.release.xcconfig */,
+				345616391123CD739E037583 /* Pods-harmonypay-ImageNotification.debug.xcconfig */,
+				708534FA2215A70FD85D68B4 /* Pods-harmonypay-ImageNotification.release.xcconfig */,
+				D8CBA09D0AA0ECBF22670578 /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */,
+				DF291AC5AB66F0F1D3184D73 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */,
+				649B37DB818AD2EF21B13C6D /* Pods-harmonypay-staging.debug.xcconfig */,
+				E0DE5E4817E2AFFC86BB8A4B /* Pods-harmonypay-staging.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -347,15 +347,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "harmonypay" */;
 			buildPhases = (
-				DE8A180909E3C9568EDF16E5 /* [CP] Check Pods Manifest.lock */,
+				438BF5F014577EF23FA6C4F8 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A2D1FAA4D01F2C348E20DB0C /* [CP] Embed Pods Frameworks */,
-				F1A72C332625BEB655BE12A4 /* [CP] Copy Pods Resources */,
 				364DE14626AFFBA000358C65 /* Embed App Extensions */,
+				195C1E6272DFC3297F18BF8C /* [CP] Embed Pods Frameworks */,
+				0A2BC58746AC11D467772584 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -371,15 +371,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 363F6B3E264E59C200880288 /* Build configuration list for PBXNativeTarget "staging" */;
 			buildPhases = (
-				C3E2B435A78C83DE219FAFE0 /* [CP] Check Pods Manifest.lock */,
+				815DEE8D9877C21CBA6891ED /* [CP] Check Pods Manifest.lock */,
 				363F6B2B264E59C200880288 /* Start Packager */,
 				363F6B2C264E59C200880288 /* Sources */,
 				363F6B30264E59C200880288 /* Frameworks */,
 				363F6B32264E59C200880288 /* Resources */,
 				363F6B3B264E59C200880288 /* Bundle React Native code and images */,
-				BE3E90A25D793FAEA1C8A13A /* [CP] Embed Pods Frameworks */,
-				35B1B17FB098CE658A7E979D /* [CP] Copy Pods Resources */,
 				364DE16726AFFD6800358C65 /* Embed App Extensions */,
+				B38DAB50B6CB904C646FC275 /* [CP] Embed Pods Frameworks */,
+				F40EA73F69FC308F52935138 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -395,11 +395,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 364DE15426AFFD3A00358C65 /* Build configuration list for PBXNativeTarget "ImageNotification" */;
 			buildPhases = (
-				9305E069FC349660E836776B /* [CP] Check Pods Manifest.lock */,
+				C0B3F2D6C5EEDDF2932EB318 /* [CP] Check Pods Manifest.lock */,
 				364DE14726AFFD3A00358C65 /* Sources */,
 				364DE14826AFFD3A00358C65 /* Frameworks */,
 				364DE14926AFFD3A00358C65 /* Resources */,
-				3A05B0F279FF41A58E4F86A7 /* [CP] Copy Pods Resources */,
+				0321C418E6920C97991B3FCE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -414,11 +414,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 364DE16426AFFD6800358C65 /* Build configuration list for PBXNativeTarget "ImageNotificationStaging" */;
 			buildPhases = (
-				39FB1FCEDF92FD8AF3834AEF /* [CP] Check Pods Manifest.lock */,
+				34E5547951D46E5FA3CD3326 /* [CP] Check Pods Manifest.lock */,
 				364DE15726AFFD6800358C65 /* Sources */,
 				364DE15826AFFD6800358C65 /* Frameworks */,
 				364DE15926AFFD6800358C65 /* Resources */,
-				FBD4ECC10CA906A5BAFE7E2E /* [CP] Copy Pods Resources */,
+				9DD35D1A0B5F30457788BCD5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -488,9 +488,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				36F4D47E2641A86800A5BFBF /* GoogleService-Info.plist in Resources */,
+				3653DEEB26BA50E90036768B /* LaunchScreen.storyboard in Resources */,
 				40D41AF824DC5042000A7E57 /* SFProDisplay-Semibold.ttf in Resources */,
 				40D41AF624DC5042000A7E57 /* SFProDisplay-Medium.ttf in Resources */,
-				36EDC8C52697021400816A3D /* LaunchScreen.xib in Resources */,
 				40D41AF924DC5042000A7E57 /* SFProDisplay-Regular.ttf in Resources */,
 				40D41AF724DC5042000A7E57 /* SFProDisplay-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -501,7 +501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36EDC8C4269701C600816A3D /* LaunchScreen.xib in Resources */,
+				3653DEEC26BA50E90036768B /* LaunchScreen.storyboard in Resources */,
 				3613C562264E5F8B00E8897D /* GoogleService-Info.plist in Resources */,
 				363F6B35264E59C200880288 /* SFProDisplay-Semibold.ttf in Resources */,
 				363F6B36264E59C200880288 /* SFProDisplay-Medium.ttf in Resources */,
@@ -542,120 +542,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		35B1B17FB098CE658A7E979D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-resources.sh",
-				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		363F6B2B264E59C200880288 /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		363F6B3B264E59C200880288 /* Bundle React Native code and images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		39FB1FCEDF92FD8AF3834AEF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-harmonypay-ImageNotificationStaging-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3A05B0F279FF41A58E4F86A7 /* [CP] Copy Pods Resources */ = {
+		0321C418E6920C97991B3FCE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -713,117 +600,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-ImageNotification/Pods-harmonypay-ImageNotification-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9305E069FC349660E836776B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-harmonypay-ImageNotification-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A2D1FAA4D01F2C348E20DB0C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-frameworks.sh",
-				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework",
-				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE3E90A25D793FAEA1C8A13A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-frameworks.sh",
-				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework",
-				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C3E2B435A78C83DE219FAFE0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-harmonypay-staging-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DE8A180909E3C9568EDF16E5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-harmonypay-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F1A72C332625BEB655BE12A4 /* [CP] Copy Pods Resources */ = {
+		0A2BC58746AC11D467772584 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -881,7 +658,128 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FBD4ECC10CA906A5BAFE7E2E /* [CP] Copy Pods Resources */ = {
+		195C1E6272DFC3297F18BF8C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-frameworks.sh",
+				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		34E5547951D46E5FA3CD3326 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-harmonypay-ImageNotificationStaging-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		363F6B2B264E59C200880288 /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		363F6B3B264E59C200880288 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		438BF5F014577EF23FA6C4F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-harmonypay-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		815DEE8D9877C21CBA6891ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-harmonypay-staging-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DD35D1A0B5F30457788BCD5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -937,6 +835,108 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-ImageNotificationStaging/Pods-harmonypay-ImageNotificationStaging-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B38DAB50B6CB904C646FC275 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-frameworks.sh",
+				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0B3F2D6C5EEDDF2932EB318 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-harmonypay-ImageNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F40EA73F69FC308F52935138 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -1014,22 +1014,10 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = harmonypay;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55B2DC41C456FA9C4C7E5776 /* Pods-harmonypay.debug.xcconfig */;
+			baseConfigurationReference = 175CAC2966247D9B27DB3D26 /* Pods-harmonypay.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1163,7 +1151,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 079550AE9F71BFDA3978DE87 /* Pods-harmonypay.release.xcconfig */;
+			baseConfigurationReference = 6C05FF77E41887B3D358776D /* Pods-harmonypay.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1284,7 +1272,7 @@
 		};
 		363F6B3F264E59C200880288 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFE773945848DC4CF7F897B9 /* Pods-harmonypay-staging.debug.xcconfig */;
+			baseConfigurationReference = 649B37DB818AD2EF21B13C6D /* Pods-harmonypay-staging.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1293,7 +1281,7 @@
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
@@ -1420,7 +1408,7 @@
 		};
 		363F6B40264E59C200880288 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E9030BF19452B52B793C32E /* Pods-harmonypay-staging.release.xcconfig */;
+			baseConfigurationReference = E0DE5E4817E2AFFC86BB8A4B /* Pods-harmonypay-staging.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1429,7 +1417,7 @@
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = "$(SRCROOT)/harmonypay/staging/Info.plist";
@@ -1543,7 +1531,7 @@
 		};
 		364DE15526AFFD3A00358C65 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B436C55DCFAD33239CB862C /* Pods-harmonypay-ImageNotification.debug.xcconfig */;
+			baseConfigurationReference = 345616391123CD739E037583 /* Pods-harmonypay-ImageNotification.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1575,7 +1563,7 @@
 		};
 		364DE15626AFFD3A00358C65 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFF5D4433BE229C28D35693E /* Pods-harmonypay-ImageNotification.release.xcconfig */;
+			baseConfigurationReference = 708534FA2215A70FD85D68B4 /* Pods-harmonypay-ImageNotification.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1606,7 +1594,7 @@
 		};
 		364DE16526AFFD6800358C65 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A661919C804ECAFC3305E3E /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */;
+			baseConfigurationReference = D8CBA09D0AA0ECBF22670578 /* Pods-harmonypay-ImageNotificationStaging.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1618,13 +1606,14 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ImageNotificationStaging/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.staging.ImageNotificationStaging;
@@ -1639,7 +1628,7 @@
 		};
 		364DE16626AFFD6800358C65 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57495BCC866B8A20308C4292 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */;
+			baseConfigurationReference = DF291AC5AB66F0F1D3184D73 /* Pods-harmonypay-ImageNotificationStaging.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1652,13 +1641,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ImageNotificationStaging/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.staging.ImageNotificationStaging;
 				PRODUCT_NAME = "$(TARGET_NAME)";

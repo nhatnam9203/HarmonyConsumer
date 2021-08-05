@@ -23,13 +23,13 @@ export default function ProgressiveImage(props) {
   const handleThumbnailLoad = () => {
     Animated.timing(thumbnailAnimated, {
       toValue: 1,
-      useNativeDriver: true,
+      // useNativeDriver: true,
     }).start();
   };
   const onImageLoad = () => {
     Animated.timing(imageAnimated, {
       toValue: 1,
-      useNativeDriver: true,
+      // useNativeDriver: true,
     }).start();
   };
 

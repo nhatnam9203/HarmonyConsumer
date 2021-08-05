@@ -526,7 +526,7 @@ export default function index(props) {
               },
             ],
             {
-              useNativeDriver: false,
+              // useNativeDriver: false,
               listener: (event) => {
                 const currentOffset = event.nativeEvent.contentOffset.y;
                 var direction = currentOffset > offsetDirection ? "down" : "up";

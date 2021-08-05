@@ -1,33 +1,33 @@
+import Geolocation from "@react-native-community/geolocation";
+import actions from "@redux/actions";
 import React, { useEffect, useState } from "react";
 import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
+  ActivityIndicator,
   AppState,
   Keyboard,
-  ActivityIndicator,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
 } from "react-native";
-import { scaleWidth, scaleHeight, convertLatLongToAddress } from "utils";
-import { useSelector, useDispatch } from "react-redux";
-import Geolocation from "@react-native-community/geolocation";
-import { checkNotifications } from "react-native-permissions";
-
-import Modal from "./Modal2";
-import actions from "@redux/actions";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import CodePush from "react-native-code-push";
-import firebase from "react-native-firebase";
-import SplashScreen from "react-native-splash-screen";
-import PopupUpdate from "./PopupUpdate";
 import env from "react-native-config";
+import firebase from "react-native-firebase";
+import { checkNotifications } from "react-native-permissions";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import { useDispatch, useSelector } from "react-redux";
+import { convertLatLongToAddress, scaleHeight, scaleWidth } from "utils";
+import Modal from "./Modal2";
+import PopupUpdate from "./PopupUpdate";
+import IMAGES from "assets";
 
 var PushNotification = require("react-native-push-notification");
 
 const signalR = require("@microsoft/signalr");
 
-const RootComponent: () => React$Node = (props) => {
+const RootComponent = ({ children }) => {
   const dispatch = useDispatch();
   const general = useSelector((state) => state.generalReducer);
   const token = useSelector((state) => state.datalocalReducer.token);
@@ -41,25 +41,13 @@ const RootComponent: () => React$Node = (props) => {
   const appointmentId = appointment_detail_customer?.appointmentId || "";
 
   const [contentUpdate, setContentUpdate] = useState("");
-  const [idAppointmentDetail, setIdDetail] = useState("");
   const timezone = new Date().getTimezoneOffset();
 
   const [waitingLoadApp, setWaitingLoadApp] = useState(true);
-
-  React.useEffect(() => {
-    if (idAppointmentDetail && idAppointmentDetail == appointmentId) {
-      dispatch(actions.appointmentAction.getDetailAppointment(token, idAppointmentDetail));
-    }
-    setTimeout(() => {
-      setIdDetail("");
-    }, 300);
-  }, [idAppointmentDetail]);
+  const [firebaseToken, setFirebaseToken] = useState(null);
 
   const checkFlow = () => {
-    setTimeout(() => {
-      console.log("Check Flow");
-      setWaitingLoadApp(false);
-    }, 300);
+    setWaitingLoadApp(false);
   };
 
   const openPopupUpdate = () => {
@@ -76,6 +64,7 @@ const RootComponent: () => React$Node = (props) => {
 
     try {
       const update = await new Promise.race([CodePush.checkForUpdate(), timeOutNetWork]);
+
       if (update) {
         if (update === "NET_WORK_TIME_OUT" || update?.failedInstall) {
           checkFlow();
@@ -95,33 +84,22 @@ const RootComponent: () => React$Node = (props) => {
             installMode: CodePush.InstallMode.ON_NEXT_RESTART,
             mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
           };
-          console.log(update);
 
-          await CodePush.sync(
+          CodePush.sync(
             options,
             (status) => {
-              console.log(status);
-
               if (
                 status === CodePush.SyncStatus.UP_TO_DATE ||
                 status === CodePush.SyncStatus.UPDATE_IGNORED ||
                 status === CodePush.SyncStatus.UNKNOWN_ERROR
               ) {
                 checkFlow();
-
-                return;
               }
 
               if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
                 CodePush.allowRestart();
-                setTimeout(() => {
-                  console.log("code push update complete ");
-
-                  CodePush.restartApp();
-                  CodePush.disallowRestart();
-                }, 300);
-
-                return;
+                CodePush.restartApp();
+                CodePush.disallowRestart();
               }
             },
             (progress) => {},
@@ -132,7 +110,6 @@ const RootComponent: () => React$Node = (props) => {
       }
     } catch (err) {
       console.log(err);
-
       checkFlow();
     }
   };
@@ -169,28 +146,29 @@ const RootComponent: () => React$Node = (props) => {
       requestPermissions: true,
     });
 
-    PushNotification.getChannels(function (channels) {
-      // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
-      if (channels && channels?.length > 0) return;
-      PushNotification.createChannel(
-        {
-          channelId: "hp_consumer", // (required)
-          channelName: `Harmony Pay`, // (required)
-          channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
-          playSound: true, // (optional) default: true
-          // soundName: 'jollibeesound.wav', // (optional) See `soundName` parameter of `localNotification` function
-          importance: 4, // (optional) default: 4. Int value of the Android notification importance
-          vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-        },
-        (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
-      );
-    });
+    if (Platform.OS === "android") {
+      PushNotification.getChannels(function (channels) {
+        // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
+        if (channels && channels?.length > 0) return;
+        PushNotification.createChannel(
+          {
+            channelId: "hp_consumer", // (required)
+            channelName: `Harmony Pay`, // (required)
+            channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
+            playSound: true, // (optional) default: true
+            // soundName: 'jollibeesound.wav', // (optional) See `soundName` parameter of `localNotification` function
+            importance: 4, // (optional) default: 4. Int value of the Android notification importance
+            vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+          },
+          (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+        );
+      });
+    }
   };
 
   const checkPermission = async () => {
     try {
       const enabled = await firebase.messaging().hasPermission();
-      // console.log(enabled);
       if (enabled) {
         await getToken();
       } else {
@@ -203,16 +181,19 @@ const RootComponent: () => React$Node = (props) => {
 
   const getToken = async () => {
     const fcmToken = await firebase.messaging().getToken();
-    // conso
-
-    if (fcmToken) {
-      console.log("fcmToken");
-      console.log(fcmToken);
-      runSignalR(fcmToken);
-    } else {
-      console.log("fcmToken", fcmToken);
-    }
+    setFirebaseToken(fcmToken);
+    // if (fcmToken) {
+    //   runSignalR(fcmToken);
+    // } else {
+    //   console.log("fcmToken", fcmToken);
+    // }
   };
+
+  React.useEffect(() => {
+    if (firebaseToken && !waitingLoadApp) {
+      runSignalR(firebaseToken);
+    }
+  }, [firebaseToken, waitingLoadApp]);
 
   const requestPermission = async () => {
     try {
@@ -245,18 +226,18 @@ const RootComponent: () => React$Node = (props) => {
   useEffect(() => {
     CodePush.disallowRestart();
     checkUpdate();
-  }, []);
-
-  useEffect(() => {
-    checkPermission();
-    dispatch(actions.bookingAction.resetBooking());
-    getCurrentLocation();
-    configNotification();
 
     AppState.addEventListener("change", handleAppStateChange);
     return () => {
       AppState.removeEventListener("change", handleAppStateChange);
     };
+  }, []);
+
+  useEffect(() => {
+    checkPermission();
+    dispatch(actions.bookingAction?.resetBooking());
+    getCurrentLocation();
+    configNotification();
   }, [token]);
 
   const handleAppStateChange = (nextAppState) => {
@@ -277,7 +258,7 @@ const RootComponent: () => React$Node = (props) => {
   };
 
   const setInboxMessage = (status) => {
-    dispatch(actions.datalocalAction.onChangeInbox(status));
+    dispatch(actions.datalocalAction?.onChangeInbox(status));
   };
 
   const getCurrentLocation = () => {
@@ -297,8 +278,8 @@ const RootComponent: () => React$Node = (props) => {
           },
         };
 
-        dispatch(actions.datalocalAction.set_current_location(payload));
-        dispatch(actions.datalocalAction.set_location_tab_store(payload));
+        dispatch(actions.datalocalAction?.set_current_location(payload));
+        dispatch(actions.datalocalAction?.set_location_tab_store(payload));
       },
       (error) => {
         console.log(error.message);
@@ -310,41 +291,42 @@ const RootComponent: () => React$Node = (props) => {
   const runSignalR = (fcmToken) => {
     if (token && userInfo) {
       const url = `${env.SOCKET_URL}?title=User&userId=${userInfo.userId}&token=${fcmToken}`;
-      // console.log(url);
       const connection = new signalR.HubConnectionBuilder()
-        .configureLogging(signalR.LogLevel.Debug)
-        .withUrl(url)
-        .withAutomaticReconnect()
+        .withUrl(url, {
+          transport: signalR.HttpTransportType.LongPolling | signalR.HttpTransportType.WebSockets,
+        })
+        .configureLogging(signalR.LogLevel.Information)
+        .withAutomaticReconnect([0, 2000, 10000, 30000])
         .build();
 
       connection.on("Message", (message) => {
-        // console.log("PushNotification dkm lcm skskadkasdaks", message);
-
-        dispatch(actions.inboxAction.getNotifyToday(timezone, token));
-        dispatch(actions.inboxAction.countUnread(token));
         let messageJson = JSON.parse(message);
+        // console.log(messageJson);
+
+        dispatch(actions.inboxAction?.getNotifyToday(timezone, token));
+        dispatch(actions.inboxAction?.countUnread(token));
 
         receiveMessage(messageJson);
         pushMessage(messageJson);
       });
+
       connection
         .start()
         .then(() => {
-          console.info("connection success");
+          console.info("runSignalR connection success");
         })
         .catch(function (err) {
-          console.log({ err });
+          console.log(err);
         });
     }
   };
 
   const getMyAppointmentList = () => {
-    dispatch(actions.appointmentAction.getAppointmentUpcoming(token, () => {}));
-    dispatch(actions.appointmentAction.getAppointmentPast(token, 1));
+    dispatch(actions.appointmentAction?.getAppointmentUpcoming(token, () => {}));
+    dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
   };
 
   const receiveMessage = (messageJson) => {
-    // console.log(messageJson);
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === "update_data" ||
@@ -354,17 +336,17 @@ const RootComponent: () => React$Node = (props) => {
         messageJson.type === "cancel" ||
         messageJson.type === "appointment_update_status"
       ) {
-        dispatch(actions.appointmentAction.getAppointmentUpcoming(token, () => {}));
-        dispatch(actions.appointmentAction.getAppointmentPast(token, 1));
-        dispatch(actions.appointmentAction.getDetailAppointment(token, messageJson.id));
+        dispatch(actions.appointmentAction?.getAppointmentUpcoming(token, () => {}));
+        dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
+        dispatch(actions.appointmentAction?.getDetailAppointment(token, messageJson.id));
       }
       if (messageJson.type === "appointment_add") {
         getMyAppointmentList();
       }
       if (messageJson.type === "pay" || messageJson.type === "update_pay") {
         const { id } = messageJson;
-        dispatch(actions.appointmentAction.getGroupAppointmentById(token, id));
-        dispatch(actions.paymentAction.get_number_invoice(token));
+        dispatch(actions.appointmentAction?.getGroupAppointmentById(token, id));
+        dispatch(actions.paymentAction?.get_number_invoice(token));
         // dispatch(actions.generalAction.set_tips(tips));
       }
       if (messageJson.type === "cancel_pay") {
@@ -373,19 +355,23 @@ const RootComponent: () => React$Node = (props) => {
         dispatch(actions.paymentAction.get_number_invoice(token));
       }
       if (messageJson.type === "order" || messageJson.type === "appointment_update_status") {
-        dispatch(actions.customerAction.getPoint(1, timezone, token, () => {}));
-        dispatch(actions.customerAction.getPointUsed(1, timezone, token, () => {}));
-        dispatch(actions.customerAction.getRewardProfile(token));
+        dispatch(actions.customerAction?.getPoint(1, timezone, token, () => {}));
+        dispatch(actions.customerAction?.getPointUsed(1, timezone, token, () => {}));
+        dispatch(actions.customerAction?.getRewardProfile(token));
         getMyAppointmentList();
       }
       if (messageJson.type === "userCard_update") {
-        dispatch(actions.authAction.getCustomerById(userInfo.userId, token));
-        dispatch(actions.cardAction.get_card_by_user(token, userInfo.userId));
-        dispatch(actions.appointmentAction.getAppointmentPast(token, 1));
+        dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
+        dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
+        dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
       }
       if (messageJson.type == "appointment_checkout") {
-        dispatch(actions.appointmentAction.setCheckOut(true));
-        if (messageJson.id) setIdDetail(messageJson.id);
+        dispatch(actions.appointmentAction?.setCheckOut(true));
+        if (messageJson.id) {
+          if (messageJson?.id && messageJson?.id == appointmentId) {
+            dispatch(actions.appointmentAction?.getDetailAppointment(token, messageJson?.id));
+          }
+        }
 
         // if (!isEmpty(idAppointmentDetail)) {
         //   dispatch(actions.appointmentAction.getDetailAppointment(token, idAppointmentDetail));
@@ -396,7 +382,7 @@ const RootComponent: () => React$Node = (props) => {
 
   function renderCustomPopupError() {
     const hidePopupError = () => {
-      dispatch(actions.generalAction.hidePopupError());
+      dispatch(actions.generalAction?.hidePopupError());
     };
 
     return (
@@ -429,11 +415,18 @@ const RootComponent: () => React$Node = (props) => {
 
   return waitingLoadApp ? (
     <View style={styles.containerAwaitingLoad}>
-      <ActivityIndicator animating={true} color="#0764f9" size="small" />
+      <View style={styles.logoContent}>
+        <Image source={IMAGES.logoHarmony} resizeMode="contain" style={styles.logo} />
+      </View>
+      <View style={styles.splashContent}>
+        <Text style={styles.txtSplash}>Copyright © 2019 Harmony Inc,.</Text>
+        <View style={{ height: 40 }} />
+        <ActivityIndicator animating={waitingLoadApp} color="#fff" />
+      </View>
     </View>
   ) : (
     <View style={styles.container}>
-      {props.children}
+      {children}
       {renderPopupUpdate()}
       {renderCustomPopupError()}
     </View>
@@ -444,8 +437,8 @@ const codePushOptions = {
   checkFrequency: CodePush.CheckFrequency.MANUAL, //  only check when CodePush.sync() is called in app code
 };
 
-const Root = CodePush(codePushOptions)(RootComponent);
-export default Root;
+// const Root = CodePush(codePushOptions)(RootComponent);
+export default RootComponent;
 
 const styles = StyleSheet.create({
   container: {
@@ -454,7 +447,7 @@ const styles = StyleSheet.create({
 
   containerAwaitingLoad: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#0e0e3f",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -498,5 +491,28 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: scaleWidth(4),
     fontWeight: Platform.OS === "ios" ? "600" : "bold",
+  },
+
+  logoContent: {
+    justifyContent: "flex-end",
+    alignItems: "center",
+    flex: 3,
+  },
+
+  logo: {
+    flex: 0,
+    width: scaleWidth(70),
+  },
+
+  splashContent: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+
+  txtSplash: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
   },
 });

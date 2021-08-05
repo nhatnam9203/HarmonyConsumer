@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
-import { Text, LazyImage } from "components";
-import { scaleWidth } from "utils";
-import Image from "react-native-fast-image";
-import images from "assets";
-import imgs from "resources";
-import styles from "./styles";
-
-import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
+import IMAGES from "assets";
+import { Text } from "components";
 import * as RootNavigation from "navigations/RootNavigation";
+import React, { useEffect, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
+import FastImage from "react-native-fast-image";
 import TouchID from "react-native-touch-id";
+import { useDispatch, useSelector } from "react-redux";
+import imgs from "resources";
+import { scaleWidth } from "utils";
 import { optionalConfigObject } from "./config";
+import styles from "./styles";
 import Input from "./widget/Input";
 
-export default function index(props) {
+function checkURL(str) {
+  if (typeof str !== "string") return false;
+  return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
+}
+
+export default function index({ route }) {
   const [code, setCode] = useState("");
-  const [inforUser, setInfo] = useState("");
+  const [inforUser, setInfoUser] = useState(null);
   const { isBiometric, userHash, userInfoLogin } = useSelector((state) => state.authReducer);
   const { userInfo } = useSelector((state) => state.datalocalReducer);
 
   const dispatch = useDispatch();
-  const info = props.route.params?.info;
+  const { info = null } = route?.params || {};
 
   useEffect(() => {
     if (info) {
-      setInfo(info);
+      setInfoUser(info);
     } else {
       if (userInfo) {
-        setInfo(userInfo);
+        setInfoUser(userInfo);
       }
     }
-  }, [info]);
-
-  useEffect(() => {
-    openBiometric();
-  }, []);
+  }, [info, userInfo]);
 
   const openBiometric = () => {
     if (isBiometric) {
@@ -47,6 +47,10 @@ export default function index(props) {
         .catch(() => {});
     }
   };
+
+  useEffect(() => {
+    openBiometric();
+  }, []);
 
   const handleQuickLogin = () => {
     const body = {
@@ -59,7 +63,7 @@ export default function index(props) {
 
   const handleLogin = (password) => {
     const body = {
-      phone: inforUser.phone,
+      phone: inforUser?.phone,
       password,
       deviceId: getUniqueId(),
     };
@@ -88,16 +92,25 @@ export default function index(props) {
     }
   };
 
-  const { avatarURL } = inforUser;
-  const renderAvatar = React.useMemo(() => {
-    return avatarURL ? { uri: avatarURL, priority: Image.priority.high } : images.personal;
-  }, [avatarURL]);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign in</Text>
-      <Avatar renderAvatar={renderAvatar} />
-      <Text fontFamily="medium" style={styles.name}>{`Welcome ${inforUser.fullName}!`}</Text>
+
+      <FastImage
+        style={styles.imgAvatar}
+        source={
+          checkURL(inforUser?.avatarURL)
+            ? {
+                uri: inforUser?.avatarURL,
+                priority: FastImage.priority.normal,
+                cache: FastImage.cacheControl.immutable,
+              }
+            : IMAGES.personal
+        }
+        resizeMode={FastImage.resizeMode.contain}
+      />
+
+      <Text fontFamily="medium" style={styles.name}>{`Welcome ${inforUser?.fullName}!`}</Text>
 
       <Text fontFamily="medium" style={styles.txtCreate}>
         Enter your PIN code
@@ -112,7 +125,7 @@ export default function index(props) {
         <Text style={[styles.txtDifferent, { marginTop: scaleWidth(4) }]}>Forgot PIN code?</Text>
       </TouchableOpacity>
 
-      {isBiometric && inforUser.userId == userInfoLogin.userId && (
+      {isBiometric && inforUser?.userId == userInfoLogin.userId && (
         <TouchableOpacity onPress={openBiometric}>
           <Image style={styles.imgBiometric} source={imgs.biometric} resizeMode="contain" />
         </TouchableOpacity>
@@ -120,7 +133,3 @@ export default function index(props) {
     </View>
   );
 }
-
-const Avatar = React.memo(({ renderAvatar }) => (
-  <Image thumbnailSource={images.personal} source={renderAvatar} style={styles.imgAvatar} />
-));

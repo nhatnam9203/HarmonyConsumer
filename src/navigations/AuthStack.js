@@ -19,7 +19,8 @@ import {
 import { useSelector } from "react-redux";
 const AuthStack = createStackNavigator();
 export default function Index() {
-  const userInfo = useSelector((state) => state.datalocalReducer.userInfo);
+  const userInfo = useSelector((state) => state.datalocalReducer?.userInfo);
+
   return (
     <AuthStack.Navigator
       initialRouteName={userInfo ? "Signin" : "Welcome"}
@@ -29,12 +30,12 @@ export default function Index() {
         gestureEnabled: false,
       }}>
       <AuthStack.Screen name="Welcome" component={WelComeScreen} />
+      <AuthStack.Screen name="Signin" component={SigninScreen} />
       <AuthStack.Screen name="PhoneVerify" component={PhoneVerifyScreen} />
       <AuthStack.Screen name="PhoneAuth" component={PhoneAuthScreen} />
       <AuthStack.Screen name="SetupPincode" component={SetupPincode} />
       <AuthStack.Screen name="SetupProfile" component={SetupProfile} />
       <AuthStack.Screen name="ConfirmPincode" component={ConfirmPincode} />
-      <AuthStack.Screen name="Signin" component={SigninScreen} />
       <AuthStack.Screen name="ForgotPincode" component={ForgotPincode} />
       <AuthStack.Screen name="EmailSent" component={EmailSent} />
       <AuthStack.Screen name="TermCondition" component={TermCondition} />

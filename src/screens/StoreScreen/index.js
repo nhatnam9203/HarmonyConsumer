@@ -103,7 +103,7 @@ export default function index(props) {
       Animated.timing(height, {
         toValue: scaleSize(230),
         timing: 300,
-        useNativeDriver: false,
+        // useNativeDriver: false,
       }).start();
       return;
     }
@@ -113,7 +113,7 @@ export default function index(props) {
     Animated.timing(height, {
       toValue: i === 0 ? scaleSize(160) : scaleSize(230),
       timing: 300,
-      useNativeDriver: false,
+      // useNativeDriver: false,
     }).start();
     setTabActive(i);
   };

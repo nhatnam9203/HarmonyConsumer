@@ -25,10 +25,14 @@ export default function index(props) {
   };
 
   let staffList = isProduct ? staffMerchant : convertStaffService();
+  console.log(staffList);
 
-  const isShowButtonBook = staffList.find((s) => parseInt(s.staffId) === selectedStaffId)
-    ? true
-    : false;
+  const isShowButtonBook =
+    staffList.find((s) => parseInt(s.staffId) === selectedStaffId) ||
+    selectedStaffId === -1 ||
+    selectedStaffId === 0
+      ? true
+      : false;
 
   return (
     <View style={styles.container}>
@@ -40,7 +44,7 @@ export default function index(props) {
         isProduct={isProduct}
         staffList={staffList}
       />
-      {selectedStaffId !== "" && isShowButtonBook && (
+      {selectedStaffId >= -1 && isShowButtonBook && (
         <View style={styles.bottom}>
           <TouchableRipple borderless={true} onPress={selectDate} style={styles.btn}>
             <Text style={styles.txtBook}>Book</Text>

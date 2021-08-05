@@ -32,6 +32,8 @@ export default function Input({ code, setValueCode }) {
         codeLength={6}
         value={code}
         onTextChange={setValueCode}
+        maskDelay={1000}
+        keyboardType="numeric"
       />
     </View>
   );

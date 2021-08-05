@@ -45,7 +45,7 @@ export default function index(props) {
             },
           ],
           {
-            useNativeDriver: false,
+            // useNativeDriver: false,
           },
         )}
         showsVerticalScrollIndicator={false}>
