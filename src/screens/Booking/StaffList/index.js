@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 import { Text } from "components";
 import ListStaff from "./List";
@@ -16,6 +16,11 @@ export default function index(props) {
   staffMerchant = staffMerchant.filter((obj) => obj.isDisabled == 0 && obj.isActive == true);
 
   const convertStaffService = () => {
+    // console.log("staff_service");
+    // console.log(staff_service);
+    // console.log("staffMerchant");
+    // console.log(staffMerchant);
+
     let tempt = [];
     for (let i = 0; i < staffMerchant.length; i++) {
       let temptStaff = staff_service.find((s) => s.staffId == staffMerchant[i].staffId);
@@ -25,7 +30,6 @@ export default function index(props) {
   };
 
   let staffList = isProduct ? staffMerchant : convertStaffService();
-  console.log(staffList);
 
   const isShowButtonBook =
     staffList.find((s) => parseInt(s.staffId) === selectedStaffId) ||
@@ -33,6 +37,10 @@ export default function index(props) {
     selectedStaffId === 0
       ? true
       : false;
+
+  // const isShowButtonBook = staffList.find((s) => parseInt(s.staffId) === selectedStaffId)
+  //   ? true
+  //   : false;
 
   return (
     <View style={styles.container}>

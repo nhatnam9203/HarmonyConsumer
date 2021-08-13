@@ -3,7 +3,7 @@ import IMAGES from "assets";
 import { Text } from "components";
 import * as RootNavigation from "navigations/RootNavigation";
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, Image } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import FastImage from "react-native-fast-image";
 import TouchID from "react-native-touch-id";

@@ -25,7 +25,9 @@
     "run:android-production": "npx react-native run-android --variant=release",
     "run:ios-staging-device": "npx react-native run-ios --scheme='staging' --device 'iPhone'",
     "run:ios-staging": "npx react-native run-ios --scheme=\"staging\" --simulator=\"iPhone 11\"",
-    "open:iPhone": "open -a Simulator --args -CurrentDeviceUDID  53F9D553-5104-45BD-B8FF-B51315D499EC"
+    "open:iPhone": "open -a Simulator --args -CurrentDeviceUDID  53F9D553-5104-45BD-B8FF-B51315D499EC",
+    "pod": "npx pod-install",
+    "android:fix": "npx jetify"
   },
   "dependencies": {
     "@hackinggate/react-native-twitter-signin": "^1.2.6",
@@ -125,8 +127,8 @@
   },
   "devDependencies": {
     "@babel/core": "7.14.8",
-    "@babel/runtime": "7.14.8",
     "@babel/preset-env": "^7.14.8",
+    "@babel/runtime": "7.14.8",
     "@react-native-community/eslint-config": "3.0.0",
     "babel-jest": "27.0.6",
     "eslint": "7.32.0",
