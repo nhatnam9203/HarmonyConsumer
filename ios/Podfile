@@ -21,9 +21,9 @@ target 'harmonypay' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
 
-  pod 'Firebase/Core', '~> 6.13.0'
-  pod 'Firebase/Messaging', '~> 6.13.0'
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+  # pod 'Firebase/Core', '~> 6.13.0'
+  # pod 'Firebase/Messaging', '~> 6.13.0'
+  # pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 
 
   # Enables Flipper.
@@ -49,10 +49,10 @@ target 'harmonypay' do
    end
 
    target 'ImageNotification' do
-    pod 'Firebase/Messaging', '~> 6.13.0' # eg 6.31.0
+    # pod 'Firebase/Messaging', '~> 8.5.0' # eg 6.31.0
   end
    target 'ImageNotificationStaging' do
-    pod 'Firebase/Messaging', '~> 6.13.0' # eg 6.31.0
+    # pod 'Firebase/Messaging', '~> 8.5.0' # eg 6.31.0
   end
 
 end

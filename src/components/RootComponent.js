@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import CodePush from "react-native-code-push";
 import env from "react-native-config";
-import firebase from "react-native-firebase";
+// import firebase from "react-native-firebase";
 import { checkNotifications } from "react-native-permissions";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ import { convertLatLongToAddress, scaleHeight, scaleWidth } from "utils";
 import Modal from "./Modal2";
 import PopupUpdate from "./PopupUpdate";
 import IMAGES from "assets";
+import messaging from '@react-native-firebase/messaging';
 
 var PushNotification = require("react-native-push-notification");
 
@@ -169,7 +170,7 @@ const RootComponent = ({ children }) => {
 
   const checkPermission = async () => {
     try {
-      const enabled = await firebase.messaging().hasPermission();
+      const enabled = await messaging().hasPermission();
       if (enabled) {
         await getToken();
       } else {
@@ -181,7 +182,7 @@ const RootComponent = ({ children }) => {
   };
 
   const getToken = async () => {
-    const fcmToken = await firebase.messaging().getToken();
+    const fcmToken = await messaging().getToken();
     setFirebaseToken(fcmToken);
     // if (fcmToken) {
     //   runSignalR(fcmToken);
@@ -198,7 +199,7 @@ const RootComponent = ({ children }) => {
 
   const requestPermission = async () => {
     try {
-      await firebase.messaging().requestPermission();
+      await messaging().requestPermission();
       await getToken();
     } catch (error) {
       console.log("permission rejected");
