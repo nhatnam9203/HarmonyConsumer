@@ -99,6 +99,28 @@ function* getStaffAppointment(action) {
   } catch (e) {}
 }
 
+function* getStaffService(action) {
+  try {
+    yield put({ type: "START_FETCH_API" });
+    const response = yield requestAPI(action);
+    const { codeNumber } = response;
+    switch (+codeNumber) {
+      case 200:
+        yield put({
+          type: "SET_STAFF_SERVICE",
+          payload: response.data,
+        });
+        break;
+      default:
+        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        break;
+    }
+  } catch (e) {
+  } finally {
+    yield put({ type: "STOP_FETCH_API" });
+  }
+}
+
 function* mySaga() {
   yield all([
     takeLatest("STAFF_GET_BY_MERCHANT", staffGetByMerchant),
@@ -106,6 +128,7 @@ function* mySaga() {
     takeLatest("GET_FAVOURITE_STAFF_MERCHANT", getFavouriteStaffMerchant),
     takeLatest("UPDATE_FAVOURITE_STAFF", updateFavouriteStaff),
     takeLatest("GET_STAFF_APPOINTMENT", getStaffAppointment),
+    takeLatest("GET_STAFF_SERVICE", getStaffService),
   ]);
 }
 export default mySaga;

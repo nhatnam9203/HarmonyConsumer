@@ -62,8 +62,8 @@ export default function useHook() {
   };
 
   const reviewConfirmAction = () => {
-    console.log("reviewConfirmAction");
-    console.log();
+    // console.log("reviewConfirmAction");
+    // console.log();
 
     let date = moment(day).format("YYYY-MM-DD");
     date = `${date}T${timePicker}`;
@@ -74,7 +74,7 @@ export default function useHook() {
   };
 
   const reScheduleAction = () => {
-    console.log("reScheduleAction");
+    // console.log("reScheduleAction");
     const date = moment(day).format("YYYY-MM-DD");
     const date_reschedule = `${moment(date).format("YYYY-MM-DD")}T${timePicker}`;
     const body = {

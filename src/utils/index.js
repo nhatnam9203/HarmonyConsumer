@@ -1,4 +1,3 @@
-import API from "../configs/api";
 import axios from "axios";
 import Config from "../configs";
 import ICONS from "assets";
@@ -459,7 +458,7 @@ export const sendWhatsApp = (mobile) => {
       let url = "whatsapp://send?text=" + msg + "&phone=" + mobile;
       Linking.openURL(url)
         .then((data) => {
-          console.log("WhatsApp Opened");
+          // console.log("WhatsApp Opened");
         })
         .catch(() => {
           alert("Make sure WhatsApp installed on your device");

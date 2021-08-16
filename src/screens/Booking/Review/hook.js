@@ -120,7 +120,7 @@ export default function index(props) {
   };
 
   const bookAppointment = () => {
-    console.log("============= bookAppointment");
+    // console.log("============= bookAppointment");
 
     if (conditionBooking) {
       const end = moment(fromTime).add(totalDuration(services, extras), "minutes");

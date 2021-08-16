@@ -53,7 +53,7 @@ function* addCreditCard(action) {
     const firstCard = yield select((state) => state.creditAndBankReducer.first_card);
     yield put({ type: "START_FETCH_API" });
     const responses = yield requestAPI(action);
-    console.log({ action, responses });
+    // console.log({ action, responses });
     const { codeNumber, message } = responses;
 
     switch (+codeNumber) {

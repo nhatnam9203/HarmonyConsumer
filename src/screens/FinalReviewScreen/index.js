@@ -35,7 +35,7 @@ export default function index(props) {
 
     delete _gift_send.receiver;
     delete _gift_send.imageUrl;
-    console.log("_gift_send", _gift_send);
+    // console.log("_gift_send", _gift_send);
     dispatch(actions.buygiftAction.send_gift_card(token, _gift_send, callBackSendGift));
   };
 

@@ -17,7 +17,7 @@ export default function index(props) {
     disabled = false,
   } = props;
 
-  console.log({ disabled });
+  // console.log({ disabled });
 
   return (
     <View style={{ width, marginTop: scaleWidth(7) }}>

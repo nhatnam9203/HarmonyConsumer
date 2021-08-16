@@ -44,3 +44,14 @@ export function getStaffAppointment(token, appointmentId) {
     token,
   };
 }
+
+export function getStaffService(token, serviceId, date, merchantId) {
+  return {
+    type: "GET_STAFF_SERVICE",
+    method: "GET",
+    route: date
+      ? `staff/byService/${serviceId}?date=${date}&merchantId=${merchantId}`
+      : `staff/byService/${serviceId}?merchantId=${merchantId}`,
+    token,
+  };
+}

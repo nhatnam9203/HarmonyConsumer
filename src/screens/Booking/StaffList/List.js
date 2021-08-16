@@ -6,13 +6,10 @@ import { scaleHeight } from "utils";
 import Anonymous from "./Anonymous";
 import Staff from "./Staff";
 import styles from "./styles";
-import { useSelector } from "react-redux";
 
 function List(props) {
-  let staffList = useSelector((state) => state.staffReducer.staff_by_merchant);
-  staffList = staffList.filter((obj) => obj.isDisabled == 0 && obj.isActive == true);
+  const { selectStaff, selectedStaffId, staffList } = props;
 
-  const { selectStaff, selectedStaffId } = props;
   const renderWaitingAnyStaff = () => {
     return (
       <React.Fragment>

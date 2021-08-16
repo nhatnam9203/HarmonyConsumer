@@ -18,6 +18,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./src/redux/store";
 import { Provider } from "react-redux";
 import { RootComponent } from "components";
+import SplashScreen from "react-native-splash-screen";
 
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
@@ -46,7 +47,7 @@ const App = () => {
   const handleKeyBoardHide = () => setShowKeyBoard(false);
 
   React.useEffect(() => {
-    // SplashScreen.hide()
+    SplashScreen.hide();
     isMountedRef.current = true;
     return () => {
       isMountedRef.current = false;
