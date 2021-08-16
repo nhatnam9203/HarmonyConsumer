@@ -16,6 +16,7 @@ export default function hook(props) {
   const merchant_detail = useSelector((state) => state.storeReducer.merchant_detail);
 
   const { item, tempServices, isProduct } = props.route.params;
+
   const { merchantId } = merchant_detail;
   const timezone = new Date().getTimezoneOffset();
 
@@ -88,5 +89,5 @@ export default function hook(props) {
     dispatch(actions.bookingAction.selectStaff(selectedStaffId));
   };
 
-  return [status, selectedStaffId, selectStaff, selectDate, isProduct];
+  return [status, selectedStaffId, selectStaff, selectDate, isProduct, tempServices];
 }

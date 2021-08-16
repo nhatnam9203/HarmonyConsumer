@@ -9,7 +9,7 @@ import useHook from "./hook";
 import { useSelector } from "react-redux";
 
 export default function index(props) {
-  const [status, selectedStaffId, selectStaff, selectDate, isProduct] = useHook(props);
+  const [status, selectedStaffId, selectStaff, selectDate, isProduct, tempServices] = useHook(props);
 
   let staff_service = useSelector((state) => state.staffReducer.staff_service);
   let staffMerchant = useSelector((state) => state.staffReducer.staff_by_merchant);
@@ -51,6 +51,7 @@ export default function index(props) {
         selectStaff={selectStaff}
         isProduct={isProduct}
         staffList={staffList}
+        tempServices={tempServices}
       />
       {selectedStaffId >= -1 && isShowButtonBook && (
         <View style={styles.bottom}>

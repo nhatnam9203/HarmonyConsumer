@@ -149,6 +149,7 @@ const RootComponent = ({ children }) => {
     if (Platform.OS === "android") {
       PushNotification.getChannels(function (channels) {
         // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
+        console.log(channels);
         if (channels && channels?.length > 0) return;
         PushNotification.createChannel(
           {
@@ -190,10 +191,10 @@ const RootComponent = ({ children }) => {
   };
 
   React.useEffect(() => {
-    if (firebaseToken && !waitingLoadApp) {
+    if (firebaseToken && !waitingLoadApp && token && userInfo) {
       runSignalR(firebaseToken);
     }
-  }, [firebaseToken, waitingLoadApp]);
+  }, [firebaseToken, waitingLoadApp, token, userInfo]);
 
   const requestPermission = async () => {
     try {
@@ -226,6 +227,7 @@ const RootComponent = ({ children }) => {
   useEffect(() => {
     CodePush.disallowRestart();
     checkUpdate();
+    configNotification();
 
     AppState.addEventListener("change", handleAppStateChange);
     return () => {
@@ -237,7 +239,6 @@ const RootComponent = ({ children }) => {
     checkPermission();
     dispatch(actions.bookingAction?.resetBooking());
     getCurrentLocation();
-    configNotification();
   }, [token]);
 
   const handleAppStateChange = (nextAppState) => {

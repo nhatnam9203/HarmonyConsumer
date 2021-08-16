@@ -1,7 +1,7 @@
 import { Dimensions, Platform } from "react-native";
 const { width } = Dimensions.get("window");
 const configs = {
-  VERSION: Platform.OS == "android" ? "2.2.4" : "3.9.7",
+  VERSION: Platform.OS == "android" ? "2.2.4" : "3.9.8",
   IS_PLATFORM: Platform.OS == "android" ? "android" : "ios",
   DEFAULT_WIDTH: 414,
   DEFAULT_HEIGHT: 736,

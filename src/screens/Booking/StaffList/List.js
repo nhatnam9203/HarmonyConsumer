@@ -8,9 +8,10 @@ import Staff from "./Staff";
 import styles from "./styles";
 
 function List(props) {
-  const { selectStaff, selectedStaffId, staffList } = props;
+  const { selectStaff, selectedStaffId, staffList, tempServices } = props;
 
   const renderWaitingAnyStaff = () => {
+    console.log(tempServices);
     return (
       <React.Fragment>
         <Anonymous
@@ -19,7 +20,7 @@ function List(props) {
           selectStaff={selectStaff}
           name={"Waiting List"}
           icon={images.icon_waitingList}
-          isDisabled={selectedStaffId !== -1 && selectedStaffId !== ""}
+          isDisabled={tempServices?.length > 1 && selectedStaffId !== -1 && selectedStaffId !== ""}
           color={"#0764B0"}
         />
         <Anonymous
@@ -28,7 +29,7 @@ function List(props) {
           selectStaff={selectStaff}
           name={"Any staff"}
           icon={images.icon_anystaff}
-          isDisabled={selectedStaffId !== 0 && selectedStaffId !== ""}
+          isDisabled={tempServices?.length > 1 && selectedStaffId !== 0 && selectedStaffId !== ""}
           color={"#0764B0"}
         />
       </React.Fragment>
@@ -48,7 +49,7 @@ function List(props) {
             key={obj.staffId}
             renderImg={renderImg}
             selectStaff={selectStaff}
-            isDisabled={selectedStaffId === -1 || selectedStaffId === 0 ? true : false}
+            // isDisabled={selectedStaffId === -1 || selectedStaffId === 0 ? true : false}
             isActive={selectedStaffId === obj.staffId ? true : false}
             obj={obj}
           />
