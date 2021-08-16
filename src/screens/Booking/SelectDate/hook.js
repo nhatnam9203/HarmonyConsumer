@@ -4,6 +4,8 @@ import * as RootNavigation from "navigations/RootNavigation";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
 
+const FORMAT_TIME_REQUEST = "YYYY-MM-DD[T]HH:mm";
+
 const ServiceFilterKeys = [
   "appointmentId",
   "bookingServiceId",
@@ -95,7 +97,7 @@ export default function useHook() {
     };
     dispatch(actions.staffAction.staffGetAvaiableTime(staffId, token, body));
   };
-
+  /** */
   const reviewConfirmAction = () => {
     // console.log("reviewConfirmAction");
     // console.log();
@@ -112,7 +114,7 @@ export default function useHook() {
     if (!appointment_detail_customer) return;
 
     const date = moment(day).format("YYYY-MM-DD");
-    const date_reschedule = `${moment(date).format("YYYY-MM-DD")}T${timePicker}`;
+    const date_reschedule = `${date}T${timePicker}`;
     // const body = {
     //   ...appointment_detail_customer,
     //   fromTime: date_reschedule,
@@ -122,20 +124,31 @@ export default function useHook() {
 
     dispatch({ type: "START_FETCH_API" });
     dispatch(actions.bookingAction.selectDate(date_reschedule));
+    let fromDate = new Date(date_reschedule);
+    let toDate = new Date(date_reschedule);
+
+    const services = appointment_detail_customer.services?.map((it) => {
+      fromDate = toDate;
+      toDate = new Date(fromDate.getTime() + it.duration * 60 * 1000);
+
+      return Object.assign(
+        {},
+        Object.fromEntries(
+          Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
+        ),
+        {
+          fromTime: moment(fromDate).format(FORMAT_TIME_REQUEST),
+          toTime: moment(toDate).format(FORMAT_TIME_REQUEST),
+        },
+      );
+    });
+
     const body = Object.assign({}, appointment_detail_customer, {
       staffId: appointment_detail_customer.staffId,
       fromTime: date_reschedule,
-      toTime: appointment_detail_customer.toTime,
+      toTime: moment(toDate).format(FORMAT_TIME_REQUEST),
       status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
-      services: appointment_detail_customer.services?.map((it) =>
-        Object.assign(
-          {},
-          Object.fromEntries(
-            Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
-          ),
-          { fromTime: date_reschedule },
-        ),
-      ),
+      services: services,
       // products: appointment_detail_customer.products?.map((it) =>
       //   Object.fromEntries(
       //     Object.entries(it).filter(([key, val]) => ProductFilterKeys.includes(key)),
