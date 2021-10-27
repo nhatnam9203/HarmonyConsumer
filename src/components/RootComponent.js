@@ -22,7 +22,7 @@ import { convertLatLongToAddress, scaleHeight, scaleWidth } from "utils";
 import Modal from "./Modal2";
 import PopupUpdate from "./PopupUpdate";
 import IMAGES from "assets";
-import messaging from '@react-native-firebase/messaging';
+import messaging from "@react-native-firebase/messaging";
 
 var PushNotification = require("react-native-push-notification");
 

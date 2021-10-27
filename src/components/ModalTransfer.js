@@ -13,7 +13,7 @@ export default function ModalTransfer({
   isVisible,
   onRequestClose,
   fromCards = [],
-  toCard,
+  toCard = {},
   onSubmit,
   card_detail,
 }) {
@@ -105,8 +105,8 @@ export default function ModalTransfer({
 
         <ButtonSelectCard
           title="To this card"
-          value={`$ ${formatMoney(toCard.amount)}`}
-          icon={{ uri: toCard.imageUrl }}
+          value={`$ ${formatMoney(toCard?.amount ?? 0)}`}
+          icon={{ uri: toCard?.imageUrl }}
           off={true}
         />
 

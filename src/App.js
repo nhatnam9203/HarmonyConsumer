@@ -17,6 +17,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import { AuthStack, MainStack } from "./navigations";
 import { persistor, store } from "./redux/store";
 
+if (__DEV__) {
+  import("../ReactotronConfig.js").then(() => console.log("Reactotron Configured"));
+}
+
 const Stack = createStackNavigator();
 
 function SwitchNavigator() {
