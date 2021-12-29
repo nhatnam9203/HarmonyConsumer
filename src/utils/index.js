@@ -28,7 +28,8 @@ export const requestAPI = async (action, header = {}) => {
   headers["User-Agent"] = `HarmonyConsumer/${Config.VERSION}/${Config.IS_PLATFORM}`;
   let configs = {
     method: `${method}`.toLowerCase(),
-    baseURL: env.API_URL,
+    // baseURL: env.API_URL,
+    baseURL: "https://api2.harmonypayment.com/api/",
     url: `${action.route}`,
     headers: headers,
     timeout: 20000,
