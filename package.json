@@ -24,7 +24,7 @@
     "run:android-staging": "npx react-native run-android --variant=staging",
     "run:android-production": "npx react-native run-android --variant=release",
     "run:ios-staging-device": "npx react-native run-ios --scheme='staging' --device 'iPhone'",
-    "run:ios-staging": "npx react-native run-ios --scheme=\"staging\" --simulator=\"iPhone 11\"",
+    "run:ios-staging": "npx react-native run-ios --scheme=\"staging\" --simulator=\"iPhone 12 Pro Max\"",
     "run:ios-production": "npx react-native run-ios --scheme=\"harmonypay\" --simulator=\"iPhone 11\"",
     "open:iPhone": "open -a Simulator --args -CurrentDeviceUDID  53F9D553-5104-45BD-B8FF-B51315D499EC",
     "pod": "npx pod-install",
