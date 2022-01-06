@@ -1,24 +1,25 @@
-import React from "react";
-import { View, ActivityIndicator } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "react-native-fast-image";
 import actions from "@redux/actions";
 import ICONS from "assets";
-import { formatNumberFromCurrency, isEmpty, scaleSize } from "utils";
 import {
-  Text,
-  Container,
   Button,
-  Header,
-  Switch,
+  Container,
   Form,
-  ModalTransfer,
+  Header,
   ModalAutoReload,
+  ModalTransfer,
+  Switch,
+  Text,
 } from "components";
-import { BoxClick, PopupConditionRemove, PopupRemove } from "./widget";
 import * as RootNavigation from "navigations/RootNavigation";
+import React from "react";
+import { ActivityIndicator, View } from "react-native";
+import Image from "react-native-fast-image";
 import Feather from "react-native-vector-icons/Feather";
+import { useDispatch, useSelector } from "react-redux";
+import { formatNumberFromCurrency, isEmpty, scaleSize } from "utils";
 import styles from "./style";
+import { BoxClick, PopupConditionRemove, PopupRemove } from "./widget";
+import QRCode from "react-native-qrcode-svg";
 
 const { ButtonSubmit } = Form;
 
@@ -46,6 +47,7 @@ export default function index(props) {
     autoReloadBankId,
     userCardId,
   } = card_detail;
+
   const button_title = title != "My Card" ? "Home Page" : "Add money";
 
   const [isPrimary, setPrimaryCard] = React.useState(primaryCard == 1 ? true : false);
@@ -166,6 +168,8 @@ export default function index(props) {
     );
   };
 
+  // console.log(card_detail);
+
   return (
     <Container barStyle="dark-content">
       <Header title={title} headerLeft={iconLeft} headerRight={iconRight} onBack={onBack} />
@@ -183,6 +187,10 @@ export default function index(props) {
                 $ {amount}
               </Text>
             </View>
+          </View>
+
+          <View>
+            <QRCode value={`${card_detail?.userId}#${card_detail?.userCardId}`} size={180} />
           </View>
 
           {/* ------------------ primary card ------------------ */}
@@ -208,10 +216,7 @@ export default function index(props) {
               <Image source={ICONS["auto_reload_detail"]} style={styles.icon} />
               <View>
                 <View
-                  style={[
-                    styles.sub_container_auto_reload,
-                    Boolean(isAutoReload) ? { height: "75%" } : {},
-                  ]}>
+                  style={[styles.sub_container_auto_reload, isAutoReload ? { height: "75%" } : {}]}>
                   <Text fontSize={16} color="#585858" style={styles.title}>
                     Auto reload
                   </Text>
@@ -247,8 +252,7 @@ export default function index(props) {
           {/* ------------------ Transfer card ------------------ */}
           <BoxClick
             disabled={true}
-            style={styles.container_row_space_between}
-            style={{ justifyContent: "flex-start" }}>
+            style={[styles.container_row_space_between, { justifyContent: "flex-start" }]}>
             <Button disabled={isPrimary ? true : false} onPress={onTogglePopupTransfer}>
               <IconTitle
                 title="Transfer balance"
