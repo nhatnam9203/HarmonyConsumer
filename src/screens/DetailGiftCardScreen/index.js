@@ -190,7 +190,7 @@ export default function index(props) {
           </View>
 
           <View>
-            <QRCode value={`${card_detail?.userId}#${card_detail?.userCardId}`} size={180} />
+            <QRCode value={`${card_detail?.userId}#${card_detail?.userCardId}`} size={165} />
           </View>
 
           {/* ------------------ primary card ------------------ */}
