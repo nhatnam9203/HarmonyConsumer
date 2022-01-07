@@ -1,39 +1,39 @@
-import { StyleSheet } from "react-native";
-import { scaleSize } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
 const styles = StyleSheet.create({
   containerRoot: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   container_giftcard: {
-    width: "100%",
+    width: '100%',
     height: scaleSize(240),
     marginTop: scaleSize(15),
   },
   container_center: {
     paddingHorizontal: scaleSize(15),
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   container_creditcard: {
     marginTop: scaleSize(30),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: scaleSize(307),
   },
   container_price_giftcard: {
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingHorizontal: scaleSize(13),
     paddingVertical: scaleSize(5),
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: scaleSize(20),
-    backgroundColor: "#FFF",
-    position: "absolute",
+    backgroundColor: '#FFF',
+    position: 'absolute',
     top: scaleSize(15),
     right: scaleSize(15),
   },
@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
   button_submit: {
     width: scaleSize(345),
     height: scaleSize(50),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: COLOR_MAIN_APP,
     paddingHorizontal: scaleSize(20),
     borderRadius: 5,
-    position: "absolute",
+    position: 'absolute',
     bottom: scaleSize(20),
   },
 });

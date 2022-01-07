@@ -1,13 +1,13 @@
-import React from "react";
-import { View, StyleSheet, Image } from "react-native";
-import { TextInputMask } from "react-native-masked-text";
+import React from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 
-import { scaleSize, getImageCard } from "utils";
-import ICONS from "assets";
-import Label from "./Label";
-import Text from "../Text";
-import Configs from "configs";
-import Button from "../Button";
+import { scaleSize, getImageCard } from 'utils';
+import ICONS from 'assets';
+import Label from './Label';
+import Text from '../Text';
+import Configs from '@src/configs';
+import Button from '../Button';
 
 const {
   COLORS: { INPUT, RED },
@@ -17,7 +17,7 @@ export default function InputCreditCard(props) {
   const width_input = width ? width : 350;
   const height_input = height ? height : 65;
   const showError = touched && error;
-  const borderBottomColor = showError ? RED : "#eeeeee";
+  const borderBottomColor = showError ? RED : '#eeeeee';
   return (
     <View style={{ height: scaleSize(height_input + 30) }}>
       <View
@@ -31,7 +31,11 @@ export default function InputCreditCard(props) {
         ]}>
         <Label label={label} isRequire={isRequire} />
 
-        <TextinputCreditCard width={width_input} height={height_input} {...props} />
+        <TextinputCreditCard
+          width={width_input}
+          height={height_input}
+          {...props}
+        />
       </View>
       {showError && <Text color={RED}>{error}</Text>}
     </View>
@@ -39,14 +43,15 @@ export default function InputCreditCard(props) {
 }
 
 function TextinputCreditCard(props) {
-  const { placeHolder, value, onChangeText, typeCard, onClear, autoFocus } = props;
+  const { placeHolder, value, onChangeText, typeCard, onClear, autoFocus } =
+    props;
 
   return (
     <View style={styles.container_input_creditcard}>
       <Image source={getImageCard(typeCard)} style={styles.icon_creditcard} />
 
       <TextInputMask
-        type={"credit-card"}
+        type={'credit-card'}
         style={styles.text_input}
         placeholderTextColor={INPUT}
         placeholder={placeHolder}
@@ -56,9 +61,9 @@ function TextinputCreditCard(props) {
         autoFocus={autoFocus}
       />
 
-      {value != "" && (
+      {value != '' && (
         <Button onPress={onClear}>
-          <Image source={ICONS["baseline_cancel"]} style={styles.icon_close} />
+          <Image source={ICONS.baseline_cancel} style={styles.icon_close} />
         </Button>
       )}
     </View>
@@ -67,7 +72,7 @@ function TextinputCreditCard(props) {
 
 const styles = StyleSheet.create({
   wrapper_input: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     borderBottomWidth: 1,
   },
   text_input: {
@@ -78,16 +83,16 @@ const styles = StyleSheet.create({
   },
   container_input_creditcard: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   icon_creditcard: {
     width: scaleSize(26),
     height: scaleSize(26),
     // tintColor: '#7A98BB',
     // marginBottom: scaleSize(10),
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
   icon_close: {
     width: scaleSize(25),

@@ -1,15 +1,15 @@
-import { StyleSheet } from "react-native";
-import { scaleSize } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
 const styles = StyleSheet.create({
   content_card: {
-    width: "100%",
+    width: '100%',
     height: scaleSize(50),
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   container_center: {
     paddingHorizontal: scaleSize(16),
@@ -29,33 +29,33 @@ const styles = StyleSheet.create({
   },
   line_bottom: {
     // marginTop: scaleSize(20),
-    width: "100%",
+    width: '100%',
     height: scaleSize(1),
-    borderColor: "#eeeeee",
+    borderColor: '#eeeeee',
     borderWidth: 0.7,
   },
   button_submit: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     marginBottom: scaleSize(30),
-    alignItems: "center",
+    alignItems: 'center',
   },
   txt_add: {
     marginLeft: scaleSize(10),
   },
   button_add: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
   },
   input: {
     borderWidth: 1,
-    borderColor: "#DDDDDD",
-    borderBottomColor: "#DDDDDD",
+    borderColor: '#DDDDDD',
+    borderBottomColor: '#DDDDDD',
     borderRadius: scaleSize(5),
     marginTop: scaleSize(15),
     paddingLeft: scaleSize(15),
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 });
 

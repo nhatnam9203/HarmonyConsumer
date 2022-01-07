@@ -1,21 +1,21 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { scaleSize } from "utils";
-import { ItemCard } from "components";
-import BannerLoading from "./BannerLoading";
-import { Text } from "components";
-import Configs from "configs";
-import SwiperFlatList from "react-native-swiper-flatlist";
-import { useSelector, useDispatch } from "react-redux";
-import actions from "@redux/actions";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { scaleSize } from 'utils';
+import { ItemCard } from 'components';
+import BannerLoading from './BannerLoading';
+import { Text } from 'components';
+import Configs from '@src/configs';
+import SwiperFlatList from 'react-native-swiper-flatlist';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from '@redux/actions';
 const { CARD_WIDTH } = Configs;
 
 export default function Banner(props) {
   const dispatch = useDispatch();
-  const store_top = useSelector((state) => state.storeReducer.store_top);
-  const token = useSelector((state) => state.datalocalReducer.token);
+  const store_top = useSelector(state => state.storeReducer.store_top);
+  const token = useSelector(state => state.datalocalReducer.token);
 
-  const goToStoreDetail = (merchant) => {
+  const goToStoreDetail = merchant => {
     const { merchantId } = merchant;
     dispatch(actions.storeAction.setDetailMerchant(merchant));
     dispatch(actions.storeAction.getDetailMerchant(merchantId, token));
@@ -24,7 +24,11 @@ export default function Banner(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.txtTopStore} color="#585858" fontSize={19} fontFamily="medium">
+      <Text
+        style={styles.txtTopStore}
+        color="#585858"
+        fontSize={19}
+        fontFamily="medium">
         Top store
       </Text>
       <SwiperFlatList
@@ -33,8 +37,8 @@ export default function Banner(props) {
         autoplayLoop
         autoplayLoopKeepAnimation={true}
         showPagination
-        paginationDefaultColor={"#D5F8FC"}
-        paginationActiveColor={"#1C98C9"}
+        paginationDefaultColor={'#D5F8FC'}
+        paginationActiveColor={'#1C98C9'}
         paginationStyle={{
           marginBottom: -scaleSize(23),
         }}
@@ -48,7 +52,7 @@ export default function Banner(props) {
         ) : (
           store_top.map((item, index) => (
             <ItemCard
-              key={index + ""}
+              key={index + ''}
               width={CARD_WIDTH - 20}
               height={scaleSize(265)}
               borderRadius={5}
@@ -73,19 +77,19 @@ const styles = StyleSheet.create({
   },
   dotDefault: {
     bottom: -scaleSize(45),
-    backgroundColor: "#D4F8FC",
+    backgroundColor: '#D4F8FC',
     width: scaleSize(10),
     height: scaleSize(10),
     borderRadius: scaleSize(5),
   },
   activeDot: {
-    backgroundColor: "#1C98C9",
+    backgroundColor: '#1C98C9',
   },
   slide: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#eeeeee",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eeeeee',
   },
   txtTopStore: {
     marginBottom: scaleSize(20),

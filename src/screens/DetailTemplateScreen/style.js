@@ -1,14 +1,14 @@
-import { StyleSheet } from "react-native";
-import { scaleSize } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: "#DDDDDD",
-    borderBottomColor: "#DDDDDD",
+    borderColor: '#DDDDDD',
+    borderBottomColor: '#DDDDDD',
     // borderBottomWidth: 0,
     borderRadius: scaleSize(5),
     marginTop: scaleSize(20),
@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     paddingLeft: scaleSize(10),
   },
   title: {
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     marginVertical: scaleSize(20),
   },
   container_center: {
     paddingHorizontal: scaleSize(15),
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   image_card: {
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   },
   button_submit: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 });
 

@@ -1,12 +1,12 @@
-import { StyleSheet } from "react-native";
-import { scaleSize } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
 const styles = StyleSheet.create({
   container_giftcard: {
-    width: "100%",
+    width: '100%',
     height: scaleSize(240),
     marginTop: scaleSize(15),
   },
@@ -20,19 +20,19 @@ const styles = StyleSheet.create({
   },
   container_creditcard: {
     marginTop: scaleSize(30),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: scaleSize(307),
   },
   container_price_giftcard: {
     width: scaleSize(100),
     height: scaleSize(40),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: scaleSize(20),
-    backgroundColor: "#FFF",
-    position: "absolute",
+    backgroundColor: '#FFF',
+    position: 'absolute',
     top: scaleSize(15),
     right: scaleSize(15),
   },
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   },
   button_submit: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   icon_add: {
     width: scaleSize(25),
@@ -60,9 +60,9 @@ const styles = StyleSheet.create({
     marginRight: scaleSize(10),
   },
   button_add: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
     marginTop: scaleSize(20),
   },
 });

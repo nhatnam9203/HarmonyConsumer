@@ -1,20 +1,25 @@
-import * as React from "react";
-import { View, Image } from "react-native";
-import ICONS from "assets";
-import { Text } from "components";
-import { scaleSize } from "utils";
-import { HomeScreen, StoreScreen, GiftCardScreen, MyAppointment } from "screens";
-import Configs from "configs";
+import * as React from 'react';
+import { View, Image } from 'react-native';
+import ICONS from 'assets';
+import { Text } from 'components';
+import { scaleSize } from 'utils';
+import {
+  HomeScreen,
+  StoreScreen,
+  GiftCardScreen,
+  MyAppointment,
+} from 'screens';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useSelector } from "react-redux";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useSelector } from 'react-redux';
 
 function IconTab({ focused, source, count_upcoming }) {
-  const color = focused ? COLOR_MAIN_APP : "#7A98BB";
+  const color = focused ? COLOR_MAIN_APP : '#7A98BB';
   return (
-    <View style={{ position: "relative" }}>
+    <View style={{ position: 'relative' }}>
       <Image
         source={source}
         resizeMode="contain"
@@ -27,17 +32,22 @@ function IconTab({ focused, source, count_upcoming }) {
       {count_upcoming > 0 && (
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: -scaleSize(5),
             borderRadius: 300,
-            backgroundColor: "red",
+            backgroundColor: 'red',
             right: -scaleSize(5),
             width: scaleSize(17),
             height: scaleSize(17),
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          <Text style={{ fontSize: scaleSize(11), color: "white", fontWeight: "bold" }}>
+          <Text
+            style={{
+              fontSize: scaleSize(11),
+              color: 'white',
+              fontWeight: 'bold',
+            }}>
             {count_upcoming}
           </Text>
         </View>
@@ -46,7 +56,7 @@ function IconTab({ focused, source, count_upcoming }) {
   );
 }
 function LabelTab({ focused, color, title }) {
-  const fontWeight = focused ? "bold" : "normal";
+  const fontWeight = focused ? 'bold' : 'normal';
   return (
     <Text fontSize={scaleSize(14)} color={color} style={{ fontWeight }}>
       {title}
@@ -56,13 +66,13 @@ function LabelTab({ focused, color, title }) {
 const tabBarOptions = {
   allowFontScaling: false,
   activeTintColor: COLOR_MAIN_APP,
-  inactiveTintColor: "#7A98BB",
+  inactiveTintColor: '#7A98BB',
 };
 
 const Tab = createBottomTabNavigator();
 export default function Tabs() {
-  const { count_upcoming } = useSelector((state) => state.appointmentReducer);
-  const { isBottomTabbar } = useSelector((state) => state.generalReducer);
+  const { count_upcoming } = useSelector(state => state.appointmentReducer);
+  const { isBottomTabbar } = useSelector(state => state.generalReducer);
 
   return (
     <Tab.Navigator initialRouteName="Home" tabBarOptions={tabBarOptions}>
@@ -70,7 +80,9 @@ export default function Tabs() {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused }) => <IconTab source={ICONS["home"]} focused={focused} />,
+          tabBarIcon: ({ focused }) => (
+            <IconTab source={ICONS.home} focused={focused} />
+          ),
           tabBarLabel: ({ focused, color }) => (
             <LabelTab title="Home" focused={focused} color={color} />
           ),
@@ -80,7 +92,9 @@ export default function Tabs() {
         name="Store"
         component={StoreScreen}
         options={{
-          tabBarIcon: ({ focused }) => <IconTab source={ICONS["store"]} focused={focused} />,
+          tabBarIcon: ({ focused }) => (
+            <IconTab source={ICONS.store} focused={focused} />
+          ),
           tabBarLabel: ({ focused, color }) => (
             <LabelTab title="Store" focused={focused} color={color} />
           ),
@@ -92,7 +106,11 @@ export default function Tabs() {
         component={MyAppointment}
         options={{
           tabBarIcon: ({ focused }) => (
-            <IconTab count_upcoming={count_upcoming} source={ICONS["today"]} focused={focused} />
+            <IconTab
+              count_upcoming={count_upcoming}
+              source={ICONS.today}
+              focused={focused}
+            />
           ),
           tabBarLabel: ({ focused, color }) => (
             <LabelTab title="Appointments" focused={focused} color={color} />
@@ -103,7 +121,9 @@ export default function Tabs() {
         name="Gift"
         component={GiftCardScreen}
         options={{
-          tabBarIcon: ({ focused }) => <IconTab source={ICONS["gift"]} focused={focused} />,
+          tabBarIcon: ({ focused }) => (
+            <IconTab source={ICONS.gift} focused={focused} />
+          ),
           tabBarLabel: ({ focused, color }) => (
             <LabelTab title="Gift card" focused={focused} color={color} />
           ),

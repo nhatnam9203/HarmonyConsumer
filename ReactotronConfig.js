@@ -2,7 +2,7 @@ import Reactotron, { asyncStorage, openInEditor, networking } from "reactotron-r
 import sagaPlugin from "reactotron-redux-saga";
 import { reactotronRedux } from "reactotron-redux";
 
-const reactotron = Reactotron.configure({ name: "Harmony One" }) // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from // controls connection & communication settings
+const reactotron = Reactotron.configure({ name: "Harmony Consumer" }) // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from // controls connection & communication settings
   .useReactNative() // add all built-in react native plugins
   .use(asyncStorage()) // <--- here we go!
   //.use(openInEditor()) // <--- here we go!

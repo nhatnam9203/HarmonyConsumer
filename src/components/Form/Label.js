@@ -1,9 +1,9 @@
-import React from "react";
-import { View } from "react-native";
-import Text from "../Text";
-import Configs from "configs";
-import { scaleSize } from "utils";
-import PropTypes from "prop-types";
+import React from 'react';
+import { View } from 'react-native';
+import Text from '../Text';
+import Configs from '@src/configs';
+import { scaleSize } from 'utils';
+import PropTypes from 'prop-types';
 const {
   COLORS: { BLACK, RED },
   FONTSIZE,
@@ -15,7 +15,7 @@ export default function Label({
   style = { height: scaleSize(20), flex: 1 },
 }) {
   return (
-    <View style={[{ flexDirection: "row" }, style]}>
+    <View style={[{ flexDirection: 'row' }, style]}>
       <Text fontSize={fontSize} color={BLACK}>
         {label}
       </Text>
@@ -39,7 +39,7 @@ Label.propTypes = {
   fontSize: PropTypes.number,
 };
 Label.defaultProps = {
-  label: "",
+  label: '',
   isRequire: false,
   fontSize: FONTSIZE.regular,
 };
