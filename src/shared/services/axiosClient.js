@@ -3,8 +3,12 @@ import { getAuthToken } from '../storages/authToken';
 import { getDeviceIdStorage } from '../storages/deviceUnique';
 import Axios from 'axios';
 import { Platform } from 'react-native';
+import Configs from '@src/configs';
 
-const Configs = {};
+const log = (obj, message = '') => {
+  // Logger.log(`[CodePushProvider] ${message}`, obj);
+  console.log(message);
+};
 
 export const axios = Axios.create({
   baseURL: Configs.API_URL,
@@ -12,7 +16,7 @@ export const axios = Axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': `HarmonyOne/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
+    'User-Agent': `HarmonyPay/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
   },
 });
 

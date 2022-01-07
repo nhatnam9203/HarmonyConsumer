@@ -1,7 +1,11 @@
 import { Dimensions, Platform } from 'react-native';
 const { width } = Dimensions.get('window');
-const Configs = {
-  VERSION: Platform.OS == 'android' ? '2.2.7' : '3.9.9',
+import { getVersion } from 'react-native-device-info';
+import EvnConfigs from 'react-native-config';
+
+const AppConfigs = {
+  // VERSION: Platform.OS == 'android' ? '2.2.7' : '3.9.9',
+  VERSION: getVersion(),
   IS_PLATFORM: Platform.OS == 'android' ? 'android' : 'ios',
   DEFAULT_WIDTH: 414,
   DEFAULT_HEIGHT: 736,
@@ -32,5 +36,12 @@ const Configs = {
     small: 14,
   },
 };
+
+const Configs = Object.assign(EvnConfigs, AppConfigs, {
+  API_URL: 'https://dev.harmonypayment.com/api/',
+  SOCKET_URL: 'https://signalr-stage.harmonypayment.com/merchantNotification/',
+});
+
+// const Configs = Object.assign({}, AppConfigs, EvnConfigs);
 
 export default Configs;

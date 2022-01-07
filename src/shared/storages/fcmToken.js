@@ -1,8 +1,8 @@
-import { storage, StorageKey } from './storage';
+import { LocalStorage } from './storage';
 
 export const saveFcmToken = token => {
-  storage.save({
-    key: StorageKey.fcmToken,
+  LocalStorage.save({
+    key: LocalStorage.Key.fcmToken,
     data: token,
     // expires: 1000 * 3600,
   });
@@ -10,8 +10,7 @@ export const saveFcmToken = token => {
 
 export const getFcmToken = async () => {
   return new Promise((resolve, reject) => {
-    return storage
-      .load({ key: StorageKey.fcmToken })
+    return LocalStorage.load({ key: LocalStorage.Key.fcmToken })
       .then(res => resolve(res))
       .catch(err => {
         // any exception including data not found

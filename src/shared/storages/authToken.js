@@ -1,8 +1,8 @@
-import { storage, StorageKey } from './storage';
+import { LocalStorage } from './storage';
 
 export const saveAuthToken = token => {
-  storage.save({
-    key: StorageKey.authToken,
+  LocalStorage.save({
+    key: LocalStorage.Key.authToken,
     data: token,
     // expires: 1000 * 3600,
   });
@@ -10,8 +10,7 @@ export const saveAuthToken = token => {
 
 export const getAuthToken = async () => {
   return new Promise((resolve, reject) => {
-    return storage
-      .load({ key: StorageKey.authToken })
+    return LocalStorage.load({ key: LocalStorage.Key.authToken })
       .then(res => resolve(res))
       .catch(err => {
         // any exception including data not found
@@ -31,7 +30,7 @@ export const getAuthToken = async () => {
 };
 
 export const clearAuthToken = async () => {
-  storage.remove({
-    key: StorageKey.authToken,
+  LocalStorage.remove({
+    key: LocalStorage.Key.authToken,
   });
 };

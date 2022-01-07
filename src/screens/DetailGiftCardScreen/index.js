@@ -27,8 +27,6 @@ const { ButtonSubmit } = Form;
 export default function index(props) {
   const dispatch = useDispatch();
 
-  const { getUserCard } = useApi();
-
   const token = useSelector(state => state.datalocalReducer.token);
   const card_more = useSelector(state => state.cardReducer.card_more);
   const card_primary = useSelector(state => state.cardReducer.card_primary);
@@ -53,6 +51,19 @@ export default function index(props) {
     autoReloadBankId,
     userCardId,
   } = card_detail;
+  const { getUserCard } = useApi({
+    userCardId,
+    callBack: (key, data) => {
+      switch (key) {
+        case 'getUserCardById':
+          setQrcode(data?.token);
+          break;
+
+        default:
+          break;
+      }
+    },
+  });
 
   const button_title = title != 'My Card' ? 'Home Page' : 'Add money';
 
@@ -65,6 +76,7 @@ export default function index(props) {
   const [isVisibleTransfer, setVisibleTransfer] = React.useState(false);
   const [isVisibleAutoReload, setVisibleAutoReload] = React.useState(false);
   const [content, setContent] = React.useState('');
+  const [qrCode, setQrcode] = React.useState(null);
 
   const onChangeValuePrimary = React.useCallback(
     value => {
@@ -90,6 +102,8 @@ export default function index(props) {
   const fetchListCreditAndBankCard = () => {
     dispatch(actions.creditAndBankAction.get_creditCard(token));
     dispatch(actions.creditAndBankAction.get_BankCard(token));
+
+    getUserCard();
   };
 
   const transferCard = body => {
@@ -217,12 +231,11 @@ export default function index(props) {
             </View>
           </View>
 
-          <View>
-            <QRCode
-              value={`${card_detail?.userId}#${card_detail?.userCardId}`}
-              size={165}
-            />
-          </View>
+          {!!qrCode && (
+            <View>
+              <QRCode value={`${qrCode}`} size={165} />
+            </View>
+          )}
 
           {/* ------------------ primary card ------------------ */}
           <BoxClick disabled={true} style={styles.container_row_space_between}>

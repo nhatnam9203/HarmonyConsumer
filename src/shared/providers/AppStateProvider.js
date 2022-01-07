@@ -7,7 +7,7 @@ import Configs from '@configs';
 import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 
 const log = (obj, message = '') => {
-  Logger.log(`[CodePushProvider] ${message}`, obj);
+  // Logger.log(`[CodePushProvider] ${message}`, obj);
 };
 
 export const AppStateContext = createContext({});

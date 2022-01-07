@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import Storage from 'react-native-storage';
 
-export const StorageKey = {
+const StorageKey = {
   fcmToken: 'FCM',
-  authToken: 'MERCHANT',
+  authToken: 'AUTH',
   deviceId: 'DEVICEID',
 };
 
-export const storage = new Storage({
+export const LocalStorage = new Storage({
   // maximum capacity, default 1000 key-ids
   size: 1000,
 
@@ -29,3 +29,5 @@ export const storage = new Storage({
     // we'll talk about the details later.
   },
 });
+
+LocalStorage.Key = StorageKey;

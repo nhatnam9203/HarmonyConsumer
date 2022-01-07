@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Config from '../configs';
+import Configs from '@src/configs';
 import ICONS from 'assets';
 import moment from 'moment-timezone';
 import _ from 'lodash';
@@ -16,7 +16,6 @@ import env from 'react-native-config';
 export const scaleWidth = size => wp(size);
 export const scaleHeight = size => hp(size);
 
-const BASE_URL = 'https://dev.harmonypayment.com/api/';
 // const BASE_URL = env.API_URL;
 
 export const requestAPI = async (action, header = {}) => {
@@ -30,10 +29,10 @@ export const requestAPI = async (action, header = {}) => {
   }
   headers[
     'User-Agent'
-  ] = `HarmonyConsumer/${Config.VERSION}/${Config.IS_PLATFORM}`;
+  ] = `HarmonyConsumer/${Configs.VERSION}/${Configs.IS_PLATFORM}`;
   let configs = {
     method: `${method}`.toLowerCase(),
-    baseURL: BASE_URL,
+    baseURL: Configs.API_URL,
     url: `${action.route}`,
     headers: headers,
     timeout: 20000,
@@ -139,7 +138,7 @@ export const createFormData = media => {
 };
 
 export const scaleSize = size => {
-  return (Config.FULL_WIDTH * size) / Config.DEFAULT_WIDTH;
+  return (Configs.FULL_WIDTH * size) / Configs.DEFAULT_WIDTH;
 };
 
 export const statusBarHeight = () => {

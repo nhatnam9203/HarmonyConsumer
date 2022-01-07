@@ -1,11 +1,15 @@
 import React from 'react';
 import { getUserCardById, useAxiosQuery } from '@apis';
 
-export const useApi = () => {
+export const useApi = ({ userCardId, callBack }) => {
   const [isLoading, getUserCard] = useAxiosQuery({
-    ...getUserCardById(),
+    ...getUserCardById(userCardId),
     enabled: false,
-    onSuccess: (data, response) => {},
+    onSuccess: (data, response) => {
+      if (callBack && typeof callBack === 'function') {
+        callBack('getUserCardById', data);
+      }
+    },
   });
 
   return {

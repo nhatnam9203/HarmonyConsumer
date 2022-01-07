@@ -1,7 +1,7 @@
-import { storage, StorageKey } from './storage';
+import { LocalStorage } from './storage';
 
 export const saveDeviceID = deviceId => {
-  storage.save({
+  LocalStorage.save({
     key: StorageKey.deviceId,
     data: deviceId,
     // expires: 1000 * 3600,
@@ -10,8 +10,8 @@ export const saveDeviceID = deviceId => {
 
 export const getDeviceIdStorage = async () => {
   return new Promise((resolve, reject) => {
-    return storage
-      .load({ key: StorageKey.deviceId })
+    return LocalStorage
+      .load({ key: LocalStorage.Key.deviceId })
       .then(res => resolve(res))
       .catch(err => {
         // any exception including data not found

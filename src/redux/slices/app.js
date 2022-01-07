@@ -41,6 +41,11 @@ let appSlice = createSlice({
         state.rememberMID = action.payload;
       },
     },
+    setError: {
+      reducer: (state, action) => {
+        state.error = action.payload;
+      },
+    },
   },
 });
 
