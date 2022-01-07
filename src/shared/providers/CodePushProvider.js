@@ -2,19 +2,20 @@ import React, { createContext } from 'react';
 import codePush from 'react-native-code-push';
 
 const log = (obj, message = '') => {
-  Logger.log(`[CodePushProvider] ${message}`, obj);
+  // Logger.log(`[CodePushProvider] ${message}`, obj);
+  console.log(message);
 };
 
 export const CodePushContext = createContext({});
 
 export const CodePushProvider = ({ children }) => {
   const [progress, setProgress] = React.useState(0);
-  const [codePushSyncStatus, setCodePushStatus] = React.useState(null);
   const [progressComplete, setProgressComplete] = React.useState([]); //object: <id:string, callback: void>
+  const [codePushSyncStatus, setCodePushStatus] = React.useState(0);
 
   // React useEffect
   React.useEffect(() => {
-    codePush.disallowRestart();
+    // codePush.disallowRestart();
     codePushCheck();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,6 +29,7 @@ export const CodePushProvider = ({ children }) => {
     ) {
       codePushProcessComplete();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codePushSyncStatus]);
 
   // CodePush callback
@@ -44,12 +46,10 @@ export const CodePushProvider = ({ children }) => {
 
   const codePushStatusChange = status => {
     if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
-      log(status, 'CodePush Update Installed');
-
       codePush.allowRestart();
       setTimeout(() => {
         codePush.restartApp();
-        codePush.disallowRestart();
+        // codePush.disallowRestart();
       }, 300);
 
       return;
@@ -62,7 +62,7 @@ export const CodePushProvider = ({ children }) => {
     const defaultOption = {
       updateDialog: {
         appendReleaseDescription: true,
-        descriptionPrefix: '\nChange log:\n',
+        descriptionPrefix: '\nUpdate code:\n',
       },
       // installMode: codePush.InstallMode.IMMEDIATE,
     };
@@ -81,12 +81,15 @@ export const CodePushProvider = ({ children }) => {
         resolve('NET_WORK_TIME_OUT');
       }, 10000);
     });
+
     try {
       const update = await new Promise.race([
         codePush.checkForUpdate(),
         timeOutNetWork,
       ]);
+
       log(update, 'checkUpdateCodePush');
+      console.log(update);
 
       if (update && update !== 'NET_WORK_TIME_OUT') {
         // Trường hợp có update
@@ -109,6 +112,7 @@ export const CodePushProvider = ({ children }) => {
         setCodePushStatus(codePush.SyncStatus.UP_TO_DATE);
       }
     } catch (err) {
+      setCodePushStatus(codePush.SyncStatus.UP_TO_DATE);
       console.log('==========> CodePush error:' + err);
     }
   };
@@ -120,11 +124,11 @@ export const CodePushProvider = ({ children }) => {
 
     const isExistedIndex = progressComplete?.findIndex(x => x.id === id);
     if (isExistedIndex >= 0) {
-      let clones = [...progressComplete];
+      let clones = [...(progressComplete || [])];
       clones[isExistedIndex] = { id, delegate };
       setProgressComplete(clones);
     } else {
-      setProgressComplete([...progressComplete, { id, delegate }]);
+      setProgressComplete([...(progressComplete || []), { id, delegate }]);
     }
 
     if (
@@ -132,7 +136,7 @@ export const CodePushProvider = ({ children }) => {
       codePushSyncStatus === codePush.SyncStatus.UPDATE_IGNORED ||
       codePushSyncStatus === codePush.SyncStatus.UNKNOWN_ERROR
     ) {
-      if (typeof delegate === 'function') {
+      if (delegate && typeof delegate === 'function') {
         delegate();
       }
     }

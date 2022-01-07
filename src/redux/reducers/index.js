@@ -19,25 +19,46 @@ import { persistReducer } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import AsyncStorage from "@react-native-community/async-storage";
 
-const rootPersistConfig = {
-  key: "root",
-  storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2,
-  blacklist: [
-    "todoReducer",
-    "storeReducer",
-    "buygiftReducer",
-    "creditAndBankReducer",
-    "appReducer",
-    "appointmentReducer",
-    "cardReducer",
-    "paymentReducer",
-    "inboxReducer",
-    "generalReducer",
-    "bookingReducer",
-  ],
-};
-const rootReducers = combineReducers({
+// const rootPersistConfig = {
+//   key: "root",
+//   storage: AsyncStorage,
+//   stateReconciler: autoMergeLevel2,
+//   blacklist: [
+//     "todoReducer",
+//     "storeReducer",
+//     "buygiftReducer",
+//     "creditAndBankReducer",
+//     "appReducer",
+//     "appointmentReducer",
+//     "cardReducer",
+//     "paymentReducer",
+//     "inboxReducer",
+//     "generalReducer",
+//     "bookingReducer",
+//   ],
+// };
+// const rootReducers = combineReducers({
+//   todoReducer,
+//   datalocalReducer,
+//   storeReducer,
+//   generalReducer,
+//   appointmentReducer,
+//   staffReducer,
+//   bookingReducer,
+//   buygiftReducer,
+//   creditAndBankReducer,
+//   appReducer,
+//   inboxReducer,
+//   customerReducer,
+//   cardReducer,
+//   paymentReducer,
+//   authReducer,
+// });
+// const persistedReducer = persistReducer(rootPersistConfig, rootReducers);
+// export default persistedReducer;
+
+
+module.exports = {
   todoReducer,
   datalocalReducer,
   storeReducer,
@@ -53,6 +74,4 @@ const rootReducers = combineReducers({
   cardReducer,
   paymentReducer,
   authReducer,
-});
-const persistedReducer = persistReducer(rootPersistConfig, rootReducers);
-export default persistedReducer;
+};

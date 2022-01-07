@@ -1,5 +1,5 @@
-import actions from "@redux/actions";
-import ICONS from "assets";
+import actions from '@redux/actions';
+import ICONS from 'assets';
 import {
   Button,
   Container,
@@ -9,29 +9,35 @@ import {
   ModalTransfer,
   Switch,
   Text,
-} from "components";
-import * as RootNavigation from "navigations/RootNavigation";
-import React from "react";
-import { ActivityIndicator, View } from "react-native";
-import Image from "react-native-fast-image";
-import Feather from "react-native-vector-icons/Feather";
-import { useDispatch, useSelector } from "react-redux";
-import { formatNumberFromCurrency, isEmpty, scaleSize } from "utils";
-import styles from "./style";
-import { BoxClick, PopupConditionRemove, PopupRemove } from "./widget";
-import QRCode from "react-native-qrcode-svg";
+} from 'components';
+import * as RootNavigation from 'navigations/RootNavigation';
+import React from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import Image from 'react-native-fast-image';
+import Feather from 'react-native-vector-icons/Feather';
+import { useDispatch, useSelector } from 'react-redux';
+import { formatNumberFromCurrency, isEmpty, scaleSize } from 'utils';
+import styles from './style';
+import { BoxClick, PopupConditionRemove, PopupRemove } from './widget';
+import QRCode from 'react-native-qrcode-svg';
+import { useApi } from './useApi';
 
 const { ButtonSubmit } = Form;
 
 export default function index(props) {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.datalocalReducer.token);
-  const card_more = useSelector((state) => state.cardReducer.card_more);
-  const card_primary = useSelector((state) => state.cardReducer.card_primary);
-  const card_detail = useSelector((state) => state.cardReducer.card_detail);
-  const credits = useSelector((state) => state.creditAndBankReducer.credits);
-  const banks = useSelector((state) => state.creditAndBankReducer.banks);
-  const loading_card_detail = useSelector((state) => state.cardReducer.loading_card_detail);
+
+  const { getUserCard } = useApi();
+
+  const token = useSelector(state => state.datalocalReducer.token);
+  const card_more = useSelector(state => state.cardReducer.card_more);
+  const card_primary = useSelector(state => state.cardReducer.card_primary);
+  const card_detail = useSelector(state => state.cardReducer.card_detail);
+  const credits = useSelector(state => state.creditAndBankReducer.credits);
+  const banks = useSelector(state => state.creditAndBankReducer.banks);
+  const loading_card_detail = useSelector(
+    state => state.cardReducer.loading_card_detail,
+  );
 
   const payments = [...credits, ...banks];
   const { route } = props;
@@ -48,22 +54,30 @@ export default function index(props) {
     userCardId,
   } = card_detail;
 
-  const button_title = title != "My Card" ? "Home Page" : "Add money";
+  const button_title = title != 'My Card' ? 'Home Page' : 'Add money';
 
-  const [isPrimary, setPrimaryCard] = React.useState(primaryCard == 1 ? true : false);
+  const [isPrimary, setPrimaryCard] = React.useState(
+    primaryCard == 1 ? true : false,
+  );
   const [isAuto, setAutoReload] = React.useState(false);
   const [isVisibleCondition, setVisibleCondition] = React.useState(false);
   const [isVisibleRemove, setVisibleRemove] = React.useState(false);
   const [isVisibleTransfer, setVisibleTransfer] = React.useState(false);
   const [isVisibleAutoReload, setVisibleAutoReload] = React.useState(false);
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState('');
 
   const onChangeValuePrimary = React.useCallback(
-    (value) => {
+    value => {
       setPrimaryCard(value);
 
       setTimeout(() => {
-        dispatch(actions.cardAction.update_primary_card(token, Number(value), userCardId));
+        dispatch(
+          actions.cardAction.update_primary_card(
+            token,
+            Number(value),
+            userCardId,
+          ),
+        );
       }, 250);
     },
     [isPrimary],
@@ -78,30 +92,36 @@ export default function index(props) {
     dispatch(actions.creditAndBankAction.get_BankCard(token));
   };
 
-  const transferCard = (body) => {
-    dispatch(actions.cardAction.transfer_card(token, body, onTogglePopupTransfer));
+  const transferCard = body => {
+    dispatch(
+      actions.cardAction.transfer_card(token, body, onTogglePopupTransfer),
+    );
   };
 
-  const autoReloadCard = (body) => {
+  const autoReloadCard = body => {
     setVisibleAutoReload(false);
-    dispatch(actions.cardAction.auto_reload(token, body, userCardId, setAutoReload));
+    dispatch(
+      actions.cardAction.auto_reload(token, body, userCardId, setAutoReload),
+    );
   };
 
   const removeCard = () => {
     setVisibleRemove(false);
-    dispatch(actions.cardAction.remove_Card(token, userCardId, onTogglePopupRemove));
+    dispatch(
+      actions.cardAction.remove_Card(token, userCardId, onTogglePopupRemove),
+    );
   };
 
   const findPaymentReload = () => {
     const query =
       autoReloadCardId != 0
-        ? (item) => item.userCardTokenId == autoReloadCardId
-        : (item) => item.bankAcountId == autoReloadBankId;
+        ? item => item.userCardTokenId == autoReloadCardId
+        : item => item.bankAcountId == autoReloadBankId;
     if (!payments.find(query)) return null;
     return payments.find(query);
   };
 
-  const onChangeValueAuto = (value) => {
+  const onChangeValueAuto = value => {
     if (value) {
       setAutoReload(value);
       onTogglePopupAutoReload();
@@ -118,7 +138,7 @@ export default function index(props) {
   };
 
   const onTogglePopupCondition = React.useCallback(
-    (content) => () => {
+    content => () => {
       setContent(content);
       setVisibleCondition(!isVisibleCondition);
     },
@@ -138,16 +158,16 @@ export default function index(props) {
   }, [isVisibleAutoReload]);
 
   const onBack = () => {
-    RootNavigation.navigate("BottomTab");
+    RootNavigation.navigate('BottomTab');
   };
 
   const addMoney = () => {
     dispatch(actions.cardAction.set_card_reload(card_detail));
-    RootNavigation.navigate("AddMoneyExistCard");
+    RootNavigation.navigate('AddMoneyExistCard');
   };
 
   const addPayment = () => {
-    RootNavigation.navigate("Payments");
+    RootNavigation.navigate('Payments');
   };
 
   const IconTitle = ({ title, icon, styleText }) => {
@@ -162,7 +182,7 @@ export default function index(props) {
   };
   const Loading = () => {
     return (
-      <View style={{ flex: 1, alignItems: "center", paddingTop: 20 }}>
+      <View style={{ flex: 1, alignItems: 'center', paddingTop: 20 }}>
         <ActivityIndicator animating color="#0764b0" size="large" />
       </View>
     );
@@ -172,7 +192,12 @@ export default function index(props) {
 
   return (
     <Container barStyle="dark-content">
-      <Header title={title} headerLeft={iconLeft} headerRight={iconRight} onBack={onBack} />
+      <Header
+        title={title}
+        headerLeft={iconLeft}
+        headerRight={iconRight}
+        onBack={onBack}
+      />
 
       {!loading_card_detail ? (
         <View style={styles.container_center}>
@@ -183,46 +208,69 @@ export default function index(props) {
               style={styles.imageCard}
             />
             <View style={styles.container_price_giftcard}>
-              <Text fontSize={17} style={{ fontWeight: "bold" }} color="#2EBE03">
+              <Text
+                fontSize={17}
+                style={{ fontWeight: 'bold' }}
+                color="#2EBE03">
                 $ {amount}
               </Text>
             </View>
           </View>
 
           <View>
-            <QRCode value={`${card_detail?.userId}#${card_detail?.userCardId}`} size={165} />
+            <QRCode
+              value={`${card_detail?.userId}#${card_detail?.userCardId}`}
+              size={165}
+            />
           </View>
 
           {/* ------------------ primary card ------------------ */}
           <BoxClick disabled={true} style={styles.container_row_space_between}>
-            <IconTitle title="Primary card" icon={ICONS["primary_card_detail"]} />
+            <IconTitle
+              title="Primary card"
+              icon={ICONS['primary_card_detail']}
+            />
 
-            <Switch value={isPrimary} onValueChange={onChangeValuePrimary} color={"#0764B0"} />
+            <Switch
+              value={isPrimary}
+              onValueChange={onChangeValuePrimary}
+              color={'#0764B0'}
+            />
           </BoxClick>
           {/* ------------------ primary card ------------------ */}
 
           {/* ------------------ payment card ------------------ */}
-          <BoxClick onPress={addPayment} style={styles.container_row_space_between}>
-            <IconTitle title="Payments" icon={ICONS["payment_card_detail"]} />
+          <BoxClick
+            onPress={addPayment}
+            style={styles.container_row_space_between}>
+            <IconTitle title="Payments" icon={ICONS['payment_card_detail']} />
 
             {/* <Image source={ICONS["arrow_forward"]} style={styles.icon_arrow} /> */}
-            <Feather name="chevron-right" color="#585858" size={scaleSize(25)} />
+            <Feather
+              name="chevron-right"
+              color="#585858"
+              size={scaleSize(25)}
+            />
           </BoxClick>
           {/* ------------------ payment card ------------------ */}
 
           {/* ------------------ auto reload card ------------------ */}
           <BoxClick disabled={true} style={styles.container_row_space_between}>
             <View style={styles.container_icon_title}>
-              <Image source={ICONS["auto_reload_detail"]} style={styles.icon} />
+              <Image source={ICONS['auto_reload_detail']} style={styles.icon} />
               <View>
                 <View
-                  style={[styles.sub_container_auto_reload, isAutoReload ? { height: "75%" } : {}]}>
+                  style={[
+                    styles.sub_container_auto_reload,
+                    isAutoReload ? { height: '75%' } : {},
+                  ]}>
                   <Text fontSize={16} color="#585858" style={styles.title}>
                     Auto reload
                   </Text>
                   {Boolean(isAutoReload) && (
                     <Text fontSize={13.5} color="#888888" style={styles.title}>
-                      $ {autoReloadAmount} when balance is below $ {autoReloadBelow}
+                      $ {autoReloadAmount} when balance is below ${' '}
+                      {autoReloadBelow}
                     </Text>
                   )}
                 </View>
@@ -231,7 +279,7 @@ export default function index(props) {
             <Switch
               value={Boolean(isAutoReload)}
               onValueChange={onChangeValueAuto}
-              color={"#0764B0"}
+              color={'#0764B0'}
             />
           </BoxClick>
 
@@ -252,11 +300,16 @@ export default function index(props) {
           {/* ------------------ Transfer card ------------------ */}
           <BoxClick
             disabled={true}
-            style={[styles.container_row_space_between, { justifyContent: "flex-start" }]}>
-            <Button disabled={isPrimary ? true : false} onPress={onTogglePopupTransfer}>
+            style={[
+              styles.container_row_space_between,
+              { justifyContent: 'flex-start' },
+            ]}>
+            <Button
+              disabled={isPrimary ? true : false}
+              onPress={onTogglePopupTransfer}>
               <IconTitle
                 title="Transfer balance"
-                icon={ICONS["tranfer_balance_detail"]}
+                icon={ICONS['tranfer_balance_detail']}
                 styleText={{ opacity: isPrimary ? 0.4 : 1 }}
               />
             </Button>
@@ -264,9 +317,12 @@ export default function index(props) {
             <Button
               style={{ marginLeft: scaleSize(6) }}
               onPress={onTogglePopupCondition(
-                "You can only transfer money from supplementary cards to primary card.",
+                'You can only transfer money from supplementary cards to primary card.',
               )}>
-              <Image source={ICONS["info_card_detail"]} style={styles.icon_info_remove} />
+              <Image
+                source={ICONS['info_card_detail']}
+                style={styles.icon_info_remove}
+              />
             </Button>
           </BoxClick>
 
@@ -281,33 +337,38 @@ export default function index(props) {
           {/* ------------------ Transfer card ------------------ */}
 
           {/* ------------------ remove card ------------------ */}
-          <BoxClick disabled={true} style={{ justifyContent: "flex-start" }}>
+          <BoxClick disabled={true} style={{ justifyContent: 'flex-start' }}>
             <Button
               disabled={formatNumberFromCurrency(amount) > 0 ? true : false}
               onPress={onTogglePopupRemove}>
               <IconTitle
                 title="Remove card"
-                icon={ICONS["remove_card_detail"]}
-                styleText={{ opacity: formatNumberFromCurrency(amount) > 0 ? 0.4 : 1 }}
+                icon={ICONS['remove_card_detail']}
+                styleText={{
+                  opacity: formatNumberFromCurrency(amount) > 0 ? 0.4 : 1,
+                }}
               />
             </Button>
 
             <Button
               style={{ marginLeft: scaleSize(6) }}
               onPress={onTogglePopupCondition(
-                "You can only delete when the balance in the card is 0.",
+                'You can only delete when the balance in the card is 0.',
               )}>
-              <Image source={ICONS["info_card_detail"]} style={styles.icon_info_remove} />
+              <Image
+                source={ICONS['info_card_detail']}
+                style={styles.icon_info_remove}
+              />
             </Button>
           </BoxClick>
           {/* ------------------ remove card ------------------ */}
 
-          <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
             <ButtonSubmit
               title={button_title}
               width={350}
               height={50}
-              onSubmit={title == "My Card" ? addMoney : onBack}
+              onSubmit={title == 'My Card' ? addMoney : onBack}
             />
           </View>
         </View>
@@ -316,7 +377,7 @@ export default function index(props) {
       )}
 
       <PopupConditionRemove
-        onRequestClose={onTogglePopupCondition("")}
+        onRequestClose={onTogglePopupCondition('')}
         isVisible={isVisibleCondition}
         content={content}
       />

@@ -7,7 +7,6 @@ import { AxiosProvider } from '@shared/providers';
 import { Loading, RootComponent } from 'components';
 import * as React from 'react';
 import { StatusBar } from 'react-native';
-import codePush from 'react-native-code-push';
 import 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SplashScreen from 'react-native-splash-screen';
@@ -15,7 +14,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { AuthStack, MainStack } from './navigations';
 import { isMountedRef, navigationRef } from './navigations/RootNavigation';
-import { persistor, store } from './redux/store';
+import configureStore from './redux/store';
+
+const { persistor, store } = configureStore();
 
 if (__DEV__) {
   import('../ReactotronConfig.js').then(() =>
@@ -41,7 +42,7 @@ function SwitchNavigator() {
   );
 }
 
-const App: () => React$Node = () => {
+export default App = () => {
   const [isShowKeyBoard, setShowKeyBoard] = React.useState(false);
 
   const handleKeyBoardShow = e => setShowKeyBoard(true);
@@ -83,6 +84,3 @@ const App: () => React$Node = () => {
     </React.Fragment>
   );
 };
-
-let codePushOptions = { checkFrequency: codePush.CheckFrequency.MANUAL };
-export default codePush(codePushOptions)(App);
