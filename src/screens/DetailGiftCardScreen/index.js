@@ -51,6 +51,7 @@ export default function index(props) {
     autoReloadBankId,
     userCardId,
   } = card_detail;
+
   const { getUserCard } = useApi({
     userCardId,
     callBack: (key, data) => {
@@ -99,11 +100,15 @@ export default function index(props) {
     isEmpty(payments) && fetchListCreditAndBankCard();
   }, []);
 
+  React.useEffect(() => {
+    if (userCardId) {
+      getUserCard();
+    }
+  }, [userCardId]);
+
   const fetchListCreditAndBankCard = () => {
     dispatch(actions.creditAndBankAction.get_creditCard(token));
     dispatch(actions.creditAndBankAction.get_BankCard(token));
-
-    getUserCard();
   };
 
   const transferCard = body => {
