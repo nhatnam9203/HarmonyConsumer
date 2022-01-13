@@ -55,8 +55,8 @@ const ScrollableTabView = createReactClass({
       tabBarPosition: 'top',
       initialPage: 0,
       page: -1,
-      onChangeTab: () => {},
-      onScroll: () => {},
+      onChangeTab: () => { },
+      onScroll: () => { },
       contentProps: {},
       scrollWithoutAnimation: false,
       locked: false,
@@ -174,7 +174,7 @@ const ScrollableTabView = createReactClass({
   updateSceneKeys({
     page,
     children = this.props.children,
-    callback = () => {},
+    callback = () => { },
   }) {
     let newKeys = this.newSceneKeys({
       previousKeys: this.state.sceneKeys,
