@@ -27,6 +27,8 @@ function* getCardByUser(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     if (action.cb) {
       action.cb(false);
@@ -72,6 +74,8 @@ function* getCardById(action) {
         yield put({
           type: "TRANSACTION_FAILED",
         });
+        console.log(error);
+
         break;
     }
   } finally {
@@ -119,6 +123,8 @@ function* addCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -173,6 +179,8 @@ function* addMoneyToCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
     yield put({ type: "STOP_FETCH_API" });
   }
 }
@@ -217,6 +225,8 @@ function* autoReload(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -255,6 +265,8 @@ function* updatePrimaryCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -298,6 +310,8 @@ function* transferCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     action.cb();
     yield put({ type: "STOP_FETCH_API" });
@@ -338,6 +352,8 @@ function* removeCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     // action.cb();
     yield put({ type: "STOP_FETCH_API" });
@@ -366,6 +382,8 @@ function* sendLinkInvite(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }

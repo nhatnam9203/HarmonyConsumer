@@ -37,6 +37,7 @@ export default function index(props) {
     state => state.cardReducer.loading_card_detail,
   );
 
+
   const payments = [...credits, ...banks];
   const { route } = props;
   const { title, iconLeft, iconRight } = route.params;
@@ -98,6 +99,10 @@ export default function index(props) {
 
   React.useEffect(() => {
     isEmpty(payments) && fetchListCreditAndBankCard();
+
+    return () => {
+      dispatch(actions.cardAction.set_card_detail(null));
+    }
   }, []);
 
   React.useEffect(() => {
@@ -105,6 +110,13 @@ export default function index(props) {
       getUserCard();
     }
   }, [userCardId]);
+
+  // React.useEffect(() => {
+  //   if (appUpdate && userCardId) {
+  //     getUserCard();
+
+  //   }
+  // }, [appUpdate])
 
   const fetchListCreditAndBankCard = () => {
     dispatch(actions.creditAndBankAction.get_creditCard(token));

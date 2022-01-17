@@ -565,14 +565,12 @@
 				"${PODS_ROOT}/Target Support Files/Pods-harmonypay/Pods-harmonypay-frameworks.sh",
 				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,14 +722,12 @@
 				"${PODS_ROOT}/Target Support Files/Pods-harmonypay-staging/Pods-harmonypay-staging-frameworks.sh",
 				"${PODS_ROOT}/HGTwitterKit/iOS/TwitterKit.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1044,7 +1040,7 @@
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1151,7 +1147,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 3.9.9;
+				MARKETING_VERSION = 3.9.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1178,7 +1174,7 @@
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = harmonypay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1273,7 +1269,7 @@
 					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
 					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
 				);
-				MARKETING_VERSION = 3.9.9;
+				MARKETING_VERSION = 3.9.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1281,7 +1277,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer;
 				PRODUCT_NAME = "Harmony Pay";
-				PROVISIONING_PROFILE_SPECIFIER = HarmonyConsumer;
+				PROVISIONING_PROFILE_SPECIFIER = HarmonyConsumerHP;
 				SWIFT_OBJC_BRIDGING_HEADER = "harmonypay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

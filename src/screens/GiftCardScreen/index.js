@@ -10,6 +10,7 @@ import { Header, GiftCardTabBar, StatusBar, Text, FocusAwareStatusBar } from "co
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
 import { scaleSize } from "utils";
+import { app } from "@redux/slices"
 
 const tabs = [
   { name: "My cards", url: ICONS["my_card_tab"] },
@@ -24,6 +25,7 @@ export default function index(props) {
   const card_more = useSelector((state) => state.cardReducer.card_more);
   const card_primary = useSelector((state) => state.cardReducer.card_primary);
   const loading_card = useSelector((state) => state.creditAndBankReducer.loading_card);
+  const appUpdate = useSelector(state => state.app.appCallUpdate);
 
   const _card_more = React.useMemo(() => [...card_more, { giftCardId: -1 }], [card_more]);
 
@@ -58,6 +60,12 @@ export default function index(props) {
     setRefresh(true);
     dispatch(actions.cardAction.get_card_by_user(token, userInfo.userId, setRefresh));
   };
+
+  React.useEffect(() => {
+    if (appUpdate) {
+      getCardByUser();
+    }
+  }, [appUpdate])
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F7F7F7" }}>

@@ -11,11 +11,18 @@ function cardReducer(state = initialState, action) {
     case "SET_CARDS":
       const card_primary = action.payload.find((item) => item.primaryCard == 1);
       const card_more = action.payload.filter((item) => item.primaryCard == 0);
+
+      let card_detail = state.card_detail;
+      if (card_detail?.userCardId) {
+        card_detail = action.payload.find((item) => item.userCardId === card_detail.userCardId)
+      }
+
       return {
         ...state,
         cards: action.payload,
         card_primary: card_primary ? card_primary : null,
         card_more: card_more,
+        card_detail: card_detail
       };
 
     case "SET_CARD_RELOAD":

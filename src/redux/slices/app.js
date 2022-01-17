@@ -9,6 +9,7 @@ const initialState = {
   deviceName: null,
   merchantID: null,
   rememberMID: false,
+  appCallUpdate: null
 };
 
 let appSlice = createSlice({
@@ -46,6 +47,11 @@ let appSlice = createSlice({
         state.error = action.payload;
       },
     },
+    updateApp: {
+      reducer: (state, action) => {
+        state.appCallUpdate = action.payload;
+      },
+    }
   },
 });
 
