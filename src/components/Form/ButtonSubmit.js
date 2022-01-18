@@ -1,17 +1,27 @@
-import React from "react";
-import Button from "../Button";
-import Text from "../Text";
-import PropTypes from "prop-types";
-import { scaleSize } from "utils";
-import Configs from "configs";
-import { Platform } from "react-native";
+import React from 'react';
+import Button from '../Button';
+import Text from '../Text';
+import PropTypes from 'prop-types';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
+import { Platform } from 'react-native';
 const {
   COLORS: { COLOR_MAIN_APP, WHITE },
   FONTSIZE: { regular },
 } = Configs;
+
 export default function ButtonSubmit(props) {
-  const { title, onSubmit, width, height, backgroundColor, textColor, disabled, style, styleText } =
-    props;
+  const {
+    title,
+    onSubmit,
+    width,
+    height,
+    backgroundColor,
+    textColor,
+    disabled,
+    style,
+    styleText,
+  } = props;
   return (
     <Button
       disabled={disabled}
@@ -28,7 +38,7 @@ export default function ButtonSubmit(props) {
       <Text
         style={[
           {
-            fontWeight: Platform.OS === "ios" ? "600" : "bold",
+            fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
           },
           styleText,
         ]}
@@ -49,7 +59,7 @@ ButtonSubmit.propTypes = {
 };
 ButtonSubmit.defaultProps = {
   onSubmit: null,
-  title: "",
+  title: '',
   width: 350,
   height: 50,
   backgroundColor: COLOR_MAIN_APP,

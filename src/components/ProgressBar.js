@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
-import { scaleWidth, scaleHeight } from "utils";
-import LinearGradient from "react-native-linear-gradient";
-import ConFigs from "configs";
+import React, { Component } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { scaleWidth, scaleHeight } from 'utils';
+import LinearGradient from 'react-native-linear-gradient';
+import Configs from '@src/configs';
 
 const {
   COLORS: { DRAWER, COLOR_MAIN_APP },
-} = ConFigs;
+} = Configs;
 
 export default class ProgressBar extends Component {
   render() {
@@ -24,7 +24,7 @@ export default class ProgressBar extends Component {
 
 const styles = StyleSheet.create({
   track: {
-    width: "100%",
+    width: '100%',
     height: scaleHeight(0.85),
     borderRadius: scaleWidth(5),
     borderWidth: 0,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   thumb: (percent, colorThumb) => {
     return {
       width: `${percent}%`,
-      height: "100%",
+      height: '100%',
       backgroundColor: colorThumb,
       borderRadius: scaleWidth(12),
       borderWidth: 0,

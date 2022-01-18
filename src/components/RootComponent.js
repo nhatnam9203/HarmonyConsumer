@@ -23,6 +23,7 @@ import Modal from "./Modal2";
 import PopupUpdate from "./PopupUpdate";
 import IMAGES from "assets";
 import messaging from "@react-native-firebase/messaging";
+import { app } from '@redux/slices'
 
 var PushNotification = require("react-native-push-notification");
 
@@ -103,7 +104,7 @@ const RootComponent = ({ children }) => {
                 CodePush.disallowRestart();
               }
             },
-            (progress) => {},
+            (progress) => { },
           );
         }
       } else {
@@ -124,20 +125,20 @@ const RootComponent = ({ children }) => {
     };
     CodePush.sync(
       options,
-      (status) => {},
-      (progress) => {},
+      (status) => { },
+      (progress) => { },
     );
   };
 
   const configNotification = () => {
     PushNotification.configure({
-      onRegister: function (token) {},
+      onRegister: function (token) { },
 
-      onNotification: function (notification) {},
+      onNotification: function (notification) { },
 
-      onAction: function (notification) {},
+      onAction: function (notification) { },
 
-      onRegistrationError: function (err) {},
+      onRegistrationError: function (err) { },
       permissions: {
         alert: true,
         badge: true,
@@ -212,7 +213,8 @@ const RootComponent = ({ children }) => {
       messageJson.type == "appointment_update_status" ||
       messageJson.type == "pay" ||
       messageJson.type == "cancel_pay" ||
-      messageJson.type == "update_pay"
+      messageJson.type == "update_pay" ||
+      messageJson.type == "update_consumer"
     ) {
       if (isInbox) {
         PushNotification.localNotification({
@@ -324,11 +326,12 @@ const RootComponent = ({ children }) => {
   };
 
   const getMyAppointmentList = () => {
-    dispatch(actions.appointmentAction?.getAppointmentUpcoming(token, () => {}));
+    dispatch(actions.appointmentAction?.getAppointmentUpcoming(token, () => { }));
     dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
   };
 
   const receiveMessage = (messageJson) => {
+    console.log(messageJson);
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === "update_data" ||
@@ -338,10 +341,15 @@ const RootComponent = ({ children }) => {
         messageJson.type === "cancel" ||
         messageJson.type === "appointment_update_status"
       ) {
-        dispatch(actions.appointmentAction?.getAppointmentUpcoming(token, () => {}));
+        dispatch(actions.appointmentAction?.getAppointmentUpcoming(token, () => { }));
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
         dispatch(actions.appointmentAction?.getDetailAppointment(token, messageJson.id));
       }
+
+      if (messageJson.type === "update_consumer") {
+        dispatch(app.updateApp(messageJson));
+      }
+
       if (messageJson.type === "appointment_add") {
         getMyAppointmentList();
       }
@@ -357,8 +365,8 @@ const RootComponent = ({ children }) => {
         dispatch(actions.paymentAction.get_number_invoice(token));
       }
       if (messageJson.type === "order" || messageJson.type === "appointment_update_status") {
-        dispatch(actions.customerAction?.getPoint(1, timezone, token, () => {}));
-        dispatch(actions.customerAction?.getPointUsed(1, timezone, token, () => {}));
+        dispatch(actions.customerAction?.getPoint(1, timezone, token, () => { }));
+        dispatch(actions.customerAction?.getPointUsed(1, timezone, token, () => { }));
         dispatch(actions.customerAction?.getRewardProfile(token));
         getMyAppointmentList();
       }

@@ -1,17 +1,17 @@
-import { StyleSheet } from "react-native";
-import { scaleSize } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
 const styles = StyleSheet.create({
   container_giftcard: {
     marginTop: scaleSize(30),
-    width: "100%",
+    width: '100%',
     height: scaleSize(140),
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     //overFlow:'hidden',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 5,
@@ -24,27 +24,27 @@ const styles = StyleSheet.create({
   container_center: {
     paddingHorizontal: scaleSize(15),
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   wrapper_input: {
-    width: "100%",
+    width: '100%',
     height: scaleSize(91),
   },
 
   line_bottom: {
-    width: "100%",
+    width: '100%',
     height: scaleSize(25),
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginBottom: scaleSize(20),
   },
   image: {
     width: scaleSize(24),
     height: scaleSize(24),
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
   button_position: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
     bottom: scaleSize(40),
   },
@@ -55,20 +55,20 @@ const styles = StyleSheet.create({
   },
   container_radio_button: {
     marginTop: scaleSize(30),
-    justifyContent: "flex-start",
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
   },
   button_submit: {
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     flex: 1,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     marginBottom: scaleSize(30),
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 });
 

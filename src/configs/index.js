@@ -1,8 +1,12 @@
-import { Dimensions, Platform } from "react-native";
-const { width } = Dimensions.get("window");
-const configs = {
-  VERSION: Platform.OS == "android" ? "2.2.7" : "3.9.9",
-  IS_PLATFORM: Platform.OS == "android" ? "android" : "ios",
+import { Dimensions, Platform } from 'react-native';
+const { width } = Dimensions.get('window');
+import { getVersion } from 'react-native-device-info';
+import EvnConfigs from 'react-native-config';
+
+const AppConfigs = {
+  // VERSION: Platform.OS == 'android' ? '2.2.7' : '3.9.9',
+  VERSION: getVersion(),
+  IS_PLATFORM: Platform.OS == 'android' ? 'android' : 'ios',
   DEFAULT_WIDTH: 414,
   DEFAULT_HEIGHT: 736,
   CARD_HEIGHT: 220,
@@ -11,15 +15,15 @@ const configs = {
   FULL_WIDTH: width,
   // app's color
   COLORS: {
-    RED: "#ED1C24",
-    COLOR_MAIN_APP: "#0764b0",
-    DRAWER: "#1C98C9",
-    WHITE: "rgb(245, 245, 245)",
-    ORANGE: "#FFB700",
-    BLACK: "#404040",
-    GREY: "#888888",
-    GREEN: "#3BFF00",
-    INPUT: "#C5C5C5",
+    RED: '#ED1C24',
+    COLOR_MAIN_APP: '#0764b0',
+    DRAWER: '#1C98C9',
+    WHITE: 'rgb(245, 245, 245)',
+    ORANGE: '#FFB700',
+    BLACK: '#404040',
+    GREY: '#888888',
+    GREEN: '#3BFF00',
+    INPUT: '#C5C5C5',
   },
   //fontsize
   FONTSIZE: {
@@ -33,4 +37,11 @@ const configs = {
   },
 };
 
-export default configs;
+// const Configs = Object.assign(EvnConfigs, AppConfigs, {
+//   API_URL: 'https://dev.harmonypayment.com/api/',
+//   SOCKET_URL: 'https://signalr-stage.harmonypayment.com/merchantNotification/',
+// });
+
+const Configs = Object.assign({}, AppConfigs, EvnConfigs);
+
+export default Configs;

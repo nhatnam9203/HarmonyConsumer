@@ -1,43 +1,48 @@
-import { put, takeLatest, all, delay, select } from "redux-saga/effects";
-import { requestAPI, upload } from "utils";
-import * as RootNavigation from "navigations/RootNavigation";
-import { getUniqueId } from "react-native-device-info";
+import { put, takeLatest, all, delay, select, call } from 'redux-saga/effects';
+import { requestAPI, upload } from 'utils';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { getUniqueId } from 'react-native-device-info';
+import { saveAuthToken, clearAuthToken } from '@storages/authToken';
 
 function* login(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
 
     switch (parseInt(response.codeNumber)) {
       case 200:
+        yield call(saveAuthToken, response?.data?.token);
+
         yield put({
-          type: "LOGIN_SUCCESS",
+          type: 'LOGIN_SUCCESS',
           token: response.data.token,
           // token : "LAPVZggPoc1HnOmCy8OCRH0yf5FsiwAgyxHR0cE2RJekYLfD5sgzE0whYghNeJ3z//RWJQDmVhV6a1Km2sdjqrN+h2xwZvWPl19mGYInRz2RKlbjj8JXZVjMH2OES5z84R8YTztXKw97LGogMcsttbGB5fU3aOF/CCKXEnUiAmY=",
           userInfo: response.data,
           password: action.body.password,
         });
         yield put({
-          type: "AUTH_SUCCESS",
+          type: 'AUTH_SUCCESS',
           userInfo: response.data,
         });
-        RootNavigation.navigate("Main", { screen: "Home" });
+
+        RootNavigation.navigate('Main', { screen: 'Home' });
         action.cb();
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         action.cb();
         break;
     }
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   } catch (e) {
-    yield put({ type: "STOP_FETCH_API" });
+    console.log(e);
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* loginSocial(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
 
     switch (parseInt(response.codeNumber)) {
@@ -49,11 +54,11 @@ function* loginSocial(action) {
         const { isVerified } = response.data;
         if (isVerified == 1) {
           yield put({
-            type: "LOGIN_SUCCESS",
+            type: 'LOGIN_SUCCESS',
             token: response.data.token,
             userInfo: response.data,
           });
-          RootNavigation.navigate("Main", { screen: "Home" });
+          RootNavigation.navigate('Main', { screen: 'Home' });
         } else {
           action.cb({
             data: response.data,
@@ -62,38 +67,38 @@ function* loginSocial(action) {
         }
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   } catch (e) {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* quickLogin(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
 
     switch (parseInt(response.codeNumber)) {
       case 200:
         yield put({
-          type: "QUICK_LOGIN_SUCCESS",
+          type: 'QUICK_LOGIN_SUCCESS',
           token: response.data.token,
           userInfo: response.data,
         });
-        RootNavigation.navigate("Main", { screen: "Home" });
+        RootNavigation.navigate('Main', { screen: 'Home' });
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
     action.cb(false);
   } catch (e) {
     action.cb(false);
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
@@ -103,11 +108,13 @@ function* logout(action) {
     switch (parseInt(response.codeNumber)) {
       case 200:
         yield put({
-          type: "LOGOUT_SUCCESS",
+          type: 'LOGOUT_SUCCESS',
         });
+        yield call(clearAuthToken);
+
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
@@ -117,7 +124,7 @@ function* logout(action) {
 
 function* phoneHasSignin(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
@@ -127,12 +134,12 @@ function* phoneHasSignin(action) {
         action.cb(false);
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
@@ -144,7 +151,7 @@ function* checkPassword(action) {
         action.cb(true);
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         action.cb(false);
         break;
     }
@@ -161,7 +168,7 @@ function* getCustomerByPhone(action) {
       case 200:
         const data = {
           ...response.data,
-          phone: "+" + action.phone,
+          phone: '+' + action.phone,
         };
         action.handleFoundPhoneNumber(data);
         break;
@@ -170,7 +177,7 @@ function* getCustomerByPhone(action) {
         break;
       default:
         if (response.message) {
-          yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         }
         action.handleNotFoundPhoneNumber();
         break;
@@ -180,7 +187,7 @@ function* getCustomerByPhone(action) {
 
 function* verifyPhoneCustomer(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
 
     switch (parseInt(response.codeNumber)) {
@@ -191,19 +198,19 @@ function* verifyPhoneCustomer(action) {
       default:
         action.cb({ verifyPhoneId: null });
         if (response.message) {
-          yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         }
         break;
     }
   } catch (e) {
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* verifyPhoneCode(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
@@ -212,18 +219,19 @@ function* verifyPhoneCode(action) {
 
       default:
         action.cb({ success: false });
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* createCustomer(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
@@ -235,31 +243,32 @@ function* createCustomer(action) {
             deviceId: getUniqueId(),
           };
           yield put({
-            type: "LOGIN",
-            method: "POST",
-            route: "user/login",
+            type: 'LOGIN',
+            method: 'POST',
+            route: 'user/login',
             body,
             cb: () => {},
           });
         } else {
           action.cb(response.data);
-          yield put({ type: "STOP_FETCH_API" });
+          yield put({ type: 'STOP_FETCH_API' });
         }
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
-        yield put({ type: "STOP_FETCH_API" });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
+        yield put({ type: 'STOP_FETCH_API' });
         break;
     }
   } catch (e) {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* updateCustomer(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
@@ -267,7 +276,8 @@ function* updateCustomer(action) {
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         action.cb();
         break;
     }
@@ -284,15 +294,19 @@ function* getCustomerById(action) {
         if (action.cb) {
           action.cb();
         }
-        if (action.typeFetch == "sender") {
-          yield put({ type: "SET_SENDER", payload: response.data });
+        if (action.typeFetch == 'sender') {
+          yield put({ type: 'SET_SENDER', payload: response.data });
         } else {
-          yield put({ type: "UPDATE_CUSTOMER_SUCCESS", payload: response.data });
+          yield put({
+            type: 'UPDATE_CUSTOMER_SUCCESS',
+            payload: response.data,
+          });
         }
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         if (action.cb) {
           action.cb();
         }
@@ -300,7 +314,7 @@ function* getCustomerById(action) {
     }
   } catch (e) {
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
@@ -309,7 +323,7 @@ function* changePincode(action) {
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
-        const userInfo = yield select((state) => state.datalocalReducer.userInfo);
+        const userInfo = yield select(state => state.datalocalReducer.userInfo);
         const { phone } = userInfo;
         const body = {
           phone,
@@ -318,15 +332,16 @@ function* changePincode(action) {
         };
         action.cb();
         yield put({
-          type: "UPDATE_PINCODE_SUCCESS",
-          method: "POST",
-          route: "user/login",
+          type: 'UPDATE_PINCODE_SUCCESS',
+          method: 'POST',
+          route: 'user/login',
           body,
         });
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {}
@@ -338,18 +353,18 @@ function* updatePincodeSuccess(action) {
     switch (parseInt(response.codeNumber)) {
       case 200:
         yield put({
-          type: "LOGIN_SUCCESS",
+          type: 'LOGIN_SUCCESS',
           token: response.data.token,
           userInfo: response.data,
           password: action.body.password,
         });
         yield put({
-          type: "AUTH_SUCCESS",
+          type: 'AUTH_SUCCESS',
           userInfo: response.data,
         });
         break;
       default:
-        yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {}
@@ -357,7 +372,7 @@ function* updatePincodeSuccess(action) {
 
 function* uploadAvatar(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield upload(action.route, action.body);
     switch (parseInt(response.data ? response.data.codeNumber : 0)) {
       case 200:
@@ -366,18 +381,19 @@ function* uploadAvatar(action) {
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* forgotPassword(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
@@ -386,18 +402,19 @@ function* forgotPassword(action) {
 
       default:
         action.cb(false);
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
   } finally {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
 function* setPassword(action) {
   try {
-    yield put({ type: "START_FETCH_API" });
+    yield put({ type: 'START_FETCH_API' });
     const response = yield requestAPI(action);
 
     switch (parseInt(response.codeNumber)) {
@@ -409,26 +426,27 @@ function* setPassword(action) {
             deviceId: getUniqueId(),
           };
           yield put({
-            type: "LOGIN",
-            method: "POST",
-            route: "user/login",
+            type: 'LOGIN',
+            method: 'POST',
+            route: 'user/login',
             body,
             cb: () => {},
           });
         } else {
           alert(response.message);
           action.cb();
-          yield put({ type: "STOP_FETCH_API" });
+          yield put({ type: 'STOP_FETCH_API' });
         }
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
-        yield put({ type: "STOP_FETCH_API" });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
+        yield put({ type: 'STOP_FETCH_API' });
         break;
     }
   } catch (e) {
-    yield put({ type: "STOP_FETCH_API" });
+    yield put({ type: 'STOP_FETCH_API' });
   }
 }
 
@@ -441,7 +459,8 @@ function* checkEmail(action) {
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
@@ -454,18 +473,19 @@ function* updateAccount(action) {
     const response = yield requestAPI(action);
     switch (parseInt(response.codeNumber)) {
       case 200:
-        const userInfo = yield select((state) => state.datalocalReducer.userInfo);
+        const userInfo = yield select(state => state.datalocalReducer.userInfo);
         const { userId } = userInfo;
         yield put({
-          type: "GET_CUSTOMER_BY_ID",
-          method: "GET",
+          type: 'GET_CUSTOMER_BY_ID',
+          method: 'GET',
           route: `user/${userId}`,
           token: action.token,
         });
         break;
 
       default:
-        if (response.message) yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+        if (response.message)
+          yield put({ type: 'SHOW_POPUP_ERROR', content: response.message });
         break;
     }
   } catch (e) {
@@ -476,24 +496,24 @@ function* updateAccount(action) {
 // -------------- Handle Error ------------
 
 function* timeout(action) {
-  yield put({ type: "SHOW_POPUP_ERROR", content: "Server not response!" });
+  yield put({ type: 'SHOW_POPUP_ERROR', content: 'Server not response!' });
 }
 
 function* expiredToken(action) {
-  yield put({ type: "SHOW_POPUP_ERROR", content: action.message });
-  yield put({ type: "LOGOUT" });
+  yield put({ type: 'SHOW_POPUP_ERROR', content: action.message });
+  yield put({ type: 'LOGOUT' });
 }
 
 function* handleSomethingWentWrong(action) {
-  yield put({ type: "SHOW_POPUP_ERROR", content: "Something went wrong!" });
+  yield put({ type: 'SHOW_POPUP_ERROR', content: 'Something went wrong!' });
 }
 
 function* handleTransactionFailed(action) {
   try {
     yield put({
-      type: "SHOW_POPUP_ERROR",
+      type: 'SHOW_POPUP_ERROR',
       content:
-        "Your transaction could not be completed, please try again and send feedback to the Harmony team if you continue to see this message.",
+        'Your transaction could not be completed, please try again and send feedback to the Harmony team if you continue to see this message.',
     });
   } catch (error) {
     yield put({ type: error });
@@ -502,29 +522,29 @@ function* handleTransactionFailed(action) {
 
 function* mySaga() {
   yield all([
-    takeLatest("LOGIN", login),
-    takeLatest("LOGIN_SOCIAL", loginSocial),
-    takeLatest("GET_CUSTOMER_BY_PHONE", getCustomerByPhone),
-    takeLatest("VERIFY_PHONE_CUSTOMER", verifyPhoneCustomer),
-    takeLatest("VERIFY_PHONE_CODE", verifyPhoneCode),
-    takeLatest("CREATE_CUSTOMER", createCustomer),
-    takeLatest("UPDATE_CUSTOMER", updateCustomer),
-    takeLatest("CHANGE_PINCODE", changePincode),
-    takeLatest("UPLOAD_AVATAR", uploadAvatar),
-    takeLatest("FORGOT_PASSWORD", forgotPassword),
-    takeLatest("TIME_OUT", timeout),
-    takeLatest("UNAUTHORIZED", expiredToken),
-    takeLatest("SOMETHING_WENT_WRONG", handleSomethingWentWrong),
-    takeLatest("TRANSACTION_FAILED", handleTransactionFailed),
-    takeLatest("GET_CUSTOMER_BY_ID", getCustomerById),
-    takeLatest("CHECK_PASSWORD", checkPassword),
-    takeLatest("QUICK_LOGIN", quickLogin),
-    takeLatest("PHONE_HAS_SIGNIN", phoneHasSignin),
-    takeLatest("SET_PASSWORD", setPassword),
-    takeLatest("CHECK_EMAIL", checkEmail),
-    takeLatest("LOGOUT", logout),
-    takeLatest("UPDATE_PINCODE_SUCCESS", updatePincodeSuccess),
-    takeLatest("UPDATE_ACCOUNT", updateAccount),
+    takeLatest('LOGIN', login),
+    takeLatest('LOGIN_SOCIAL', loginSocial),
+    takeLatest('GET_CUSTOMER_BY_PHONE', getCustomerByPhone),
+    takeLatest('VERIFY_PHONE_CUSTOMER', verifyPhoneCustomer),
+    takeLatest('VERIFY_PHONE_CODE', verifyPhoneCode),
+    takeLatest('CREATE_CUSTOMER', createCustomer),
+    takeLatest('UPDATE_CUSTOMER', updateCustomer),
+    takeLatest('CHANGE_PINCODE', changePincode),
+    takeLatest('UPLOAD_AVATAR', uploadAvatar),
+    takeLatest('FORGOT_PASSWORD', forgotPassword),
+    takeLatest('TIME_OUT', timeout),
+    takeLatest('UNAUTHORIZED', expiredToken),
+    takeLatest('SOMETHING_WENT_WRONG', handleSomethingWentWrong),
+    takeLatest('TRANSACTION_FAILED', handleTransactionFailed),
+    takeLatest('GET_CUSTOMER_BY_ID', getCustomerById),
+    takeLatest('CHECK_PASSWORD', checkPassword),
+    takeLatest('QUICK_LOGIN', quickLogin),
+    takeLatest('PHONE_HAS_SIGNIN', phoneHasSignin),
+    takeLatest('SET_PASSWORD', setPassword),
+    takeLatest('CHECK_EMAIL', checkEmail),
+    takeLatest('LOGOUT', logout),
+    takeLatest('UPDATE_PINCODE_SUCCESS', updatePincodeSuccess),
+    takeLatest('UPDATE_ACCOUNT', updateAccount),
   ]);
 }
 export default mySaga;

@@ -1,10 +1,10 @@
-import React from "react";
-import { View } from "react-native";
-import { Card, Text, Button, LazyImage, ProgressiveImage } from "components";
-import ICONS from "assets";
-import Image from "react-native-fast-image";
-import styles from "../styles";
-import Configs from "configs";
+import React from 'react';
+import { View } from 'react-native';
+import { Card, Text, Button, LazyImage, ProgressiveImage } from 'components';
+import ICONS from 'assets';
+import Image from 'react-native-fast-image';
+import styles from '../styles';
+import Configs from '@src/configs';
 const { CARD_WIDTH } = Configs;
 
 const GiftCard = ({ onaddMoney, onAddCard, card }) => {
@@ -27,13 +27,16 @@ const GiftCard = ({ onaddMoney, onAddCard, card }) => {
 
         <View style={styles.body_card_right}>
           <Button onPress={onaddMoney} style={styles.button_add_card}>
-            <Image style={styles.icon_button} source={ICONS["card_placeholder"]} />
+            <Image style={styles.icon_button} source={ICONS.card_placeholder} />
             <Text color="#888888" fontSize={10}>
               Add money
             </Text>
           </Button>
           <Button onPress={onAddCard} style={styles.button_add_card}>
-            <Image style={styles.icon_button} source={ICONS["giftcard_placeholder"]} />
+            <Image
+              style={styles.icon_button}
+              source={ICONS.giftcard_placeholder}
+            />
             <Text color="#888888" fontSize={10}>
               Add a card
             </Text>
@@ -48,8 +51,12 @@ const ImageCard = React.memo(({ imageUrl }) => {
   return (
     <ProgressiveImage
       style={styles.img_card_left}
-      source={imageUrl ? { uri: imageUrl, priority: Image.priority.high } : ICONS["card_sample"]}
-      thumbnailSource={ICONS["card_sample"]}
+      source={
+        imageUrl
+          ? { uri: imageUrl, priority: Image.priority.high }
+          : ICONS.card_sample
+      }
+      thumbnailSource={ICONS.card_sample}
     />
   );
 });

@@ -1,27 +1,27 @@
-import { StyleSheet } from "react-native";
-import { scaleSize } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
 const styles = StyleSheet.create({
   container_center: {
     paddingHorizontal: scaleSize(16),
-    alignItems: "center",
+    alignItems: 'center',
   },
   container_title: {
     width: scaleSize(382),
     height: scaleSize(50),
-    justifyContent: "center",
+    justifyContent: 'center',
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    borderColor: "#eeeeee",
+    borderColor: '#eeeeee',
     marginTop: scaleSize(17),
   },
 
   container_button: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: scaleSize(20),
   },
 });

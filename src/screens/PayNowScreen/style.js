@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { scaleSize } from "utils";
-import Configs from "configs";
+import Configs from "@src/configs";
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;

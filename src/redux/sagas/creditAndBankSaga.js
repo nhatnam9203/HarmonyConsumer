@@ -79,6 +79,8 @@ function* addCreditCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -162,6 +164,8 @@ function* removeBankCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+
+    console.log(error);
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }

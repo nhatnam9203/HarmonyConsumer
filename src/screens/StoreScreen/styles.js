@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
-import { scaleSize, scaleWidth } from "utils";
-import Configs from "configs";
+import { StyleSheet } from 'react-native';
+import { scaleSize, scaleWidth } from 'utils';
+import Configs from '@src/configs';
 const {
   COLORS: { INPUT },
 } = Configs;
@@ -12,15 +12,15 @@ const styles = StyleSheet.create({
   tabs: {},
   container_header: {
     // height: scaleSize(130),
-    backgroundColor: "#F8F8F8",
-    alignItems: "center",
+    backgroundColor: '#F8F8F8',
+    alignItems: 'center',
     paddingTop: scaleSize(20),
     borderBottomWidth: 0.5,
-    borderBottomColor: "#eeeeee",
+    borderBottomColor: '#eeeeee',
   },
   containerButton: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: scaleWidth(94),
     marginTop: scaleSize(20),
   },

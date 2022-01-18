@@ -102,6 +102,8 @@ function* getContacts(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -145,6 +147,8 @@ function* postTemplateCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -177,6 +181,8 @@ function* sendGiftCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
@@ -231,6 +237,8 @@ function* claimGiftCard(action) {
     yield put({
       type: "TRANSACTION_FAILED",
     });
+    console.log(error);
+
   } finally {
     yield put({ type: "STOP_FETCH_API" });
   }
