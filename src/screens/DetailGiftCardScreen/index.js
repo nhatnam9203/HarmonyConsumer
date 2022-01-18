@@ -12,7 +12,7 @@ import {
 } from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, ScrollView } from 'react-native';
 import Image from 'react-native-fast-image';
 import Feather from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
@@ -231,177 +231,180 @@ export default function index(props) {
       />
 
       {!loading_card_detail ? (
-        <View style={styles.container_center}>
-          <View style={styles.container_giftcard}>
-            <Image
-              resizeMode="cover"
-              source={{ uri: imageUrl, priority: Image.priority.high }}
-              style={styles.imageCard}
-            />
-            <View style={styles.container_price_giftcard}>
-              <Text
-                fontSize={17}
-                style={{ fontWeight: 'bold' }}
-                color="#2EBE03">
-                $ {amount}
-              </Text>
-            </View>
-          </View>
+        <ScrollView>
 
-          {!!qrCode && (
-            <View>
-              <QRCode value={`${qrCode}`} size={165} />
-            </View>
-          )}
-
-          {/* ------------------ primary card ------------------ */}
-          <BoxClick disabled={true} style={styles.container_row_space_between}>
-            <IconTitle
-              title="Primary card"
-              icon={ICONS['primary_card_detail']}
-            />
-
-            <Switch
-              value={isPrimary}
-              onValueChange={onChangeValuePrimary}
-              color={'#0764B0'}
-            />
-          </BoxClick>
-          {/* ------------------ primary card ------------------ */}
-
-          {/* ------------------ payment card ------------------ */}
-          <BoxClick
-            onPress={addPayment}
-            style={styles.container_row_space_between}>
-            <IconTitle title="Payments" icon={ICONS['payment_card_detail']} />
-
-            {/* <Image source={ICONS["arrow_forward"]} style={styles.icon_arrow} /> */}
-            <Feather
-              name="chevron-right"
-              color="#585858"
-              size={scaleSize(25)}
-            />
-          </BoxClick>
-          {/* ------------------ payment card ------------------ */}
-
-          {/* ------------------ auto reload card ------------------ */}
-          <BoxClick disabled={true} style={styles.container_row_space_between}>
-            <View style={styles.container_icon_title}>
-              <Image source={ICONS['auto_reload_detail']} style={styles.icon} />
-              <View>
-                <View
-                  style={[
-                    styles.sub_container_auto_reload,
-                    isAutoReload ? { height: '75%' } : {},
-                  ]}>
-                  <Text fontSize={16} color="#585858" style={styles.title}>
-                    Auto reload
-                  </Text>
-                  {Boolean(isAutoReload) && (
-                    <Text fontSize={13.5} color="#888888" style={styles.title}>
-                      $ {autoReloadAmount} when balance is below ${' '}
-                      {autoReloadBelow}
-                    </Text>
-                  )}
-                </View>
+          <View style={styles.container_center}>
+            <View style={styles.container_giftcard}>
+              <Image
+                resizeMode="cover"
+                source={{ uri: imageUrl, priority: Image.priority.high }}
+                style={styles.imageCard}
+              />
+              <View style={styles.container_price_giftcard}>
+                <Text
+                  fontSize={17}
+                  style={{ fontWeight: 'bold' }}
+                  color="#2EBE03">
+                  $ {amount}
+                </Text>
               </View>
             </View>
-            <Switch
-              value={Boolean(isAutoReload)}
-              onValueChange={onChangeValueAuto}
-              color={'#0764B0'}
-            />
-          </BoxClick>
 
-          <ModalAutoReload
-            isVisible={isVisibleAutoReload}
-            statusAuto={isAuto}
-            isAutoReload={isAutoReload}
-            autoReloadAmount={autoReloadAmount}
-            autoReloadBelow={autoReloadBelow}
-            payments={payments}
-            paymentSelect={findPaymentReload()}
-            onRequestClose={onTogglePopupAutoReload}
-            onChangeValueAuto={setAutoReload}
-            onSubmit={autoReloadCard}
-          />
-          {/* ------------------ auto reload card ------------------ */}
+            {!!qrCode && (
+              <View>
+                <QRCode value={`${qrCode}`} size={165} />
+              </View>
+            )}
 
-          {/* ------------------ Transfer card ------------------ */}
-          <BoxClick
-            disabled={true}
-            style={[
-              styles.container_row_space_between,
-              { justifyContent: 'flex-start' },
-            ]}>
-            <Button
-              disabled={isPrimary ? true : false}
-              onPress={onTogglePopupTransfer}>
+            {/* ------------------ primary card ------------------ */}
+            <BoxClick disabled={true} style={styles.container_row_space_between}>
               <IconTitle
-                title="Transfer balance"
-                icon={ICONS['tranfer_balance_detail']}
-                styleText={{ opacity: isPrimary ? 0.4 : 1 }}
+                title="Primary card"
+                icon={ICONS['primary_card_detail']}
               />
-            </Button>
 
-            <Button
-              style={{ marginLeft: scaleSize(6) }}
-              onPress={onTogglePopupCondition(
-                'You can only transfer money from supplementary cards to primary card.',
-              )}>
-              <Image
-                source={ICONS['info_card_detail']}
-                style={styles.icon_info_remove}
+              <Switch
+                value={isPrimary}
+                onValueChange={onChangeValuePrimary}
+                color={'#0764B0'}
               />
-            </Button>
-          </BoxClick>
+            </BoxClick>
+            {/* ------------------ primary card ------------------ */}
 
-          <ModalTransfer
-            isVisible={isVisibleTransfer}
-            fromCards={card_more}
-            toCard={card_primary}
-            onRequestClose={onTogglePopupTransfer}
-            onSubmit={transferCard}
-            card_detail={card_detail}
-          />
-          {/* ------------------ Transfer card ------------------ */}
+            {/* ------------------ payment card ------------------ */}
+            <BoxClick
+              onPress={addPayment}
+              style={styles.container_row_space_between}>
+              <IconTitle title="Payments" icon={ICONS['payment_card_detail']} />
 
-          {/* ------------------ remove card ------------------ */}
-          <BoxClick disabled={true} style={{ justifyContent: 'flex-start' }}>
-            <Button
-              disabled={formatNumberFromCurrency(amount) > 0 ? true : false}
-              onPress={onTogglePopupRemove}>
-              <IconTitle
-                title="Remove card"
-                icon={ICONS['remove_card_detail']}
-                styleText={{
-                  opacity: formatNumberFromCurrency(amount) > 0 ? 0.4 : 1,
-                }}
+              {/* <Image source={ICONS["arrow_forward"]} style={styles.icon_arrow} /> */}
+              <Feather
+                name="chevron-right"
+                color="#585858"
+                size={scaleSize(25)}
               />
-            </Button>
+            </BoxClick>
+            {/* ------------------ payment card ------------------ */}
 
-            <Button
-              style={{ marginLeft: scaleSize(6) }}
-              onPress={onTogglePopupCondition(
-                'You can only delete when the balance in the card is 0.',
-              )}>
-              <Image
-                source={ICONS['info_card_detail']}
-                style={styles.icon_info_remove}
+            {/* ------------------ auto reload card ------------------ */}
+            <BoxClick disabled={true} style={styles.container_row_space_between}>
+              <View style={styles.container_icon_title}>
+                <Image source={ICONS['auto_reload_detail']} style={styles.icon} />
+                <View>
+                  <View
+                    style={[
+                      styles.sub_container_auto_reload,
+                      isAutoReload ? { height: '75%' } : {},
+                    ]}>
+                    <Text fontSize={16} color="#585858" style={styles.title}>
+                      Auto reload
+                    </Text>
+                    {Boolean(isAutoReload) && (
+                      <Text fontSize={13.5} color="#888888" style={styles.title}>
+                        $ {autoReloadAmount} when balance is below ${' '}
+                        {autoReloadBelow}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+              </View>
+              <Switch
+                value={Boolean(isAutoReload)}
+                onValueChange={onChangeValueAuto}
+                color={'#0764B0'}
               />
-            </Button>
-          </BoxClick>
-          {/* ------------------ remove card ------------------ */}
+            </BoxClick>
 
-          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <ButtonSubmit
-              title={button_title}
-              width={350}
-              height={50}
-              onSubmit={title == 'My Card' ? addMoney : onBack}
+            <ModalAutoReload
+              isVisible={isVisibleAutoReload}
+              statusAuto={isAuto}
+              isAutoReload={isAutoReload}
+              autoReloadAmount={autoReloadAmount}
+              autoReloadBelow={autoReloadBelow}
+              payments={payments}
+              paymentSelect={findPaymentReload()}
+              onRequestClose={onTogglePopupAutoReload}
+              onChangeValueAuto={setAutoReload}
+              onSubmit={autoReloadCard}
             />
+            {/* ------------------ auto reload card ------------------ */}
+
+            {/* ------------------ Transfer card ------------------ */}
+            <BoxClick
+              disabled={true}
+              style={[
+                styles.container_row_space_between,
+                { justifyContent: 'flex-start' },
+              ]}>
+              <Button
+                disabled={isPrimary ? true : false}
+                onPress={onTogglePopupTransfer}>
+                <IconTitle
+                  title="Transfer balance"
+                  icon={ICONS['tranfer_balance_detail']}
+                  styleText={{ opacity: isPrimary ? 0.4 : 1 }}
+                />
+              </Button>
+
+              <Button
+                style={{ marginLeft: scaleSize(6) }}
+                onPress={onTogglePopupCondition(
+                  'You can only transfer money from supplementary cards to primary card.',
+                )}>
+                <Image
+                  source={ICONS['info_card_detail']}
+                  style={styles.icon_info_remove}
+                />
+              </Button>
+            </BoxClick>
+
+            <ModalTransfer
+              isVisible={isVisibleTransfer}
+              fromCards={card_more}
+              toCard={card_primary}
+              onRequestClose={onTogglePopupTransfer}
+              onSubmit={transferCard}
+              card_detail={card_detail}
+            />
+            {/* ------------------ Transfer card ------------------ */}
+
+            {/* ------------------ remove card ------------------ */}
+            <BoxClick disabled={true} style={{ justifyContent: 'flex-start' }}>
+              <Button
+                disabled={formatNumberFromCurrency(amount) > 0 ? true : false}
+                onPress={onTogglePopupRemove}>
+                <IconTitle
+                  title="Remove card"
+                  icon={ICONS['remove_card_detail']}
+                  styleText={{
+                    opacity: formatNumberFromCurrency(amount) > 0 ? 0.4 : 1,
+                  }}
+                />
+              </Button>
+
+              <Button
+                style={{ marginLeft: scaleSize(6) }}
+                onPress={onTogglePopupCondition(
+                  'You can only delete when the balance in the card is 0.',
+                )}>
+                <Image
+                  source={ICONS['info_card_detail']}
+                  style={styles.icon_info_remove}
+                />
+              </Button>
+            </BoxClick>
+            {/* ------------------ remove card ------------------ */}
+
+            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+              <ButtonSubmit
+                title={button_title}
+                width={350}
+                height={50}
+                onSubmit={title == 'My Card' ? addMoney : onBack}
+              />
+            </View>
           </View>
-        </View>
+        </ScrollView>
       ) : (
         <Loading />
       )}

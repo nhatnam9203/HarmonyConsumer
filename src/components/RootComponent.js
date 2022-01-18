@@ -12,7 +12,7 @@ import {
   View,
   Image,
 } from "react-native";
-import CodePush from "react-native-code-push";
+import codePush from 'react-native-code-push';
 import env from "react-native-config";
 // import firebase from "react-native-firebase";
 import { checkNotifications } from "react-native-permissions";
@@ -65,7 +65,7 @@ const RootComponent = ({ children }) => {
     });
 
     try {
-      const update = await new Promise.race([CodePush.checkForUpdate(), timeOutNetWork]);
+      const update = await new Promise.race([codePush.checkForUpdate(), timeOutNetWork]);
 
       if (update) {
         if (update === "NET_WORK_TIME_OUT" || update?.failedInstall) {
@@ -81,27 +81,31 @@ const RootComponent = ({ children }) => {
 
           // }
 
+          console.log(update);
+
           const options = {
             updateDialog: false,
-            installMode: CodePush.InstallMode.ON_NEXT_RESTART,
-            mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+            installMode: codePush.InstallMode.IMMEDIATE,
           };
 
-          CodePush.sync(
+          codePush.sync(
             options,
             (status) => {
               if (
-                status === CodePush.SyncStatus.UP_TO_DATE ||
-                status === CodePush.SyncStatus.UPDATE_IGNORED ||
-                status === CodePush.SyncStatus.UNKNOWN_ERROR
+                status === codePush.SyncStatus.UP_TO_DATE ||
+                status === codePush.SyncStatus.UPDATE_IGNORED ||
+                status === codePush.SyncStatus.UNKNOWN_ERROR
               ) {
                 checkFlow();
               }
 
-              if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
-                CodePush.allowRestart();
-                CodePush.restartApp();
-                CodePush.disallowRestart();
+              if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
+                codePush.allowRestart();
+                setTimeout(() => {
+                  codePush.restartApp();
+                  codePush.disallowRestart();
+                }, 500);
+
               }
             },
             (progress) => { },
@@ -120,10 +124,10 @@ const RootComponent = ({ children }) => {
     dispatch({ type: "START_FETCH_API" });
     let options = {
       updateDialog: false,
-      mandatoryInstallMode: CodePush.InstallMode.ON_NEXT_RESTART,
-      installMode: CodePush.InstallMode.ON_NEXT_RESTART,
+      mandatoryInstallMode: codePush.InstallMode.IMMEDIATE,
+      installMode: codePush.InstallMode.IMMEDIATE,
     };
-    CodePush.sync(
+    codePush.sync(
       options,
       (status) => { },
       (progress) => { },
@@ -228,7 +232,7 @@ const RootComponent = ({ children }) => {
   };
 
   useEffect(() => {
-    CodePush.disallowRestart();
+    codePush.disallowRestart();
     checkUpdate();
     configNotification();
 
@@ -444,10 +448,10 @@ const RootComponent = ({ children }) => {
 };
 
 const codePushOptions = {
-  checkFrequency: CodePush.CheckFrequency.MANUAL, //  only check when CodePush.sync() is called in app code
+  checkFrequency: codePush.CheckFrequency.MANUAL, //  only check when codePush.sync() is called in app code
 };
 
-// const Root = CodePush(codePushOptions)(RootComponent);
+// const Root = codePush(codePushOptions)(RootComponent);
 export default RootComponent;
 
 const styles = StyleSheet.create({
