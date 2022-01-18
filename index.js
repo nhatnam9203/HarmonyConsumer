@@ -16,7 +16,7 @@ enableScreens();
 // AppRegistry.registerComponent(appName, () => App);
 
 const options = {
-  updateDialog: true,
+  updateDialog: false,
   installMode: codePush.InstallMode.IMMEDIATE,
   checkFrequency: codePush.CheckFrequency.IMMEDIATE,
   //   rollbackRetryOptions: {
