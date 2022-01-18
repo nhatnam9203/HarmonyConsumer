@@ -15,6 +15,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { AuthStack, MainStack } from './navigations';
 import { isMountedRef, navigationRef } from './navigations/RootNavigation';
 import configureStore from './redux/store';
+import { CodePushProvider } from '@shared/providers/CodePushProvider';
 
 const { persistor, store } = configureStore();
 
@@ -72,12 +73,14 @@ export default App = () => {
         />
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <AxiosProvider>
-              <NavigationContainer ref={navigationRef}>
-                <SwitchNavigator />
-                <Loading />
-              </NavigationContainer>
-            </AxiosProvider>
+            <CodePushProvider>
+              <AxiosProvider>
+                <NavigationContainer ref={navigationRef}>
+                  <SwitchNavigator />
+                  <Loading />
+                </NavigationContainer>
+              </AxiosProvider>
+            </CodePushProvider>
           </PersistGate>
         </Provider>
       </KeyboardAwareScrollView>

@@ -24,6 +24,7 @@ import PopupUpdate from "./PopupUpdate";
 import IMAGES from "assets";
 import messaging from "@react-native-firebase/messaging";
 import { app } from '@redux/slices'
+import { CodePushContext } from '@shared/providers/CodePushProvider';
 
 var PushNotification = require("react-native-push-notification");
 
@@ -48,6 +49,12 @@ const RootComponent = ({ children }) => {
   const [waitingLoadApp, setWaitingLoadApp] = useState(true);
   const [firebaseToken, setFirebaseToken] = useState(null);
 
+  const {
+    progress,
+    addPushCodeCompleteCallback,
+    removePushCodeCompleteCallback,
+  } = React.useContext(CodePushContext);
+
   const checkFlow = () => {
     setWaitingLoadApp(false);
   };
@@ -57,68 +64,68 @@ const RootComponent = ({ children }) => {
     Keyboard.dismiss();
   };
 
-  const checkUpdate = async () => {
-    const timeOutNetWork = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("NET_WORK_TIME_OUT");
-      }, 10000);
-    });
+  // const checkUpdate = async () => {
+  //   const timeOutNetWork = new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve("NET_WORK_TIME_OUT");
+  //     }, 10000);
+  //   });
 
-    try {
-      const update = await new Promise.race([codePush.checkForUpdate(), timeOutNetWork]);
+  //   try {
+  //     const update = await new Promise.race([codePush.checkForUpdate(), timeOutNetWork]);
 
-      if (update) {
-        if (update === "NET_WORK_TIME_OUT" || update?.failedInstall) {
-          checkFlow();
-        } else {
-          // const dataUpdate = update?.description || "update new code";
-          // if (dataUpdate.toString().includes("isPopup")) {
-          //   SplashScreen.hide();
-          //   setContentUpdate(dataUpdate.toString().replace("isPopup", ""));
-          //   openPopupUpdate();
-          //   Keyboard.dismiss();
-          // } else {
+  //     if (update) {
+  //       if (update === "NET_WORK_TIME_OUT" || update?.failedInstall) {
+  //         checkFlow();
+  //       } else {
+  //         // const dataUpdate = update?.description || "update new code";
+  //         // if (dataUpdate.toString().includes("isPopup")) {
+  //         //   SplashScreen.hide();
+  //         //   setContentUpdate(dataUpdate.toString().replace("isPopup", ""));
+  //         //   openPopupUpdate();
+  //         //   Keyboard.dismiss();
+  //         // } else {
 
-          // }
+  //         // }
 
-          console.log(update);
+  //         console.log(update);
 
-          const options = {
-            updateDialog: false,
-            installMode: codePush.InstallMode.IMMEDIATE,
-          };
+  //         const options = {
+  //           updateDialog: false,
+  //           installMode: codePush.InstallMode.IMMEDIATE,
+  //         };
 
-          codePush.sync(
-            options,
-            (status) => {
-              if (
-                status === codePush.SyncStatus.UP_TO_DATE ||
-                status === codePush.SyncStatus.UPDATE_IGNORED ||
-                status === codePush.SyncStatus.UNKNOWN_ERROR
-              ) {
-                checkFlow();
-              }
+  //         codePush.sync(
+  //           options,
+  //           (status) => {
+  //             if (
+  //               status === codePush.SyncStatus.UP_TO_DATE ||
+  //               status === codePush.SyncStatus.UPDATE_IGNORED ||
+  //               status === codePush.SyncStatus.UNKNOWN_ERROR
+  //             ) {
+  //               checkFlow();
+  //             }
 
-              if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
-                codePush.allowRestart();
-                setTimeout(() => {
-                  codePush.restartApp();
-                  codePush.disallowRestart();
-                }, 500);
+  //             if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
+  //               codePush.allowRestart();
+  //               setTimeout(() => {
+  //                 codePush.restartApp();
+  //                 codePush.disallowRestart();
+  //               }, 500);
 
-              }
-            },
-            (progress) => { },
-          );
-        }
-      } else {
-        checkFlow();
-      }
-    } catch (err) {
-      console.log(err);
-      checkFlow();
-    }
-  };
+  //             }
+  //           },
+  //           (progress) => { },
+  //         );
+  //       }
+  //     } else {
+  //       checkFlow();
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     checkFlow();
+  //   }
+  // };
 
   const updateCodePush = () => {
     dispatch({ type: "START_FETCH_API" });
@@ -232,13 +239,18 @@ const RootComponent = ({ children }) => {
   };
 
   useEffect(() => {
-    codePush.disallowRestart();
-    checkUpdate();
+
+    addPushCodeCompleteCallback('RootComponent', () => {
+      setWaitingLoadApp(false);
+    });
+
     configNotification();
 
     AppState.addEventListener("change", handleAppStateChange);
     return () => {
+      removePushCodeCompleteCallback('RootComponent');
       AppState.removeEventListener("change", handleAppStateChange);
+
     };
   }, []);
 
@@ -444,7 +456,8 @@ const RootComponent = ({ children }) => {
       {renderPopupUpdate()}
       {renderCustomPopupError()}
     </View>
-  );
+  )
+
 };
 
 const codePushOptions = {

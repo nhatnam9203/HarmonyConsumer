@@ -6,7 +6,6 @@ import { Platform } from 'react-native';
 import Configs from '@src/configs';
 
 const log = (obj, message = '') => {
-  // Logger.log(`[CodePushProvider] ${message}`, obj);
   console.log(message);
 };
 

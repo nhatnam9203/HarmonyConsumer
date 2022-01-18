@@ -11,7 +11,7 @@ export const CodePushContext = createContext({});
 export const CodePushProvider = ({ children }) => {
   const [progress, setProgress] = React.useState(0);
   const [progressComplete, setProgressComplete] = React.useState([]); //object: <id:string, callback: void>
-  const [codePushSyncStatus, setCodePushStatus] = React.useState(0);
+  const [codePushSyncStatus, setCodePushStatus] = React.useState(codePush.SyncStatus.CHECKING_FOR_UPDATE);
 
   // React useEffect
   React.useEffect(() => {
