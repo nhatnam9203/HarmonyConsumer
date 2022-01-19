@@ -64,68 +64,6 @@ const RootComponent = ({ children }) => {
     Keyboard.dismiss();
   };
 
-  // const checkUpdate = async () => {
-  //   const timeOutNetWork = new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve("NET_WORK_TIME_OUT");
-  //     }, 10000);
-  //   });
-
-  //   try {
-  //     const update = await new Promise.race([codePush.checkForUpdate(), timeOutNetWork]);
-
-  //     if (update) {
-  //       if (update === "NET_WORK_TIME_OUT" || update?.failedInstall) {
-  //         checkFlow();
-  //       } else {
-  //         // const dataUpdate = update?.description || "update new code";
-  //         // if (dataUpdate.toString().includes("isPopup")) {
-  //         //   SplashScreen.hide();
-  //         //   setContentUpdate(dataUpdate.toString().replace("isPopup", ""));
-  //         //   openPopupUpdate();
-  //         //   Keyboard.dismiss();
-  //         // } else {
-
-  //         // }
-
-  //         console.log(update);
-
-  //         const options = {
-  //           updateDialog: false,
-  //           installMode: codePush.InstallMode.IMMEDIATE,
-  //         };
-
-  //         codePush.sync(
-  //           options,
-  //           (status) => {
-  //             if (
-  //               status === codePush.SyncStatus.UP_TO_DATE ||
-  //               status === codePush.SyncStatus.UPDATE_IGNORED ||
-  //               status === codePush.SyncStatus.UNKNOWN_ERROR
-  //             ) {
-  //               checkFlow();
-  //             }
-
-  //             if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
-  //               codePush.allowRestart();
-  //               setTimeout(() => {
-  //                 codePush.restartApp();
-  //                 codePush.disallowRestart();
-  //               }, 500);
-
-  //             }
-  //           },
-  //           (progress) => { },
-  //         );
-  //       }
-  //     } else {
-  //       checkFlow();
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     checkFlow();
-  //   }
-  // };
 
   const updateCodePush = () => {
     dispatch({ type: "START_FETCH_API" });

@@ -1,12 +1,12 @@
-import React from "react";
-import { View, FlatList, StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "react-native-fast-image";
-
 import { get_all_template } from "@redux/actions/buygiftAction";
-import { Text, Button, LazyImage, ProgressiveImage } from "components";
+import { Button, ProgressiveImage, Text } from "components";
+import React from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import Image from "react-native-fast-image";
+import { useDispatch, useSelector } from "react-redux";
 import { scaleSize } from "utils";
 import CustomTemplate from "./custom_template";
+
 export default function Item({ item, onPress }) {
   const { name } = item;
   const dispatch = useDispatch();

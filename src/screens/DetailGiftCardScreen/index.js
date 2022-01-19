@@ -51,7 +51,7 @@ export default function index(props) {
     autoReloadCardId,
     autoReloadBankId,
     userCardId,
-  } = card_detail;
+  } = card_detail || {};
 
   const { getUserCard } = useApi({
     userCardId,
@@ -60,7 +60,6 @@ export default function index(props) {
         case 'getUserCardById':
           setQrcode(data?.token);
           break;
-
         default:
           break;
       }

@@ -7632,7 +7632,7 @@ react-native-camera@^3.35.0:
   dependencies:
     prop-types "^15.6.2"
 
-react-native-code-push@^7.0.1:
+react-native-code-push@^7.0.4:
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-7.0.4.tgz#13a9d3cc12bee24cb317defb6560caddcb937b71"
   integrity sha512-zBCj1vUnyLCG6tt2x5rXzoyYjvgFVEpTnwJUFbs24C5TUKjRw6BJVq1bWsOQklEUWpFYoqhAaZXz/iq3pbqa7g==

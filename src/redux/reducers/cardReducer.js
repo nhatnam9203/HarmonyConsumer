@@ -13,6 +13,7 @@ function cardReducer(state = initialState, action) {
       const card_more = action.payload.filter((item) => item.primaryCard == 0);
 
       let card_detail = state.card_detail;
+
       if (card_detail?.userCardId) {
         card_detail = action.payload.find((item) => item.userCardId === card_detail.userCardId)
       }

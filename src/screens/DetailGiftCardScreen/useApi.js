@@ -1,4 +1,3 @@
-import React from 'react';
 import { getUserCardById, useAxiosQuery } from '@apis';
 
 export const useApi = ({ userCardId, callBack }) => {

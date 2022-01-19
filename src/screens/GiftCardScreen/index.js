@@ -40,7 +40,6 @@ export default function index(props) {
   };
   const goToDetailCard = (item = {}) => {
     dispatch(actions.cardAction.set_card_detail(item));
-
     RootNavigation.navigate("DetailGiftCard");
   };
 
