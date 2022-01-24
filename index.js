@@ -18,7 +18,7 @@ enableScreens();
 const options = {
   updateDialog: false,
   installMode: codePush.InstallMode.IMMEDIATE,
-  checkFrequency: codePush.CheckFrequency.IMMEDIATE,
+  checkFrequency: codePush.CheckFrequency.MANUAL,
   //   rollbackRetryOptions: {
   //     delayInHours: 24,
   //     maxRetryAttempts: 3,

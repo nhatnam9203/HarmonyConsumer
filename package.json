@@ -102,7 +102,7 @@
     "react-native-open-notification": "^0.1.4",
     "react-native-paper": "^4.0.1",
     "react-native-permissions": "^2.2.2",
-    "react-native-push-notification": "^7.3.1",
+    "react-native-push-notification": "^8.1.1",
     "react-native-qrcode-scanner": "^1.4.1",
     "react-native-qrcode-svg": "^6.1.2",
     "react-native-reanimated": "2.2.3",

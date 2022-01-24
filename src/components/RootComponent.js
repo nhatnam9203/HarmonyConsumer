@@ -26,7 +26,7 @@ import messaging from "@react-native-firebase/messaging";
 import { app } from '@redux/slices'
 import { CodePushContext } from '@shared/providers/CodePushProvider';
 
-var PushNotification = require("react-native-push-notification");
+import PushNotification from 'react-native-push-notification';
 
 const signalR = require("@microsoft/signalr");
 
@@ -157,6 +157,11 @@ const RootComponent = ({ children }) => {
   };
 
   const pushMessage = (messageJson) => {
+    if (!messageJson) return;
+    console.log("messageJson hahaaaa");
+    console.log(messageJson);
+    console.log(messageJson.type);
+
     if (
       messageJson.type == "update_status" ||
       messageJson.type == "appointment_update_status" ||
@@ -166,11 +171,15 @@ const RootComponent = ({ children }) => {
       messageJson.type == "update_consumer"
     ) {
       if (isInbox) {
+        console.log(isInbox);
+
         PushNotification.localNotification({
           title: "HarmonyPay",
           message: messageJson.message,
           largeIcon: "ic_launcher",
           smallIcon: "ic_launcher",
+          group: 'HarmonyPay',
+          id: messageJson.id,
         });
       }
     }
