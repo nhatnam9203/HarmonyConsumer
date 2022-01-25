@@ -60,11 +60,11 @@ export default function index(props) {
     dispatch(actions.cardAction.get_card_by_user(token, userInfo.userId, setRefresh));
   };
 
-  React.useEffect(() => {
-    if (appUpdate) {
-      getCardByUser();
-    }
-  }, [appUpdate])
+  // React.useEffect(() => {
+  //   if (appUpdate) {
+  //     getCardByUser();
+  //   }
+  // }, [appUpdate])
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F7F7F7" }}>

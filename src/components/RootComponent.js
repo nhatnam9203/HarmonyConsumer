@@ -179,7 +179,6 @@ const RootComponent = ({ children }) => {
           largeIcon: "ic_launcher",
           smallIcon: "ic_launcher",
           group: 'HarmonyPay',
-          id: messageJson.id,
         });
       }
     }
@@ -310,7 +309,9 @@ const RootComponent = ({ children }) => {
       }
 
       if (messageJson.type === "update_consumer") {
-        dispatch(app.updateApp(messageJson));
+        // dispatch(app.updateApp(messageJson));
+        dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
+        dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
       }
 
       if (messageJson.type === "appointment_add") {
