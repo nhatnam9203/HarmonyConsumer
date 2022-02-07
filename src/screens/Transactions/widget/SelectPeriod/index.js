@@ -1,90 +1,98 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
-import { scaleWidth, scaleHeight, isValidDate } from "utils";
-import { Header } from "components";
-import styles from "../../styles";
-import images from "assets";
-import DateRange from "./DateRange";
-import CalendarView from "./CalendarView";
-import InputDate from "./InputDate";
-import moment from "moment";
-import { Modalize } from "react-native-modalize";
-import ModalSelectDay from "./ModalSelectDay";
-import { useDispatch } from "react-redux";
-import { isEmpty } from "lodash";
+import React from 'react';
+import { View, ScrollView } from 'react-native';
+import { scaleWidth, scaleHeight, isValidDate } from 'utils';
+import { Header } from 'components';
+import styles from '../../styles';
+import images from 'assets';
+import DateRange from './DateRange';
+import CalendarView from './CalendarView';
+import InputDate from './InputDate';
+import moment from 'moment';
+import { Modalize } from 'react-native-modalize';
+import ModalSelectDay from './ModalSelectDay';
+import { useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 export default function index(props) {
   const dispatch = useDispatch();
 
   const refModalFilter = React.useRef(null);
   const refPopupFilter = React.useRef(null);
-
-  const [days, setDays] = React.useState("Last 30 days");
-
-  const [startTime, setStartTime] = React.useState(
-    moment().clone().subtract("days", 30).format("MM/DD/YYYY"),
-  );
-  const [endTime, setEndTime] = React.useState(moment().clone().format("MM/DD/YYYY"));
-  const [markedDates, setMarkedDates] = React.useState([]);
-  const [errorStartTime, setErrorStartTime] = React.useState("");
-  const [errorEndTime, setErrorEndTime] = React.useState("");
-  const [optionSelect, setOptionSelect] = React.useState("selectStartTime");
   const refCalendar = React.useRef(null);
 
+  const [days, setDays] = React.useState('Last 30 days');
+
+  const [startTime, setStartTime] = React.useState(
+    moment().clone().subtract('days', 30).format('MM/DD/YYYY'),
+  );
+  const [endTime, setEndTime] = React.useState(
+    moment().clone().format('MM/DD/YYYY'),
+  );
+  const [markedDates, setMarkedDates] = React.useState([]);
+  const [errorStartTime, setErrorStartTime] = React.useState('');
+  const [errorEndTime, setErrorEndTime] = React.useState('');
+  const [optionSelect, setOptionSelect] = React.useState('selectStartTime');
+
   const refreshError = () => {
-    setErrorStartTime("");
-    setErrorEndTime("");
+    setErrorStartTime('');
+    setErrorEndTime('');
   };
 
-  const onChangeStartTime = (value) => {
+  const onChangeStartTime = value => {
     setStartTime(value);
-    setErrorStartTime("");
+    setErrorStartTime('');
   };
 
-  const onChangeEndTime = (value) => {
+  const onChangeEndTime = value => {
     setEndTime(value);
-    setErrorEndTime("");
+    setErrorEndTime('');
   };
 
-  const countDiffStartTime = (day) => {
-    const diff = moment(endTime, ["MM/DD/YYYY"]).diff(moment(day, ["MM/DD/YYYY"]), "days");
+  const countDiffStartTime = day => {
+    const diff = moment(endTime, ['MM/DD/YYYY']).diff(
+      moment(day, ['MM/DD/YYYY']),
+      'days',
+    );
     return diff;
   };
 
-  const countDiffEndTime = (day) => {
-    const diff = moment(day, ["MM/DD/YYYY"]).diff(moment(startTime, ["MM/DD/YYYY"]), "days");
+  const countDiffEndTime = day => {
+    const diff = moment(day, ['MM/DD/YYYY']).diff(
+      moment(startTime, ['MM/DD/YYYY']),
+      'days',
+    );
     return diff;
   };
 
-  const selectDayCalendar = (dayPicker) => {
-    const day = moment(dayPicker, ["YYYY-MM-DD"]).format("MM/DD/YYYY");
-    if (optionSelect == "selectStartTime") {
+  const selectDayCalendar = dayPicker => {
+    const day = moment(dayPicker, ['YYYY-MM-DD']).format('MM/DD/YYYY');
+    if (optionSelect == 'selectStartTime') {
       const diff = countDiffStartTime(day);
       if (diff < 0) {
         setStartTime(endTime);
         setEndTime(day);
-        setOptionSelect("selectStartTime");
-        setErrorEndTime("");
-        setDays("Custom");
+        setOptionSelect('selectStartTime');
+        setErrorEndTime('');
+        setDays('Custom');
       } else {
         setStartTime(day);
-        setOptionSelect("selectEndTime");
-        setErrorStartTime("");
-        setDays("Custom");
+        setOptionSelect('selectEndTime');
+        setErrorStartTime('');
+        setDays('Custom');
       }
     } else {
       const diff = countDiffEndTime(day);
       if (diff < 0) {
         setEndTime(startTime);
         setStartTime(day);
-        setOptionSelect("selectStartTime");
-        setErrorEndTime("");
-        setDays("Custom");
+        setOptionSelect('selectStartTime');
+        setErrorEndTime('');
+        setDays('Custom');
       } else {
         setEndTime(day);
-        setOptionSelect("selectStartTime");
-        setErrorEndTime("");
-        setDays("Custom");
+        setOptionSelect('selectStartTime');
+        setErrorEndTime('');
+        setDays('Custom');
       }
     }
   };
@@ -94,27 +102,30 @@ export default function index(props) {
   }, [startTime, endTime]);
 
   const getMarkedDates = async () => {
-    const diff = await moment(endTime, ["MM/DD/YYYY"]).diff(
-      moment(startTime, ["MM/DD/YYYY"]),
-      "days",
+    const diff = await moment(endTime, ['MM/DD/YYYY']).diff(
+      moment(startTime, ['MM/DD/YYYY']),
+      'days',
     );
     let arr = {};
     let posStart = 1;
     if (diff > 0) {
-      if (days == "Select days") posStart = 0;
+      if (days == 'Select days') posStart = 0;
       for (let i = posStart; i <= diff; i++) {
-        const day = moment(startTime).add(i, "days").format("YYYY-MM-DD").toString();
+        const day = moment(startTime)
+          .add(i, 'days')
+          .format('YYYY-MM-DD')
+          .toString();
         const obj = {
           selected: true,
           customStyles: {
             container: {
-              backgroundColor: "#EDFAFC",
+              backgroundColor: '#EDFAFC',
               borderRadius: 0,
-              width: "144%",
+              width: '144%',
               zIndex: -1,
             },
             text: {
-              color: "#404040",
+              color: '#404040',
             },
           },
         };
@@ -132,20 +143,20 @@ export default function index(props) {
     refModalFilter.current?.close();
   };
 
-  const selectFilter = (data) => {
+  const selectFilter = async data => {
     const { value } = data;
     let startTime, endTime;
-    endTime = moment().clone().format("MM/DD/YYYY");
+    endTime = moment().clone().format('MM/DD/YYYY');
 
     switch (value) {
-      case "Last 7 days":
-        startTime = moment().clone().subtract("days", 7).format("MM/DD/YYYY");
+      case 'Last 7 days':
+        startTime = moment().clone().subtract('days', 7).format('MM/DD/YYYY');
         break;
-      case "Last 30 days":
-        startTime = moment().clone().subtract("days", 30).format("MM/DD/YYYY");
+      case 'Last 30 days':
+        startTime = moment().clone().subtract('days', 30).format('MM/DD/YYYY');
         break;
-      case "Last 90 days":
-        startTime = moment().clone().subtract("days", 90).format("MM/DD/YYYY");
+      case 'Last 90 days':
+        startTime = moment().clone().subtract('days', 90).format('MM/DD/YYYY');
         break;
 
       default:
@@ -160,23 +171,32 @@ export default function index(props) {
     closeModalFilter();
   };
 
-  const setCurrentMonth = (endTime) => {
-    let currentMonth = refCalendar.current.header.props.month;
-    currentMonth = moment(currentMonth[0]).format("MM/DD/YYYY");
-    const diff = moment(endTime, ["MM/DD/YYYY"]).diff(moment(currentMonth), "months");
-    if (diff !== 0) {
-      refCalendar.current.addMonth(diff);
+  const setCurrentMonth = endTime => {
+    if (!refCalendar) return;
+    let currentMonth = refCalendar?.current?.header?.props?.month;
+    if (currentMonth?.length > 0) {
+      currentMonth = moment(currentMonth[0]).format('MM/DD/YYYY');
+      const diff = moment(endTime, ['MM/DD/YYYY']).diff(
+        moment(currentMonth),
+        'months',
+      );
+      if (diff !== 0) {
+        refCalendar?.current?.addMonth(diff);
+      }
     }
   };
 
   const checkValidDate = () => {
-    const diff = moment(endTime, ["MM/DD/YYYY"]).diff(moment(startTime, ["MM/DD/YYYY"]), "days");
+    const diff = moment(endTime, ['MM/DD/YYYY']).diff(
+      moment(startTime, ['MM/DD/YYYY']),
+      'days',
+    );
     return diff > 0 ? true : false;
   };
 
   const acceptChange = () => {
     if (isEmpty(errorStartTime) && isEmpty(errorEndTime)) {
-      dispatch({ type: "START_FETCH_API" });
+      dispatch({ type: 'START_FETCH_API' });
 
       props.onChangeStartTime(startTime);
       props.onChangeEndTime(endTime);
@@ -189,30 +209,32 @@ export default function index(props) {
   };
 
   const checkStartTime = () => {
-    if (isValidDate(startTime) == false) setErrorStartTime("Start time is invalid");
+    if (isValidDate(startTime) == false)
+      setErrorStartTime('Start time is invalid');
     else if (isValidDate(endTime) == true)
       if (checkValidDate() == false) {
-        setErrorStartTime("Start time cannot be greater than End time");
+        setErrorStartTime('Start time cannot be greater than End time');
       } else {
-        setErrorStartTime("");
+        setErrorStartTime('');
       }
   };
 
   const checkEndTime = () => {
     if (isValidDate(endTime) == false) {
-      setErrorEndTime("End time is invalid");
+      setErrorEndTime('End time is invalid');
     } else if (isValidDate(startTime) == true)
       if (checkValidDate() == false) {
-        setErrorStartTime("Start time cannot be greater than End time");
+        setErrorStartTime('Start time cannot be greater than End time');
       } else {
-        setErrorStartTime("");
+        setErrorStartTime('');
       }
   };
 
   return (
     <View style={styles.container}>
       <View>
-        <View style={{ paddingTop: scaleHeight(4), backgroundColor: "#f8f8f8" }}>
+        <View
+          style={{ paddingTop: scaleHeight(4), backgroundColor: '#f8f8f8' }}>
           <Header
             onBack={back}
             headerLeft
@@ -225,13 +247,17 @@ export default function index(props) {
         </View>
 
         <View
-          style={{ backgroundColor: "#ffffff", marginTop: scaleWidth(3), padding: scaleWidth(3) }}>
+          style={{
+            backgroundColor: '#ffffff',
+            marginTop: scaleWidth(3),
+            padding: scaleWidth(3),
+          }}>
           <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
             <DateRange days={days} onPress={openModalFilter} />
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginTop: scaleHeight(1.5),
               }}>
               <InputDate
@@ -250,17 +276,20 @@ export default function index(props) {
               />
             </View>
             <CalendarView
+              refCalendar={refCalendar}
               startTime={startTime}
               endTime={endTime}
               markedDates={markedDates}
               selectDayCalendar={selectDayCalendar}
-              refCalendar={refCalendar}
             />
           </ScrollView>
         </View>
       </View>
 
-      <Modalize ref={refModalFilter} adjustToContentHeight onBackButtonPress={closeModalFilter}>
+      <Modalize
+        ref={refModalFilter}
+        adjustToContentHeight
+        onBackButtonPress={closeModalFilter}>
         <ModalSelectDay
           selectFilter={selectFilter}
           ref={refPopupFilter}
