@@ -4,6 +4,7 @@ import styles from "../../styles";
 import images from "assets";
 import { Text, Header, StatusBar } from "components";
 import { scaleWidth } from "utils";
+import Configs from '@src/configs';
 
 export default function index(props) {
   const onBack = () => {
@@ -18,7 +19,7 @@ export default function index(props) {
       </View>
       <View style={styles.body}>
         <Image style={styles.logo} source={images.logoHarmony3} />
-        <Text style={styles.txtVersion}>Version 1.0</Text>
+        <Text style={styles.txtVersion}>{`Version ${Configs.VERSION}`}</Text>
         <Text style={styles.txtCopyright}>Copyright @ 2019 HarmonyPay Inc,.</Text>
         <Text style={styles.aboutContent}>
           Taking the mission statement from Jerry MaGuire to heart, we strive to build a company
