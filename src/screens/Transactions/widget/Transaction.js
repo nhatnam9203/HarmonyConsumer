@@ -1,22 +1,23 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
 import {
   View,
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
   RefreshControl,
-} from "react-native";
-import { scaleWidth, slop, scaleHeight } from "utils";
-import styles from "../styles";
-import moment from "moment";
-import EvilIcons from "react-native-vector-icons/EvilIcons";
-import Item from "./Item";
-import { Header, StatusBar, Text } from "components";
-import { useSelector, useDispatch } from "react-redux";
-import actions from "@redux/actions";
-import images from "assets";
-import PopupFilter from "./PopupFilter";
-import { Modalize } from "react-native-modalize";
+  Platform,
+} from 'react-native';
+import { scaleWidth, slop, scaleHeight } from 'utils';
+import styles from '../styles';
+import moment from 'moment';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Item from './Item';
+import { Header, StatusBar, Text } from 'components';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from '@redux/actions';
+import images from 'assets';
+import PopupFilter from './PopupFilter';
+import { Modalize } from 'react-native-modalize';
 
 export default function Transaction(props) {
   const refPopupFilter = useRef(null);
@@ -29,25 +30,29 @@ export default function Transaction(props) {
   const [isLoadMore, setLoadMore] = React.useState(false);
   const [isRefresh, setRefresh] = React.useState(false);
 
-  const { transaction, filterType } = useSelector((state) => state.paymentReducer);
-  const { token, userInfo } = useSelector((state) => state.datalocalReducer);
+  const { transaction, filterType } = useSelector(
+    state => state.paymentReducer,
+  );
+  const { token, userInfo } = useSelector(state => state.datalocalReducer);
   const { userId } = userInfo;
 
   const { start, end } = props;
 
-  const fromTime = moment(start).format("YYYY-MM-DD");
-  const toTime = moment(end).format("YYYY-MM-DD");
+  const fromTime = moment(start).format('YYYY-MM-DD');
+  const toTime = moment(end).format('YYYY-MM-DD');
   const timezone = new Date().getTimezoneOffset();
 
   React.useEffect(() => {
-    dispatch({ type: "START_FETCH_API" });
+    dispatch({ type: 'START_FETCH_API' });
   }, []);
 
   React.useEffect(() => {
     getDataTransaction();
   }, [start, end]);
 
-  const selectFilter = async (data) => {
+  const isAndroid = () => Platform.OS === 'android';
+
+  const selectFilter = async data => {
     const { type } = data;
     await dispatch(actions.paymentAction.onChangeFilterType(type));
     await getDataTransaction(type);
@@ -56,7 +61,7 @@ export default function Transaction(props) {
     closeModalFilter();
   };
 
-  const getDataTransaction = (type) => {
+  const getDataTransaction = type => {
     dispatch(
       actions.paymentAction.paymentTransaction(
         token,
@@ -90,6 +95,7 @@ export default function Transaction(props) {
   const refreshTransaction = () => {
     setRefresh(true);
     getDataTransaction();
+    setPage(1);
     setTimeout(() => {
       setRefresh(false);
     }, 1000);
@@ -103,7 +109,9 @@ export default function Transaction(props) {
     setPage(page + 1);
   };
 
-  const updateLoadmore = async (e) => {
+  const updateLoadmore = async e => {
+    if (isLoadMore) return;
+
     const scrollPosition = e.nativeEvent.contentOffset.y;
     const scrollViewHeight = e.nativeEvent.layoutMeasurement.height;
     const contentHeight = e.nativeEvent.contentSize.height;
@@ -128,12 +136,26 @@ export default function Transaction(props) {
   };
 
   const stopLoadMore = () => {
-    setLoadMore(false);
+    setTimeout(() => {
+      setLoadMore(false);
+    }, 500);
+  };
+
+  const onScrollHandle = e => {
+    if (isAndroid()) {
+      updateLoadmore(e);
+    }
+  };
+
+  const onMomentumScrollEnd = e => {
+    if (!isAndroid()) {
+      updateLoadmore(e);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <View style={{ backgroundColor: "#f8f8f8" }}>
+      <View style={{ backgroundColor: '#f8f8f8' }}>
         <StatusBar barStyle="dark-content" />
         <Header
           onBack={back}
@@ -146,27 +168,50 @@ export default function Transaction(props) {
       </View>
 
       <View style={styles.body}>
-        <SelectBarTime selectTimeRange={selectTimeRange} start={start} end={end} />
+        <SelectBarTime
+          selectTimeRange={selectTimeRange}
+          start={start}
+          end={end}
+        />
         <ScrollView
+          style={{ flex: 1, height: '100%' }}
+          scrollEventThrottle={400}
           refreshControl={
-            <RefreshControl refreshing={isRefresh} onRefresh={refreshTransaction} size={30} />
+            <RefreshControl
+              refreshing={isRefresh}
+              onRefresh={refreshTransaction}
+              size={30}
+            />
           }
           ref={refScrollList}
-          onMomentumScrollEnd={updateLoadmore}>
-          {transaction.length == 0 && <Text style={styles.notFound}>No transaction found.</Text>}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onScroll={onScrollHandle}>
+          {transaction.length == 0 && (
+            <Text style={styles.notFound}>No transaction found.</Text>
+          )}
           {transaction.map((item, key) => {
             return renderItem(item, key);
           })}
-          {isLoadMore && (
-            <ActivityIndicator
-              size="small"
-              style={{ marginTop: scaleHeight(2), alignSelf: "center" }}
-            />
-          )}
         </ScrollView>
+        {isLoadMore && (
+          <View
+            style={{
+              bottom: 10,
+              alignSelf: 'center',
+              position: 'absolute',
+              width: 50,
+              height: 50,
+              justifyContent: 'center',
+            }}>
+            <ActivityIndicator size="large" color="#0764B0" />
+          </View>
+        )}
       </View>
 
-      <Modalize ref={refModalFilter} adjustToContentHeight onBackButtonPress={closeModalFilter}>
+      <Modalize
+        ref={refModalFilter}
+        adjustToContentHeight
+        onBackButtonPress={closeModalFilter}>
         <PopupFilter
           selectFilter={selectFilter}
           ref={refPopupFilter}
@@ -202,22 +247,26 @@ const renderItem = (item, key) => {
 
 const SelectBarTime = ({ selectTimeRange, start, end }) => {
   const renderTitleText = () => {
-    let text = `${moment(start).format("MM/DD/YYYY")} - ${moment(end).format("MM/DD/YYYY")}`;
-    const diff = moment(end).diff(moment(start), "days");
-    if (moment(end).format("MM/DD/YYYY") == moment().format("MM/DD/YYYY")) {
+    let text = `${moment(start).format('MM/DD/YYYY')} - ${moment(end).format(
+      'MM/DD/YYYY',
+    )}`;
+    const diff = moment(end).diff(moment(start), 'days');
+    if (moment(end).format('MM/DD/YYYY') == moment().format('MM/DD/YYYY')) {
       switch (Math.abs(diff)) {
         case 7:
-          text = "Last 7 days";
+          text = 'Last 7 days';
           break;
         case 30:
-          text = "Last 30 days";
+          text = 'Last 30 days';
           break;
         case 90:
-          text = "Last 90 days";
+          text = 'Last 90 days';
           break;
 
         default:
-          text = `${moment(start).format("MM/DD/YYYY")} - ${moment(end).format("MM/DD/YYYY")}`;
+          text = `${moment(start).format('MM/DD/YYYY')} - ${moment(end).format(
+            'MM/DD/YYYY',
+          )}`;
           break;
       }
     }
@@ -225,10 +274,13 @@ const SelectBarTime = ({ selectTimeRange, start, end }) => {
   };
 
   return (
-    <TouchableOpacity hitSlop={slop} onPress={selectTimeRange} style={styles.barTime}>
+    <TouchableOpacity
+      hitSlop={slop}
+      onPress={selectTimeRange}
+      style={styles.barTime}>
       <View style={styles.wrapSearch}>
         <Text style={styles.txtSearch}>{renderTitleText()}</Text>
-        <EvilIcons name="calendar" size={scaleWidth(8)} color={"#7A98BB"} />
+        <EvilIcons name="calendar" size={scaleWidth(8)} color={'#7A98BB'} />
       </View>
     </TouchableOpacity>
   );
