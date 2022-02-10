@@ -58,4 +58,4 @@ ios/Pods
 ios/Podfile.lock
 package-lock.json
 *.xcconfig
-
+*.zip
