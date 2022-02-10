@@ -19,7 +19,7 @@ import images from 'assets';
 import PopupFilter from './PopupFilter';
 import { Modalize } from 'react-native-modalize';
 
-export default function Transaction(props) {
+const Transaction = React.forwardRef((props, ref) => {
   const refPopupFilter = useRef(null);
   const refModalFilter = useRef(null);
   const refScrollList = useRef(null);
@@ -50,13 +50,26 @@ export default function Transaction(props) {
     getDataTransaction();
   }, [start, end]);
 
+  React.useEffect(() => {
+    setLoadMore(false);
+  }, [transaction?.length]);
+
+  React.useImperativeHandle(ref, () => ({
+    reset: () => {
+      setPage(1);
+      setRefresh(false);
+      setLoadMore(true);
+      refScrollList?.current?.scrollTo({ y: 0 });
+    },
+  }));
+
   const isAndroid = () => Platform.OS === 'android';
 
   const selectFilter = async data => {
     const { type } = data;
+    await setPage(1);
     await dispatch(actions.paymentAction.onChangeFilterType(type));
     await getDataTransaction(type);
-    setPage(1);
     refScrollList?.current?.scrollTo({ y: 0 });
     closeModalFilter();
   };
@@ -220,7 +233,7 @@ export default function Transaction(props) {
       </Modalize>
     </View>
   );
-}
+});
 
 const renderItem = (item, key) => {
   return (
@@ -285,3 +298,5 @@ const SelectBarTime = ({ selectTimeRange, start, end }) => {
     </TouchableOpacity>
   );
 };
+
+export default Transaction;

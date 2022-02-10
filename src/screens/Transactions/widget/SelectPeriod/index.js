@@ -200,6 +200,7 @@ export default function index(props) {
 
       props.onChangeStartTime(startTime);
       props.onChangeEndTime(endTime);
+      props.cleanTransaction();
       props.goToPage(0);
     }
   };

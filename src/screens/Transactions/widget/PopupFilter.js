@@ -1,29 +1,35 @@
-import React, { Component } from "react";
-import { View, StyleSheet, Platform, TouchableOpacity, Image } from "react-native";
-import { Text } from "components";
-import { scaleWidth, scaleHeight, slop } from "utils";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import images from "assets";
+import React, { Component } from 'react';
+import {
+  View,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import { Text } from 'components';
+import { scaleWidth, scaleHeight, slop } from 'utils';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import images from 'assets';
 
 const initialState = {
   filter_data: [
     {
       key: 0,
-      value: "All type",
+      value: 'All type',
       isCheck: true,
-      type: "all",
+      type: 'all',
     },
     {
       key: 1,
-      value: "Gift card transactions",
+      value: 'Gift card transactions',
       isCheck: false,
-      type: "giftcard",
+      type: 'giftcard',
     },
     {
       key: 2,
-      value: "Payment transactions",
+      value: 'Payment transactions',
       isCheck: false,
-      type: "payment",
+      type: 'payment',
     },
   ],
 };
@@ -34,7 +40,7 @@ export default class PopupFilter extends Component {
     this.state = initialState;
   }
 
-  pickValueFilter = (item) => {
+  pickValueFilter = item => {
     const { filter_data } = this.state;
     let filter = filter_data;
     for (let i = 0; i < filter.length; i++) {
@@ -87,22 +93,22 @@ const styles = StyleSheet.create({
     padding: scaleWidth(5),
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     fontSize: scaleWidth(5),
-    fontWeight: Platform.OS === "android" ? "bold" : "600",
+    fontWeight: Platform.OS === 'android' ? 'bold' : '600',
   },
   rowTitle: {
     borderBottomWidth: 1,
-    borderBottomColor: "#eeeeee",
+    borderBottomColor: '#eeeeee',
     paddingBottom: scaleWidth(3),
   },
   content: {
     fontSize: scaleWidth(4.3),
-    color: "#404040",
+    color: '#404040',
   },
   rowItem: {
     marginTop: scaleHeight(2),

@@ -10,6 +10,7 @@ import App from './src/App';
 import codePush from 'react-native-code-push';
 
 LogBox.ignoreLogs(['Warning: ...']); //Hide warnings
+LogBox.ignoreLogs(['Animated:']); //Hide warnings
 LogBox.ignoreAllLogs();
 
 enableScreens();
