@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   container: {
     width: CARD_WIDTH,
     height: scaleSize(320),
-    top: -scaleSize(50),
+    // top: -scaleSize(50),
     marginBottom: scaleSize(15),
     marginTop: scaleSize(15),
   },

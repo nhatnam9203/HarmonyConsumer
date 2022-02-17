@@ -1,27 +1,62 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
-import { Card, Text, Button, Badge } from "components";
-import ICONS from "assets";
-import { scaleSize } from "utils";
-import Configs from "../../../configs";
-const { CARD_WIDTH } = Configs;
-const ButtonList = ({ onBooking, onPaynow, invoice }) => {
+import ICONS from 'assets';
+import { Button, Card, Text } from 'components';
+import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import { scaleSize } from 'utils';
+import styles from '../../Setting/widget/General/styles';
+
+const ButtonList = ({
+  onBooking,
+  onPaynow,
+  invoice,
+  onAddMoney,
+  onAddCard,
+}) => {
   return (
     <View style={styleButtonList.container}>
-      <Button onPress={onBooking} hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
+      <Button
+        onPress={onBooking}
+        hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
         <Card
-          width={CARD_WIDTH / 2 - 10}
-          height={scaleSize(70)}
+          height={scaleHeight(70)}
+          width={scaleWidth(120)}
           borderRadius={6}
           style={styleButtonList.card}>
-          <Image style={styleButtonList.icon} source={ICONS["booking_button"]} />
-          <Text fontSize={12} color="#0764B0">
-            Booking
-          </Text>
+          <Image
+            style={styleButtonList.icon}
+            source={ICONS['booking_button']}
+          />
+          <Text style={styleButtonList.textStyle}>Booking</Text>
         </Card>
       </Button>
 
-      <Button hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }} onPress={onPaynow}>
+      <Button
+        onPress={onAddMoney}
+        hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
+        <Card
+          height={scaleHeight(70)}
+          width={scaleWidth(120)}
+          borderRadius={6}
+          style={styleButtonList.card}>
+          <Image style={styleButtonList.icon} source={ICONS['addMoney']} />
+          <Text style={styleButtonList.textStyle}>Add money</Text>
+        </Card>
+      </Button>
+
+      <Button
+        onPress={onAddCard}
+        hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
+        <Card
+          height={scaleHeight(70)}
+          width={scaleWidth(120)}
+          borderRadius={6}
+          style={styleButtonList.card}>
+          <Image style={styleButtonList.icon} source={ICONS['addCard']} />
+          <Text style={styleButtonList.textStyle}>Add a card</Text>
+        </Card>
+      </Button>
+
+      {/* <Button hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }} onPress={onPaynow}>
         <Card
           width={CARD_WIDTH / 2 - 10}
           height={scaleSize(70)}
@@ -42,32 +77,41 @@ const ButtonList = ({ onBooking, onPaynow, invoice }) => {
             />
           )}
         </Card>
-      </Button>
+      </Button> */}
     </View>
   );
 };
 const styleButtonList = StyleSheet.create({
   container: {
-    width: CARD_WIDTH,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     height: scaleSize(70),
-    top: -scaleSize(60),
+    padding: scaleWidth(16),
   },
   card: {
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingVertical: scaleSize(10),
   },
   icon: {
-    width: scaleSize(30),
-    height: scaleSize(30),
+    width: scaleSize(24),
+    height: scaleSize(24),
   },
   badge: {
-    position: "absolute",
+    position: 'absolute',
     top: scaleSize(10),
     right: scaleSize(10),
+  },
+  textStyle: {
+    fontFamily: 'SFProDisplay-Regular',
+    fontSize: scaleFont(12),
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    letterSpacing: -0.29,
+    textAlign: 'center',
+    color: '#0764b0',
   },
 });
 export default ButtonList;

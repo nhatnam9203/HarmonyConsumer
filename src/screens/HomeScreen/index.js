@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ScrollView,
   View,
@@ -7,46 +7,58 @@ import {
   Alert,
   ImageBackground,
   ActivityIndicator,
-} from "react-native";
+} from 'react-native';
 
-import { Container, Text, FocusAwareStatusBar } from "components";
-import { Header, GiftCard, GiftCardActive, ButtonList, Banner, MerchantList } from "./Widget";
-import styles from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import actions from "@redux/actions";
-import * as RootNavigation from "navigations/RootNavigation";
-import ICONS from "assets";
+import { Container, Text, FocusAwareStatusBar } from 'components';
+import {
+  Header,
+  GiftCard,
+  GiftCardActive,
+  ButtonList,
+  Banner,
+  MerchantList,
+  UserActiveCard,
+} from './Widget';
+import styles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '@redux/actions';
+import * as RootNavigation from 'navigations/RootNavigation';
+import ICONS from 'assets';
 
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
 export default function index(props) {
   const dispatch = useDispatch();
   const { navigation } = props;
 
-  const token = useSelector((state) => state.datalocalReducer.token);
-  const current_location = useSelector((state) => state.datalocalReducer.current_location);
-  const invoice = useSelector((state) => state.paymentReducer.invoice);
-  const userInfo = useSelector((state) => state.datalocalReducer.userInfo);
+  const token = useSelector(state => state.datalocalReducer.token);
+  const current_location = useSelector(
+    state => state.datalocalReducer.current_location,
+  );
+  const invoice = useSelector(state => state.paymentReducer.invoice);
+  const userInfo = useSelector(state => state.datalocalReducer.userInfo);
   const userCard = userInfo.userCard ? userInfo.userCard : null;
   const number_invoice = invoice.id ? 1 : 0;
   const [refreshing, setRefreshing] = React.useState(false);
 
   const { lat, lng } =
-    current_location && current_location.location ? current_location.location : 0;
+    current_location && current_location.location
+      ? current_location.location
+      : 0;
 
   React.useEffect(() => {
     dispatch(
       actions.storeAction.searchStore(
-        "",
-        "all",
-        "favoritest",
+        '',
+        'all',
+        'favoritest',
         lat,
         lng,
         1,
         token,
-        (screen = "Home"),
+        (screen = 'Home'),
       ),
     );
     dispatch(actions.inboxAction.countUnread(token));
@@ -56,7 +68,7 @@ export default function index(props) {
     getCardByUser();
     updateAccount();
     getTopMerchant();
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
   }, []);
 
   const getTopMerchant = () => {
@@ -85,16 +97,16 @@ export default function index(props) {
   const handleBackButton = () => {
     if (props.navigation.isFocused()) {
       Alert.alert(
-        "Exit App",
-        "Exiting the application?",
+        'Exit App',
+        'Exiting the application?',
         [
           {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
           },
           {
-            text: "OK",
+            text: 'OK',
             onPress: () => BackHandler.exitApp(),
           },
         ],
@@ -112,29 +124,29 @@ export default function index(props) {
 
   const addMoney = () => {
     dispatch(actions.cardAction.set_card_reload(userCard));
-    RootNavigation.navigate("AddMoneyExistCard");
+    RootNavigation.navigate('AddMoneyExistCard');
   };
 
   const addCard = () => {
-    navigation.navigate("AddNewCard");
+    navigation.navigate('AddNewCard');
   };
 
   const activeFirstCard = () => {
-    navigation.navigate("FlowAddCard");
+    navigation.navigate('FlowAddCard');
   };
 
   const booking = () => {
-    navigation.navigate("Store");
+    navigation.navigate('Store');
   };
 
   const paynow = () => {
-    navigation.navigate("PayNow");
+    navigation.navigate('PayNow');
   };
 
-  const goToStoreDetail = (merchantId) => {
+  const goToStoreDetail = merchantId => {
     dispatch(actions.bookingAction.resetBooking());
-    RootNavigation.navigate("BookAppointmentStack", {
-      screen: "StoreDetail",
+    RootNavigation.navigate('BookAppointmentStack', {
+      screen: 'StoreDetail',
       params: { merchantId },
     });
   };
@@ -151,7 +163,10 @@ export default function index(props) {
 
   return (
     <Container showStatusBar={false} paddingBottom={0}>
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor="transparent" />
+      <FocusAwareStatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+      />
       <ScrollView
         // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />}
         bounces={false}
@@ -159,10 +174,19 @@ export default function index(props) {
         contentContainerStyle={styles.container_center}
         showsVerticalScrollIndicator={false}>
         <Header openDrawer={openDrawer} reloadView={_onRefresh} />
+        {userCard ? (
+          <UserActiveCard card={userCard} />
+        ) : (
+          <GiftCardActive onPress={activeFirstCard} />
+        )}
 
-        {userCard && <GiftCard onaddMoney={addMoney} onAddCard={addCard} card={userCard} />}
-        {!userCard && <GiftCardActive onPress={activeFirstCard} />}
-        <ButtonList onBooking={booking} onPaynow={paynow} invoice={number_invoice} />
+        <ButtonList
+          onBooking={booking}
+          // onPaynow={paynow}
+          onAddMoney={addMoney}
+          onAddCard={addCard}
+          invoice={number_invoice}
+        />
 
         <Banner goToStoreDetail={goToStoreDetail} />
         <View style={styles.title_popular}>
@@ -175,15 +199,19 @@ export default function index(props) {
       {refreshing && (
         <View
           style={{
-            position: "absolute",
-            justifyContent: "center",
-            alignItems: "center",
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
             top: 0,
             bottom: 0,
             left: 0,
             right: 0,
           }}>
-          <LoadingIndicator animating={refreshing} color="#0764f9" size="large" />
+          <LoadingIndicator
+            animating={refreshing}
+            color="#0764f9"
+            size="large"
+          />
         </View>
       )}
     </Container>
@@ -197,9 +225,9 @@ const LoadingIndicator = () => {
         width: 50,
         height: 50,
         borderRadius: 6,
-        backgroundColor: "#0005",
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: '#0005',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
       <ActivityIndicator color="#fff" />
     </View>
