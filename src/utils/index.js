@@ -60,8 +60,8 @@ export const requestAPI = async (action, header = {}) => {
     }
 
     if (codeNumber === 401) {
-      RootNavigation.navigate('Auth');
-      alert('Your session is expired , please login again');
+      // RootNavigation.navigate('Auth');
+      // alert('Your session is expired , please login again');
       return;
     } else if (codeNumber === 404) {
       return {
