@@ -1,14 +1,20 @@
 import ICONS from 'assets';
 import { Text } from 'components';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-export const UserActiveCard = ({ card }) => {
+export const UserActiveCard = ({ card, onPress }) => {
   const { amount, userCardId, imageUrl } = card;
 
+  const onCardPress = () => {
+    if (onPress && typeof onPress === 'function') {
+      onPress(card);
+    }
+  };
+
   return (
-    <View style={styles.cardContainer}>
+    <TouchableOpacity style={styles.cardContainer} onPress={onCardPress}>
       <FastImage
         style={styles.imageCard}
         source={
@@ -20,7 +26,7 @@ export const UserActiveCard = ({ card }) => {
       <View style={styles.amountContent}>
         <Text style={styles.amountText}>{`$ ${amount}`}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

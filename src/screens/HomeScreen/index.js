@@ -161,6 +161,11 @@ export default function index(props) {
     wait(2000).then(() => setRefreshing(false));
   };
 
+  const goToDetailCard = (item = {}) => {
+    dispatch(actions.cardAction.set_card_detail(item));
+    RootNavigation.navigate('DetailGiftCard');
+  };
+
   return (
     <Container showStatusBar={false} paddingBottom={0}>
       <FocusAwareStatusBar
@@ -175,7 +180,7 @@ export default function index(props) {
         showsVerticalScrollIndicator={false}>
         <Header openDrawer={openDrawer} reloadView={_onRefresh} />
         {userCard ? (
-          <UserActiveCard card={userCard} />
+          <UserActiveCard card={userCard} onPress={goToDetailCard} />
         ) : (
           <GiftCardActive onPress={activeFirstCard} />
         )}
