@@ -26,7 +26,7 @@ const GiftCardActive = props => {
       style={{
         fontWeight: '500',
       }}>
-      200 HP point
+      200 Star
     </Text>
   );
   return (
@@ -37,8 +37,8 @@ const GiftCardActive = props => {
         style={{
           fontWeight: '500',
         }}>
-        Welcome to {TextApp} ! Please add payment to earn {TextMoney}. This
-        point can be used when paying the bills.
+        Welcome to {TextApp} ! Please add payment to earn {TextMoney}. This Star
+        can be used when paying the bills.
       </Text>
       <View style={stylesGiftCard.content}>
         <Image source={ICONS.card_active} style={stylesGiftCard.image} />

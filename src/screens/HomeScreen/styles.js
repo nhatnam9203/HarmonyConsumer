@@ -6,8 +6,9 @@ const {
 } = Configs;
 const styles = StyleSheet.create({
   card: {
-    top: -scaleSize(75),
+    // top: scaleSize(5),
     paddingVertical: scaleSize(15),
+    marginVertical: scaleHeight(16),
   },
   container_center: {
     // paddingHorizontal: scaleSize(15),
