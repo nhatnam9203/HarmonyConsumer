@@ -18,7 +18,7 @@ export default function index(props) {
     <View style={styles.container}>
       <View style={{ backgroundColor: "#f8f8f8" }}>
         <StatusBar />
-        <Header onBack={back} headerLeft title="Points history" />
+        <Header onBack={back} headerLeft title="Star history" />
       </View>
       <View style={{ flex: 1 }}>
         <View style={styles.wrapScroll}>

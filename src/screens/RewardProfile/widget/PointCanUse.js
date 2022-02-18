@@ -19,11 +19,11 @@ export default function PointCanUse(props) {
       onPress={goToQuestionAccumulate}
       style={styles.container}
       activeOpacity={0.8}>
-      <Text style={styles.title}>Point can use</Text>
+      <Text style={styles.title}>Star can use</Text>
       <View style={styles.row}>
         <Image source={images.dollar_green} style={styles.image} />
         <Text style={styles.quantity}>{availableRewardPoint}</Text>
-        <Text style={styles.txtPoint}>points</Text>
+        <Text style={styles.txtPoint}>Star</Text>
       </View>
       {/*       <View style={styles.rowBottom} activeOpacity={1}>
         <Text style={styles.txtAccummulate}>How to accumulate points</Text>

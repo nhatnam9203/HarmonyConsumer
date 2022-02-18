@@ -7,7 +7,7 @@ export default class DiscountByPoint extends Component {
     const { price = "" } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Discount by HP points</Text>
+        <Text style={styles.title}>Discount by HP Star</Text>
         <Text style={styles.price}>{`$ ${parseFloat(price).toFixed(2)}`}</Text>
       </View>
     );

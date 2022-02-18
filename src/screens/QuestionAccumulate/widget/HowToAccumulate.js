@@ -1,10 +1,10 @@
-import React from "react";
-import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
-import { scaleWidth, slop } from "utils";
-import styles from "../styles";
-import images from "assets";
-import { Header, StatusBar } from "components";
-import { ProgressBar2 } from "components";
+import React from 'react';
+import { Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { scaleWidth, slop } from 'utils';
+import styles from '../styles';
+import images from 'assets';
+import { Header, StatusBar } from 'components';
+import { ProgressBar2 } from 'components';
 
 export default function HowToAccumulate(props) {
   const back = () => {
@@ -21,17 +21,25 @@ export default function HowToAccumulate(props) {
 
   return (
     <View style={styles.container}>
-      <View style={{ backgroundColor: "#f8f8f8" }}>
+      <View style={{ backgroundColor: '#f8f8f8' }}>
         <StatusBar />
-        <Header title="Accummulate points" headerLeft onBack={back} />
+        <Header title="Accummulate Star" headerLeft onBack={back} />
       </View>
 
       {/* ---------------Item--------------- */}
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <View style={styles.body}>
-          <Image resizeMode="contain" style={styles.imgTop} source={images.question1} />
-          <Text style={[styles.titleHeader, { color: "#0764B0", alignSelf: "center" }]}>
-            How to accumulate points
+          <Image
+            resizeMode="contain"
+            style={styles.imgTop}
+            source={images.question1}
+          />
+          <Text
+            style={[
+              styles.titleHeader,
+              { color: '#0764B0', alignSelf: 'center' },
+            ]}>
+            How to accumulate Star
           </Text>
           <Item
             onPress={reviewStore}
@@ -56,18 +64,22 @@ export default function HowToAccumulate(props) {
   );
 }
 
-const Item = ({ content = "", qty = "", onPress, images, isRefer }) => {
+const Item = ({ content = '', qty = '', onPress, images, isRefer }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.item}>
       <Image style={styles.imgItem} source={images} />
       <View style={styles.bottomItem}>
         <Text style={styles.txtBottomItem}>{content}</Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.txtBottomItem2}>{qty}</Text>
           {isRefer && (
             <Image
-              style={{ width: scaleWidth(4.5), height: scaleWidth(4.5), marginLeft: scaleWidth(2) }}
-              source={require("assets/Question/dongxu.png")}
+              style={{
+                width: scaleWidth(4.5),
+                height: scaleWidth(4.5),
+                marginLeft: scaleWidth(2),
+              }}
+              source={require('assets/Question/dongxu.png')}
             />
           )}
         </View>
@@ -81,12 +93,20 @@ const ItemMission = () => {
     <View style={[styles.item, { padding: scaleWidth(3) }]}>
       <Text style={styles.txtBottomItem}>Mission</Text>
       <Text style={styles.txtItem2}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
       </Text>
 
       <View style={styles.bodyItem2}>
-        <Image source={images.bia} style={{ width: scaleWidth(7), height: scaleWidth(7) }} />
-        <ProgressBar2 colorTrack={"#EEEEEE"} colorThumb={"#2EBE03"} percent={50} />
+        <Image
+          source={images.bia}
+          style={{ width: scaleWidth(7), height: scaleWidth(7) }}
+        />
+        <ProgressBar2
+          colorTrack={'#EEEEEE'}
+          colorThumb={'#2EBE03'}
+          percent={50}
+        />
         <TouchableOpacity style={styles.btnGo}>
           <Text style={styles.txtGo}>Go</Text>
         </TouchableOpacity>

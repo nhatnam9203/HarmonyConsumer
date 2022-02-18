@@ -1,33 +1,44 @@
+import actions from '@redux/actions';
+import ICONS from 'assets';
+import { Button, StatusBar, Text } from 'components';
+import * as RootNavigation from 'navigations/RootNavigation';
 import React, { useMemo } from 'react';
 import {
-  StyleSheet,
   Dimensions,
-  ImageBackground,
-  View,
   Image,
+  ImageBackground,
+  StyleSheet,
+  View,
 } from 'react-native';
-import ICONS from 'assets';
+import { useDispatch, useSelector } from 'react-redux';
 import { scaleSize } from 'utils';
-import { Text, Button, StatusBar } from 'components';
-import { useSelector } from 'react-redux';
-import * as RootNavigation from 'navigations/RootNavigation';
 
 const { width } = Dimensions.get('window');
 
 export default function Header({ openDrawer, reloadView }) {
+  const dispatch = useDispatch();
+
   let { count } = useSelector(state => state.inboxReducer);
   const userInfo = useSelector(state => state.datalocalReducer.userInfo);
   const userName = useMemo(() => {
     return userInfo && userInfo.fullName ? userInfo.fullName : '';
   }, [userInfo]);
+  const token = useSelector(state => state.datalocalReducer.token);
+
+  const { rewardProfile } = useSelector(state => state.customerReducer);
+  const { availableRewardPoint = 0 } = rewardProfile ?? {};
 
   const openInbox = () => {
     RootNavigation.navigate('Inbox');
   };
 
   const getUserStar = () => {
-    return userInfo?.availableRewardPoint ?? 0;
+    return availableRewardPoint;
   };
+
+  React.useEffect(() => {
+    dispatch(actions.customerAction?.getRewardProfile(token));
+  }, []);
 
   return (
     <ImageBackground

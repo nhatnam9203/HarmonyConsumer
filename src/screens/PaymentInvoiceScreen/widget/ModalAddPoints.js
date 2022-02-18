@@ -62,7 +62,7 @@ export default function ModalAddTip({
       <View style={styles.container}>
         <View style={styles.header}>
           <Text fontSize={20} fontFamily="bold">
-            Using HP Points
+            Using HP Star
           </Text>
           <Button onPress={onHandeCLoseModal}>
             <Image source={ICONS["close_header"]} style={styles.icon_close} />
@@ -70,14 +70,14 @@ export default function ModalAddTip({
         </View>
 
         <RadioUsePonts
-          title="Use maximum available points"
+          title="Use maximum available Star"
           points={points}
           active={radio == 0 ? true : false}
           onChangeValue={onHandleActive(0)}
         />
 
         <RadioUsePonts
-          title="Enter amount of points"
+          title="Enter amount of Star"
           active={radio == 1 ? true : false}
           onChangeValue={onHandleActive(1)}
         />

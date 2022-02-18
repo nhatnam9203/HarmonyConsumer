@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { ScrollView, View, RefreshControl } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { ScrollView, View, RefreshControl } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import actions from "@redux/actions";
-import ICONS from "assets";
-import { Text, Container, Header, Form } from "components";
+import actions from '@redux/actions';
+import ICONS from 'assets';
+import { Text, Container, Header, Form } from 'components';
 import {
   UsingPoints,
   TotalInfo,
@@ -12,12 +12,12 @@ import {
   ModalAddPoints,
   PaySuccess,
   DiscountByPoint,
-} from "./widget";
-import * as RootNavigation from "navigations/RootNavigation";
-import styles from "./style";
-import { reCalulateTotal } from "../../redux/actions/paymentAction";
-import { formatNumberFromCurrency, formatMoney, FormatPrice } from "utils";
-import { isEmpty } from "lodash";
+} from './widget';
+import * as RootNavigation from 'navigations/RootNavigation';
+import styles from './style';
+import { reCalulateTotal } from '../../redux/actions/paymentAction';
+import { formatNumberFromCurrency, formatMoney, FormatPrice } from 'utils';
+import { isEmpty } from 'lodash';
 
 const { ButtonSubmit } = Form;
 
@@ -27,22 +27,28 @@ export default function index(props) {
   const [isPay, setPay] = useState(false);
 
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.datalocalReducer.token);
-  const userInfo = useSelector((state) => state.datalocalReducer.userInfo);
-  const cards = useSelector((state) => state.cardReducer.cards);
-  const tips = useSelector((state) => state.generalReducer.tips);
-  const invoice = useSelector((state) => state.paymentReducer.invoice);
+  const token = useSelector(state => state.datalocalReducer.token);
+  const userInfo = useSelector(state => state.datalocalReducer.userInfo);
+  const cards = useSelector(state => state.cardReducer.cards);
+  const tips = useSelector(state => state.generalReducer.tips);
+  const invoice = useSelector(state => state.paymentReducer.invoice);
   const userRewardPointsSummary = useSelector(
-    (state) => state.paymentReducer.userRewardPointsSummary,
+    state => state.paymentReducer.userRewardPointsSummary,
   );
-  const isReCalculteTotal = useSelector((state) => state.paymentReducer.isReCalculteTotal);
-  const reCalculteTotal = useSelector((state) => state.paymentReducer.reCalculteTotal);
-  const loading_reward_point = useSelector((state) => state.paymentReducer.loading_reward_point);
+  const isReCalculteTotal = useSelector(
+    state => state.paymentReducer.isReCalculteTotal,
+  );
+  const reCalculteTotal = useSelector(
+    state => state.paymentReducer.reCalculteTotal,
+  );
+  const loading_reward_point = useSelector(
+    state => state.paymentReducer.loading_reward_point,
+  );
 
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
   const [toggleModal, setToggleModal] = React.useState(false);
   const [card, setCard] = React.useState({});
-  const [point, setPoint] = React.useState("");
+  const [point, setPoint] = React.useState('');
   const [point_used, setPointUsed] = React.useState(0);
   const [firstLoading, setFirstLoading] = React.useState(true);
 
@@ -53,7 +59,9 @@ export default function index(props) {
     ? userRewardPointsSummary.availableRewardPoint
     : 0;
 
-  const groupAppointment = useSelector((state) => state.appointmentReducer.groupAppointment);
+  const groupAppointment = useSelector(
+    state => state.appointmentReducer.groupAppointment,
+  );
 
   let { appointments } = groupAppointment;
 
@@ -61,7 +69,8 @@ export default function index(props) {
   const amount = invoice.amount ? invoice.amount : total;
 
   React.useLayoutEffect(() => {
-    let totalHasTip = formatNumberFromCurrency(amount) + formatNumberFromCurrency(tipCustomer);
+    let totalHasTip =
+      formatNumberFromCurrency(amount) + formatNumberFromCurrency(tipCustomer);
     // let _subTotal = FormatPrice(groupAppointment.subTotal) + FormatPrice(tipCustomer);
     let tips = {
       total: groupAppointment.total,
@@ -73,7 +82,7 @@ export default function index(props) {
     setTips(tips);
   }, [groupAppointment, amount]);
 
-  const setTips = (tips) => {
+  const setTips = tips => {
     dispatch(actions.generalAction.set_tips(tips));
   };
 
@@ -81,7 +90,7 @@ export default function index(props) {
     setToggleModal(!toggleModal);
   };
 
-  const onHandleSelectCard = (card) => {
+  const onHandleSelectCard = card => {
     setCard(card);
   };
 
@@ -90,7 +99,7 @@ export default function index(props) {
     setToggleModal(false);
   };
 
-  const onChangePoint = (value) => {
+  const onChangePoint = value => {
     setPoint(value);
   };
 
@@ -123,23 +132,23 @@ export default function index(props) {
   };
 
   const useEnterPoints = () => {
-    setPoint("");
+    setPoint('');
     reCalulateTotal != 0 && updateTotalWithPoints(0);
   };
 
   const notUsePoint = () => {
-    setPoint("");
+    setPoint('');
     reCalulateTotal != 0 && updateTotalWithPoints(0);
     oncloseCheckBox();
   };
 
-  const applyPoints = (points) => {
+  const applyPoints = points => {
     const availableRewardPoint = userRewardPointsSummary.availableRewardPoint
       ? userRewardPointsSummary.availableRewardPoint
       : 0;
 
     if (points > availableRewardPoint) {
-      alert("Your points enter bigger available point !");
+      alert('Your Star enter bigger available point !');
     } else {
       setToggleModal(false);
       setToggleCheckBox(true);
@@ -149,7 +158,7 @@ export default function index(props) {
 
   React.useEffect(() => {
     if (isEmpty(invoice) && firstLoading == false && isPay == false) {
-      RootNavigation.navigate("Home");
+      RootNavigation.navigate('Home');
     }
   }, [invoice]);
 
@@ -185,13 +194,13 @@ export default function index(props) {
     RootNavigation.back();
   };
 
-  const addMoneyToCard = (card) => () => {
+  const addMoneyToCard = card => () => {
     dispatch(actions.cardAction.set_card_reload(card));
-    RootNavigation.navigate("AddMoneyExistCard");
+    RootNavigation.navigate('AddMoneyExistCard');
   };
 
   const addNewCard = () => {
-    RootNavigation.navigate("AddNewCard");
+    RootNavigation.navigate('AddNewCard');
   };
 
   const onPay = () => {
@@ -204,7 +213,7 @@ export default function index(props) {
       userCardId: card.userCardId,
       Amount: totalHasTip,
       MerchantId: merchantId_invoice,
-      RewardPoint: point != "" ? point : 0,
+      RewardPoint: point != '' ? point : 0,
     };
 
     if (checkoutPaymentId > 0) {
@@ -219,7 +228,9 @@ export default function index(props) {
         ),
       );
     } else {
-      dispatch(actions.paymentAction.payment_by_scan(bodyPayment, token, paySuccess));
+      dispatch(
+        actions.paymentAction.payment_by_scan(bodyPayment, token, paySuccess),
+      );
     }
   };
 
@@ -241,7 +252,7 @@ export default function index(props) {
               onRefresh={refreshRewardPoint}
               size={30}
               progressBackgroundColor="#FFFF"
-              colors={["#0764B0"]}
+              colors={['#0764B0']}
               tintColor="#0764B0"
             />
           }
@@ -274,8 +285,8 @@ export default function index(props) {
             width={350}
             onSubmit={onPay}
             disabled={disabled_submit}
-            backgroundColor={!disabled_submit ? "#0764B0" : "#EEEEEE"}
-            textColor={!disabled_submit ? "#FFF" : "#585858"}
+            backgroundColor={!disabled_submit ? '#0764B0' : '#EEEEEE'}
+            textColor={!disabled_submit ? '#FFF' : '#585858'}
           />
         </View>
 
@@ -301,7 +312,7 @@ export default function index(props) {
         title="Pay invoice"
         headerLeft={true}
         onBack={onBack}
-        iconLeft={ICONS["arrow_back_ios"]}
+        iconLeft={ICONS['arrow_back_ios']}
       />
       {!isPay && renderPayment()}
       {isPay && renderPaySuccess()}

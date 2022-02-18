@@ -6,7 +6,7 @@ import { Text, Button } from "components";
 import { scaleSize } from "utils";
 import ICONS from "assets";
 export default function UsingPoints({ points = 0, pointIsUsed = 0, onValueChange, value }) {
-  let txt_available = points > 0 ? "points available" : "You do not have HP points to pay.";
+  let txt_available = points > 0 ? "Star available" : "You do not have HP Star to pay.";
 
   return (
     <View style={styles.container}>
@@ -22,7 +22,7 @@ export default function UsingPoints({ points = 0, pointIsUsed = 0, onValueChange
         </Button>
 
         <Text fontSize={17} color={points > 0 ? "#404040" : "#A9A9A9"}>
-          Using HP Points
+          Using HP Star
         </Text>
       </View>
 
@@ -46,7 +46,7 @@ export default function UsingPoints({ points = 0, pointIsUsed = 0, onValueChange
       ) : (
         <Button style={styles.button}>
           <Text fontSize={15} color="#0764b0">
-            How to accumulate points
+            How to accumulate Star
           </Text>
 
           <Image style={styles.icon} source={ICONS["arrow_forward"]} />

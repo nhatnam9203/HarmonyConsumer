@@ -1,46 +1,52 @@
-import React from "react";
-import { View, StyleSheet, Image, Platform, TouchableOpacity } from "react-native";
-import { Text } from "components";
-import { scaleWidth } from "utils";
-import images from "assets";
-import { ProgressBar } from "components";
-import Feather from "react-native-vector-icons/Feather";
+import React from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
+import { Text } from 'components';
+import { scaleWidth } from 'utils';
+import images from 'assets';
+import { ProgressBar } from 'components';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function AccumulationProcess(props) {
   const goToPointsHistory = () => {
-    props.navigation.navigate("PointsHistory");
+    props.navigation.navigate('PointsHistory');
   };
 
   const goToMemberBenefit = () => {
-    props.navigation.navigate("MemberBenefit");
+    props.navigation.navigate('MemberBenefit');
   };
 
   const { percentToNextRank, currentRank, nextRankExp, nextRank } = props;
 
   function renderNextRankIcon() {
     switch (currentRank) {
-      case "Bronze":
+      case 'Bronze':
         return (
           <View style={styles.row}>
             <Image source={images.crowns_bronze} style={styles.iconImage} />
             <Image source={images.crowns_silver} style={styles.iconImage} />
           </View>
         );
-      case "Silver":
+      case 'Silver':
         return (
           <View style={styles.row}>
             <Image source={images.crowns_silver} style={styles.iconImage} />
             <Image source={images.crowns_gold} style={styles.iconImage} />
           </View>
         );
-      case "Gold":
+      case 'Gold':
         return (
           <View style={styles.row}>
             <Image source={images.crowns_gold} style={styles.iconImage} />
             <Image source={images.crowns_platinum} style={styles.iconImage} />
           </View>
         );
-      case "Platium":
+      case 'Platium':
         return (
           <View style={styles.row}>
             <Image source={images.crowns_gold} style={styles.iconImage} />
@@ -53,17 +59,21 @@ export default function AccumulationProcess(props) {
   }
 
   function renderProgressBar() {
-    if (currentRank !== "Platium") {
+    if (currentRank !== 'Platium') {
       return (
         <ProgressBar
           percent={parseFloat(percentToNextRank)}
-          colorThumb={"#0764B0"}
-          colorTrack={"#F6F6F6"}
+          colorThumb={'#0764B0'}
+          colorTrack={'#F6F6F6'}
         />
       );
     } else {
       return (
-        <ProgressBar percent={parseFloat(100)} colorThumb={"#0764B0"} colorTrack={"#F6F6F6"} />
+        <ProgressBar
+          percent={parseFloat(100)}
+          colorThumb={'#0764B0'}
+          colorTrack={'#F6F6F6'}
+        />
       );
     }
   }
@@ -71,8 +81,15 @@ export default function AccumulationProcess(props) {
   function renderContent() {
     return (
       <View style={styles.contentWrap}>
-        <Text style={styles.txtContent}>{`Accumulate ${nextRankExp} to become a `}</Text>
-        <Text style={[styles.txtContent, { color: "#0764B0" }]}>{`${nextRank} member`}</Text>
+        <Text
+          style={
+            styles.txtContent
+          }>{`Accumulate ${nextRankExp} to become a `}</Text>
+        <Text
+          style={[
+            styles.txtContent,
+            { color: '#0764B0' },
+          ]}>{`${nextRank} member`}</Text>
       </View>
     );
   }
@@ -80,8 +97,13 @@ export default function AccumulationProcess(props) {
   function renderMaxPoint() {
     return (
       <View style={styles.contentWrap}>
-        <Text style={[styles.txtContent, { color: "#0764B0" }]}>{`Congratulations ! `}</Text>
-        <Text style={styles.txtContent}>{`You have reached the highest rank`}</Text>
+        <Text
+          style={[
+            styles.txtContent,
+            { color: '#0764B0' },
+          ]}>{`Congratulations ! `}</Text>
+        <Text
+          style={styles.txtContent}>{`You have reached the highest rank`}</Text>
       </View>
     );
   }
@@ -96,13 +118,16 @@ export default function AccumulationProcess(props) {
         <Text style={styles.title}>Accumulation Process</Text>
         {renderNextRankIcon()}
         {renderProgressBar()}
-        {currentRank !== "Platium" && renderContent()}
-        {currentRank == "Platium" && renderMaxPoint()}
+        {currentRank !== 'Platium' && renderContent()}
+        {currentRank == 'Platium' && renderMaxPoint()}
         {/* <Link title="Member benefits" /> */}
       </TouchableOpacity>
 
-      <TouchableOpacity activeOpacity={0.8} onPress={goToPointsHistory} style={styles.container}>
-        <Link title="Points history" isPointHistory />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={goToPointsHistory}
+        style={styles.container}>
+        <Link title="History" isPointHistory />
       </TouchableOpacity>
     </React.Fragment>
   );
@@ -110,9 +135,13 @@ export default function AccumulationProcess(props) {
 
 const Link = ({ title, isPointHistory }) => {
   return (
-    <View style={[styles.rowBottom, { marginTop: isPointHistory ? scaleWidth(0) : scaleWidth(3) }]}>
+    <View
+      style={[
+        styles.rowBottom,
+        { marginTop: isPointHistory ? scaleWidth(0) : scaleWidth(3) },
+      ]}>
       <Text style={styles.txtAccummulate}>{title}</Text>
-      <Feather name="chevron-right" color={"#0764B0"} size={scaleWidth(4)} />
+      <Feather name="chevron-right" color={'#0764B0'} size={scaleWidth(4)} />
     </View>
   );
 };
@@ -121,7 +150,7 @@ const styles = StyleSheet.create({
   container: {
     width: scaleWidth(94),
     marginHorizontal: scaleWidth(3),
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -131,11 +160,11 @@ const styles = StyleSheet.create({
     elevation: 2,
     padding: scaleWidth(3),
     borderRadius: 3,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginTop: scaleWidth(3),
   },
   contentWrap: {
-    flexDirection: "row",
+    flexDirection: 'row',
     // borderBottomWidth: 1,
     // borderBottomColor: "#eeeeee",
     paddingBottom: scaleWidth(3),
@@ -143,10 +172,10 @@ const styles = StyleSheet.create({
   txtContent: {
     marginTop: scaleWidth(2),
     fontSize: scaleWidth(3.5),
-    color: "#888888",
+    color: '#888888',
   },
   title: {
-    color: "#585858",
+    color: '#585858',
     fontSize: scaleWidth(4),
   },
   image: {
@@ -154,35 +183,35 @@ const styles = StyleSheet.create({
     height: scaleWidth(8),
   },
   quantity: {
-    color: "#0764B0",
-    fontWeight: Platform.OS === "android" ? "bold" : "600",
+    color: '#0764B0',
+    fontWeight: Platform.OS === 'android' ? 'bold' : '600',
     fontSize: scaleWidth(7),
     marginLeft: scaleWidth(1.4),
   },
   txtPoint: {
-    color: "#888888",
+    color: '#888888',
     fontSize: scaleWidth(3.5),
     marginTop: scaleWidth(2),
     marginLeft: scaleWidth(1.4),
   },
   row: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: scaleWidth(3),
     borderBottomWidth: 1,
-    borderBottomColor: "#dddddd",
+    borderBottomColor: '#dddddd',
     paddingBottom: scaleWidth(4),
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     marginTop: scaleWidth(5),
   },
   rowBottom: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: scaleWidth(3),
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   txtAccummulate: {
-    color: "#0764B0",
+    color: '#0764B0',
     fontSize: scaleWidth(4),
   },
   iconImage: {

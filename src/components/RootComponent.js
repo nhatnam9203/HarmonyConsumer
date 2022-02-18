@@ -326,6 +326,8 @@ const RootComponent = ({ children }) => {
         const { id } = messageJson;
         dispatch(actions.appointmentAction?.getGroupAppointmentById(token, id));
         dispatch(actions.paymentAction?.get_number_invoice(token));
+        dispatch(actions.customerAction?.getRewardProfile(token));
+
         // dispatch(actions.generalAction.set_tips(tips));
       }
       if (messageJson.type === 'cancel_pay') {
@@ -350,6 +352,7 @@ const RootComponent = ({ children }) => {
         dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
         dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
+        dispatch(actions.customerAction?.getRewardProfile(token));
       }
       if (messageJson.type == 'appointment_checkout') {
         dispatch(actions.appointmentAction?.setCheckOut(true));

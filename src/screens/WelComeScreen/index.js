@@ -27,7 +27,7 @@ const slides = [
     key: 3,
     title: "Mobile Payment",
     text: "Fast and easy payments.",
-    text2: "Competitive rewards points.",
+    text2: "Competitive rewards Star.",
     image: images.mobilePayment,
     backgroundColor: "white",
   },
