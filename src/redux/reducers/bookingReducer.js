@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 const get_INITIAL_STATE = () => {
   return {
@@ -7,64 +7,66 @@ const get_INITIAL_STATE = () => {
     extras: [],
     fromTime: moment(),
     notes: [],
-    staffId: "",
-    staffId_service: "",
+    staffId: '',
+    staffId_service: '',
     day: moment(),
-    timePicker: "",
+    timePicker: '',
     isReschedule: false,
     isEditAppointment: false,
     isCheckEdit: false,
-    status: "unconfirm",
+    status: 'unconfirm',
     isReview: false,
     isAddmore: false,
-    noteValue: "",
+    noteValue: '',
     isCheckout: false,
   };
 };
 
 function dataLocalReducer(state = get_INITIAL_STATE(), action) {
   switch (action.type) {
-    case "ADD_SERVICE":
+    case 'ADD_SERVICE':
       return {
         ...state,
         services: action.payload,
       };
 
-    case "ADD_NOTE_VALUE":
+    case 'ADD_NOTE_VALUE':
       return {
         ...state,
         noteValue: action.payload,
       };
 
-    case "ADD_PRODUCT":
+    case 'ADD_PRODUCT':
       return {
         ...state,
         products: action.payload,
       };
 
-    case "ADD_EXTRA":
+    case 'ADD_EXTRA':
       return {
         ...state,
         extras: action.payload,
       };
 
-    case "SELECT_TIME":
+    case 'SELECT_TIME':
       return {
         ...state,
         timePicker: action.payload,
       };
 
-    case "SELECT_DAY":
+    case 'SELECT_DAY':
       return {
         ...state,
         day: action.payload,
       };
 
-    case "SELECT_DATE":
+    case 'SELECT_DATE':
       if (state.services.length > 0) {
         let firstService = state.services[0];
         if (firstService) {
-          firstService = Object.assign({}, firstService, { fromTime: action.payload });
+          firstService = Object.assign({}, firstService, {
+            fromTime: action.payload,
+          });
           // services
         }
       }
@@ -76,72 +78,84 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
         fromTime: action.payload,
       };
 
-    case "SELECT_STAFF":
+    case 'SELECT_STAFF':
       return {
         ...state,
         staffId: action.payload,
       };
 
-    case "SELECT_STAFF_SERVICE":
+    case 'SELECT_STAFF_SERVICE':
       return {
         ...state,
         staffId_service: action.payload,
       };
 
-    case "SELECT_STATUS":
+    case 'SELECT_STATUS':
       return {
         ...state,
         status: action.payload,
       };
 
-    case "DELETE_SERVICE":
-      return {
-        ...state,
-        services: state.services.filter((obj) => obj.serviceId !== action.service.serviceId),
-        extras: !state.isEditAppointment
-          ? state.extras.filter((obj) => obj.serviceId !== action.service.serviceId)
-          : state.extras.filter((obj) => obj.bookingServiceId !== action.service.bookingServiceId),
-      };
-
-    case "DELETE_SERVICE_SUCCESS":
+    case 'DELETE_SERVICE':
       return {
         ...state,
         services: state.services.filter(
-          (obj) => obj.bookingServiceId !== action.service.bookingServiceId,
+          obj => obj.serviceId !== action.service.serviceId,
         ),
-        extras: state.extras.filter(
-          (obj) => obj.bookingServiceId !== action.service.bookingServiceId,
-        ),
+        extras: !state.isEditAppointment
+          ? state.extras.filter(
+              obj => obj.serviceId !== action.service.serviceId,
+            )
+          : state.extras.filter(
+              obj => obj.bookingServiceId !== action.service.bookingServiceId,
+            ),
       };
 
-    case "DELETE_PRODUCT":
+    case 'DELETE_SERVICE_SUCCESS':
       return {
         ...state,
-        products: state.products.filter((obj) => obj.productId != action.product.productId),
+        services: state.services.filter(
+          obj => obj.bookingServiceId !== action.service.bookingServiceId,
+        ),
+        extras: state.extras.filter(
+          obj => obj.bookingServiceId !== action.service.bookingServiceId,
+        ),
       };
 
-    case "DELETE_PRODUCT_SUCCESS":
+    case 'DELETE_PRODUCT':
       return {
         ...state,
         products: state.products.filter(
-          (obj) => obj.bookingProductId != action.product.bookingProductId,
+          obj => obj.productId != action.product.productId,
         ),
       };
 
-    case "DELETE_EXTRA":
+    case 'DELETE_PRODUCT_SUCCESS':
       return {
         ...state,
-        extras: state.extras.filter((obj) => obj.serviceId !== action.extra.serviceId),
+        products: state.products.filter(
+          obj => obj.bookingProductId != action.product.bookingProductId,
+        ),
       };
 
-    case "ADD_NOTE":
+    case 'DELETE_EXTRA':
+      return {
+        ...state,
+        extras: state.extras.filter(
+          obj => obj.serviceId !== action.extra.serviceId,
+        ),
+      };
+
+    case 'ADD_NOTE':
       return {
         ...state,
         notes: action.payload,
       };
 
-    case "UPDATE_QUANTITY_IN_CART":
-      const index = state.products.findIndex((pro) => pro.productId === action.payload.productId);
+    case 'UPDATE_QUANTITY_IN_CART':
+      const index = state.products.findIndex(
+        pro => pro.productId === action.payload.productId,
+      );
       if (index > -1) {
         state.products[index] = action.payload;
       }
@@ -149,57 +163,65 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
         ...state,
       };
 
-    case "UPDATE_SERVICE":
-      const svIndex = state.services.findIndex((obj) => obj.serviceId === action.payload.serviceId);
+    case 'UPDATE_SERVICE':
+      const svIndex = state.services?.findIndex(
+        obj => obj.serviceId === action.payload.serviceId,
+      );
+      let services = [...(state.services || [])];
+
       if (svIndex > -1) {
-        state.services[svIndex].staffId = action.payload.staffId;
+        let temp = services[svIndex];
+        if (temp) temp.staffId = action.payload.staffId;
+        services[svIndex] = temp;
       }
+
       return {
         ...state,
+        services: services,
       };
 
-    case "SET_RE_SCHEDULE":
+    case 'SET_RE_SCHEDULE':
       return {
         ...state,
         isReschedule: action.isReschedule,
       };
 
-    case "SET_REVIEW":
+    case 'SET_REVIEW':
       return {
         ...state,
         isReview: action.isReview,
       };
 
-    case "SET_ADDMORE":
+    case 'SET_ADDMORE':
       return {
         ...state,
         isAddmore: action.isAddMore,
       };
 
-    case "SET_EDIT_APPOINTMENT":
+    case 'SET_EDIT_APPOINTMENT':
       return {
         ...state,
         isEditAppointment: action.idEditAppointment,
       };
 
-    case "SET_CHANGE_BASKET":
+    case 'SET_CHANGE_BASKET':
       return {
         ...state,
         isChangeBasket: action.isChangeBasket,
       };
 
-    case "CHECK_EDIT":
+    case 'CHECK_EDIT':
       return {
         ...state,
         isCheckEdit: action.isCheckEdit,
       };
-    case "SET_CHECKOUT":
+    case 'SET_CHECKOUT':
       return {
         ...state,
         isCheckout: action.payload,
       };
 
-    case "RESET_BOOKING":
+    case 'RESET_BOOKING':
       return get_INITIAL_STATE();
 
     default:

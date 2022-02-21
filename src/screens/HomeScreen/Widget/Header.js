@@ -84,11 +84,12 @@ const styles = StyleSheet.create({
   container_img_background: {
     width,
     height: scaleHeight(160),
+    flex: 0,
     alignItems: 'center',
   },
   container_navigation: {
     width: width * 0.9,
-    height: scaleSize(44),
+    height: scaleHeight(44),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -126,20 +127,23 @@ const styles = StyleSheet.create({
   pointContent: {
     height: scaleHeight(72),
     width: '100%',
-    padding: scaleWidth(16),
+    paddingHorizontal: scaleWidth(16),
+    paddingVertical: scaleHeight(0),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    // backgroundColor: 'blue',
   },
 
   pointText: {
     fontFamily: 'SFProDisplay-Bold',
-    fontSize: scaleFont(34),
+    fontSize: scaleFont(32),
     // fontWeight: 'bold',
     fontStyle: 'normal',
     letterSpacing: -0.82,
     textAlign: 'left',
     color: '#ffffff',
+    // backgroundColor: 'red',
   },
 
   margin: {

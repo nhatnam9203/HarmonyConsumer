@@ -1,31 +1,35 @@
-import React, { useState } from "react";
-import actions from "@redux/actions";
-import moment from "moment";
+import React, { useState } from 'react';
+import actions from '@redux/actions';
+import moment from 'moment';
 
-import { totalDuration } from "utils";
-import * as RootNavigation from "navigations/RootNavigation";
-import { useSelector, useDispatch } from "react-redux";
-import { adapterExtrasEdit, notesEdit } from "./helper";
+import { totalDuration } from 'utils';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { adapterExtrasEdit, notesEdit } from './helper';
 
 export default function index(props) {
   const [isLoading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
-  const merchant_detail = useSelector((state) => state.storeReducer.merchant_detail);
-  const bookingReducer = useSelector((state) => state.bookingReducer);
+  const merchant_detail = useSelector(
+    state => state.storeReducer.merchant_detail,
+  );
+  const bookingReducer = useSelector(state => state.bookingReducer);
 
-  const userInfo = useSelector((state) => state.datalocalReducer.userInfo);
-  const token = useSelector((state) => state.datalocalReducer.token);
+  const userInfo = useSelector(state => state.datalocalReducer.userInfo);
+  const token = useSelector(state => state.datalocalReducer.token);
   const appointment_detail_customer = useSelector(
-    (state) => state.appointmentReducer.appointment_detail_customer,
+    state => state.appointmentReducer.appointment_detail_customer,
   );
 
   let timezoneBooking = merchant_detail.timezone
     ? moment().tz(merchant_detail.timezone.substring(12))
     : moment();
 
-  timezoneBooking = `${timezoneBooking.format("YYYY-MM-DD")}T${timezoneBooking.format("HH:mm")}`;
+  timezoneBooking = `${timezoneBooking.format(
+    'YYYY-MM-DD',
+  )}T${timezoneBooking.format('HH:mm')}`;
 
   const {
     fromTime,
@@ -43,40 +47,41 @@ export default function index(props) {
 
   const { userId } = userInfo;
   const { merchantId } = merchant_detail;
-  const isBooking = services.length + products.length + extras.length > 0 ? true : false;
+  const isBooking =
+    services.length + products.length + extras.length > 0 ? true : false;
   const timezone = new Date().getTimezoneOffset();
 
   const goToSelectDate = () => {
     if (isEditAppointment) {
       dispatch(actions.bookingAction.setReschedule(true));
-      RootNavigation.navigate("SelectDate");
+      RootNavigation.navigate('SelectDate');
     } else {
-      RootNavigation.navigate("SelectDate");
+      RootNavigation.navigate('SelectDate');
     }
   };
 
   const goToAddNote = () => {
-    RootNavigation.navigate("AddNote");
+    RootNavigation.navigate('AddNote');
   };
 
   const addMore = () => {
     dispatch(actions.bookingAction.setReview(false));
     dispatch(actions.bookingAction.setAddmore(true));
     if (services.lenth + products.length + extras.length === 0) {
-      dispatch(actions.bookingAction.selectStaff(""));
+      dispatch(actions.bookingAction.selectStaff(''));
       dispatch(actions.bookingAction.addNote([]));
     }
-    RootNavigation.navigate("StoreDetail");
+    RootNavigation.navigate('StoreDetail');
   };
 
-  const bookAppointmentSuccess = (statusBook) => {
+  const bookAppointmentSuccess = statusBook => {
     if (statusBook) {
       if (isEditAppointment) {
         setLoading(false);
-        RootNavigation.navigate("MyAppointmentDetail");
+        RootNavigation.navigate('MyAppointmentDetail');
       } else {
         setLoading(false);
-        RootNavigation.navigate("Appointments");
+        RootNavigation.navigate('Appointments');
       }
     } else {
       setLoading(false);
@@ -86,16 +91,16 @@ export default function index(props) {
   const editSuccess = () => {
     if (isEditAppointment) {
       setLoading(false);
-      RootNavigation.navigate("MyAppointmentDetail");
+      RootNavigation.navigate('MyAppointmentDetail');
     } else {
       setLoading(false);
-      RootNavigation.navigate("Appointments");
+      RootNavigation.navigate('Appointments');
     }
   };
 
   const getStaffAvailableTime = () => {
     const body = {
-      date: moment(day).format("YYYY-MM-DD"),
+      date: moment(day).format('YYYY-MM-DD'),
       merchantId,
       appointmentId: 0,
       timezone,
@@ -105,10 +110,10 @@ export default function index(props) {
 
   const conditionBooking = () => {
     const date_tz = merchant_detail.timezone
-      ? moment().tz(merchant_detail.timezone.substring(12)).format("YYYY-MM-DD")
-      : moment().format("YYYY-MM-DD");
+      ? moment().tz(merchant_detail.timezone.substring(12)).format('YYYY-MM-DD')
+      : moment().format('YYYY-MM-DD');
 
-    if (moment().format("YYYY-MM-DD") == date_tz) return true;
+    if (moment().format('YYYY-MM-DD') == date_tz) return true;
 
     if (staffId !== -1) {
       const startTime = moment(fromTime);
@@ -123,44 +128,61 @@ export default function index(props) {
     // console.log("============= bookAppointment");
 
     if (conditionBooking) {
-      const end = moment(fromTime).add(totalDuration(services, extras), "minutes");
+      const end = moment(fromTime).add(
+        totalDuration(services, extras),
+        'minutes',
+      );
       const body = {
         services: [...services],
         products,
-        extras: extras.filter((obj) => obj.isCheck === true),
+        extras: extras.filter(obj => obj.isCheck === true),
         fromTime: staffId === -1 ? timezoneBooking : fromTime,
-        merchantId,
+        merchantId: merchantId,
         userId,
-        toTime: `${moment(end).format("YYYY-MM-DD")}T${moment(end).format("HH:mm:ss")}`,
-        staffId: services.length > 0 ? services[services.length - 1].staffId : staffId,
+        toTime: `${moment(end).format('YYYY-MM-DD')}T${moment(end).format(
+          'HH:mm:ss',
+        )}`,
+        staffId:
+          services.length > 0 ? services[services.length - 1].staffId : staffId,
         giftCards: [],
         notes: noteValue.trim().length > 0 ? [{ note: noteValue }] : [],
-        status: staffId === -1 ? "waiting" : "unconfirm",
+        status: staffId === -1 ? 'waiting' : 'unconfirm',
       };
-      dispatch(actions.appointmentAction.addAppointment(body, token, bookAppointmentSuccess));
+      dispatch(
+        actions.appointmentAction.addAppointment(
+          body,
+          token,
+          bookAppointmentSuccess,
+        ),
+      );
     } else {
-      alert("Your time selectec is over now. Please booking to another time!");
+      alert('Your time selectec is over now. Please booking to another time!');
       getStaffAvailableTime();
-      RootNavigation.navigate("SelectDate");
+      RootNavigation.navigate('SelectDate');
     }
   };
 
   const updateAppointment = () => {
-    const end = moment(fromTime).add(totalDuration(services, extras), "minutes");
+    const end = moment(fromTime).add(
+      totalDuration(services, extras),
+      'minutes',
+    );
     const body = {
       staffId: appointment_detail_customer.staffId,
       services,
       products,
       extras: adapterExtrasEdit(extras),
       fromTime: fromTime,
-      toTime: `${moment(end).format("YYYY-MM-DD")}T${moment(end).format("HH:mm:ss")}`,
+      toTime: `${moment(end).format('YYYY-MM-DD')}T${moment(end).format(
+        'HH:mm:ss',
+      )}`,
       giftCards: appointment_detail_customer.giftCards,
       notes: notesEdit(appointment_detail_customer.notes, noteValue),
-      merchantId,
-      status: staffId === -1 ? "waiting" : "unconfirm",
+      merchantId: merchantId,
+      status: staffId === -1 ? 'waiting' : 'unconfirm',
     };
 
-    dispatch({ type: "START_FETCH_API" });
+    dispatch({ type: 'START_FETCH_API' });
     dispatch(
       actions.appointmentAction.updateAppointment(
         body,

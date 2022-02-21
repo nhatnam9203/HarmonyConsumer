@@ -9,6 +9,7 @@ import {
   ModalTransfer,
   Switch,
   Text,
+  HarmonyCard,
 } from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import React from 'react';
@@ -36,7 +37,6 @@ export default function index(props) {
   const loading_card_detail = useSelector(
     state => state.cardReducer.loading_card_detail,
   );
-
 
   const payments = [...credits, ...banks];
   const { route } = props;
@@ -101,7 +101,7 @@ export default function index(props) {
 
     return () => {
       dispatch(actions.cardAction.set_card_detail(null));
-    }
+    };
   }, []);
 
   React.useEffect(() => {
@@ -231,9 +231,8 @@ export default function index(props) {
 
       {!loading_card_detail ? (
         <ScrollView>
-
           <View style={styles.container_center}>
-            <View style={styles.container_giftcard}>
+            {/* <View style={styles.container_giftcard}>
               <Image
                 resizeMode="cover"
                 source={{ uri: imageUrl, priority: Image.priority.high }}
@@ -247,16 +246,20 @@ export default function index(props) {
                   $ {amount}
                 </Text>
               </View>
-            </View>
+            </View> */}
 
-            {!!qrCode && (
+            {/* {!!qrCode && (
               <View>
                 <QRCode value={`${qrCode}`} size={165} />
               </View>
-            )}
+            )} */}
+
+            <HarmonyCard cardId={userCardId} />
 
             {/* ------------------ primary card ------------------ */}
-            <BoxClick disabled={true} style={styles.container_row_space_between}>
+            <BoxClick
+              disabled={true}
+              style={styles.container_row_space_between}>
               <IconTitle
                 title="Primary card"
                 icon={ICONS['primary_card_detail']}
@@ -286,9 +289,14 @@ export default function index(props) {
             {/* ------------------ payment card ------------------ */}
 
             {/* ------------------ auto reload card ------------------ */}
-            <BoxClick disabled={true} style={styles.container_row_space_between}>
+            <BoxClick
+              disabled={true}
+              style={styles.container_row_space_between}>
               <View style={styles.container_icon_title}>
-                <Image source={ICONS['auto_reload_detail']} style={styles.icon} />
+                <Image
+                  source={ICONS['auto_reload_detail']}
+                  style={styles.icon}
+                />
                 <View>
                   <View
                     style={[
@@ -299,7 +307,10 @@ export default function index(props) {
                       Auto reload
                     </Text>
                     {Boolean(isAutoReload) && (
-                      <Text fontSize={13.5} color="#888888" style={styles.title}>
+                      <Text
+                        fontSize={13.5}
+                        color="#888888"
+                        style={styles.title}>
                         $ {autoReloadAmount} when balance is below ${' '}
                         {autoReloadBelow}
                       </Text>
