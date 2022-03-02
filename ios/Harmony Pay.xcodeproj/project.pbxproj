@@ -446,7 +446,7 @@
 					};
 					363F6B29264E59C200880288 = {
 						DevelopmentTeam = 69WQLJ9K8N;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					364DE14A26AFFD3A00358C65 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -458,7 +458,7 @@
 						CreatedOnToolsVersion = 12.5.1;
 						DevelopmentTeam = 69WQLJ9K8N;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1293,8 +1293,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = harmonypay/HarmonyPay.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
@@ -1411,7 +1411,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.staging;
 				PRODUCT_NAME = "harmonypay-iPad";
-				PROVISIONING_PROFILE_SPECIFIER = Provisioning_Consumer_Staging;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "harmonypay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1624,11 +1624,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = ImageNotificationStaging/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1638,7 +1638,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.staging.ImageNotificationStaging;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Image notify consumer staging";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ImageNotificationStaging-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
