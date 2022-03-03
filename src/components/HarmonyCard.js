@@ -87,7 +87,7 @@ export const HarmonyCard = ({ cardId }) => {
         <Animated.View
           style={[styles.container, styles.cardBack, flipToBackStyle]}>
           <View style={styles.content}>
-            <QRCode value={`${token ?? 'none'}`} size={165} />
+            <QRCode value={`${token ?? 'none'}`} size={150} />
             <View style={styles.margin} />
             <Text style={styles.paymentCodeText}>{'Payment code'}</Text>
           </View>

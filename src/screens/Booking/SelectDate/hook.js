@@ -1,63 +1,70 @@
-import React from "react";
-import moment from "moment-timezone";
-import * as RootNavigation from "navigations/RootNavigation";
-import { useDispatch, useSelector } from "react-redux";
-import actions from "@redux/actions";
-
-const FORMAT_TIME_REQUEST = "YYYY-MM-DD[T]HH:mm";
+import React from 'react';
+import moment from 'moment-timezone';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '@redux/actions';
+import { Platform } from 'react-native';
+const FORMAT_TIME_REQUEST = 'YYYY-MM-DD[T]HH:mm';
 
 const ServiceFilterKeys = [
-  "appointmentId",
-  "bookingServiceId",
-  "duration",
-  "price",
-  "serviceId",
-  "serviceName",
-  "staffId",
-  "status",
-  "note",
-  "fromTime",
+  'appointmentId',
+  'bookingServiceId',
+  'duration',
+  'price',
+  'serviceId',
+  'serviceName',
+  'staffId',
+  'status',
+  'note',
+  'fromTime',
 ];
 
 const ProductFilterKeys = [
-  "appointmentId",
-  "bookingProductId",
-  "price",
-  "quantity",
-  "productId",
-  "productName",
+  'appointmentId',
+  'bookingProductId',
+  'price',
+  'quantity',
+  'productId',
+  'productName',
 ];
 
 const ExtraFilterKeys = [
-  "appointmentId",
-  "bookingExtraId",
-  "extraId",
-  "price",
-  "duration",
-  "extraName",
+  'appointmentId',
+  'bookingExtraId',
+  'extraId',
+  'price',
+  'duration',
+  'extraName',
 ];
 
-const GiftCardsFilterKeys = ["bookingGiftCardId", "giftCardId", "quantity", "price"];
+const GiftCardsFilterKeys = [
+  'bookingGiftCardId',
+  'giftCardId',
+  'quantity',
+  'price',
+];
 
-const NotesFilterKeys = ["appointmentNoteId", "note"];
+const NotesFilterKeys = ['appointmentNoteId', 'note'];
 
 export default function useHook() {
   const dispatch = useDispatch();
 
   const [isLoading, setLoading] = React.useState(true);
 
-  const staffId = useSelector((state) => state.bookingReducer.staffId);
-  const day = useSelector((state) => state.bookingReducer.day);
-  const timePicker = useSelector((state) => state.bookingReducer.timePicker);
+  const staffId = useSelector(state => state.bookingReducer.staffId);
+  const day = useSelector(state => state.bookingReducer.day);
+  const timePicker = useSelector(state => state.bookingReducer.timePicker);
 
-  const token = useSelector((state) => state.datalocalReducer.token);
-  const merchant_detail = useSelector((state) => state.storeReducer.merchant_detail);
-  const isReschedule = useSelector((state) => state.bookingReducer.isReschedule);
+  const token = useSelector(state => state.datalocalReducer.token);
+  const merchant_detail = useSelector(
+    state => state.storeReducer.merchant_detail,
+  );
+  const isReschedule = useSelector(state => state.bookingReducer.isReschedule);
   const appointment_detail_customer = useSelector(
-    (state) => state.appointmentReducer.appointment_detail_customer,
+    state => state.appointmentReducer.appointment_detail_customer,
   );
 
-  const bookingReducer = useSelector((state) => state.bookingReducer);
+  const bookingReducer = useSelector(state => state.bookingReducer);
 
   const { isCheckout } = bookingReducer;
 
@@ -83,11 +90,12 @@ export default function useHook() {
 
   const { merchantId } = merchant_detail;
 
-  const setTimePicker = (time) => {
+  const setTimePicker = time => {
+    console.log(time);
     dispatch(actions.bookingAction.selectTime(time));
   };
 
-  const onChangeDay = (date) => {
+  const onChangeDay = date => {
     dispatch(actions.bookingAction.selectDay(date.dateString));
     const body = {
       date: date.dateString,
@@ -102,19 +110,19 @@ export default function useHook() {
     // console.log("reviewConfirmAction");
     // console.log();
 
-    let date = moment(day).format("YYYY-MM-DD");
+    let date = moment(day).format('YYYY-MM-DD');
     date = `${date}T${timePicker}`;
     dispatch(actions.bookingAction.selectDate(date));
 
     dispatch(actions.bookingAction.setReview(true));
-    RootNavigation.navigate("Review");
+    RootNavigation.navigate('Review');
   };
 
   const reScheduleAction = () => {
     if (!appointment_detail_customer) return;
 
-    const date = moment(day).format("YYYY-MM-DD");
-    const date_reschedule = `${date}T${timePicker}`;
+    const date = moment(day).format('YYYY-MM-DD');
+    const date_reschedule = `${date}T${timePicker}:00`;
     // const body = {
     //   ...appointment_detail_customer,
     //   fromTime: date_reschedule,
@@ -122,23 +130,33 @@ export default function useHook() {
     // };
     // console.log(JSON.stringify(body));
 
-    dispatch({ type: "START_FETCH_API" });
+    dispatch({ type: 'START_FETCH_API' });
     dispatch(actions.bookingAction.selectDate(date_reschedule));
     let fromDate = new Date(date_reschedule);
     let toDate = new Date(date_reschedule);
 
-    const services = appointment_detail_customer.services?.map((it) => {
-      fromDate = toDate;
-      toDate = new Date(fromDate.getTime() + it.duration * 60 * 1000);
+    const services = appointment_detail_customer.services?.map(it => {
+      fromDate = fromDate;
+      toDate = new Date(fromDate.getTime() + it?.duration * 60 * 1000);
+
+      let fromTime = moment(fromDate).format(FORMAT_TIME_REQUEST);
+      let toTime = moment(toDate).format(FORMAT_TIME_REQUEST);
+
+      if (Platform.OS === 'android') {
+        fromTime = moment(fromDate).utc().format(FORMAT_TIME_REQUEST);
+        toTime = moment(toDate).utc().format(FORMAT_TIME_REQUEST);
+      }
 
       return Object.assign(
         {},
         Object.fromEntries(
-          Object.entries(it).filter(([key, val]) => ServiceFilterKeys.includes(key)),
+          Object.entries(it).filter(([key, val]) =>
+            ServiceFilterKeys.includes(key),
+          ),
         ),
         {
-          fromTime: moment(fromDate).format(FORMAT_TIME_REQUEST),
-          toTime: moment(toDate).format(FORMAT_TIME_REQUEST),
+          fromTime: fromTime,
+          toTime: toTime,
         },
       );
     });
@@ -147,7 +165,10 @@ export default function useHook() {
       staffId: appointment_detail_customer.staffId,
       fromTime: date_reschedule,
       toTime: moment(toDate).format(FORMAT_TIME_REQUEST),
-      status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
+      status:
+        appointment_detail_customer.status === 'waiting'
+          ? 'waiting'
+          : 'unconfirm',
       services: services,
       // products: appointment_detail_customer.products?.map((it) =>
       //   Object.fromEntries(
@@ -176,7 +197,15 @@ export default function useHook() {
     delete body.staff;
 
     console.log(JSON.stringify(body));
-    dispatch(actions.appointmentAction.updateAppointment(body, token, appointmentId, onBack, true));
+    dispatch(
+      actions.appointmentAction.updateAppointment(
+        body,
+        token,
+        appointmentId,
+        onBack,
+        true,
+      ),
+    );
   };
 
   return [
