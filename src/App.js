@@ -28,22 +28,6 @@ if (__DEV__) {
 
 const Stack = createStackNavigator();
 
-function SwitchNavigator() {
-  return (
-    <RootComponent>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          gestureEnabled: false,
-        }}
-        initialRouteName="Auth">
-        <Stack.Screen name="Auth" component={AuthStack} />
-        <Stack.Screen name="Main" component={MainStack} />
-      </Stack.Navigator>
-    </RootComponent>
-  );
-}
-
 let App: () => React$Node = () => {
   const [isShowKeyBoard, setShowKeyBoard] = React.useState(false);
 
@@ -76,10 +60,20 @@ let App: () => React$Node = () => {
           <PersistGate loading={null} persistor={persistor}>
             <CodePushProvider>
               <AxiosProvider>
-                <NavigationContainer ref={navigationRef}>
-                  <SwitchNavigator />
+                <RootComponent>
+                  <NavigationContainer ref={navigationRef}>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerShown: false,
+                        gestureEnabled: false,
+                      }}
+                      initialRouteName="Auth">
+                      <Stack.Screen name="Auth" component={AuthStack} />
+                      <Stack.Screen name="Main" component={MainStack} />
+                    </Stack.Navigator>
+                  </NavigationContainer>
                   <Loading />
-                </NavigationContainer>
+                </RootComponent>
               </AxiosProvider>
             </CodePushProvider>
           </PersistGate>
@@ -100,4 +94,4 @@ const codePushOptions = {
 };
 
 App = codePush(codePushOptions)(App);
-module.exports = App;
+export default App;

@@ -1,8 +1,9 @@
-import React from 'react';
-import moment from 'moment-timezone';
-import * as RootNavigation from 'navigations/RootNavigation';
-import { useDispatch, useSelector } from 'react-redux';
 import actions from '@redux/actions';
+import moment from 'moment';
+import * as RootNavigation from 'navigations/RootNavigation';
+import React from 'react';
+import { Platform } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 const FORMAT_TIME_REQUEST = 'YYYY-MM-DD[T]HH:mm';
 
@@ -138,6 +139,14 @@ export default function useHook() {
       fromDate = toDate;
       toDate = new Date(fromDate.getTime() + it.duration * 60 * 1000);
 
+      let fromTime = moment(fromDate).format(FORMAT_TIME_REQUEST);
+      let toTime = moment(toDate).format(FORMAT_TIME_REQUEST);
+
+      if (Platform.OS === 'android') {
+        fromTime = moment(fromDate).utc().format(FORMAT_TIME_REQUEST);
+        toTime = moment(toDate).utc().format(FORMAT_TIME_REQUEST);
+      }
+
       return Object.assign(
         {},
         Object.fromEntries(
@@ -146,8 +155,8 @@ export default function useHook() {
           ),
         ),
         {
-          fromTime: moment(fromDate).format(FORMAT_TIME_REQUEST),
-          toTime: moment(toDate).format(FORMAT_TIME_REQUEST),
+          fromTime: fromTime,
+          toTime: toTime,
         },
       );
     });
@@ -187,7 +196,6 @@ export default function useHook() {
     delete body.apppointmentHistory;
     delete body.staff;
 
-    console.log(JSON.stringify(body));
     dispatch(
       actions.appointmentAction.updateAppointment(
         body,

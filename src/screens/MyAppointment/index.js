@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { View, ScrollView, RefreshControl } from "react-native";
-import { Appointment, PastAppointment, PlaceHolder, Title } from "./widget";
-import { Header, StatusBar, LoadMore, FocusAwareStatusBar } from "components";
-import { scaleWidth } from "utils";
-import { useDispatch, useSelector } from "react-redux";
-import actions from "@redux/actions";
-import images from "assets";
-import * as RootNavigation from "navigations/RootNavigation";
-import styles from "./styles";
+import React, { useState } from 'react';
+import { View, ScrollView, RefreshControl } from 'react-native';
+import { Appointment, PastAppointment, PlaceHolder, Title } from './widget';
+import { Header, StatusBar, LoadMore, FocusAwareStatusBar } from 'components';
+import { scaleWidth } from 'utils';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '@redux/actions';
+import images from 'assets';
+import * as RootNavigation from 'navigations/RootNavigation';
+import styles from './styles';
 
 export default function index(props) {
   const dispatch = useDispatch();
@@ -17,20 +17,29 @@ export default function index(props) {
   const [firstLoading, setFirstLoading] = useState(false);
   const [page, setPage] = useState(1);
 
-  const token = useSelector((state) => state.datalocalReducer.token);
+  const token = useSelector(state => state.datalocalReducer.token);
 
-  const { appointmentUpcoming, appointmentPast } = useSelector((state) => state.appointmentReducer);
+  const { appointmentUpcoming, appointmentPast } = useSelector(
+    state => state.appointmentReducer,
+  );
 
-  const { count_upcoming, count_past } = useSelector((state) => state.appointmentReducer);
+  const { count_upcoming, count_past } = useSelector(
+    state => state.appointmentReducer,
+  );
 
   React.useLayoutEffect(() => {
     setFirstLoading(true);
     dispatch(
-      actions.appointmentAction.getAppointmentPast(token, 1, () => {}, afterLoadAppointment),
+      actions.appointmentAction.getAppointmentPast(
+        token,
+        1,
+        () => {},
+        afterLoadAppointment,
+      ),
     );
   }, []);
 
-  const afterLoadAppointment = (status) => {
+  const afterLoadAppointment = status => {
     if (status == false) {
       setTimeout(() => {
         setFirstLoading(false);
@@ -43,12 +52,12 @@ export default function index(props) {
   };
 
   const openInbox = () => {
-    RootNavigation.navigate("Inbox");
+    RootNavigation.navigate('Inbox');
   };
 
   const viewDetailAppointment = () => {
-    RootNavigation.navigate("BookAppointmentStack", {
-      screen: "MyAppointmentDetail",
+    RootNavigation.navigate('BookAppointmentStack', {
+      screen: 'MyAppointmentDetail',
     });
   };
 
@@ -58,14 +67,16 @@ export default function index(props) {
 
   const refreshAppointments = () => {
     setRefresh(true);
-    dispatch(actions.appointmentAction.getAppointmentUpcoming(token, setRefresh));
+    dispatch(
+      actions.appointmentAction.getAppointmentUpcoming(token, setRefresh),
+    );
     dispatch(actions.appointmentAction.getAppointmentPast(token, 1));
     setTimeout(() => {
       setRefresh(false);
     }, 1500);
   };
 
-  const updateLoadmore = (e) => {
+  const updateLoadmore = e => {
     const scrollPosition = e.nativeEvent.contentOffset.y;
     const scrollViewHeight = e.nativeEvent.layoutMeasurement.height;
     const contentHeight = e.nativeEvent.contentSize.height;
@@ -73,11 +84,17 @@ export default function index(props) {
 
     if (isScrolledToBottom >= contentHeight - 50) {
       setLoadMore(true);
-      dispatch(actions.appointmentAction.getAppointmentPast(token, page + 1, stopLoadMore));
+      dispatch(
+        actions.appointmentAction.getAppointmentPast(
+          token,
+          page + 1,
+          stopLoadMore,
+        ),
+      );
     }
   };
 
-  const stopLoadMore = (status) => {
+  const stopLoadMore = status => {
     setLoadMore(false);
     if (status) {
       updatePage();
@@ -85,7 +102,7 @@ export default function index(props) {
   };
 
   const renderListAppointMent = () => {
-    return appointmentUpcoming.map((app) => {
+    return appointmentUpcoming.map(app => {
       return (
         <Appointment
           viewDetailAppointment={viewDetailAppointment}
@@ -97,7 +114,7 @@ export default function index(props) {
   };
 
   const renderPastAppointMent = () => {
-    return appointmentPast.map((app) => {
+    return appointmentPast.map(app => {
       return (
         <PastAppointment
           appointment={app}
@@ -110,14 +127,17 @@ export default function index(props) {
 
   return (
     <View style={styles.container}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />
-      <View style={{ backgroundColor: "#F8F8F8" }}>
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+      />
+      <View style={{ backgroundColor: '#F8F8F8' }}>
         <StatusBar barStyle="dark-content" />
         <Header
           title="My Appointments"
           headerLeft={true}
           headerRight={true}
-          iconLeft={images["drawer"]}
+          iconLeft={images['drawer']}
           onBack={openDrawer}
           onPressRight={openInbox}
         />
@@ -128,7 +148,11 @@ export default function index(props) {
         ) : (
           <ScrollView
             refreshControl={
-              <RefreshControl refreshing={isRefresh} onRefresh={refreshAppointments} size={30} />
+              <RefreshControl
+                refreshing={isRefresh}
+                onRefresh={refreshAppointments}
+                size={30}
+              />
             }
             onMomentumScrollEnd={updateLoadmore}>
             <Title title="Upcoming" quantity={count_upcoming} color="#D4F8FC" />
@@ -136,7 +160,7 @@ export default function index(props) {
             <View style={{ marginTop: scaleWidth(4) }}>
               <Title
                 title="Past"
-                quantity={count_past > 100 ? "99+" : count_past}
+                quantity={count_past > 100 ? '99+' : `${count_past}`}
                 color="#C5C5C5"
               />
             </View>

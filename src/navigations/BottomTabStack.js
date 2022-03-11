@@ -48,7 +48,7 @@ function IconTab({ focused, source, count_upcoming }) {
               color: 'white',
               fontWeight: 'bold',
             }}>
-            {count_upcoming}
+            {`${count_upcoming}`}
           </Text>
         </View>
       )}
