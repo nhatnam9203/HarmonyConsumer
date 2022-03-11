@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 import * as RootNavigation from 'navigations/RootNavigation';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from '@redux/actions';
-import { Platform } from 'react-native';
+
 const FORMAT_TIME_REQUEST = 'YYYY-MM-DD[T]HH:mm';
 
 const ServiceFilterKeys = [
@@ -91,7 +91,6 @@ export default function useHook() {
   const { merchantId } = merchant_detail;
 
   const setTimePicker = time => {
-    console.log(time);
     dispatch(actions.bookingAction.selectTime(time));
   };
 
@@ -122,7 +121,7 @@ export default function useHook() {
     if (!appointment_detail_customer) return;
 
     const date = moment(day).format('YYYY-MM-DD');
-    const date_reschedule = `${date}T${timePicker}:00`;
+    const date_reschedule = `${date}T${timePicker}`;
     // const body = {
     //   ...appointment_detail_customer,
     //   fromTime: date_reschedule,
@@ -136,16 +135,8 @@ export default function useHook() {
     let toDate = new Date(date_reschedule);
 
     const services = appointment_detail_customer.services?.map(it => {
-      fromDate = fromDate;
-      toDate = new Date(fromDate.getTime() + it?.duration * 60 * 1000);
-
-      let fromTime = moment(fromDate).format(FORMAT_TIME_REQUEST);
-      let toTime = moment(toDate).format(FORMAT_TIME_REQUEST);
-
-      if (Platform.OS === 'android') {
-        fromTime = moment(fromDate).utc().format(FORMAT_TIME_REQUEST);
-        toTime = moment(toDate).utc().format(FORMAT_TIME_REQUEST);
-      }
+      fromDate = toDate;
+      toDate = new Date(fromDate.getTime() + it.duration * 60 * 1000);
 
       return Object.assign(
         {},
@@ -155,8 +146,8 @@ export default function useHook() {
           ),
         ),
         {
-          fromTime: fromTime,
-          toTime: toTime,
+          fromTime: moment(fromDate).format(FORMAT_TIME_REQUEST),
+          toTime: moment(toDate).format(FORMAT_TIME_REQUEST),
         },
       );
     });

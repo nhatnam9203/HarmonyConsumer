@@ -16,8 +16,9 @@ import { AuthStack, MainStack } from './navigations';
 import { isMountedRef, navigationRef } from './navigations/RootNavigation';
 import configureStore from './redux/store';
 import { CodePushProvider } from '@shared/providers/CodePushProvider';
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const { persistor, store } = configureStore();
+import codePush from 'react-native-code-push';
 
 if (__DEV__) {
   import('../ReactotronConfig.js').then(() =>
@@ -43,7 +44,7 @@ function SwitchNavigator() {
   );
 }
 
-export default App = () => {
+let App: () => React$Node = () => {
   const [isShowKeyBoard, setShowKeyBoard] = React.useState(false);
 
   const handleKeyBoardShow = e => setShowKeyBoard(true);
@@ -59,7 +60,7 @@ export default App = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <KeyboardAwareScrollView
         scrollEnabled={isShowKeyBoard}
         keyboardShouldPersistTaps="handled"
@@ -84,6 +85,19 @@ export default App = () => {
           </PersistGate>
         </Provider>
       </KeyboardAwareScrollView>
-    </React.Fragment>
+    </GestureHandlerRootView>
   );
 };
+
+const codePushOptions = {
+  updateDialog: false,
+  installMode: codePush.InstallMode.IMMEDIATE,
+  checkFrequency: codePush.CheckFrequency.MANUAL,
+  //   rollbackRetryOptions: {
+  //     delayInHours: 24,
+  //     maxRetryAttempts: 3,
+  //   },
+};
+
+App = codePush(codePushOptions)(App);
+module.exports = App;

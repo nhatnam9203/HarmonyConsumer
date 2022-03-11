@@ -1,8 +1,8 @@
 //
 //  File.swift
-//  harmonypay
+//  HarmonyPay
 //
-//  Created by Trần Hoàng Nhã on 5/5/21.
+//  Created by Trần Hoàng Nhã on 3/8/22.
 //
 
 import Foundation

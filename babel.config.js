@@ -3,7 +3,6 @@ module.exports = {
   plugins: [
     [
       'babel-plugin-root-import',
-      // 'react-native-reanimated/plugin',
       {
         strictMode: false,
         allowTopLevelThis: true,
@@ -20,5 +19,6 @@ module.exports = {
         ],
       },
     ],
+    'react-native-reanimated/plugin',
   ],
 };
