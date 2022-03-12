@@ -4,10 +4,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AxiosProvider } from '@shared/providers';
+import { CodePushProvider } from '@shared/providers/CodePushProvider';
 import { Loading, RootComponent } from 'components';
 import * as React from 'react';
 import { StatusBar } from 'react-native';
+import codePush from 'react-native-code-push';
 import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
@@ -15,10 +18,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { AuthStack, MainStack } from './navigations';
 import { isMountedRef, navigationRef } from './navigations/RootNavigation';
 import configureStore from './redux/store';
-import { CodePushProvider } from '@shared/providers/CodePushProvider';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const { persistor, store } = configureStore();
-import codePush from 'react-native-code-push';
 
 if (__DEV__) {
   import('../ReactotronConfig.js').then(() =>

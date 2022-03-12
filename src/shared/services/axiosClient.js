@@ -5,10 +5,6 @@ import Axios from 'axios';
 import { Platform } from 'react-native';
 import Configs from '@src/configs';
 
-const log = (obj, message = '') => {
-  console.log(message);
-};
-
 export const axios = Axios.create({
   baseURL: Configs.API_URL,
   timeout: 30000,
@@ -45,7 +41,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => {
-    log(response, 'response');
+    // log(response, 'response');
     const { codeStatus = 0, codeNumber = 0, message } = response?.data;
     switch (parseInt(codeNumber, 10)) {
       case 401:
@@ -56,7 +52,7 @@ axios.interceptors.response.use(
         }
         break;
       case 404: // not found
-        console.log(`${message} , code ${parseInt(codeStatus)}`);
+        // console.log(`${message} , code ${parseInt(codeStatus)}`);
         break;
       // case 400: // thieu field
       //   if (codeStatus !== 2) {

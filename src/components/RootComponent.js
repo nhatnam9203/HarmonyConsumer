@@ -99,7 +99,6 @@ const RootComponent = ({ children }) => {
     if (Platform.OS === 'android') {
       PushNotification.getChannels(function (channels) {
         // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
-        console.log(channels);
         if (channels && channels?.length > 0) return;
         PushNotification.createChannel(
           {
@@ -167,7 +166,6 @@ const RootComponent = ({ children }) => {
       messageJson.type == 'update_consumer'
     ) {
       if (isInbox) {
-        console.log(isInbox);
 
         PushNotification.localNotification({
           title: 'HarmonyPay',
@@ -291,7 +289,6 @@ const RootComponent = ({ children }) => {
   };
 
   const receiveMessage = messageJson => {
-    console.log(messageJson);
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === 'update_data' ||
