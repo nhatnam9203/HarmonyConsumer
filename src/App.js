@@ -10,7 +10,6 @@ import * as React from 'react';
 import { StatusBar } from 'react-native';
 import codePush from 'react-native-code-push';
 import 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
@@ -44,42 +43,40 @@ let App: () => React$Node = () => {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <KeyboardAwareScrollView
-        scrollEnabled={isShowKeyBoard}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ flex: 1 }}
-        onKeyboardWillShow={handleKeyBoardShow}
-        onKeyboardWillHide={handleKeyBoardHide}>
-        <StatusBar
-          backgroundColor="transparent"
-          translucent={true}
-          barStyle="dark-content"
-        />
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <CodePushProvider>
-              <AxiosProvider>
-                <RootComponent>
-                  <NavigationContainer ref={navigationRef}>
-                    <Stack.Navigator
-                      screenOptions={{
-                        headerShown: false,
-                        gestureEnabled: false,
-                      }}
-                      initialRouteName="Auth">
-                      <Stack.Screen name="Auth" component={AuthStack} />
-                      <Stack.Screen name="Main" component={MainStack} />
-                    </Stack.Navigator>
-                  </NavigationContainer>
-                  <Loading />
-                </RootComponent>
-              </AxiosProvider>
-            </CodePushProvider>
-          </PersistGate>
-        </Provider>
-      </KeyboardAwareScrollView>
-    </GestureHandlerRootView>
+    <KeyboardAwareScrollView
+      scrollEnabled={isShowKeyBoard}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{ flex: 1 }}
+      onKeyboardWillShow={handleKeyBoardShow}
+      onKeyboardWillHide={handleKeyBoardHide}>
+      <StatusBar
+        backgroundColor="transparent"
+        translucent={true}
+        barStyle="dark-content"
+      />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <CodePushProvider>
+            <AxiosProvider>
+              <RootComponent>
+                <NavigationContainer ref={navigationRef}>
+                  <Stack.Navigator
+                    screenOptions={{
+                      headerShown: false,
+                      gestureEnabled: false,
+                    }}
+                    initialRouteName="Auth">
+                    <Stack.Screen name="Auth" component={AuthStack} />
+                    <Stack.Screen name="Main" component={MainStack} />
+                  </Stack.Navigator>
+                </NavigationContainer>
+                <Loading />
+              </RootComponent>
+            </AxiosProvider>
+          </CodePushProvider>
+        </PersistGate>
+      </Provider>
+    </KeyboardAwareScrollView>
   );
 };
 

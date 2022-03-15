@@ -186,7 +186,7 @@ android {
                     abiFilters nativeArchitectures.split(',')
                 }
             }
-              resValue 'string', 'app_name', '@string/app_name_development'
+            resValue 'string', 'app_name', '@string/app_name_development'
             resValue 'string', 'CodePushDeploymentKey', 'np5YqNunkhHEzAB1LEa6djopKzA0pFVriqaHq'
         }
         release {
@@ -200,7 +200,7 @@ android {
             resValue 'string', 'app_name', '@string/app_name_release'
         }
 
-          staging {
+        staging {
             initWith debug
             applicationIdSuffix '.staging'
             matchingFallbacks =  ['debug']
