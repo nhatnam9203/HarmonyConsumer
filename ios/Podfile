@@ -12,7 +12,7 @@ target 'HarmonyPay' do
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => true
+    :hermes_enabled => false
   )
 
   permissions_path = '../node_modules/react-native-permissions/ios'
@@ -41,21 +41,27 @@ target 'HarmonyPay' do
   post_install do |installer|
     react_native_post_install(installer)
     installer.pods_project.targets.each do |target|
+
       if target.name == 'react-native-google-maps'
         target.build_configurations.each do |config|
-          config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
+          config.build_settings['CLANG_ENABLE_MODULES'] = 'NO'
         end
       end
+
       target.build_configurations.each do |config|
+        config.build_settings["ONLY_ACTIVE_ARCH"] = "NO"
         config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
       end
+
     end
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    # __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 
 
 
   target 'Staging' do
+    inherit! :complete
+
   end
 
   target 'ImageNotification' do

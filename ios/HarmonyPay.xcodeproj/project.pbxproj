@@ -30,6 +30,8 @@
 		369B821927D71E1A009CDB31 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B821527D71E1A009CDB31 /* File.swift */; };
 		369B821A27D72716009CDB31 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 364680A227D71C320089AEF2 /* Images.xcassets */; };
 		369B821B27D72717009CDB31 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 364680A227D71C320089AEF2 /* Images.xcassets */; };
+		36CABBDF27EB07F000096B8A /* harmony.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36CABBDE27EB07EF00096B8A /* harmony.wav */; };
+		36CABBE027EB07F000096B8A /* harmony.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36CABBDE27EB07EF00096B8A /* harmony.wav */; };
 		48ED772AE0F54B55BFC47391 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F112201A361640F6A8A9DF6B /* SFProDisplay-Bold.ttf */; };
 		50AD27D1F6914F30A8DFA125 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1101B2DEBCE4B688ACAB028 /* SFProDisplay-Medium.ttf */; };
 		5C4917A636A24AFA82F44DEC /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E749A75A27AA4154B4A715DC /* SFProDisplay-Regular.ttf */; };
@@ -124,6 +126,9 @@
 		369B821327D71E19009CDB31 /* ImageNotification-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageNotification-Bridging-Header.h"; sourceTree = "<group>"; };
 		369B821427D71E19009CDB31 /* ImageNotificationStaging-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageNotificationStaging-Bridging-Header.h"; sourceTree = "<group>"; };
 		369B821527D71E1A009CDB31 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = HarmonyPay/File.swift; sourceTree = "<group>"; };
+		36CABBDA27EB041F00096B8A /* Staging.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Staging.entitlements; path = Staging/Staging.entitlements; sourceTree = "<group>"; };
+		36CABBDE27EB07EF00096B8A /* harmony.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = harmony.wav; sourceTree = "<group>"; };
+		36CABBE127EB0C3400096B8A /* HarmonyPay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HarmonyPay.entitlements; path = HarmonyPay/HarmonyPay.entitlements; sourceTree = "<group>"; };
 		371B9DBCF8334A9D9E7C4B17 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		5CE9DD4A33CB42A7AE39BA1A /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		63788CAD37AF4DF6661F53EE /* Pods-HarmonyPay-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyPay-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-HarmonyPay-ImageNotification/Pods-HarmonyPay-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +226,7 @@
 		13B07FAE1A68108700A75B9A /* HarmonyPay */ = {
 			isa = PBXGroup;
 			children = (
+				36CABBE127EB0C3400096B8A /* HarmonyPay.entitlements */,
 				364680A227D71C320089AEF2 /* Images.xcassets */,
 				3646806327D717C90089AEF2 /* staging */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -286,6 +292,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				36CABBDA27EB041F00096B8A /* Staging.entitlements */,
 				369B821527D71E1A009CDB31 /* File.swift */,
 				13B07FAE1A68108700A75B9A /* HarmonyPay */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -321,6 +328,7 @@
 		A945A06D74B44C67BCF8FA4D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				36CABBDE27EB07EF00096B8A /* harmony.wav */,
 				371B9DBCF8334A9D9E7C4B17 /* AntDesign.ttf */,
 				CE0FBCB238F444A182659B93 /* Entypo.ttf */,
 				156EB98792D14A98854D2350 /* EvilIcons.ttf */,
@@ -540,6 +548,7 @@
 				3646806527D717EA0089AEF2 /* GoogleService-Info.plist in Resources */,
 				48ED772AE0F54B55BFC47391 /* SFProDisplay-Bold.ttf in Resources */,
 				50AD27D1F6914F30A8DFA125 /* SFProDisplay-Medium.ttf in Resources */,
+				36CABBDF27EB07F000096B8A /* harmony.wav in Resources */,
 				5C4917A636A24AFA82F44DEC /* SFProDisplay-Regular.ttf in Resources */,
 				70A18C4C28E948D2803ED867 /* SFProDisplay-Semibold.ttf in Resources */,
 			);
@@ -554,6 +563,7 @@
 				36947ADB27D7520500642944 /* SFProDisplay-Medium.ttf in Resources */,
 				36947ADA27D7520100642944 /* SFProDisplay-Bold.ttf in Resources */,
 				369B821B27D72717009CDB31 /* Images.xcassets in Resources */,
+				36CABBE027EB07F000096B8A /* harmony.wav in Resources */,
 				3646806F27D7187F0089AEF2 /* LaunchScreen.storyboard in Resources */,
 				3646807E27D718CA0089AEF2 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1031,9 +1041,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HarmonyPay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HarmonyPay/Info.plist;
@@ -1041,7 +1052,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.12;
+				MARKETING_VERSION = 3.9.13;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1064,16 +1075,17 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HarmonyPay/HarmonyPay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = HarmonyPay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.12;
+				MARKETING_VERSION = 3.9.13;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1095,6 +1107,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
@@ -1128,6 +1141,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
@@ -1164,7 +1178,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1178,7 +1192,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.9.12;
+				MARKETING_VERSION = 3.9.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.ImageNotification;
@@ -1206,7 +1220,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1220,7 +1234,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.9.12;
+				MARKETING_VERSION = 3.9.13;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypayment.consumer.ImageNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1349,7 +1363,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1414,7 +1428,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

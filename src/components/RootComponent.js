@@ -106,14 +106,35 @@ const RootComponent = ({ children }) => {
             channelName: `Harmony Pay`, // (required)
             channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
             playSound: true, // (optional) default: true
-            // soundName: 'jollibeesound.wav', // (optional) See `soundName` parameter of `localNotification` function
+            soundName: 'harmony.wav', // (optional) See `soundName` parameter of `localNotification` function
             importance: 4, // (optional) default: 4. Int value of the Android notification importance
             vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+            // soundName: 'harmony',
           },
           created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
         );
       });
     }
+
+    // Register background handler & Quit state messages
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+
+    messaging().onMessage(async remoteMessage => {
+      console.log('Notification onMessage', remoteMessage);
+    });
+
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:',
+            remoteMessage.notification,
+          );
+        }
+      });
   };
 
   const checkPermission = async () => {
@@ -166,13 +187,16 @@ const RootComponent = ({ children }) => {
       messageJson.type == 'update_consumer'
     ) {
       if (isInbox) {
-
         PushNotification.localNotification({
           title: 'HarmonyPay',
           message: messageJson.message,
           largeIcon: 'ic_launcher',
           smallIcon: 'ic_launcher',
           group: 'HarmonyPay',
+          soundName: 'harmony.wav',
+          android: {
+            sound: 'harmony',
+          },
         });
       }
     }
