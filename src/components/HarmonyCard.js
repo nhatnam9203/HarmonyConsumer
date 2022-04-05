@@ -90,6 +90,13 @@ export const HarmonyCard = ({ cardId }) => {
             <QRCode value={`${token ?? 'none'}`} size={150} />
             <View style={styles.margin} />
             <Text style={styles.paymentCodeText}>{'Payment code'}</Text>
+            <View
+              style={[
+                styles.amountContent,
+                { backgroundColor: 'transparent' },
+              ]}>
+              <Text style={styles.amountText}>{`$ ${amount}`}</Text>
+            </View>
           </View>
         </Animated.View>
       </View>
@@ -104,8 +111,8 @@ const CardImage = React.memo(({ imageUrl }) => {
     <FastImage
       style={styles.imageCard}
       source={
-        imageUrl
-          ? { uri: imageUrl, priority: FastImage.priority.normal }
+        !!imageUrl
+          ? { uri: imageUrl, priority: FastImage.priority.high }
           : ICONS.card_sample
       }
     />
@@ -120,7 +127,6 @@ const styles = StyleSheet.create({
   container: {
     width: scaleWidth(382),
     height: scaleHeight(232),
-    borderRadius: 5,
     shadowColor: 'rgba(0, 0, 0, 0.16)',
     shadowOffset: {
       width: 0,
@@ -128,12 +134,12 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 6,
     shadowOpacity: 1,
-    backgroundColor: '#fff',
+    elevation: 3,
   },
 
   imageCard: {
     width: '100%',
-    height: scaleHeight(232),
+    height: '100%',
     resizeMode: 'contain',
   },
 
@@ -141,26 +147,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
+    borderRadius: scaleWidth(6),
+    backgroundColor: '#fff',
   },
 
   amountContent: {
-    height: scaleHeight(40),
-    minWidth: scaleWidth(115),
-    borderRadius: scaleHeight(20),
+    height: scaleHeight(34),
+    minWidth: scaleWidth(80),
+    borderRadius: scaleHeight(17),
     backgroundColor: '#ffffff',
-    shadowColor: 'rgba(0, 0, 0, 0.16)',
-    shadowOffset: {
-      width: 0,
-      height: scaleHeight(3),
-    },
-    shadowRadius: 6,
-    shadowOpacity: 1,
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#ffffff',
     position: 'absolute',
-    top: scaleHeight(10),
-    right: scaleWidth(10),
+    top: scaleHeight(8),
+    right: scaleWidth(8),
     justifyContent: 'center',
     alignItems: 'center',
   },
