@@ -165,20 +165,21 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
       };
 
     case 'UPDATE_SERVICE':
-      const svIndex = state.services?.findIndex(
+      let arrServices = [...(state.services || [])];
+
+      const svIndex = arrServices?.findIndex(
         obj => obj.serviceId === action.payload.serviceId,
       );
-      let services = [...(state.services || [])];
 
       if (svIndex > -1) {
-        let temp = services[svIndex];
+        let temp = arrServices[svIndex];
         if (temp) temp.staffId = action.payload.staffId;
-        services[svIndex] = temp;
+        arrServices[svIndex] = temp;
       }
 
       return {
         ...state,
-        services: services,
+        services: arrServices,
       };
 
     case 'SET_RE_SCHEDULE':

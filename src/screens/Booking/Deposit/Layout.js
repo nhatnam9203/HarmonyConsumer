@@ -1,24 +1,27 @@
 import { NavigationHeader } from '@shared/components';
+import { default as ICONS, default as images } from 'assets';
 import React from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-  Text,
-} from 'react-native';
-import images from 'assets';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { formatNumberFromCurrency } from 'utils';
 
 export const Layout = ({
   onBack,
-  close,
+  onClose,
   appointment,
   calcDepositAmount,
   depositPercent,
+  myCard,
+  onReloadCard,
+  onPayment,
 }) => {
+  const { amount, userCardId, imageUrl } = myCard || {};
+  const depositAmount = calcDepositAmount();
+
+
+  const isReload =
+    formatNumberFromCurrency(depositAmount) > formatNumberFromCurrency(amount);
+
   return (
     <View style={styles.container}>
       {/** Navigation Bar*/}
@@ -30,14 +33,16 @@ export const Layout = ({
           <View style={{ flex: 1, alignItems: 'center' }}>
             <Text style={styles.textStyle}>Make a deposit</Text>
           </View>
-          <TouchableOpacity onPress={close}>
+          <TouchableOpacity onPress={onClose}>
             <Image source={images.close_header} style={styles.iconTop} />
           </TouchableOpacity>
         </View>
       </NavigationHeader>
-      {/** Navigation Bar*/}
+
+      {/**Contents*/}
       <View>
         <View style={styles.margin} />
+        {/* Appointment  */}
         <View style={styles.bgContent}>
           <Row>
             <Text style={styles.text}>Appointment total</Text>
@@ -63,14 +68,104 @@ export const Layout = ({
               style={[
                 styles.text,
                 { color: '#0764B0' },
-              ]}>{`$ ${formatNumberFromCurrency(calcDepositAmount())}`}</Text>
+              ]}>{`$ ${formatNumberFromCurrency(depositAmount)}`}</Text>
           </Row>
         </View>
+        <View style={styles.margin} />
+        <View style={styles.margin} />
+
+        {/* Card */}
+        <View style={styles.bgContent}>
+          <Text>Primary Card</Text>
+          <View style={styles.margin} />
+
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <FastImage
+              style={styles.imageCard}
+              source={
+                imageUrl
+                  ? { uri: imageUrl, priority: FastImage.priority.high }
+                  : ICONS.primary_card
+              }
+            />
+            <View style={styles.margin} />
+            <View
+              style={{
+                alignItems: 'flex-start',
+                justifyContent: 'space-evenly',
+                flex: 1,
+              }}>
+              <Text
+                style={[
+                  styles.textCard,
+                  {
+                    fontWeight: '400',
+                    marginBottom: scaleHeight(5),
+                  },
+                ]}>{`My card - ${userCardId}`}</Text>
+              <Text
+                style={[
+                  styles.textCard,
+                  {
+                    fontWeight: '500',
+                  },
+                ]}>{`$ ${amount}`}</Text>
+            </View>
+            {isReload && (
+              <TouchableOpacity
+                onPress={onReloadCard}
+                style={{ flexDirection: 'row', padding: scaleWidth(10) }}>
+                <Image
+                  source={ICONS.auto_reload_detail}
+                  style={{
+                    width: scaleWidth(16),
+                    height: scaleHeight(16),
+                    tintColor: 'red',
+                  }}
+                />
+                <Text
+                  style={{
+                    marginLeft: scaleWidth(5),
+                    color: 'red',
+                    fontSize: scaleFont(13),
+                    fontWeight: '300',
+                  }}>
+                  Reload
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+        <View style={styles.margin} />
+        <View style={styles.margin} />
+        {/* Notice */}
+        {isReload && (
+          <View style={[styles.bgContent, { backgroundColor: '#f662' }]}>
+            <Text
+              style={{
+                color: 'red',
+                fontSize: scaleFont(13),
+                fontWeight: '300',
+              }}>
+              Your card is not enough to pay, Please reload your card.
+            </Text>
+          </View>
+        )}
       </View>
 
+      {/* Button Pay */}
       <View style={styles.bottom}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={[styles.textStyle, { color: 'black' }]}>Pay</Text>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            { backgroundColor: isReload ? '#ddd' : '#0764B0' },
+          ]}
+          disabled={isReload}
+          onPress={onPayment}>
+          <Text
+            style={[styles.textStyle, { color: isReload ? 'black' : 'white' }]}>
+            Pay
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -122,6 +217,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
+  textCard: {
+    fontSize: scaleFont(15),
+  },
+
   bgContent: {
     backgroundColor: '#eee6',
     marginHorizontal: scaleWidth(10),
@@ -133,6 +232,7 @@ const styles = StyleSheet.create({
 
   margin: {
     height: scaleHeight(20),
+    width: scaleWidth(10),
   },
 
   text: {
@@ -155,6 +255,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: scaleWidth(4),
+  },
+
+  imageCard: {
+    width: scaleWidth(90),
+    height: scaleHeight(60),
+    resizeMode: 'contain',
     borderRadius: scaleWidth(4),
   },
 });

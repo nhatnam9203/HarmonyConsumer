@@ -6,3 +6,11 @@ export const createAppointment = data => ({
     data,
   },
 });
+
+export const depositAppointment = appointmentId => ({
+  queryId: 'depositAppointment',
+  params: {
+    url: `/user/PayDeposit/${appointmentId}`,
+    method: 'PUT',
+  },
+});

@@ -1,14 +1,21 @@
-import React from "react";
-import { View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { ItemList, Total, Note, PopupDelete, Status, StoreInfo } from "./widget";
-import { Text, Modal2 as Modal, Header, StatusBar } from "components";
+import React from 'react';
+import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  ItemList,
+  Total,
+  Note,
+  PopupDelete,
+  Status,
+  StoreInfo,
+} from './widget';
+import { Text, Modal2 as Modal, Header, StatusBar } from 'components';
 
-import images from "assets";
-import styles from "./styles";
-import { scaleHeight } from "utils";
-import useHook from "./hook";
-import { isEmpty } from "lodash";
-import LoadingDetail from "./widget/LoadingDetail";
+import images from 'assets';
+import styles from './styles';
+import { scaleHeight } from 'utils';
+import useHook from './hook';
+import { isEmpty } from 'lodash';
+import LoadingDetail from './widget/LoadingDetail';
 
 export default function index(props) {
   const [
@@ -33,6 +40,7 @@ export default function index(props) {
     onPressNo,
     goToAddNote,
     isDisabled,
+    depositAmount,
   ] = useHook(props);
 
   if (isEmpty(appointment_detail_customer)) {
@@ -42,7 +50,7 @@ export default function index(props) {
   return (
     <>
       <View style={styles.container}>
-        <View style={{ backgroundColor: "#f8f8f8" }}>
+        <View style={{ backgroundColor: '#f8f8f8' }}>
           <StatusBar barStyle="dark-content" />
           <Header
             title="Appointment detail"
@@ -57,18 +65,28 @@ export default function index(props) {
             <RowStatus start={start} status={status} />
             <StoreInfo />
 
-            {status !== "paid" && status !== "cancel" && parseInt(isDisabled) !== 1 && (
-              <View style={styles.rowButton}>
-                <Button onPress={setEditAppointment} title="Edit service" icon={images.icon_edit} />
-                <Button onPress={setReschedule} title="Reschedule" icon={images.icon_reschedule} />
-                <Button
-                  onPress={() => setIsPopup(true)}
-                  isRed
-                  title="Cancel"
-                  icon={images.icon_cancel}
-                />
-              </View>
-            )}
+            {status !== 'paid' &&
+              status !== 'cancel' &&
+              parseInt(isDisabled) !== 1 && (
+                <View style={styles.rowButton}>
+                  <Button
+                    onPress={setEditAppointment}
+                    title="Edit service"
+                    icon={images.icon_edit}
+                  />
+                  <Button
+                    onPress={setReschedule}
+                    title="Reschedule"
+                    icon={images.icon_reschedule}
+                  />
+                  <Button
+                    onPress={() => setIsPopup(true)}
+                    isRed
+                    title="Cancel"
+                    icon={images.icon_cancel}
+                  />
+                </View>
+              )}
 
             <View style={styles.padding3}>
               <ItemList
@@ -83,6 +101,7 @@ export default function index(props) {
                 totalPaid={appointment_detail_customer.total}
                 duration={duration}
                 total={total}
+                depositAmount={depositAmount}
               />
               <Note goToAddNote={goToAddNote} notes={notes} />
               <View style={{ height: scaleHeight(50) }} />
@@ -106,7 +125,9 @@ const Button = ({ title, icon, isRed = false, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.btn}>
       <Image style={styles.iconButton} source={icon} />
-      <Text style={[styles.txtBottom, { color: isRed ? "red" : "#404040" }]}>{title}</Text>
+      <Text style={[styles.txtBottom, { color: isRed ? 'red' : '#404040' }]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
