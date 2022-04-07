@@ -1,29 +1,24 @@
+import actions from '@redux/actions';
+import { Container, FocusAwareStatusBar, Text } from 'components';
+import * as RootNavigation from 'navigations/RootNavigation';
 import React from 'react';
 import {
+  ActivityIndicator,
+  Alert,
+  BackHandler,
   ScrollView,
   View,
-  RefreshControl,
-  BackHandler,
-  Alert,
-  ImageBackground,
-  ActivityIndicator,
 } from 'react-native';
-
-import { Container, Text, FocusAwareStatusBar } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from './styles';
 import {
-  Header,
-  GiftCard,
-  GiftCardActive,
-  ButtonList,
   Banner,
+  ButtonList,
+  GiftCardActive,
+  Header,
   MerchantList,
   UserActiveCard,
 } from './Widget';
-import styles from './styles';
-import { useDispatch, useSelector } from 'react-redux';
-import actions from '@redux/actions';
-import * as RootNavigation from 'navigations/RootNavigation';
-import ICONS from 'assets';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));

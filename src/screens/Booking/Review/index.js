@@ -6,7 +6,6 @@ import { totalDuration } from 'utils';
 import * as RootNavigation from 'navigations/RootNavigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { adapterExtrasEdit, notesEdit } from './helper';
-
 import HeaderReview from './Header';
 import StoreInfo from './StoreInfo';
 import ItemList from './ItemList';
@@ -16,6 +15,7 @@ import images from 'assets';
 import { Header, StatusBar } from 'components';
 import { scaleWidth, scaleHeight } from 'utils';
 import styles from './styles';
+import { useHarmonyMutation, createAppointment } from '@apis';
 
 export default function index(props) {
   const [isLoading, setLoading] = useState(false);
@@ -56,8 +56,18 @@ export default function index(props) {
   } = bookingReducer;
 
   const { userId } = userInfo;
-  const { merchantId } = merchant_detail;
+  const { merchantId, isAppointmentDeposit } = merchant_detail;
   const timezone = new Date().getTimezoneOffset();
+  const isDeposit = () => isAppointmentDeposit && !isEditAppointment;
+
+  const [, createAppointmentRequest] = useHarmonyMutation({
+    onSuccess: data => {
+      dispatch(
+        actions.bookingAction.updateBookingAppointment(data?.appointment),
+      );
+      RootNavigation.navigate('Deposit');
+    },
+  });
 
   React.useEffect(() => {
     if (isCheckout && isEditAppointment) onBack();
@@ -166,7 +176,6 @@ export default function index(props) {
 
   const bookAppointment = () => {
     // console.log("=======review====== bookAppointment");
-
     if (conditionBooking()) {
       const end = moment(fromTime).add(
         totalDuration(services, extras),
@@ -187,6 +196,7 @@ export default function index(props) {
         notes: noteValue.trim().length > 0 ? [{ note: noteValue }] : [],
         status: staffId === -1 ? 'waiting' : 'unconfirm',
       };
+
       dispatch(
         actions.appointmentAction.addAppointment(
           body,
@@ -232,6 +242,51 @@ export default function index(props) {
     );
   };
 
+  const onButtonConfirmPress = () => {
+    if (isDeposit()) {
+      if (conditionBooking()) {
+        const end = moment(fromTime).add(
+          totalDuration(services, extras),
+          'minutes',
+        );
+        const body = {
+          services: [...services],
+          products,
+          extras: extras.filter(obj => obj.isCheck === true),
+          fromTime: staffId === -1 ? timezoneBooking : fromTime,
+          merchantId: merchantId,
+          userId,
+          toTime: `${moment(end).format('YYYY-MM-DD')}T${moment(end).format(
+            'HH:mm:ss',
+          )}`,
+          staffId: services.length > 0 ? services[0].staffId : staffId,
+          giftCards: [],
+          notes: noteValue.trim().length > 0 ? [{ note: noteValue }] : [],
+          status: staffId === -1 ? 'waiting' : 'unconfirm',
+        };
+
+        // dispatch(
+        //   actions.appointmentAction.addAppointment(body, token, () => {
+        //     RootNavigation.navigate('Deposit');
+        //   }),
+        // );
+
+        const requestData = createAppointment(body);
+        createAppointmentRequest(requestData);
+      } else {
+        alert(
+          'Your time selectec is over now. Please booking to another time!',
+        );
+        getStaffAvailableTime();
+        RootNavigation.navigate('SelectDate');
+      }
+    } else if (isEditAppointment) {
+      updateAppointment();
+    } else {
+      bookAppointment();
+    }
+  };
+
   return (
     <View style={styles.container}>
       {!isEditAppointment && (
@@ -274,6 +329,7 @@ export default function index(props) {
             products={products}
             goToAddNote={goToAddNote}
             goToServicesList={addMore}
+            isDeposit={isDeposit()}
           />
           <View style={{ height: scaleHeight(50) }} />
         </ScrollView>
@@ -282,7 +338,8 @@ export default function index(props) {
         isLoading={isLoading}
         isEditAppointment={isEditAppointment}
         isCheckEdit={isCheckEdit}
-        onPress={isEditAppointment ? updateAppointment : bookAppointment}
+        onPress={onButtonConfirmPress}
+        isDeposit={isDeposit()}
       />
     </View>
   );

@@ -19,6 +19,7 @@ const get_INITIAL_STATE = () => {
     isAddmore: false,
     noteValue: '',
     isCheckout: false,
+    appointment: null,
   };
 };
 
@@ -223,6 +224,12 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
 
     case 'RESET_BOOKING':
       return get_INITIAL_STATE();
+
+    case 'UPDATE_BOOKING_APPOINTMENT':
+      return {
+        ...state,
+        appointment: action.payload,
+      };
 
     default:
       return state;

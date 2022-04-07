@@ -24,7 +24,7 @@ const scaleHeight = size => {
   return heightScale;
 };
 
-const scale = width / 375;
+const scale = width / 414;
 function scaleFont(size) {
   const newSize = size * scale;
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
