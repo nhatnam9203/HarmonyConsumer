@@ -37,11 +37,11 @@ const AppConfigs = {
   },
 };
 
-const Configs = Object.assign(EvnConfigs, AppConfigs, {
-  API_URL: 'https://dev.harmonypayment.com/api/',
-  SOCKET_URL: 'https://signalr-stage.harmonypayment.com/merchantNotification/',
-});
+// const Configs = Object.assign(EvnConfigs, AppConfigs, {
+//   API_URL: 'https://dev.harmonypayment.com/api/',
+//   SOCKET_URL: 'https://signalr-stage.harmonypayment.com/merchantNotification/',
+// });
 
-// const Configs = Object.assign({}, AppConfigs, EvnConfigs);11
+const Configs = Object.assign({}, AppConfigs, EvnConfigs);
 
 export default Configs;

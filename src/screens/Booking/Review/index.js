@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
 import actions from '@redux/actions';
 import moment from 'moment';
 import { totalDuration } from 'utils';
@@ -16,6 +16,7 @@ import { Header, StatusBar } from 'components';
 import { scaleWidth, scaleHeight } from 'utils';
 import styles from './styles';
 import { useHarmonyMutation, createAppointment } from '@apis';
+import { harmonyApi } from '@shared/services';
 
 export default function index(props) {
   const [isLoading, setLoading] = useState(false);
@@ -60,18 +61,33 @@ export default function index(props) {
   const timezone = new Date().getTimezoneOffset();
   const isDeposit = () => isAppointmentDeposit && !isEditAppointment;
 
+  const [
+    getAppointment,
+    { currentData: appointmentResponse, isLoading: isGetAppointment },
+  ] = harmonyApi.useLazyGetAppointmentQuery();
+
   const [, createAppointmentRequest] = useHarmonyMutation({
-    onSuccess: data => {
-      dispatch(
-        actions.bookingAction.updateBookingAppointment(data?.appointment),
-      );
-      RootNavigation.navigate('Deposit');
+    onSuccess: async data => {
+      if (data) {
+        await getAppointment(data);
+      }
     },
   });
 
   React.useEffect(() => {
     if (isCheckout && isEditAppointment) onBack();
   }, [isCheckout]);
+
+  React.useEffect(() => {
+    if (appointmentResponse) {
+      dispatch(
+        actions.bookingAction.updateBookingAppointment(
+          appointmentResponse?.data,
+        ),
+      );
+      RootNavigation.navigate('Deposit');
+    }
+  }, [appointmentResponse]);
 
   const onBack = async () => {
     if (isEditAppointment) {
@@ -288,59 +304,83 @@ export default function index(props) {
   };
 
   return (
-    <View style={styles.container}>
-      {!isEditAppointment && (
-        <HeaderReview title={`Review & Confirm`} step={4} />
-      )}
-      {isEditAppointment && (
-        <View style={{ backgroundColor: '#f8f8f8' }}>
-          <StatusBar />
-          <Header
-            title="Basket"
-            headerLeft
-            headerRight
-            onBack={onBack}
-            iconRight={images.close_header}
-            onPressRight={close}
-            styleIconRight={{ width: scaleWidth(4.5), height: scaleWidth(4.5) }}
-          />
+    <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        {!isEditAppointment && (
+          <HeaderReview title={`Review & Confirm`} step={4} />
+        )}
+        {isEditAppointment && (
+          <View style={{ backgroundColor: '#f8f8f8' }}>
+            <StatusBar />
+            <Header
+              title="Basket"
+              headerLeft
+              headerRight
+              onBack={onBack}
+              iconRight={images.close_header}
+              onPressRight={close}
+              styleIconRight={{
+                width: scaleWidth(4.5),
+                height: scaleWidth(4.5),
+              }}
+            />
+          </View>
+        )}
+        <View style={styles.body}>
+          <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+            <StoreInfo
+              status={status}
+              services={services}
+              extras={extras}
+              fromTime={fromTime}
+              merchant={merchant_detail}
+              goToSelectDate={goToSelectDate}
+              isEditAppointment={isEditAppointment}
+            />
+            <ItemList
+              isEditAppointment={isEditAppointment}
+              services={services}
+              products={products}
+              extras={extras}
+            />
+            <Bottom
+              services={services}
+              extras={extras}
+              products={products}
+              goToAddNote={goToAddNote}
+              goToServicesList={addMore}
+              isDeposit={isDeposit()}
+            />
+            <View style={{ height: scaleHeight(50) }} />
+          </ScrollView>
         </View>
-      )}
-      <View style={styles.body}>
-        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-          <StoreInfo
-            status={status}
-            services={services}
-            extras={extras}
-            fromTime={fromTime}
-            merchant={merchant_detail}
-            goToSelectDate={goToSelectDate}
-            isEditAppointment={isEditAppointment}
-          />
-          <ItemList
-            isEditAppointment={isEditAppointment}
-            services={services}
-            products={products}
-            extras={extras}
-          />
-          <Bottom
-            services={services}
-            extras={extras}
-            products={products}
-            goToAddNote={goToAddNote}
-            goToServicesList={addMore}
-            isDeposit={isDeposit()}
-          />
-          <View style={{ height: scaleHeight(50) }} />
-        </ScrollView>
+        <ButtonConfirm
+          isLoading={isLoading}
+          isEditAppointment={isEditAppointment}
+          isCheckEdit={isCheckEdit}
+          onPress={onButtonConfirmPress}
+          isDeposit={isDeposit()}
+        />
       </View>
-      <ButtonConfirm
-        isLoading={isLoading}
-        isEditAppointment={isEditAppointment}
-        isCheckEdit={isCheckEdit}
-        onPress={onButtonConfirmPress}
-        isDeposit={isDeposit()}
-      />
+      {isGetAppointment && <LoadingIndicator />}
     </View>
   );
 }
+
+const LoadingIndicator = () => {
+  return (
+    <View
+      style={{
+        backgroundColor: '#0005',
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <ActivityIndicator size="large" color="white" />
+    </View>
+  );
+};

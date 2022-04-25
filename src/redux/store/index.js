@@ -7,6 +7,7 @@ import Reactotron from '../../../ReactotronConfig';
 import rootReducers from '../reducers';
 import sagaRoot from '../sagas';
 import { rootReducers as toolKitReducers } from '../slices';
+import { harmonyApi } from '@shared/services';
 
 const middleware = [];
 let sagaMiddleware = createSagaMiddleware();
@@ -19,6 +20,8 @@ if (__DEV__) {
 middleware.push(sagaMiddleware);
 // if (Configs.CHROME_DEBUG_LOGGER && isDevelopmentMode) {
 // }
+
+middleware.push(harmonyApi.middleware);
 
 let enhancers;
 if (__DEV__) {
@@ -42,13 +45,18 @@ const persistConfig = {
     'inboxReducer',
     'generalReducer',
     'bookingReducer',
+    'api',
   ],
   debug: __DEV__, //to get useful logging
 };
 
 const reducers = combineReducers(
-  Object.assign({}, rootReducers, toolKitReducers),
+  Object.assign({}, rootReducers, {
+    ...toolKitReducers,
+    [harmonyApi.reducerPath]: harmonyApi.reducer,
+  }),
 );
+
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 // const enhancers = [applyMiddleware(...middleware)];

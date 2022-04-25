@@ -12,7 +12,7 @@
     "clean": "rm -rf node_modules && rm -rf yarn.lock && rm -rf $TMPDIR/react-* && watchman watch-del-all",
     "pod:clean": "cd ios && pod deintegrate && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf Podfile.lock",
     "push:ios-production": "appcenter codepush release-react -a HarmonyPayment/harmonypay-iOS -d Production -t 3.9.12 --description fixBug",
-    "push:ios-staging": "appcenter codepush release-react -a HarmonyPayment/harmonypay-iOS -d Staging -t 1.0.8 --description test",
+    "push:ios-staging": "appcenter codepush release-react -a HarmonyPayment/harmonypay-iOS -d Staging -t 1.0.9 --description test",
     "push-clean:ios-production": "appcenter codepush deployment clear -a HarmonyPayment/harmonypay-iOS Production",
     "push-clean:ios-staging": "appcenter codepush deployment clear -a HarmonyPayment/harmonypay-iOS Staging",
     "push:android-production": "appcenter codepush release-react -a HarmonyPayment/harmonypay-Android -d Production -t 2.2.12 --description update",
