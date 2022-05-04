@@ -165,7 +165,7 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
       };
 
     case 'UPDATE_SERVICE':
-      let arrServices = [...(state.services || [])];
+      let arrServices = [...(state.services ?? [])];
 
       const svIndex = arrServices?.findIndex(
         obj => obj.serviceId === action.payload.serviceId,
@@ -173,7 +173,9 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
 
       if (svIndex > -1) {
         let temp = arrServices[svIndex];
-        if (temp) temp.staffId = action.payload.staffId;
+        if (temp) {
+          temp = Object.assign({}, temp, { staffId: action.payload?.staffId });
+        }
         arrServices[svIndex] = temp;
       }
 

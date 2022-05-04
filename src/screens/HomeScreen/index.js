@@ -34,7 +34,9 @@ export default function index(props) {
   );
   const invoice = useSelector(state => state.paymentReducer.invoice);
   const userInfo = useSelector(state => state.datalocalReducer.userInfo);
-  const userCard = userInfo.userCard ? userInfo.userCard : null;
+  const { card_primary } = useSelector(state => state.cardReducer) || {};
+
+  const userCard = card_primary ?? userInfo.userCard;
   const number_invoice = invoice.id ? 1 : 0;
   const [refreshing, setRefreshing] = React.useState(false);
 

@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
 import actions from '@redux/actions';
-import moment from 'moment';
-import { totalDuration } from 'utils';
-import * as RootNavigation from 'navigations/RootNavigation';
-import { useSelector, useDispatch } from 'react-redux';
-import { adapterExtrasEdit, notesEdit } from './helper';
-import HeaderReview from './Header';
-import StoreInfo from './StoreInfo';
-import ItemList from './ItemList';
-import Bottom from './Bottom';
-import ButtonConfirm from './ButtonConfirm';
+import { harmonyApi } from '@shared/services';
 import images from 'assets';
 import { Header, StatusBar } from 'components';
-import { scaleWidth, scaleHeight } from 'utils';
+import moment from 'moment';
+import * as RootNavigation from 'navigations/RootNavigation';
+import React, { useState } from 'react';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { scaleHeight, scaleWidth, totalDuration } from 'utils';
+import Bottom from './Bottom';
+import ButtonConfirm from './ButtonConfirm';
+import HeaderReview from './Header';
+import { adapterExtrasEdit, notesEdit } from './helper';
+import ItemList from './ItemList';
+import StoreInfo from './StoreInfo';
 import styles from './styles';
-import { useHarmonyMutation, createAppointment } from '@apis';
-import { harmonyApi } from '@shared/services';
+import { totalPrice } from 'utils';
+import { formatNumberFromCurrency } from 'utils';
 
 export default function index(props) {
   const [isLoading, setLoading] = useState(false);
@@ -57,22 +57,29 @@ export default function index(props) {
   } = bookingReducer;
 
   const { userId } = userInfo;
-  const { merchantId, isAppointmentDeposit } = merchant_detail;
+  const {
+    merchantId,
+    isAppointmentDeposit,
+    minimumAppointmentAmountRequireDeposit,
+  } = merchant_detail;
   const timezone = new Date().getTimezoneOffset();
-  const isDeposit = () => isAppointmentDeposit && !isEditAppointment;
 
   const [
     getAppointment,
     { currentData: appointmentResponse, isLoading: isGetAppointment },
   ] = harmonyApi.useLazyGetAppointmentQuery();
 
-  const [, createAppointmentRequest] = useHarmonyMutation({
-    onSuccess: async data => {
-      if (data) {
-        await getAppointment(data);
-      }
-    },
-  });
+  const [
+    createAppointment,
+    { data: appointmentCreatedResponse, isLoading: isCreateAppointment },
+  ] = harmonyApi.useCreateAppointmentMutation();
+
+  React.useEffect(() => {
+    if (appointmentCreatedResponse) {
+      const { data } = appointmentCreatedResponse;
+      getAppointment(data);
+    }
+  }, [appointmentCreatedResponse]);
 
   React.useEffect(() => {
     if (isCheckout && isEditAppointment) onBack();
@@ -259,7 +266,7 @@ export default function index(props) {
   };
 
   const onButtonConfirmPress = () => {
-    if (isDeposit()) {
+    if (isMakeDeposit()) {
       if (conditionBooking()) {
         const end = moment(fromTime).add(
           totalDuration(services, extras),
@@ -287,8 +294,7 @@ export default function index(props) {
         //   }),
         // );
 
-        const requestData = createAppointment(body);
-        createAppointmentRequest(requestData);
+        createAppointment(body);
       } else {
         alert(
           'Your time selectec is over now. Please booking to another time!',
@@ -302,6 +308,16 @@ export default function index(props) {
       bookAppointment();
     }
   };
+
+  const isMakeDeposit = React.useCallback(() => {
+    const total = totalPrice(services, extras, products);
+
+    return (
+      isAppointmentDeposit &&
+      !isEditAppointment &&
+      total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
+    );
+  }, [isAppointmentDeposit, isEditAppointment, services, extras, products]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -349,17 +365,17 @@ export default function index(props) {
               products={products}
               goToAddNote={goToAddNote}
               goToServicesList={addMore}
-              isDeposit={isDeposit()}
+              isDeposit={isMakeDeposit()}
             />
             <View style={{ height: scaleHeight(50) }} />
           </ScrollView>
         </View>
         <ButtonConfirm
-          isLoading={isLoading}
+          isLoading={isLoading || isCreateAppointment || isGetAppointment}
           isEditAppointment={isEditAppointment}
           isCheckEdit={isCheckEdit}
           onPress={onButtonConfirmPress}
-          isDeposit={isDeposit()}
+          isDeposit={isMakeDeposit()}
         />
       </View>
       {isGetAppointment && <LoadingIndicator />}

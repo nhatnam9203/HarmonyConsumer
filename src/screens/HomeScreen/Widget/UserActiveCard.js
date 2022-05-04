@@ -5,7 +5,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 export const UserActiveCard = ({ card, onPress }) => {
-  const { amount, userCardId, imageUrl } = card;
+  const { amount = 0, userCardId, imageUrl } = card || {};
 
   const onCardPress = () => {
     if (onPress && typeof onPress === 'function') {

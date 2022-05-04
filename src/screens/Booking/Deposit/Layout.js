@@ -1,9 +1,16 @@
 import { NavigationHeader } from '@shared/components';
 import { default as ICONS, default as images } from 'assets';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { formatNumberFromCurrency } from 'utils';
+import { formatNumberFromCurrency, formatMoney } from 'utils';
 
 export const Layout = ({
   onBack,
@@ -14,10 +21,10 @@ export const Layout = ({
   myCard,
   onReloadCard,
   onPayment,
+  isDepositAppointment,
 }) => {
   const { amount, userCardId, imageUrl } = myCard || {};
   const depositAmount = calcDepositAmount();
-
 
   const isReload =
     formatNumberFromCurrency(depositAmount) > formatNumberFromCurrency(amount);
@@ -48,7 +55,7 @@ export const Layout = ({
             <Text style={styles.text}>Appointment total</Text>
             <View style={{ flex: 1 }} />
             <Text style={styles.text}>
-              {`$ ${formatNumberFromCurrency(appointment?.total ?? 0)}`}
+              {`$ ${formatMoney(appointment?.total ?? 0)}`}
             </Text>
           </Row>
           <View
@@ -61,14 +68,12 @@ export const Layout = ({
           />
           <Row>
             <Text style={[styles.text, { color: '#0764B0' }]}>
-              {`Deposit amount (${depositPercent}%)`}
+              {`Deposit amount (${formatNumberFromCurrency(depositPercent)}%)`}
             </Text>
             <View style={{ flex: 1 }} />
-            <Text
-              style={[
-                styles.text,
-                { color: '#0764B0' },
-              ]}>{`$ ${formatNumberFromCurrency(depositAmount)}`}</Text>
+            <Text style={[styles.text, { color: '#0764B0' }]}>{`$ ${formatMoney(
+              depositAmount,
+            )}`}</Text>
           </Row>
         </View>
         <View style={styles.margin} />
@@ -162,10 +167,17 @@ export const Layout = ({
           ]}
           disabled={isReload}
           onPress={onPayment}>
-          <Text
-            style={[styles.textStyle, { color: isReload ? 'black' : 'white' }]}>
-            Pay
-          </Text>
+          {isDepositAppointment ? (
+            <ActivityIndicator size={'small'} color="white" />
+          ) : (
+            <Text
+              style={[
+                styles.textStyle,
+                { color: isReload ? 'black' : 'white' },
+              ]}>
+              Pay
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>

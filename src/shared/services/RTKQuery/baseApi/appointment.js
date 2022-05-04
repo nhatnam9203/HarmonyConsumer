@@ -4,4 +4,19 @@ export const appointmentBuilder = builder => ({
       url: `appointment/${appointmentId}`,
     }),
   }),
+
+  createAppointment: builder.mutation({
+    query: data => ({
+      url: `appointment`,
+      method: 'POST',
+      data,
+    }),
+  }),
+
+  depositAppointment: builder.mutation({
+    query: appointmentId => ({
+      url: `user/PayDeposit/${appointmentId}`,
+      method: 'PUT',
+    }),
+  }),
 });

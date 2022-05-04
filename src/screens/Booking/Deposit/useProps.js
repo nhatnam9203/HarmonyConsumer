@@ -1,8 +1,9 @@
 import actions from '@redux/actions';
+import { harmonyApi } from '@shared/services';
 import * as RootNavigation from 'navigations/RootNavigation';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatNumberFromCurrency } from 'utils';
-import { depositAppointment, useHarmonyMutation } from '@apis';
 
 export const useProps = () => {
   const dispatch = useDispatch();
@@ -31,32 +32,36 @@ export const useProps = () => {
 
   const { card_primary } = useSelector(state => state.cardReducer) || {};
   const token = useSelector(state => state.datalocalReducer.token);
+  const userInfo = useSelector(state => state.datalocalReducer.userInfo);
 
-  const isDeposit = () => isAppointmentDeposit && !isEditAppointment;
+  const [
+    depositAppointment,
+    { data: appointmentDepositResponse, isLoading: isDepositAppointment },
+  ] = harmonyApi.useDepositAppointmentMutation();
 
-  const [, depositAppointmentRequest] = useHarmonyMutation({
-    onSuccess: data => {
-      console.log(data);
-
+  React.useEffect(() => {
+    if (appointmentDepositResponse) {
       dispatch(actions.appointmentAction.getAppointmentUpcoming(token));
       dispatch(actions.appointmentAction.getAppointmentPast(token, 1));
       dispatch(actions.bookingAction.resetBooking());
 
-      RootNavigation.navigate('Appointments');
-    },
-  });
+      dispatch(actions.cardAction.get_card_by_user(token, userInfo.userId));
+      setTimeout(() => {
+        RootNavigation.navigate('Appointments');
+      }, 150);
+    }
+  }, [appointmentDepositResponse]);
 
   const calcDepositAmount = () => {
     let amount =
       (formatNumberFromCurrency(appointment?.total ?? 0) * depositPercent) /
       100;
     amount = parseFloat(amount).toFixed(2);
-    if (amount < minimumAppointmentAmountRequireDeposit)
-      return minimumAppointmentAmountRequireDeposit;
     return amount;
   };
 
   return {
+    isDepositAppointment,
     appointment,
     calcDepositAmount: calcDepositAmount,
     depositPercent,
@@ -80,8 +85,7 @@ export const useProps = () => {
       //   RewardPoint: 0,
       // };
 
-      const requestData = depositAppointment(appointment?.appointmentId);
-      depositAppointmentRequest(requestData);
+      depositAppointment(appointment?.appointmentId);
     },
   };
 };
