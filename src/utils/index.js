@@ -35,7 +35,7 @@ export const requestAPI = async (action, header = {}) => {
     baseURL: Configs.API_URL,
     url: `${action.route}`,
     headers: headers,
-    timeout: 20000,
+    timeout: 30000,
     validateStatus: status => status >= 200 && status < 600,
   };
 
@@ -50,19 +50,23 @@ export const requestAPI = async (action, header = {}) => {
     let response = await axios(configs);
 
     const codeNumber = response.status ? response.status : 0;
+
     if (codeNumber === 200) {
-      if (response.data.codeNumber == 401) {
-        RootNavigation.navigate('Auth');
-        alert(response.data.message);
-        return;
-      }
       return response.data;
     }
 
+    const { codeStatus, message } = response.data || {};
+
     if (codeNumber === 401) {
-      // RootNavigation.navigate('Auth');
-      // alert('Your session is expired , please login again');
-      return;
+      if (codeStatus === 5) {
+        RootNavigation.navigate('Auth');
+        alert('Your session is expired , please login again');
+        return;
+      } else
+        return {
+          codeNumber: 401,
+          message: message ?? `${codeStatus}`,
+        };
     } else if (codeNumber === 404) {
       return {
         codeNumber: 404,
