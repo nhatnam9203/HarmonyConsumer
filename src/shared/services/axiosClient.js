@@ -11,7 +11,7 @@ export const axios = Axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': `HarmonyPay/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
+    'User-Agent': `HarmonyConsumer/${`${Configs.VERSION}`}/${Platform.OS}`,
   },
 });
 

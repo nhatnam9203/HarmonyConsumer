@@ -315,7 +315,7 @@ export default function index(props) {
     return (
       isAppointmentDeposit &&
       !isEditAppointment &&
-      total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
+      total > formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
     );
   }, [isAppointmentDeposit, isEditAppointment, services, extras, products]);
 

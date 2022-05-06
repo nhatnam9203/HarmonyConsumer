@@ -9,9 +9,7 @@ export const axiosHarmony = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': `HarmonyMerchant/${`${Configs.APP_VERSION}.${Configs.CODEPUSH_VERSION}`}/${
-      Platform.OS
-    }`,
+    'User-Agent': `HarmonyConsumer/${`${Configs.VERSION}`}/${Platform.OS}`,
     // DeviceID: `${encodeURIComponent(deviceName)}_${deviceId}`,
     From: 'POS',
   },
