@@ -177,14 +177,15 @@ const RootComponent = ({ children }) => {
 
   const pushMessage = messageJson => {
     if (!messageJson) return;
-
+console.log('messageJson', messageJson)
     if (
       messageJson.type == 'update_status' ||
       messageJson.type == 'appointment_update_status' ||
       messageJson.type == 'pay' ||
       messageJson.type == 'cancel_pay' ||
       messageJson.type == 'update_pay' ||
-      messageJson.type == 'update_consumer'
+      messageJson.type == 'update_consumer' ||
+      messageJson.type == 'cancel'
     ) {
       if (isInbox) {
         PushNotification.localNotification({
