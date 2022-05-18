@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
   image_card: {
     width: scaleSize(382),
     height: scaleSize(220),
-    // backgroundColor: 'red'
-    // tintColor:'#707070'
   },
   image_button: {
     width: scaleSize(25),

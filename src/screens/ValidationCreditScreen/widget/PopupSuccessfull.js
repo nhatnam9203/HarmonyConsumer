@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "500",
-    // marginVertical: scaleSize(20)
   },
   container_content: {
     alignItems: "center",

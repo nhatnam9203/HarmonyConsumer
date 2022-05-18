@@ -445,16 +445,6 @@ export const deleteBannersMerchant = data => ({
   },
 });
 
-// type: 'ADD_BANNER_WITH_INFO',
-// method: 'POST',
-// token: true,
-// api: `merchantbanner`,
-// body: {
-//     ...action.infoBanner,
-//     fileId: responses?.data?.fileId || 0
-// },
-// merchantId: action.merchantId
-
 /**
  * NOTIFICATION
  */

@@ -9,7 +9,6 @@ export const useAppTokens = () => {
       await LocalStorage.save({
         key: AuthTokenKey,
         data: authToken,
-        // expires: 1000 * 3600,
       });
     },
 

@@ -24,14 +24,6 @@ export const AppStateProvider = ({ children }) => {
     const latestVersion = await VersionCheck.getLatestVersion({
       provider: 'appStore',
     });
-
-    // await dispatch(actions.dataLocal.updateDeviceId(deviceId));
-    // await dispatch(actions.dataLocal.updateDeviceName(deviceName));
-    // await dispatch(
-    //   actions.dataLocal.updateVersionApp(latestVersion ?? Configs.VERSION),
-    // );
-
-    // await dispatch(appMerchant.setDeviceInfo({ deviceId, deviceName }));
   };
 
   // React useEffect
@@ -40,8 +32,6 @@ export const AppStateProvider = ({ children }) => {
     // Subscribe to network state updates
     const unsubscribe = NetInfo.addEventListener(state => {
       setNetworkState(state?.isConnected);
-      // console.log("Connection type", state.type);
-      // console.log("Is connected?", state.isConnected);
     });
 
     return () => {
@@ -51,7 +41,6 @@ export const AppStateProvider = ({ children }) => {
   }, []);
 
   React.useEffect(() => {
-    // console.log(networkState);
     if (networkState) {
       setNetworkMsg(null);
     } else {

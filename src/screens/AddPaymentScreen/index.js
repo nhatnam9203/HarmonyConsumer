@@ -19,7 +19,6 @@ export default function index() {
         <StatusBar />
         <Header title="Add payments" headerLeft={true} onBack={onBack} />
       </View>
-      {/* <ScrollView contentContainerStyle={{ flex: 1 }}> */}
       <View
         style={{
           alignSelf: "flex-start",

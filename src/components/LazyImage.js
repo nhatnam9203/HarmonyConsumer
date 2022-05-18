@@ -17,9 +17,6 @@ export default function ProgressiveImage(props) {
   let thumbnailAnimated = new Animated.Value(0);
   let imageAnimated = new Animated.Value(0);
 
-  // const [thumbnailAnimated, setThumbnail] = React.useState(0);
-  // const [imageAnimated, setImage] = React.useState(0);
-
   const handleThumbnailLoad = () => {
     Animated.timing(thumbnailAnimated, {
       toValue: 1,

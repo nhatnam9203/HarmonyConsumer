@@ -387,10 +387,6 @@ const RootComponent = ({ children }) => {
             );
           }
         }
-
-        // if (!isEmpty(idAppointmentDetail)) {
-        //   dispatch(actions.appointmentAction.getDetailAppointment(token, idAppointmentDetail));
-        // }
       }
     }
   };

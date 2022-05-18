@@ -101,7 +101,6 @@ export default function index({ data }) {
       {loading_map ? (
         <MapView
           ref={_map}
-          // provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={coordinate_map}>
           {data.map((marker, index) => {
@@ -136,7 +135,6 @@ export default function index({ data }) {
 
       <View style={styles.scrollView}>
         <Carousel
-          // ref={(c) => { this._carousel = c; }}
           snapToAlignment="center"
           pagingEnabled
           data={data}

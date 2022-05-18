@@ -94,16 +94,6 @@ export default function index(props) {
       />
 
       <ScrollView
-        // refreshControl={
-        //   <RefreshControl
-        //     refreshing={loading_group_appt}
-        //     onRefresh={getGroupAppointment}
-        //     size={30}
-        //     progressBackgroundColor="#FFFF"
-        //     colors={["#0764B0"]}
-        //     tintColor="#0764B0"
-        //   />
-        // }
         contentContainerStyle={styles.container_center}>
         {merchant != "" && <MerchantInfo data={merchant} />}
 

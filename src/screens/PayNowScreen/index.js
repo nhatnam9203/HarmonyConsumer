@@ -34,10 +34,6 @@ export default function index(props) {
     RootNavigation.navigate("InvoiceDetail");
   };
 
-  // React.useEffect(() => {
-  //   dispatch(actions.paymentAction.get_number_invoice(token));
-  // }, []);
-
   const PaymentMethodList = () => {
     return data.map((item, index) => {
       const _onPress = index == 0 ? goToInvoice : goToScan;

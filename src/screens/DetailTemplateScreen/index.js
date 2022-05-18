@@ -28,9 +28,6 @@ export default function index(props) {
   const onBack = () => {
     RootNavigation.back();
   };
-  // const goToSearchStore = () => {
-  //   RootNavigation.navigate("SearchListStore");
-  // };
 
   const submitImage = (response) => {
     let fileName = response.fileName;
@@ -132,8 +129,6 @@ export default function index(props) {
           contentContainerInput={{ borderBottomWidth: 0 }}
           onChangeText={onChangeText}
           value={message}
-          // error={errors.CardHolderName}
-          // touched={touched.CardHolderName}
         />
 
         <View style={styles.button_submit}>

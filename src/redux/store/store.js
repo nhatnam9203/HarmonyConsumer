@@ -24,5 +24,3 @@ module.exports = {
   store,
   persistor,
 };
-
-// file cu

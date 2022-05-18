@@ -288,12 +288,6 @@ export default function index(props) {
           status: staffId === -1 ? 'waiting' : 'unconfirm',
         };
 
-        // dispatch(
-        //   actions.appointmentAction.addAppointment(body, token, () => {
-        //     RootNavigation.navigate('Deposit');
-        //   }),
-        // );
-
         createAppointment(body);
       } else {
         alert(

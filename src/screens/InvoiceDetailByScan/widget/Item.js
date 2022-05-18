@@ -22,11 +22,6 @@ export default function Item({ name, amount, duration, quantity }) {
               }
             : {},
         ]}>
-        {/* {duration && (
-          <Text fontSize={15} color="#585858">
-            {duration} min
-          </Text>
-        )} */}
 
         {quantity && (
           <Text fontSize={15} color="#585858">

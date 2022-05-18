@@ -13,14 +13,6 @@ export default class LoadingDetail extends Component {
           flex: 1,
           backgroundColor: "white",
         }}>
-        {/* <Text
-          style={{
-            fontSize: scaleWidth(6),
-            fontStyle: "italic",
-          }}>
-          {" "}
-          Loading...
-        </Text> */}
       </View>
     );
   }

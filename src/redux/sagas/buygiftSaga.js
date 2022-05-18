@@ -161,10 +161,6 @@ function* sendGiftCard(action) {
     const { codeNumber, message, data } = responses;
     switch (+codeNumber) {
       case 200:
-        // yield put({
-        //   type: "SET_GIFT_SEND",
-        //   payload: {},
-        // });
         action.cb(action.body);
 
         break;
