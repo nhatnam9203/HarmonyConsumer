@@ -1,15 +1,24 @@
-import React from "react";
-import { View, ImageBackground, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Text } from "components";
-import images from "assets";
-import { scaleWidth, scaleHeight, slop, scaleSize } from "utils";
-import * as RootNavigation from "navigations/RootNavigation";
-import { useDispatch } from "react-redux";
-import actions from "@redux/actions";
+import React from 'react';
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import { Text } from 'components';
+import images from 'assets';
+import { scaleWidth, scaleHeight, slop, scaleSize } from 'utils';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { useDispatch } from 'react-redux';
+import actions from '@redux/actions';
+import { useCancelAppointment } from '../useCancelAppointment';
 
 function Header(props) {
   const dispatch = useDispatch();
   const { step, title } = props;
+
+  const { cancelAppointment } = useCancelAppointment();
 
   const onBack = () => {
     RootNavigation.back();
@@ -17,12 +26,15 @@ function Header(props) {
   };
 
   const close = () => {
+    cancelAppointment();
     dispatch(actions.bookingAction.resetBooking());
-    RootNavigation.navigate("BottomTab");
+    RootNavigation.navigate('BottomTab');
   };
 
   return (
-    <ImageBackground style={styles.imgBackground} source={images.background_reward_profile}>
+    <ImageBackground
+      style={styles.imgBackground}
+      source={images.background_reward_profile}>
       <View style={styles.row}>
         <TouchableOpacity onPress={onBack} hitSlop={slop}>
           <Image source={images.arrow_back_ios} style={styles.iconTop} />
@@ -34,7 +46,9 @@ function Header(props) {
       </View>
 
       <Text style={styles.txtStep}>{`Step ${step} of 4`}</Text>
-      <Text fontFamily="medium" style={styles.txtSelectedStaff}>{`${title}`}</Text>
+      <Text
+        fontFamily="medium"
+        style={styles.txtSelectedStaff}>{`${title}`}</Text>
     </ImageBackground>
   );
 }
@@ -48,19 +62,19 @@ const styles = StyleSheet.create({
     paddingBottom: scaleHeight(1.5),
   },
   row: {
-    justifyContent: "space-between",
-    flexDirection: "row",
+    justifyContent: 'space-between',
+    flexDirection: 'row',
     marginTop: scaleHeight(6.5),
     paddingHorizontal: scaleWidth(3),
   },
   txtStep: {
-    color: "white",
+    color: 'white',
     fontSize: scaleWidth(4),
     marginLeft: scaleWidth(3),
     marginTop: scaleHeight(2.5),
   },
   txtSelectedStaff: {
-    color: "white",
+    color: 'white',
     fontSize: scaleWidth(5.3),
     marginLeft: scaleWidth(3),
     marginTop: scaleHeight(2),
@@ -68,7 +82,7 @@ const styles = StyleSheet.create({
   iconTop: {
     width: scaleSize(20),
     height: scaleSize(18),
-    resizeMode: "contain",
-    tintColor: "#ffffff",
+    resizeMode: 'contain',
+    tintColor: '#ffffff',
   },
 });

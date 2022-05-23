@@ -17,10 +17,12 @@ import StoreInfo from './StoreInfo';
 import styles from './styles';
 import { totalPrice } from 'utils';
 import { formatNumberFromCurrency } from 'utils';
+import { useCancelAppointment } from '../useCancelAppointment';
 
 export default function index(props) {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { cancelAppointment } = useCancelAppointment();
 
   const merchant_detail = useSelector(
     state => state.storeReducer.merchant_detail,
@@ -54,6 +56,7 @@ export default function index(props) {
     noteValue,
     day,
     isCheckout,
+    appointment,
   } = bookingReducer;
 
   const { userId } = userInfo;
@@ -106,6 +109,9 @@ export default function index(props) {
 
   const close = () => {
     if (!isEditAppointment) {
+      if (appointment) {
+        cancelAppointment();
+      }
       dispatch(actions.bookingAction.resetBooking());
       RootNavigation.navigate('BottomTab');
     } else {
@@ -315,7 +321,7 @@ export default function index(props) {
     return (
       isAppointmentDeposit &&
       !isEditAppointment &&
-      total > formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
+      total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
     );
   }, [isAppointmentDeposit, isEditAppointment, services, extras, products]);
 

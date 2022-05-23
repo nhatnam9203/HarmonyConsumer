@@ -60,6 +60,21 @@ export const useProps = () => {
     return amount;
   };
 
+  const cancelAppointment = () => {
+    const body = {
+      status: 'cancel',
+    };
+    // setLoadingPopup(true);
+    dispatch(
+      actions.appointmentAction.updateStatusAppointment(
+        body,
+        token,
+        appointment?.appointmentId,
+        () => {},
+      ),
+    );
+  };
+
   return {
     isDepositAppointment,
     appointment,
@@ -67,6 +82,8 @@ export const useProps = () => {
     depositPercent,
     myCard: card_primary,
     onClose: () => {
+      cancelAppointment();
+      // Trường hợp tắt ngang ko deposit depositt-> cần gọi cancel appointment
       dispatch(actions.bookingAction.resetBooking());
       RootNavigation.navigate('BottomTab');
     },
