@@ -8,6 +8,8 @@ import { formatNumberFromCurrency } from 'utils';
 export const useProps = () => {
   const dispatch = useDispatch();
 
+  const [loadingPage, setLoadingPage] = React.useState(false);
+
   const {
     merchantId,
     isAppointmentDeposit,
@@ -78,6 +80,7 @@ export const useProps = () => {
   return {
     isDepositAppointment,
     appointment,
+    loadingPage,
     calcDepositAmount: calcDepositAmount,
     depositPercent,
     myCard: card_primary,
@@ -88,7 +91,11 @@ export const useProps = () => {
       RootNavigation.navigate('BottomTab');
     },
     onBack: () => {
-      RootNavigation.back();
+      setLoadingPage(true);
+      cancelAppointment();
+      setTimeout(() => {
+        RootNavigation.back();
+      }, 1000);
     },
     onReloadCard: () => {
       dispatch(actions.cardAction.set_card_reload(card_primary));

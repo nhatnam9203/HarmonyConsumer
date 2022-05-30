@@ -22,6 +22,7 @@ export const Layout = ({
   onReloadCard,
   onPayment,
   isDepositAppointment,
+  loadingPage,
 }) => {
   const { amount, userCardId, imageUrl } = myCard || {};
   const depositAmount = calcDepositAmount();
@@ -167,7 +168,7 @@ export const Layout = ({
           ]}
           disabled={isReload}
           onPress={onPayment}>
-          {isDepositAppointment ? (
+          {isDepositAppointment || loadingPage ? (
             <ActivityIndicator size={'small'} color="white" />
           ) : (
             <Text
