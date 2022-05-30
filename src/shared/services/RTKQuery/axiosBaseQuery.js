@@ -39,7 +39,8 @@ axiosHarmony.interceptors.response.use(
       case 401:
         if (parseInt(codeStatus) === 5) {
           const route = RootNavigation.currentRoute();
-          if (route && route?.name !== 'Auth') {
+
+          if (route && route?.name !== 'Auth' && route?.name !== 'SignIn') {
             // alert('Permission Denied');
             RootNavigation.navigate('Auth');
             setTimeout(() => {

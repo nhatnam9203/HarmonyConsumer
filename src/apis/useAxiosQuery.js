@@ -37,7 +37,8 @@ export const useAxiosQuery = ({
         if (
           response?.codeNumber == 200 ||
           response?.codeNumber == 404 ||
-          response?.codeNumber == 201
+          response?.codeNumber == 201 ||
+          response?.codeNumber == 401
         ) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);

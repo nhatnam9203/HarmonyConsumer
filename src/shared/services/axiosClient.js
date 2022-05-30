@@ -44,13 +44,12 @@ axios.interceptors.response.use(
   response => {
     // log(response, 'response');
     const { codeStatus = 0, codeNumber = 0, message } = response?.data;
-    console.log();
+    const route = RootNavigation.currentRoute();
 
     switch (parseInt(codeNumber, 10)) {
       case 401:
         if (parseInt(codeStatus, 10) === 5) {
-          const route = RootNavigation.currentRoute();
-          if (route && route?.name !== 'Auth') {
+          if (route && (route?.name !== 'Auth' && route?.name !== 'SignIn')) {
             // alert('Permission Denied');
             RootNavigation.navigate('Auth');
             setTimeout(() => {

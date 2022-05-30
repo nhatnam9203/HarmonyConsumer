@@ -49,34 +49,33 @@ export const requestAPI = async (action, header = {}) => {
   try {
     let response = await axios(configs);
 
-    const codeNumber = response.status ? response.status : 0;
+    const responseStatus = response.status ? response.status : 0;
 
-    if (codeNumber === 200) {
-      return response.data;
-    }
-
-    const { codeStatus, message } = response.data || {};
-
-    if (codeNumber === 401) {
-      if (codeStatus === 5) {
-        const route = RootNavigation.currentRoute();
-        if (route && route?.name !== 'Auth') {
-          RootNavigation.navigate('Auth');
-          setTimeout(() => {
-            alert('Your token login is expired , please login again!');
-          }, 1000);
-        }
-        return;
-      } else
+    if (responseStatus === 200) {
+      const { codeStatus, codeNumber, message } = response.data || {};
+      const route = RootNavigation.currentRoute();
+      if (codeNumber === 401) {
+        if (codeStatus === 5) {
+          if (route?.name !== 'Auth' && route?.name !== 'SignIn') {
+            RootNavigation.navigate('Auth');
+            setTimeout(() => {
+              alert('Your token login is expired , please login again!');
+            }, 1000);
+          }
+          return;
+        } else
+          return {
+            codeNumber: 401,
+            message: message ?? `${codeStatus}`,
+          };
+      } else if (codeNumber === 404) {
         return {
-          codeNumber: 401,
-          message: message ?? `${codeStatus}`,
+          codeNumber: 404,
+          message: 'NOT_FOUND ' + action.route,
         };
-    } else if (codeNumber === 404) {
-      return {
-        codeNumber: 404,
-        message: 'NOT_FOUND ' + action.route,
-      };
+      }
+
+      return response.data;
     } else {
       return {
         codeNumber: 401,

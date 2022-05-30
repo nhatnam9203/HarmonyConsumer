@@ -1,23 +1,23 @@
-import React, { useRef } from "react";
-import { Animated, View } from "react-native";
-import * as Animatable from "react-native-animatable";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef } from 'react';
+import { Animated, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   reset_search_list,
   setStoreNearSearch,
   setStoreFavouriteSearch,
-} from "@redux/actions/storeAction";
-import actions from "@redux/actions";
-import { set_location_tab_store } from "@redux/actions/datalocalAction";
+} from '@redux/actions/storeAction';
+import actions from '@redux/actions';
+import { set_location_tab_store } from '@redux/actions/datalocalAction';
 import {
   Text,
   ModalBottomSelect,
   StatusBar,
   FocusAwareStatusBar,
   ModalBottomSelect2,
-} from "components";
-import Geolocation from "@react-native-community/geolocation";
+} from 'components';
+import Geolocation from '@react-native-community/geolocation';
 import {
   Header,
   ButtonFilters,
@@ -27,19 +27,20 @@ import {
   TabNearMe,
   SearchList,
   ModalFilterList,
-} from "./Widget";
-import ICONS from "assets";
-import { scaleSize } from "utils";
-import styles from "./styles";
+} from './Widget';
+import ICONS from 'assets';
+import { scaleSize } from 'utils';
+import styles from './styles';
+import { convertLatLongToAddress } from 'utils';
 
 const DATA = [
-  { name: "Favourites", url: ICONS["like_heart"] },
-  { name: "Near me", url: ICONS["location"] },
+  { name: 'Favourites', url: ICONS['like_heart'] },
+  { name: 'Near me', url: ICONS['location'] },
 ];
 const FILTERS_FAVOURITE = [
-  { name: "Top rated", value: "rated" },
-  { name: "Nearest", value: "nearest" },
-  { name: "Newest", value: "newest" },
+  { name: 'Top rated', value: 'rated' },
+  { name: 'Nearest', value: 'nearest' },
+  { name: 'Newest', value: 'newest' },
 ];
 
 export default function index(props) {
@@ -47,7 +48,9 @@ export default function index(props) {
   const height = useRef(new Animated.Value(scaleSize(230))).current;
   const dispatch = useDispatch();
 
-  const placeholders = useSelector((state) => state.datalocalReducer.placeholders);
+  const placeholders = useSelector(
+    state => state.datalocalReducer.placeholders,
+  );
   const {
     store_tab_near = [],
     favourite_stores,
@@ -57,12 +60,16 @@ export default function index(props) {
     storeSearch,
     filter_favourite_store,
     filter_near_store,
-  } = useSelector((state) => state.storeReducer);
-  const token = useSelector((state) => state.datalocalReducer.token);
+  } = useSelector(state => state.storeReducer);
+  const token = useSelector(state => state.datalocalReducer.token);
 
-  const location_tab_store = useSelector((state) => state.datalocalReducer.location_tab_store);
+  const location_tab_store = useSelector(
+    state => state.datalocalReducer.location_tab_store,
+  );
   const { lat, lng, formatted_address } =
-    location_tab_store && location_tab_store.location ? location_tab_store.location : 0;
+    location_tab_store && location_tab_store.location
+      ? location_tab_store.location
+      : 0;
 
   const [isTabActive, setTabActive] = React.useState(2);
 
@@ -73,8 +80,8 @@ export default function index(props) {
   React.useLayoutEffect(() => {
     dispatch(
       actions.storeAction.searchStoreFavourite(
-        "",
-        "favorite",
+        '',
+        'favorite',
         filter_favourite_store,
         lat,
         lng,
@@ -82,22 +89,48 @@ export default function index(props) {
         token,
       ),
     );
-    dispatch(actions.storeAction.searchStoreNear("", "all", filter_near_store, lat, lng, 1, token));
+    dispatch(
+      actions.storeAction.searchStoreNear(
+        '',
+        'all',
+        filter_near_store,
+        lat,
+        lng,
+        1,
+        token,
+      ),
+    );
   }, []);
 
   React.useEffect(() => {
     if (isTabActive == 1) {
       dispatch(
-        actions.storeAction.searchStoreNear("", "near", filter_near_store, lat, lng, 1, token),
+        actions.storeAction.searchStoreNear(
+          '',
+          'near',
+          filter_near_store,
+          lat,
+          lng,
+          1,
+          token,
+        ),
       );
     } else if (isTabActive == 2) {
       dispatch(
-        actions.storeAction.searchStoreNear("", "all", filter_near_store, lat, lng, 1, token),
+        actions.storeAction.searchStoreNear(
+          '',
+          'all',
+          filter_near_store,
+          lat,
+          lng,
+          1,
+          token,
+        ),
       );
     }
   }, [isTabActive]);
 
-  const handleChangePage = (i) => {
+  const handleChangePage = i => {
     if (i == isTabActive) {
       setTabActive(2);
       Animated.timing(height, {
@@ -128,11 +161,27 @@ export default function index(props) {
     dispatch(set_location_tab_store(addresses));
     if (isTabActive == 1) {
       dispatch(
-        actions.storeAction.searchStoreNear("", "near", filter_near_store, lat, lng, 1, token),
+        actions.storeAction.searchStoreNear(
+          '',
+          'near',
+          filter_near_store,
+          lat,
+          lng,
+          1,
+          token,
+        ),
       );
     } else if (isTabActive == 2) {
       dispatch(
-        actions.storeAction.searchStoreNear("", "all", filter_near_store, lat, lng, 1, token),
+        actions.storeAction.searchStoreNear(
+          '',
+          'all',
+          filter_near_store,
+          lat,
+          lng,
+          1,
+          token,
+        ),
       );
     }
     showSearchLocation(false);
@@ -151,9 +200,13 @@ export default function index(props) {
   };
 
   const getCurrentLocation = () => {
-    if (!formatted_address || formatted_address === "" || formatted_address === undefined) {
+    if (
+      !formatted_address ||
+      formatted_address === '' ||
+      formatted_address === undefined
+    ) {
       Geolocation.getCurrentPosition(
-        async (position) => {
+        async position => {
           const {
             coords: { longitude, latitude },
           } = position;
@@ -171,7 +224,7 @@ export default function index(props) {
           dispatch(actions.datalocalAction.set_current_location(payload));
           dispatch(actions.datalocalAction.set_location_tab_store(payload));
         },
-        (error) => {
+        error => {
           console.log(error.message);
         },
         { enableHighAccuracy: false, timeout: 20000 },
@@ -179,30 +232,30 @@ export default function index(props) {
     }
   };
 
-  const onSubmit = (key) => {
-    if (key === "") {
-      dispatch({ type: "SET_STORE_SEARCH", payload: [] });
+  const onSubmit = key => {
+    if (key === '') {
+      dispatch({ type: 'SET_STORE_SEARCH', payload: [] });
       return;
     }
     dispatch(
       actions.storeAction.searchStore(
         key,
-        "all",
-        "nearest",
+        'all',
+        'nearest',
         lat,
         lng,
         1,
         token,
-        (screen = "SEARCH_STORE"),
+        (screen = 'SEARCH_STORE'),
       ),
     );
   };
 
-  const afterSubmitFavouriteStore = (data) => {
+  const afterSubmitFavouriteStore = data => {
     dispatch(setStoreFavouriteSearch(data));
   };
 
-  const afterSubmitNearStore = (data) => {
+  const afterSubmitNearStore = data => {
     dispatch(setStoreNearSearch(data));
   };
 
@@ -212,7 +265,7 @@ export default function index(props) {
 
   const clearMyLocation = () => {
     const payload = {
-      formatted_address: "",
+      formatted_address: '',
       location: {
         lat: lat,
         lng: lng,
@@ -228,7 +281,9 @@ export default function index(props) {
 
   const openSearchLocation = () => {
     dispatch(
-      actions.storeAction.setValueSearchLocationTabNear(location_tab_store.formatted_address),
+      actions.storeAction.setValueSearchLocationTabNear(
+        location_tab_store.formatted_address,
+      ),
     );
     showSearchLocation(true);
   };
@@ -240,7 +295,15 @@ export default function index(props) {
   const onChangeFavoriteStore = (index, item) => {
     dispatch(actions.storeAction.onChangeFilterFavourite(item.value));
     dispatch(
-      actions.storeAction.searchStoreFavourite("", "favorite", item.value, lat, lng, 1, token),
+      actions.storeAction.searchStoreFavourite(
+        '',
+        'favorite',
+        item.value,
+        lat,
+        lng,
+        1,
+        token,
+      ),
     );
     onShowModal();
   };
@@ -248,16 +311,36 @@ export default function index(props) {
   const onChangeNearStore = (index, item) => {
     dispatch(actions.storeAction.onChangeFilterNear(item.value));
     if (isTabActive == 1) {
-      dispatch(actions.storeAction.searchStoreNear("", "near", item.value, lat, lng, 1, token));
+      dispatch(
+        actions.storeAction.searchStoreNear(
+          '',
+          'near',
+          item.value,
+          lat,
+          lng,
+          1,
+          token,
+        ),
+      );
     } else if (isTabActive == 2) {
-      dispatch(actions.storeAction.searchStoreNear("", "all", item.value, lat, lng, 1, token));
+      dispatch(
+        actions.storeAction.searchStoreNear(
+          '',
+          'all',
+          item.value,
+          lat,
+          lng,
+          1,
+          token,
+        ),
+      );
     }
     onShowModal();
   };
 
   const Item = ({ item, index }) => {
     return (
-      <Text fontSize={17} style={{ fontWeight: "700", marginLeft: 5 }}>
+      <Text fontSize={17} style={{ fontWeight: '700', marginLeft: 5 }}>
         {item.name}
       </Text>
     );
@@ -265,7 +348,10 @@ export default function index(props) {
 
   return (
     <View style={{ flex: 1 }}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+      />
       <Animated.View style={[styles.container_header, { height }]}>
         <StatusBar />
         <Header
@@ -301,8 +387,12 @@ export default function index(props) {
         )}
       </Animated.View>
 
-      {isTabActive == 0 && <TabFavourite data={loading_store ? placeholders : favourite_stores} />}
-      {(isTabActive == 1 || isTabActive == 2) && <TabNearMe data={store_tab_near} />}
+      {isTabActive == 0 && (
+        <TabFavourite data={loading_store ? placeholders : favourite_stores} />
+      )}
+      {(isTabActive == 1 || isTabActive == 2) && (
+        <TabNearMe data={store_tab_near} />
+      )}
 
       {isTabActive == 0 && (
         <ModalBottomSelect2
@@ -313,7 +403,7 @@ export default function index(props) {
           data={FILTERS_FAVOURITE}
           onSelect={onChangeFavoriteStore}
           value={filter_favourite_store}
-          renderItem={(item) => <Item item={item} />}
+          renderItem={item => <Item item={item} />}
           isFilterFavouriteStore={true}
         />
       )}
