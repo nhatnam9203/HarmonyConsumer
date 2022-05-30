@@ -90,8 +90,6 @@ const styles = StyleSheet.create({
   icon_creditcard: {
     width: scaleSize(26),
     height: scaleSize(26),
-    // tintColor: '#7A98BB',
-    // marginBottom: scaleSize(10),
     resizeMode: 'contain',
   },
   icon_close: {

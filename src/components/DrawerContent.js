@@ -24,7 +24,6 @@ const drawers = [
     routeName: 'Transactions',
   },
   { title: 'Favourites', icon: 'favorites_drawer', routeName: 'Favourites' },
-  // { title: "Wish List", icon: "wishlist_drawer", routeName: "WishList" },
   { title: 'Setting', icon: 'setting_drawer', routeName: 'Setting' },
   {
     title: 'About HarmonyPay',

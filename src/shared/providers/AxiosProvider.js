@@ -8,7 +8,6 @@ const queryClient = new QueryClient();
 export const AxiosContext = createContext({});
 
 export const AxiosProvider = ({ children }) => {
-  //   const dispatch = useDispatch();
 
   // React useEffect
   React.useEffect(() => {

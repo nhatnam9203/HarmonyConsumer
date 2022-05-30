@@ -29,8 +29,3 @@ const ColumnTimePicker = (props) => {
 
 export default ColumnTimePicker;
 
-// const ListTime = () =>{
-//   return(
-
-//   )
-// }

@@ -13,12 +13,6 @@ export default function ButtonComponent(props) {
   const clickingTimeoutRef = useRef(null);
   const onHandleClick = () => {
     if (!onPress) return;
-    // if (clickingTimeoutRef.current) {
-    //   clearTimeout(clickingTimeoutRef.current);
-    // }
-    // clickingTimeoutRef.current = setTimeout(() => {
-    //   onPress();
-    // }, 300);
     onPress();
   };
   return (

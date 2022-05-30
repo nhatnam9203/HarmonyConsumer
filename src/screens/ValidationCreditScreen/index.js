@@ -100,7 +100,6 @@ export default function index(props) {
           </Text>
         </Button>
         <Animatable.View
-          // delay={300}
           animation={focus ? "slideInUp" : "slideInDown"}
           style={[styles.container_button_submit, positionButton]}>
           <ButtonSubmit title="Confirm" width={350} onSubmit={handleSubmit} />

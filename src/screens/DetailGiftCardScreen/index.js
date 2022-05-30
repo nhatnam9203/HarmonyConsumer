@@ -110,13 +110,6 @@ export default function index(props) {
     }
   }, [userCardId]);
 
-  // React.useEffect(() => {
-  //   if (appUpdate && userCardId) {
-  //     getUserCard();
-
-  //   }
-  // }, [appUpdate])
-
   const fetchListCreditAndBankCard = () => {
     dispatch(actions.creditAndBankAction.get_creditCard(token));
     dispatch(actions.creditAndBankAction.get_BankCard(token));
@@ -232,27 +225,6 @@ export default function index(props) {
       {!loading_card_detail ? (
         <ScrollView>
           <View style={styles.container_center}>
-            {/* <View style={styles.container_giftcard}>
-              <Image
-                resizeMode="cover"
-                source={{ uri: imageUrl, priority: Image.priority.high }}
-                style={styles.imageCard}
-              />
-              <View style={styles.container_price_giftcard}>
-                <Text
-                  fontSize={17}
-                  style={{ fontWeight: 'bold' }}
-                  color="#2EBE03">
-                  $ {amount}
-                </Text>
-              </View>
-            </View> */}
-
-            {/* {!!qrCode && (
-              <View>
-                <QRCode value={`${qrCode}`} size={165} />
-              </View>
-            )} */}
 
             <HarmonyCard cardId={userCardId} />
 

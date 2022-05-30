@@ -84,10 +84,6 @@ const codePushOptions = {
   updateDialog: false,
   installMode: codePush.InstallMode.IMMEDIATE,
   checkFrequency: codePush.CheckFrequency.MANUAL,
-  //   rollbackRetryOptions: {
-  //     delayInHours: 24,
-  //     maxRetryAttempts: 3,
-  //   },
 };
 
 App = codePush(codePushOptions)(App);

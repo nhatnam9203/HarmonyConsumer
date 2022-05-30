@@ -59,13 +59,6 @@ const reducers = combineReducers(
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-// const enhancers = [applyMiddleware(...middleware)];
-// const persistConfig: any = { enhancers };
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const composeEnhancers = composeWithDevTools({
-//   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
-// });
-
 const initialState = {};
 
 const store = configureStore({

@@ -102,12 +102,6 @@ export const useProps = () => {
       RootNavigation.navigate('AddMoneyExistCard');
     },
     onPayment: () => {
-      // let bodyPayment = {
-      //   userCardId: card_primary.userCardId,
-      //   Amount: calcDepositAmount(),
-      //   MerchantId: merchantId,
-      //   RewardPoint: 0,
-      // };
 
       depositAppointment(appointment?.appointmentId);
     },

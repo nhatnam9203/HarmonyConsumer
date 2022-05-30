@@ -88,7 +88,6 @@ export default function hook(props) {
   const callBackEdit = () => {
     // console.log("callBackEdit");
 
-    // dispatch(actions.appointmentAction.getDetailAppointment(token, appointmentId, () => {}, true));
     dispatch(actions.storeAction.getDetailMerchant(merchantId, token));
     dispatch(actions.bookingAction.addService(services));
     dispatch(actions.bookingAction.addExtra(extras));

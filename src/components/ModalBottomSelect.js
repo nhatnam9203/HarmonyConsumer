@@ -85,8 +85,6 @@ const styles = StyleSheet.create({
 
   container_header: {
     width: "100%",
-    // height: scaleSize(HEIGHT_HEADER),
-    // backgroundColor:'red',
     borderBottomWidth: 1,
     borderColor: "#EEEEEE",
     paddingHorizontal: scaleSize(13),

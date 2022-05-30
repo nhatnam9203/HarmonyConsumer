@@ -27,10 +27,6 @@ export default function index(props) {
   );
 
   const convertStaffService = () => {
-    // console.log("staff_service");
-    // console.log(staff_service);
-    // console.log("staffMerchant");
-    // console.log(staffMerchant);
 
     let tempt = [];
     for (let i = 0; i < staffMerchant.length; i++) {
@@ -50,10 +46,6 @@ export default function index(props) {
     selectedStaffId === 0
       ? true
       : false;
-
-  // const isShowButtonBook = staffList.find((s) => parseInt(s.staffId) === selectedStaffId)
-  //   ? true
-  //   : false;
 
   return (
     <View style={styles.container}>

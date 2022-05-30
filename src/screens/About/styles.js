@@ -79,11 +79,9 @@ const styles = StyleSheet.create({
   },
   txtItemContact: {
     color: "#585858",
-    // fontWeight: Platform.OS === "android" ? "bold" : "400",
     fontSize: scaleWidth(4),
     marginLeft: scaleWidth(5),
     marginTop: scaleHeight(0.6),
-    // letterSpacing:  0.2
   },
   txtSendEmail: {
     fontSize: scaleWidth(4.2),

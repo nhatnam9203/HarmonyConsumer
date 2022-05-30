@@ -69,14 +69,9 @@ export default function useHook() {
 
   const { isCheckout } = bookingReducer;
 
-  // React.useEffect(() => {
-  //   if (isCheckout) onBack();
-  // }, [isCheckout]);
-
   const onBack = () => {
     RootNavigation.back();
     dispatch(actions.bookingAction.setReschedule(false));
-    // dispatch(actions.appointmentAction.setCheckOut(false));
   };
 
   React.useEffect(() => {
@@ -107,8 +102,6 @@ export default function useHook() {
   };
   /** */
   const reviewConfirmAction = () => {
-    // console.log("reviewConfirmAction");
-    // console.log();
 
     let date = moment(day).format('YYYY-MM-DD');
     date = `${date}T${timePicker}`;
@@ -123,12 +116,6 @@ export default function useHook() {
 
     const date = moment(day).format('YYYY-MM-DD');
     const date_reschedule = `${date}T${timePicker}`;
-    // const body = {
-    //   ...appointment_detail_customer,
-    //   fromTime: date_reschedule,
-    //   status: appointment_detail_customer.status === "waiting" ? "waiting" : "unconfirm",
-    // };
-    // console.log(JSON.stringify(body));
 
     dispatch({ type: 'START_FETCH_API' });
     dispatch(actions.bookingAction.selectDate(date_reschedule));
@@ -170,26 +157,6 @@ export default function useHook() {
           ? 'waiting'
           : 'unconfirm',
       services: services,
-      // products: appointment_detail_customer.products?.map((it) =>
-      //   Object.fromEntries(
-      //     Object.entries(it).filter(([key, val]) => ProductFilterKeys.includes(key)),
-      //   ),
-      // ),
-      // extras: appointment_detail_customer.extras?.map((it) =>
-      //   Object.fromEntries(
-      //     Object.entries(it).filter(([key, val]) => ExtraFilterKeys.includes(key)),
-      //   ),
-      // ),
-      // giftCards: appointment_detail_customer.giftCards?.map((it) =>
-      //   Object.fromEntries(
-      //     Object.entries(it).filter(([key, val]) => GiftCardsFilterKeys.includes(key)),
-      //   ),
-      // ),
-      // notes: appointment_detail_customer.notes?.map((it) =>
-      //   Object.fromEntries(
-      //     Object.entries(it).filter(([key, val]) => NotesFilterKeys.includes(key)),
-      //   ),
-      // ),
     });
     delete body.merchant;
     delete body.staff;

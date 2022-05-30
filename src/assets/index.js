@@ -52,7 +52,6 @@ export default {
   searchbar: require('./general/searchbar.png'),
   placeholder_image: require('./general/placeholder_image.png'),
   checked: require('./general/checked.png'),
-  //-------------- Luc ------------------//
   //-------------- Auth ------------------//
   baseline_cancel: require('./Auth/baseline-cancel.png'),
   arrow_down: require('./Auth/arrow-down.png'),

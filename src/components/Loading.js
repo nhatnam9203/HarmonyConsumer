@@ -9,8 +9,6 @@ const style_loading = {
   height: scaleSize(100),
   justifyContent: "center",
   alignItems: "center",
-  // opacity: 1,
-  // backgroundColor: "rgba(0,0,0,0.5)",
   backgroundColor: "white",
   borderRadius: scaleSize(10),
 };
@@ -31,7 +29,6 @@ const Loading = () => {
             backgroundColor: "rgba(0,0,0,0.2)",
           }}>
           <View style={style_loading}>
-            {/* <ActivityIndicator size="small" color="white" /> */}
             <LottieView source={require("../assets/animation/8819-loading.json")} autoPlay loop />
           </View>
         </View>

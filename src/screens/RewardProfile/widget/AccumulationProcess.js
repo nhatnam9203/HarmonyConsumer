@@ -165,8 +165,6 @@ const styles = StyleSheet.create({
   },
   contentWrap: {
     flexDirection: 'row',
-    // borderBottomWidth: 1,
-    // borderBottomColor: "#eeeeee",
     paddingBottom: scaleWidth(3),
   },
   txtContent: {

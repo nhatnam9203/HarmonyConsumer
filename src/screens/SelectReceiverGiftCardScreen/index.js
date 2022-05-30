@@ -58,15 +58,6 @@ export default function index(props) {
   const sendLinkInvite = () => {
     RootNavigation.navigate("FinalReview", { infoReceiver });
     setStatusPopupInvite(false);
-    // const _gift_send = { ...gift_send };
-    // _gift_send["receiverUserId"] = 0;
-    // _gift_send["receiverUserName"] = phoneReceiver;
-    // _gift_send["attachSender"] = 0;
-    // _gift_send["newPhoneInvite"] = phoneReceiver;
-    // delete _gift_send.receiver;
-    // delete _gift_send.imageUrl;
-    // setLoadingInvite(true);
-    // dispatch(actions.cardAction.sendLinkInvite(_gift_send, token, callBackSendLink));
   };
 
   return (
