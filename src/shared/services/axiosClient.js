@@ -4,6 +4,7 @@ import { getDeviceIdStorage } from '../storages/deviceUnique';
 import Axios from 'axios';
 import { Platform } from 'react-native';
 import Configs from '@src/configs';
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export const axios = Axios.create({
   baseURL: Configs.API_URL,
@@ -43,10 +44,19 @@ axios.interceptors.response.use(
   response => {
     // log(response, 'response');
     const { codeStatus = 0, codeNumber = 0, message } = response?.data;
+    console.log();
+
     switch (parseInt(codeNumber, 10)) {
       case 401:
         if (parseInt(codeStatus, 10) === 5) {
-          alert('Permission Denied');
+          const route = RootNavigation.currentRoute();
+          if (route && route?.name !== 'Auth') {
+            // alert('Permission Denied');
+            RootNavigation.navigate('Auth');
+            setTimeout(() => {
+              alert('Your token login is expired , please login again!');
+            }, 1000);
+          }
         } else {
           // NavigationServices.logout();
         }

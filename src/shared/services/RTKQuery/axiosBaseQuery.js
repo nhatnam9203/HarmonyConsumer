@@ -2,6 +2,7 @@ import Configs from '@src/configs';
 import { getAuthToken } from '../../storages/authToken';
 import axios from 'axios';
 import { Platform } from 'react-native';
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export const axiosHarmony = axios.create({
   baseURL: Configs.API_URL,
@@ -37,7 +38,14 @@ axiosHarmony.interceptors.response.use(
     switch (parseInt(codeNumber, 10)) {
       case 401:
         if (parseInt(codeStatus) === 5) {
-          alert('Permission Denied');
+          const route = RootNavigation.currentRoute();
+          if (route && route?.name !== 'Auth') {
+            // alert('Permission Denied');
+            RootNavigation.navigate('Auth');
+            setTimeout(() => {
+              alert('Your token login is expired , please login again!');
+            }, 1000);
+          }
         } else {
           // NavigationServices.logout();
         }

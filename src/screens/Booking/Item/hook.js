@@ -150,7 +150,6 @@ export default function hook(props) {
   };
 
   const book = item => {
-    console.log(item);
     if (isEditAppointment) {
       dispatch(actions.bookingAction.checkEdit(true));
     }

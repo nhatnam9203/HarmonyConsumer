@@ -59,8 +59,13 @@ export const requestAPI = async (action, header = {}) => {
 
     if (codeNumber === 401) {
       if (codeStatus === 5) {
-        RootNavigation.navigate('Auth');
-        alert('Your session is expired , please login again');
+        const route = RootNavigation.currentRoute();
+        if (route && route?.name !== 'Auth') {
+          RootNavigation.navigate('Auth');
+          setTimeout(() => {
+            alert('Your token login is expired , please login again!');
+          }, 1000);
+        }
         return;
       } else
         return {
