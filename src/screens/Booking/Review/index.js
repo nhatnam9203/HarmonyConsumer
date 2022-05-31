@@ -79,8 +79,13 @@ export default function index(props) {
 
   React.useEffect(() => {
     if (appointmentCreatedResponse) {
-      const { data } = appointmentCreatedResponse;
-      getAppointment(data);
+      const { data, codeNumber, message } = appointmentCreatedResponse;
+      if (data) getAppointment(data);
+      else {
+        alert(message);
+        getStaffAvailableTime();
+        RootNavigation.navigate('SelectDate');
+      }
     }
   }, [appointmentCreatedResponse]);
 
