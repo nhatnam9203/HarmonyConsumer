@@ -12,6 +12,7 @@ import { StatusBar, Platform, Linking } from 'react-native';
 import { isIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import * as RootNavigation from 'navigations/RootNavigation';
 import env from 'react-native-config';
+import { AlertManager } from '@shared/controllers';
 
 export const scaleWidth = size => wp(size);
 export const scaleHeight = size => hp(size);
@@ -59,7 +60,10 @@ export const requestAPI = async (action, header = {}) => {
           if (route?.name !== 'Auth' && route?.name !== 'SignIn') {
             RootNavigation.navigate('Auth');
             setTimeout(() => {
-              alert('Your token login is expired , please login again!');
+              AlertManager.alert(
+                'Your token login is expired , please login again!',
+                'AUTH',
+              );
             }, 1000);
           }
           return;

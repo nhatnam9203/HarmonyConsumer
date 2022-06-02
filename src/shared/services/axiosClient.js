@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { Platform } from 'react-native';
 import Configs from '@src/configs';
 import * as RootNavigation from 'navigations/RootNavigation';
+import { AlertManager } from '@shared/controllers';
 
 export const axios = Axios.create({
   baseURL: Configs.API_URL,
@@ -53,7 +54,10 @@ axios.interceptors.response.use(
             // alert('Permission Denied');
             RootNavigation.navigate('Auth');
             setTimeout(() => {
-              alert('Your token login is expired , please login again!');
+              AlertManager.alert(
+                'Your token login is expired , please login again!',
+                'AUTH',
+              );
             }, 1000);
           }
         } else {

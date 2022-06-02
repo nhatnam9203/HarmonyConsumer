@@ -3,6 +3,7 @@ import { getAuthToken } from '../../storages/authToken';
 import axios from 'axios';
 import { Platform } from 'react-native';
 import * as RootNavigation from 'navigations/RootNavigation';
+import { AlertManager } from '@shared/controllers';
 
 export const axiosHarmony = axios.create({
   baseURL: Configs.API_URL,
@@ -44,7 +45,10 @@ axiosHarmony.interceptors.response.use(
             // alert('Permission Denied');
             RootNavigation.navigate('Auth');
             setTimeout(() => {
-              alert('Your token login is expired , please login again!');
+              AlertManager.alert(
+                'Your token login is expired , please login again!',
+                'AUTH',
+              );
             }, 1000);
           }
         } else {

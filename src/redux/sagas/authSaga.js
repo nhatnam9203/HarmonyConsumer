@@ -3,6 +3,7 @@ import { requestAPI, upload } from 'utils';
 import * as RootNavigation from 'navigations/RootNavigation';
 import { getUniqueId } from 'react-native-device-info';
 import { saveAuthToken, clearAuthToken } from '@storages/authToken';
+import { AlertManager } from '@shared/controllers';
 
 function* login(action) {
   try {
@@ -11,15 +12,17 @@ function* login(action) {
 
     switch (parseInt(response.codeNumber)) {
       case 200:
+        AlertManager.clearById('AUTH');
+
         yield call(saveAuthToken, response?.data?.token);
 
         yield put({
           type: 'LOGIN_SUCCESS',
           token: response.data.token,
-          // token : "LAPVZggPoc1HnOmCy8OCRH0yf5FsiwAgyxHR0cE2RJekYLfD5sgzE0whYghNeJ3z//RWJQDmVhV6a1Km2sdjqrN+h2xwZvWPl19mGYInRz2RKlbjj8JXZVjMH2OES5z84R8YTztXKw97LGogMcsttbGB5fU3aOF/CCKXEnUiAmY=",
           userInfo: response.data,
           password: action.body.password,
         });
+
         yield put({
           type: 'AUTH_SUCCESS',
           userInfo: response.data,
@@ -110,6 +113,7 @@ function* logout(action) {
         yield put({
           type: 'LOGOUT_SUCCESS',
         });
+
         yield call(clearAuthToken);
 
         break;
