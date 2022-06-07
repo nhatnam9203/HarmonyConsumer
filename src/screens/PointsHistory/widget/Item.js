@@ -6,7 +6,12 @@ import moment from 'moment';
 import { Text } from 'components';
 
 const Item = ({ item, isUsed }) => {
-  const point = isUsed ? `${item.point} Star` : `+${item.point} Star`;
+  let temp = `${item?.point ?? 0}`;
+  if (temp.indexOf('-') < 0 && !isUsed) {
+    temp = '+' + temp;
+  }
+  const point = `${temp} Star`;
+
   return (
     <View style={styles.item}>
       <View style={{ flexDirection: 'row' }}>
