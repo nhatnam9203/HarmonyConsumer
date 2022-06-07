@@ -53,9 +53,55 @@ export const Layout = ({
         {/* Appointment  */}
         <View style={styles.bgContent}>
           <Row>
-            <Text style={styles.text}>Appointment total</Text>
+            <Text style={styles.text}>Subtotal</Text>
+            <View style={{ flex: 1 }} />
+            <Text
+              style={[
+                styles.text,
+                { fontWeight: '600', fontSize: scaleFont(16) },
+              ]}>
+              {`$ ${formatMoney(appointment?.subTotal ?? 0)}`}
+            </Text>
+          </Row>
+
+          <Row>
+            <Text style={styles.text}>Discount</Text>
             <View style={{ flex: 1 }} />
             <Text style={styles.text}>
+              {`$ -${formatMoney(appointment?.discount ?? 0)}`}
+            </Text>
+          </Row>
+
+          <Row>
+            <Text style={styles.text}>Tax</Text>
+            <View style={{ flex: 1 }} />
+            <Text style={styles.text}>
+              {`$ ${formatMoney(appointment?.tax ?? 0)}`}
+            </Text>
+          </Row>
+
+          <Row>
+            <Text
+              style={[
+                styles.text,
+                {
+                  fontWeight: '600',
+                  fontSize: scaleFont(18),
+                  color: '#0764B0',
+                },
+              ]}>
+              Total
+            </Text>
+            <View style={{ flex: 1 }} />
+            <Text
+              style={[
+                styles.text,
+                {
+                  fontWeight: '600',
+                  fontSize: scaleFont(18),
+                  color: '#0764B0',
+                },
+              ]}>
               {`$ ${formatMoney(appointment?.total ?? 0)}`}
             </Text>
           </Row>
@@ -205,7 +251,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
-    backgroundColor: '#feffff',
+    backgroundColor: '#fff',
   },
 
   toolBar: {
@@ -235,7 +281,7 @@ const styles = StyleSheet.create({
   },
 
   bgContent: {
-    backgroundColor: '#eee6',
+    backgroundColor: '#eee',
     marginHorizontal: scaleWidth(10),
     borderRadius: scaleWidth(6),
     padding: scaleHeight(10),
@@ -249,8 +295,9 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scaleFont(15),
+    fontSize: scaleFont(16),
     fontWeight: '500',
+    color: '#4d4d4d',
   },
 
   bottom: {

@@ -4,11 +4,34 @@ import { Text } from 'components';
 import { scaleWidth, scaleHeight, formatNumberFromCurrency } from 'utils';
 
 export default function Total(props) {
-  const { total, totalPaid, status, depositAmount = 0 } = props;
+  const {
+    total,
+    totalPaid,
+    status,
+    depositAmount = 0,
+    subTotal = 0,
+    discount = 0,
+    tax = 0,
+  } = props;
 
   const deposit = formatNumberFromCurrency(depositAmount);
   return (
     <View style={styles.container}>
+      <View style={styles.row}>
+        <Text style={{ fontSize: 18 }}>Subtotal</Text>
+        <Text style={{ fontSize: 18 }}>$ {subTotal}</Text>
+      </View>
+
+      <View style={styles.row}>
+        <Text style={{ fontSize: 18 }}>Discount</Text>
+        <Text style={{ fontSize: 16 }}>$ -{discount}</Text>
+      </View>
+
+      <View style={styles.row}>
+        <Text style={{ fontSize: 18 }}>Tax</Text>
+        <Text style={{ fontSize: 16 }}>$ {tax}</Text>
+      </View>
+
       {deposit > 0 && (
         <View style={styles.row}>
           <Text style={{ fontSize: 18, color: 'red' }}>Deposited</Text>

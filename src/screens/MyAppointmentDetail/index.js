@@ -102,6 +102,9 @@ export default function index(props) {
                 duration={duration}
                 total={total}
                 depositAmount={depositAmount}
+                subTotal={appointment_detail_customer.subTotal}
+                discount={appointment_detail_customer.discount}
+                tax={appointment_detail_customer.tax}
               />
               <Note goToAddNote={goToAddNote} notes={notes} />
               <View style={{ height: scaleHeight(50) }} />
