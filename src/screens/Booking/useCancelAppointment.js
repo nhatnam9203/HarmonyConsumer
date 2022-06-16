@@ -9,7 +9,7 @@ export const useCancelAppointment = () => {
 
   return {
     cancelAppointment: () => {
-      if (!appointment) return;
+      if (!appointment?.appointmentId) return;
       const body = {
         status: 'cancel',
       };

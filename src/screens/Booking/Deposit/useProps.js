@@ -63,10 +63,11 @@ export const useProps = () => {
   };
 
   const cancelAppointment = () => {
+    if (!appointment?.appointmentId) return;
+
     const body = {
       status: 'cancel',
     };
-    // setLoadingPopup(true);
     dispatch(
       actions.appointmentAction.updateStatusAppointment(
         body,
@@ -102,7 +103,6 @@ export const useProps = () => {
       RootNavigation.navigate('AddMoneyExistCard');
     },
     onPayment: () => {
-
       depositAppointment(appointment?.appointmentId);
     },
   };

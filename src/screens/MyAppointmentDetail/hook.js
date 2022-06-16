@@ -57,6 +57,7 @@ export default function hook(props) {
   };
 
   const cancelAppointment = () => {
+    if (!appointmentId) return;
     const body = {
       status: 'cancel',
     };

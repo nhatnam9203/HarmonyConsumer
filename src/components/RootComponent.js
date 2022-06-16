@@ -177,7 +177,6 @@ const RootComponent = ({ children }) => {
 
   const pushMessage = messageJson => {
     if (!messageJson) return;
-console.log('messageJson', messageJson)
     if (
       messageJson.type == 'update_status' ||
       messageJson.type == 'appointment_update_status' ||
@@ -185,7 +184,8 @@ console.log('messageJson', messageJson)
       messageJson.type == 'cancel_pay' ||
       messageJson.type == 'update_pay' ||
       messageJson.type == 'update_consumer' ||
-      messageJson.type == 'cancel'
+      messageJson.type == 'cancel' ||
+      messageJson.type === 'notification'
     ) {
       if (isInbox) {
         PushNotification.localNotification({
@@ -286,7 +286,7 @@ console.log('messageJson', messageJson)
 
       connection.on('Message', message => {
         let messageJson = JSON.parse(message);
-        // console.log(messageJson);
+        console.log(messageJson);
 
         dispatch(actions.inboxAction?.getNotifyToday(timezone, token));
         dispatch(actions.inboxAction?.countUnread(token));
@@ -301,6 +301,7 @@ console.log('messageJson', messageJson)
           console.info('runSignalR connection success');
         })
         .catch(function (err) {
+          console.log('signalR error :');
           console.log(err);
         });
     }
