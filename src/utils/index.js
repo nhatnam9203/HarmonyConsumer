@@ -75,7 +75,7 @@ export const requestAPI = async (action, header = {}) => {
       } else if (codeNumber === 404) {
         return {
           codeNumber: 404,
-          message: 'NOT_FOUND ' + action.route,
+          message: message ? message : 'NOT_FOUND ' + action.route,
         };
       }
 
