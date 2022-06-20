@@ -114,9 +114,7 @@ export default function index(props) {
 
   const close = () => {
     if (!isEditAppointment) {
-      if (appointment) {
-        cancelAppointment();
-      }
+      cancelAppointment();
       dispatch(actions.bookingAction.resetBooking());
       RootNavigation.navigate('BottomTab');
     } else {

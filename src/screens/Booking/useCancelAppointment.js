@@ -1,27 +1,21 @@
 import actions from '@redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { harmonyApi } from '@shared/services';
 
 export const useCancelAppointment = () => {
   const dispatch = useDispatch();
 
-  const token = useSelector(state => state.datalocalReducer.token);
   const { appointment } = useSelector(state => state.bookingReducer) || {};
+  const [cancelDepositAppointment] =
+    harmonyApi.useCancelDepositAppointmentMutation();
 
   return {
     cancelAppointment: () => {
       if (!appointment?.appointmentId) return;
-      const body = {
-        status: 'cancel',
-      };
-      // setLoadingPopup(true);
-      dispatch(
-        actions.appointmentAction.updateStatusAppointment(
-          body,
-          token,
-          appointment?.appointmentId,
-          () => {},
-        ),
-      );
+
+      if (appointment?.appointmentDepositStatus === 'NotPay') {
+        cancelDepositAppointment(appointment?.appointmentId);
+      }
     },
   };
 };

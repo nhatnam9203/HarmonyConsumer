@@ -4,11 +4,13 @@ import * as RootNavigation from 'navigations/RootNavigation';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatNumberFromCurrency } from 'utils';
+import { useCancelAppointment } from '../useCancelAppointment';
 
 export const useProps = () => {
   const dispatch = useDispatch();
 
   const [loadingPage, setLoadingPage] = React.useState(false);
+  const { cancelAppointment } = useCancelAppointment();
 
   const {
     merchantId,
@@ -60,22 +62,6 @@ export const useProps = () => {
       100;
     amount = parseFloat(amount).toFixed(2);
     return amount;
-  };
-
-  const cancelAppointment = () => {
-    if (!appointment?.appointmentId) return;
-
-    const body = {
-      status: 'cancel',
-    };
-    dispatch(
-      actions.appointmentAction.updateStatusAppointment(
-        body,
-        token,
-        appointment?.appointmentId,
-        () => {},
-      ),
-    );
   };
 
   return {

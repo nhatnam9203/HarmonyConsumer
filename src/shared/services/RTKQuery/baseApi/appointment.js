@@ -19,4 +19,11 @@ export const appointmentBuilder = builder => ({
       method: 'PUT',
     }),
   }),
+
+  cancelDepositAppointment: builder.mutation({
+    query: appointmentId => ({
+      url: `appointment/cancelpaydeposit/${appointmentId}`,
+      method: 'PUT',
+    }),
+  }),
 });
