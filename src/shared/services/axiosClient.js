@@ -8,7 +8,7 @@ import * as RootNavigation from 'navigations/RootNavigation';
 import { AlertManager } from '@shared/controllers';
 
 export const axios = Axios.create({
-  baseURL: Configs.API_URL,
+  baseURL: 'https://api2.harmonypayment.com/api/',//Configs.API_URL,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
