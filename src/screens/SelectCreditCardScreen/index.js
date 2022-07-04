@@ -1,24 +1,29 @@
-import React from "react";
-import { View, Image, FlatList, RefreshControl } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { View, Image, FlatList, RefreshControl } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import actions from "@redux/actions";
-import { get_creditCard, get_BankCard } from "@redux/actions/creditAndBankAction";
-import { CreditCard, BankCard } from "./widget";
-import ICONS from "assets";
-import { Text, Container, Button, Header, Form } from "components";
-import * as RootNavigation from "navigations/RootNavigation";
-import styles from "./style";
+import actions from '@redux/actions';
+import {
+  get_creditCard,
+  get_BankCard,
+} from '@redux/actions/creditAndBankAction';
+import { CreditCard, BankCard } from './widget';
+import ICONS from 'assets';
+import { Text, Container, Button, Header, Form } from 'components';
+import * as RootNavigation from 'navigations/RootNavigation';
+import styles from './style';
 
 const { ButtonSubmit } = Form;
 
 export default function index(props) {
   const [indexCard, setIndexCard] = React.useState(-1);
-  const token = useSelector((state) => state.datalocalReducer.token);
-  const credits = useSelector((state) => state.creditAndBankReducer.credits);
-  const banks = useSelector((state) => state.creditAndBankReducer.banks);
-  const loading_card = useSelector((state) => state.creditAndBankReducer.loading_card);
-  const gift_send = useSelector((state) => state.buygiftReducer.gift_send);
+  const token = useSelector(state => state.datalocalReducer.token);
+  const credits = useSelector(state => state.creditAndBankReducer.credits);
+  const banks = useSelector(state => state.creditAndBankReducer.banks);
+  const loading_card = useSelector(
+    state => state.creditAndBankReducer.loading_card,
+  );
+  const gift_send = useSelector(state => state.buygiftReducer.gift_send);
   const dispatch = useDispatch();
   const [isRefresh, setRefresh] = React.useState(false);
 
@@ -39,7 +44,7 @@ export default function index(props) {
     }, 300);
   };
 
-  const onSelectCreditCard = (item) => {
+  const onSelectCreditCard = item => {
     setIndexCard(item);
   };
 
@@ -48,34 +53,45 @@ export default function index(props) {
   };
 
   const addPayment = () => {
-    RootNavigation.navigate("AddPayment");
+    RootNavigation.navigate('AddPayment');
   };
 
   const goToSelectReceiverGiftCard = () => {
     if (indexCard !== -1) {
-      gift_send["cardTokenId"] =
+      const _gift_send = { ...gift_send };
+      _gift_send['cardTokenId'] =
         indexCard != -1
           ? indexCard.userCardTokenId
             ? indexCard.userCardTokenId
             : indexCard.bankAcountId
           : 0;
 
-      gift_send["type"] =
-        indexCard != -1 ? (indexCard.userCardTokenId ? "credit_card" : "bank") : "harmony";
-      dispatch(actions.buygiftAction.set_gift_send(gift_send));
-      RootNavigation.navigate("SelectReceiverGiftCard");
+          _gift_send['type'] =
+        indexCard != -1
+          ? indexCard.userCardTokenId
+            ? 'credit_card'
+            : 'bank'
+          : 'harmony';
+      dispatch(actions.buygiftAction.set_gift_send(_gift_send));
+      RootNavigation.navigate('SelectReceiverGiftCard');
     }
   };
 
   const ListCreditCard = ({ item, index }) => {
-    return <CreditCard item={item} onPress={onSelectCreditCard} isSelected={indexCard} />;
+    return (
+      <CreditCard
+        item={item}
+        onPress={onSelectCreditCard}
+        isSelected={indexCard}
+      />
+    );
   };
 
   const ListBankCard = () => {
     return banks.map((item, index) => {
       return (
         <BankCard
-          key={index + ""}
+          key={index + ''}
           item={item}
           onPress={onSelectCreditCard}
           isSelected={indexCard}
@@ -88,7 +104,7 @@ export default function index(props) {
     <>
       <ListBankCard />
       <Button onPress={addPayment} style={styles.button_add}>
-        <Image source={ICONS["add_payment"]} style={styles.icon_add} />
+        <Image source={ICONS['add_payment']} style={styles.icon_add} />
         <Text fontSize={18} color="#0764B0">
           Add payment
         </Text>
@@ -102,7 +118,7 @@ export default function index(props) {
         title="Buy gift"
         headerLeft={true}
         onBack={onBack}
-        iconLeft={ICONS["arrow_back_ios"]}
+        iconLeft={ICONS['arrow_back_ios']}
       />
 
       <FlatList
@@ -114,7 +130,7 @@ export default function index(props) {
             onRefresh={onRefresh}
             size={30}
             progressBackgroundColor="#FFFF"
-            colors={["#0764B0"]}
+            colors={['#0764B0']}
             tintColor="#0764B0"
           />
         }
@@ -123,11 +139,15 @@ export default function index(props) {
         ListEmptyComponent={_ListEmptyComponent}
         renderItem={ListCreditCard}
         ItemSeparatorComponent={ItemSeperator}
-        keyExtractor={(_, index) => index + ""}
+        keyExtractor={(_, index) => index + ''}
       />
 
       <View style={styles.button_submit}>
-        <ButtonSubmit onSubmit={goToSelectReceiverGiftCard} title="Next" width={350} />
+        <ButtonSubmit
+          onSubmit={goToSelectReceiverGiftCard}
+          title="Next"
+          width={350}
+        />
       </View>
     </Container>
   );

@@ -105,9 +105,11 @@ export default function creditCard({ onNextScreen }) {
   };
 
   const goToFinalReview = () => {
-    gift_send["receiver"] = contact;
+    const _gift_send = { ...gift_send };
 
-    dispatch(actions.buygiftAction.set_gift_send(gift_send));
+    _gift_send["receiver"] = contact;
+
+    dispatch(actions.buygiftAction.set_gift_send(_gift_send));
     onNextScreen();
   };
 

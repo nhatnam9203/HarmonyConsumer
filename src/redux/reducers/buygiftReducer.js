@@ -1,4 +1,4 @@
-import { replaceAll } from "utils";
+import { replaceAll } from 'utils';
 const initialState = {
   loading_template: {},
   templates: {},
@@ -9,59 +9,63 @@ const initialState = {
 };
 function buygiftReducer(state = initialState, action) {
   switch (action.type) {
-    case "SET_TEMPLATES":
+    case 'SET_TEMPLATES':
       const { typeGift, data } = action.payload;
-      const _data = [...data];
-      let templates = { ...state.templates };
-      if (typeGift == "User Template") {
+      let _data = [...data];
+      if (typeGift == 'User Template') {
         _data.unshift({
-          giftCardType: "Add New Card",
+          giftCardType: 'Add New Card',
         });
       }
-      templates[typeGift] = _data;
       return {
         ...state,
-        templates,
+        templates: Object.assign({}, state.templates, { [typeGift]: _data }),
       };
-    case "START_LOADING_TEMPLATE":
+    case 'START_LOADING_TEMPLATE':
       return {
         ...state,
         loading_template: { ...state.loading_template, [action.payload]: true },
       };
-    case "STOP_LOADING_TEMPLATE":
+    case 'STOP_LOADING_TEMPLATE':
       return {
         ...state,
-        loading_template: { ...state.loading_template, [action.payload]: false },
+        loading_template: {
+          ...state.loading_template,
+          [action.payload]: false,
+        },
       };
 
-    case "SET_GIFT_SEND":
+    case 'SET_GIFT_SEND':
       return {
         ...state,
         gift_send: action.payload,
       };
 
-    case "SET_CONTACTS":
+    case 'SET_CONTACTS':
       return {
         ...state,
         contacts: action.payload,
         result_filter: action.payload,
       };
-    case "SET_SENDER":
+    case 'SET_SENDER':
       return {
         ...state,
         sender: action.payload,
       };
 
-    case "FILTER_CONTACTS":
+    case 'FILTER_CONTACTS':
       const keyWord = action.payload;
       let _contacts = [...state.contacts];
 
-      let query = (contact) => {
+      let query = contact => {
         const { fullName, phone, firstName } = contact;
-        if (fullName && fullName.toLowerCase().indexOf(keyWord.toLowerCase()) > -1) {
+        if (
+          fullName &&
+          fullName.toLowerCase().indexOf(keyWord.toLowerCase()) > -1
+        ) {
           return fullName.toLowerCase().indexOf(keyWord.toLowerCase()) > -1;
-        } else if (replaceAll(phone, "-", "").indexOf(keyWord) > -1) {
-          return replaceAll(phone, "-", "").indexOf(keyWord) > -1;
+        } else if (replaceAll(phone, '-', '').indexOf(keyWord) > -1) {
+          return replaceAll(phone, '-', '').indexOf(keyWord) > -1;
         } else {
           return firstName.toLowerCase().indexOf(keyWord.toLowerCase()) > -1;
         }
@@ -69,7 +73,10 @@ function buygiftReducer(state = initialState, action) {
 
       return {
         ...state,
-        result_filter: keyWord != "" ? _contacts.filter((contact) => query(contact)) : _contacts,
+        result_filter:
+          keyWord != ''
+            ? _contacts.filter(contact => query(contact))
+            : _contacts,
       };
 
     default:
