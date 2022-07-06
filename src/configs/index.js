@@ -37,6 +37,8 @@ const AppConfigs = {
   },
 };
 
-const Configs = Object.assign({}, AppConfigs, EvnConfigs);
+const Configs = Object.assign(EvnConfigs, AppConfigs, {
+  // API_URL: 'https://api2.harmonypayment.com/api/',
+});
 
 export default Configs;
