@@ -1,28 +1,28 @@
 {
-  "_from": "react-native-scrollable-tab-view@0.10.0",
-  "_id": "react-native-scrollable-tab-view@0.10.0",
+  "_from": "react-native-scrollable-tab-view@1.0.0",
+  "_id": "react-native-scrollable-tab-view@1.0.0",
   "_inBundle": false,
-  "_integrity": "sha512-7FWw9X2hLozWqpGJTAU/p7ONdTTO635bbAZ5AUPDrB4JwaLbhNV6ePjsNUjsCaopgCwz/EdmH0hTCPeja9dh4w==",
+  "_integrity": "sha512-lpZ9xz+PBdgSzpk93VjCIfxV0zvJDX9iEUP8ImDg3p1QJGHOWbWyfDx+lcx5VCDVrrdZdtuVAAdc0tkYXZyQDw==",
   "_location": "/react-native-scrollable-tab-view",
   "_phantomChildren": {},
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "react-native-scrollable-tab-view@0.10.0",
+    "raw": "react-native-scrollable-tab-view@1.0.0",
     "name": "react-native-scrollable-tab-view",
     "escapedName": "react-native-scrollable-tab-view",
-    "rawSpec": "0.10.0",
+    "rawSpec": "1.0.0",
     "saveSpec": null,
-    "fetchSpec": "0.10.0"
+    "fetchSpec": "1.0.0"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/react-native-scrollable-tab-view/-/react-native-scrollable-tab-view-0.10.0.tgz",
-  "_shasum": "8ce7908254685ee37d35df7d849676eaa1e81132",
-  "_spec": "react-native-scrollable-tab-view@0.10.0",
-  "_where": "/Users/nam/Public/Hpconsumer_Newversion",
+  "_resolved": "https://registry.npmjs.org/react-native-scrollable-tab-view/-/react-native-scrollable-tab-view-1.0.0.tgz",
+  "_shasum": "87319896067f7bb643ecd7fba2cba4d6d8f9e18b",
+  "_spec": "react-native-scrollable-tab-view@1.0.0",
+  "_where": "/Users/phinhn/Desktop/Company Project/Hpmerchant",
   "author": {
     "name": "Brent Vatne"
   },
@@ -31,6 +31,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
+    "@react-native-community/viewpager": "^2.0.1",
     "create-react-class": "^15.6.2",
     "prop-types": "^15.6.0",
     "react-timer-mixin": "^0.13.3"
@@ -64,5 +65,5 @@
     "lint": "eslint -c .eslintrc . --ignore-path .gitignore",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.10.0"
+  "version": "1.0.0"
 }

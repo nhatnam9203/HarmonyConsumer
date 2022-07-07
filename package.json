@@ -16,7 +16,7 @@
     "push-clean:ios-production": "appcenter codepush deployment clear -a HarmonyPayment/harmonypay-iOS Production",
     "push-clean:ios-staging": "appcenter codepush deployment clear -a HarmonyPayment/harmonypay-iOS Staging",
     "push:android-production": "appcenter codepush release-react -a HarmonyPayment/harmonypay-Android -d Production -t 2.2.15 --description update",
-    "push:android-staging": "appcenter codepush release-react -a HarmonyPayment/harmonypay-Android -d Staging -t 2.2.14 --description update",
+    "push:android-staging": "appcenter codepush release-react -a HarmonyPayment/harmonypay-Android -d Staging -t 3.9.16 --description update",
     "push-clean:android-staging": "appcenter codepush deployment clear -a HarmonyPayment/harmonypay-Android Staging",
     "open:android": "open -a '/Applications/Android Studio.app' android",
     "clean:android": "cd android && ./gradlew clean && cd ../",

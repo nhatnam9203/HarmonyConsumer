@@ -20,8 +20,8 @@ export default function Item({ item, onPress }) {
     // !templates[name] && loading_template[name] ? [] : templates[name]
     if (templates.hasOwnProperty(name)) {
       return templates[name];
-    } else {
-      return loading_template[name];
+    } else if (loading_template[name]) {
+      return [];
     }
   }, [templates, loading_template]);
 

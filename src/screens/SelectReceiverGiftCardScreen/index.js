@@ -1,28 +1,26 @@
-import React from "react";
-import { View } from "react-native";
-import ScrollableTabView from "react-native-scrollable-tab-view";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { View } from 'react-native';
+import ScrollableTabView from 'components/react-native-scrollable-tab-view';
+import { useDispatch, useSelector } from 'react-redux';
 
-import actions from "@redux/actions";
-import { ContactTab, ManuallyTab, PopupInvite } from "./widget";
-import ICONS from "assets";
-import { Text, Header, SearchBar, DefaultTabBar, StatusBar } from "components";
-import * as RootNavigation from "navigations/RootNavigation";
-import { Modal2 as Modal } from "components";
-import styles from "./style";
+import actions from '@redux/actions';
+import { ContactTab, ManuallyTab, PopupInvite } from './widget';
+import ICONS from 'assets';
+import { Text, Header, SearchBar, DefaultTabBar, StatusBar } from 'components';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { Modal2 as Modal } from 'components';
+import styles from './style';
 
 export default function index(props) {
   const dispatch = useDispatch();
 
-  const [key, setKey] = React.useState("");
+  const [key, setKey] = React.useState('');
   const [page, setPage] = React.useState(0);
   const [isPopupInvite, setPopupInvite] = React.useState(false);
   const clickingTimeoutRef = React.useRef(null);
-  const token = useSelector((state) => state.datalocalReducer.token);
 
   /* state for popup invite sendlink */
-  const gift_send = useSelector((state) => state.buygiftReducer.gift_send);
-  const [infoReceiver, setInfoReceiver] = React.useState("");
+  const [infoReceiver, setInfoReceiver] = React.useState('');
   const [textInviteSuccess, setTextInvite] = React.useState();
   const [isLoadingInvite, setLoadingInvite] = React.useState(false);
 
@@ -31,10 +29,10 @@ export default function index(props) {
   };
 
   const goToFinalReview = () => {
-    RootNavigation.navigate("FinalReview");
+    RootNavigation.navigate('FinalReview');
   };
 
-  const filterContactList = (value) => {
+  const filterContactList = value => {
     setKey(value);
 
     if (clickingTimeoutRef.current) {
@@ -46,7 +44,9 @@ export default function index(props) {
     }, 300);
   };
 
-  const onHandleChangeTab = (tab) => {
+  const onHandleChangeTab = tab => {
+    if (!tab) return;
+
     setPage(tab.i);
   };
 
@@ -56,19 +56,27 @@ export default function index(props) {
   };
 
   const sendLinkInvite = () => {
-    RootNavigation.navigate("FinalReview", { infoReceiver });
+    RootNavigation.navigate('FinalReview', { infoReceiver });
     setStatusPopupInvite(false);
   };
 
+  React.useEffect(() => {
+    return () => {
+      if (clickingTimeoutRef.current) {
+        clearTimeout(clickingTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={{ backgroundColor: "#f8f8f8" }}>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ backgroundColor: '#f8f8f8' }}>
         <StatusBar />
         <Header
           title="Buy gift"
           headerLeft={true}
           onBack={onBack}
-          iconLeft={ICONS["arrow_back_ios"]}
+          iconLeft={ICONS['arrow_back_ios']}
         />
       </View>
 
@@ -81,7 +89,7 @@ export default function index(props) {
         <SearchBar
           placeholder="Search..."
           placeholderTextColor="#A9A9A9"
-          iconLeft={ICONS["searchbar"]}
+          iconLeft={ICONS['searchbar']}
           width={382}
           height={45}
           onChangeText={filterContactList}
@@ -98,12 +106,13 @@ export default function index(props) {
             <DefaultTabBar
               style={styles.tabs}
               tabStyle={styles.tab}
-              tabBarUnderlineStyle={{ backgroundColor: "#0764b0" }}
+              tabBarUnderlineStyle={{ backgroundColor: '#0764b0' }}
               widthTabBarUnderline={200}
               activeTextColor="#0764b0"
               inactiveTextColor="#404040"
             />
-          )}>
+          )}
+          initialPage={0}>
           <ContactTab tabLabel="Contacts" onNextScreen={goToFinalReview} />
           <ManuallyTab
             setStatusPopupInvite={setStatusPopupInvite}

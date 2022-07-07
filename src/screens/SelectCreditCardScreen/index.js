@@ -58,22 +58,25 @@ export default function index(props) {
 
   const goToSelectReceiverGiftCard = () => {
     if (indexCard !== -1) {
-      const _gift_send = { ...gift_send };
-      _gift_send['cardTokenId'] =
-        indexCard != -1
-          ? indexCard.userCardTokenId
+      let _gift_send = Object.assign({}, gift_send, {
+        cardTokenId:
+          indexCard != -1
             ? indexCard.userCardTokenId
-            : indexCard.bankAcountId
-          : 0;
+              ? indexCard.userCardTokenId
+              : indexCard.bankAcountId
+            : 0,
+        type:
+          indexCard != -1
+            ? indexCard.userCardTokenId
+              ? 'credit_card'
+              : 'bank'
+            : 'harmony',
+      });
 
-          _gift_send['type'] =
-        indexCard != -1
-          ? indexCard.userCardTokenId
-            ? 'credit_card'
-            : 'bank'
-          : 'harmony';
       dispatch(actions.buygiftAction.set_gift_send(_gift_send));
-      RootNavigation.navigate('SelectReceiverGiftCard');
+      setTimeout(() => {
+        RootNavigation.navigate('SelectReceiverGiftCard');
+      }, 500);
     }
   };
 

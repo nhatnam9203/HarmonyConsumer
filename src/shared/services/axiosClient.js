@@ -8,7 +8,7 @@ import * as RootNavigation from 'navigations/RootNavigation';
 import { AlertManager } from '@shared/controllers';
 
 export const axios = Axios.create({
-  baseURL: 'https://api2.harmonypayment.com/api/',//Configs.API_URL,
+  baseURL: Configs.API_URL,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
@@ -50,7 +50,7 @@ axios.interceptors.response.use(
     switch (parseInt(codeNumber, 10)) {
       case 401:
         if (parseInt(codeStatus, 10) === 5) {
-          if (route && (route?.name !== 'Auth' && route?.name !== 'SignIn')) {
+          if (route && route?.name !== 'Auth' && route?.name !== 'SignIn') {
             // alert('Permission Denied');
             RootNavigation.navigate('Auth');
             setTimeout(() => {

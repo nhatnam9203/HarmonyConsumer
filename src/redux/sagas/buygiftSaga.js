@@ -58,7 +58,6 @@ function* searchManually(action) {
           });
         } else {
           let user = data[0];
-          console.log('====> findYourself');
           yield put({
             type: 'SET_GIFT_SEND',
             payload: Object.assign({}, gift_send, { receiver: user }),
@@ -133,7 +132,7 @@ function* postTemplateCard(action) {
           token: action.token,
           typeGift: 'User Template',
         });
-        console.log('====> postTemplateCard');
+        console.log(gift_send);
 
         yield put({
           type: 'SET_GIFT_SEND',
