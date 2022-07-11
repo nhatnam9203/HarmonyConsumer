@@ -36,61 +36,6 @@ export default function creditCard({ onNextScreen }) {
 
   const [contact, setContact] = React.useState(null);
 
-  React.useEffect(() => {
-    if (Platform.OS === 'android') {
-      requestPerContactsAndroid();
-    } else {
-      requestPerContacts();
-    }
-  }, []);
-
-  const requestPerContactsAndroid = async () => {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-      {
-        title: 'Contacts',
-        message: 'This app would like to view your contacts.',
-        buttonPositive: 'Please accept bare mortal',
-      },
-    );
-
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      await getAllContacts();
-    } else {
-      console.log('Camera permission denied');
-    }
-  };
-
-  const requestPerContacts = () => {
-    try {
-      Contacts?.checkPermission().then(res => {
-        if (res == 'authorized') {
-          getAllContacts();
-        }
-        if (res == undefined) {
-          Contacts.requestPermission((err, contacts) => {
-            if (res == 'authorized') {
-              getAllContacts();
-            }
-          });
-        }
-        if (res == 'denied') {
-          alert('Permission contact denined');
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  function escapeRegExp(string) {
-    return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-  }
-
   const getAllContacts = async () => {
     Contacts.getAll((err, contacts) => {
       let phones = contacts
@@ -130,6 +75,78 @@ export default function creditCard({ onNextScreen }) {
         dispatch(actions.buygiftAction.get_contacts(token, phones));
     });
   };
+
+  const requestPerContactsAndroid = async () => {
+    // await PermissionsAndroid.request(
+    //   PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+    //   {
+    //     title: 'Contacts',
+    //     message: 'This app would like to view your contacts.',
+    //     buttonPositive: 'Please accept bare mortal',
+    //   },
+    // ).then(getAllContacts);
+
+    const granted = await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+      PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
+    ]);
+    if (
+      granted['android.permission.READ_CONTACTS'] ===
+        PermissionsAndroid.RESULTS.GRANTED &&
+      granted['android.permission.WRITE_CONTACTS'] ===
+        PermissionsAndroid.RESULTS.GRANTED
+    ) {
+      // await getAllContacts();
+    } else {
+      console.log('Camera permission denied');
+    }
+
+    // async granted => {
+    //   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //     await getAllContacts();
+    //   } else {
+    //     console.log('Camera permission denied');
+    //   }
+    // }
+  };
+
+  const requestPerContacts = () => {
+    try {
+      Contacts?.checkPermission().then(res => {
+        if (res == 'authorized') {
+          getAllContacts();
+        }
+        if (res == undefined) {
+          Contacts.requestPermission((err, contacts) => {
+            if (res == 'authorized') {
+              getAllContacts();
+            }
+          });
+        }
+        if (res == 'denied') {
+          alert('Permission contact denined');
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    if (Platform.OS === 'android') {
+      requestPerContactsAndroid();
+    } else {
+      requestPerContacts();
+    }
+  }, []);
+
+  function escapeRegExp(string) {
+    return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+  }
 
   const onHandleChangeValue = item => () => {
     if (item != contact) setContact(item);
