@@ -77,29 +77,11 @@ export default function creditCard({ onNextScreen }) {
   };
 
   const requestPerContactsAndroid = async () => {
-    // await PermissionsAndroid.request(
-    //   PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-    //   {
-    //     title: 'Contacts',
-    //     message: 'This app would like to view your contacts.',
-    //     buttonPositive: 'Please accept bare mortal',
-    //   },
-    // ).then(getAllContacts);
-
-    const granted = await PermissionsAndroid.requestMultiple([
-      PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-      PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
-    ]);
-    if (
-      granted['android.permission.READ_CONTACTS'] ===
-        PermissionsAndroid.RESULTS.GRANTED &&
-      granted['android.permission.WRITE_CONTACTS'] ===
-        PermissionsAndroid.RESULTS.GRANTED
-    ) {
-      // await getAllContacts();
-    } else {
-      console.log('Camera permission denied');
-    }
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+      title: 'Contacts',
+      message: 'This app would like to view your contacts.',
+      buttonPositive: 'Please accept bare mortal',
+    }).then(getAllContacts);
 
     // async granted => {
     //   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
