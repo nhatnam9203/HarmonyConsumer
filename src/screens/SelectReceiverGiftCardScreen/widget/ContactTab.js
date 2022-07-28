@@ -37,7 +37,7 @@ export default function creditCard({ onNextScreen }) {
   const [contact, setContact] = React.useState(null);
 
   const getAllContacts = async () => {
-    Contacts.getAll((err, contacts) => {
+    Contacts.getAll().then((err, contacts) => {
       let phones = contacts
         .filter(
           item => !isEmpty(item.phoneNumbers) && item.phoneNumbers.length > 0,
