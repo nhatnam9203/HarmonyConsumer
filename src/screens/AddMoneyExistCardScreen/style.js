@@ -36,6 +36,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: scaleSize(15),
   },
+  textTitle: {
+    fontSize: scaleSize(17),
+    color: "#888888"
+  },
+  input: {
+    width: scaleSize(382),
+    height: scaleSize(36),
+  },
+  text_input: {
+    fontSize: scaleSize(17),
+    color: "#404040",
+    fontWeight: "bold",
+    paddingVertical: 10,
+  },
 });
 
 export default styles;

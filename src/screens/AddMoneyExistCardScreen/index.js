@@ -18,6 +18,7 @@ import { getImageCard, formatMoney, isEmpty } from "utils";
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
 import ICONS from "assets";
+import { TextInputMask } from "react-native-masked-text";
 
 const { ButtonSubmit } = Form;
 
@@ -144,6 +145,10 @@ export default function index(props) {
     );
   };
 
+  const onChangeText = (value) => {
+
+  }
+
   return (
     <React.Fragment>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />
@@ -176,11 +181,29 @@ export default function index(props) {
 
           {/* ------------ Select Amount ----------------- */}
           <View style={styles.space} />
-          <ButtonSelect
+          {/* <ButtonSelect
             title="Amount"
             value={`$ ${formatMoney(amount)}`}
             onPress={openShowModal(0)}
-          />
+          /> */}
+          <View>
+          <Text style={styles.textTitle}>Amount</Text>
+          <View style={styles.input}>
+            <TextInputMask
+              type="money"
+              options={{
+                unit: "$ ",
+                precision: 2,
+                separator: ".",
+              }}
+              style={styles.text_input}
+              value={formatMoney(amount)}
+              onChangeText={(value) => onChangeText(value)}
+              keyboardType="numeric"
+            />
+          </View>
+          </View>
+
           {/* ------------ Select Amount ----------------- */}
 
           {/* ------------ Select Payment ----------------- */}
@@ -209,7 +232,9 @@ export default function index(props) {
           />
           {/* ------------ Select Auto Reload ----------------- */}
 
-          <View style={styles.container_button_submit}>
+         
+        </ScrollView>
+        <View style={styles.container_button_submit}>
             <ButtonSubmit
               title="Add"
               width={350}
@@ -218,18 +243,8 @@ export default function index(props) {
               backgroundColor={isFullFill() ? "#0764B0" : "#EEEEEE"}
               textColor={isFullFill() ? "#FFF" : "#585858"}
             />
-          </View>
-        </ScrollView>
-        <ModalBottomSelect2
-          title="Amount"
-          isVisible={isShows[0]}
-          onRequestClose={openShowModal(0)}
-          data={amounts}
-          onSelect={handleOnChangeAmount}
-          value={amount}
-          onCloseModal={openShowModal(0)}
-          renderItem={(item) => <ItemAmount item={item} />}
-        />
+        </View>
+        
         <ModalBottomSelect2
           title="Payment"
           isVisible={isShows[2]}
