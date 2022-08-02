@@ -1,5 +1,8 @@
 import { StyleSheet } from "react-native";
 import { scaleSize } from "utils";
+import { Dimensions } from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+
 
 const styles = StyleSheet.create({
   container_center: {
@@ -8,6 +11,12 @@ const styles = StyleSheet.create({
   container_button_submit: {
     position: "absolute",
     bottom: scaleSize(30),
+    width: windowWidth,
+  },
+  view_choose_money:{
+    backgroundColor: '#f1f1f1',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
 
   container_item_card: {

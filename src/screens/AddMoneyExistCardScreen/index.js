@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View, Image, ScrollView, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import actions from "@redux/actions";
 import {
@@ -40,6 +41,7 @@ export default function index(props) {
   const [payment, setPayment] = React.useState(null);
   const [card, setCard] = React.useState(null);
   const [balance, setBalance] = React.useState(0);
+  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
 
   const payments = [...credits, ...banks];
 
@@ -149,6 +151,15 @@ export default function index(props) {
 
   }
 
+  const handleKeyBoardShow = (e) => {
+    console.log('handleKeyBoardShow', e.endCoordinates.height)
+    setKeyboardHeight(e.endCoordinates.height);
+  }
+
+  const handleKeyBoardHide = (e) => {
+    setKeyboardHeight(0);
+  }
+
   return (
     <React.Fragment>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />
@@ -163,87 +174,101 @@ export default function index(props) {
           />
         </View>
 
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={styles.container_center}
-          contentContainerStyle={{ alignItems: "center", flexGrow: 1 }}>
-          {/* ------------ Select Card ----------------- */}
-          <View style={styles.space} />
-          <ButtonSelectCard
-            title="Cards"
-            value={`$ ${formatMoney(amount_card)}`}
-            icon={url_card}
-            disabled={true}
-            // onPress={openShowModal(1)}
-          />
-
-          {/* ------------ Select Card ----------------- */}
-
-          {/* ------------ Select Amount ----------------- */}
-          <View style={styles.space} />
-          {/* <ButtonSelect
-            title="Amount"
-            value={`$ ${formatMoney(amount)}`}
-            onPress={openShowModal(0)}
-          /> */}
-          <View>
-          <Text style={styles.textTitle}>Amount</Text>
-          <View style={styles.input}>
-            <TextInputMask
-              type="money"
-              options={{
-                unit: "$ ",
-                precision: 2,
-                separator: ".",
-              }}
-              style={styles.text_input}
-              value={formatMoney(amount)}
-              onChangeText={(value) => onChangeText(value)}
-              keyboardType="numeric"
-            />
-          </View>
-          </View>
-
-          {/* ------------ Select Amount ----------------- */}
-
-          {/* ------------ Select Payment ----------------- */}
-          <View style={styles.space} />
-          {!isEmpty(payments) ? (
+          <KeyboardAwareScrollView
+            style={styles.container_center}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{ flex: 1 }}
+            onKeyboardWillShow={handleKeyBoardShow}
+            onKeyboardWillHide={handleKeyBoardHide}>
+          {/* <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.container_center}
+            contentContainerStyle={{ alignItems: "center", flexGrow: 1 }}> */}
+            {/* ------------ Select Card ----------------- */}
+            <View style={styles.space} />
             <ButtonSelectCard
-              title="Payment"
-              value={cardNumber}
-              icon={getImageCard(url_payment)}
-              onPress={openShowModal(2)}
+              title="Cards"
+              value={`$ ${formatMoney(amount_card)}`}
+              icon={url_card}
+              disabled={true}
+              // onPress={openShowModal(1)}
             />
-          ) : (
-            <EmptyList title="Payment" onPress={goToAddPayment} />
-          )}
-          {/* ------------ Select Payment ----------------- */}
 
-          {/* ------------ Select Auto Reload ----------------- */}
-          <View style={styles.space} />
-          <AutoReloadComponent
-            amount={formatMoney(amount_reload)}
-            balance={formatMoney(balance)}
-            selectAmount={setAmountReload}
-            selectBalance={setBalance}
-            isShow={isShowReload}
-            onShow={setShowReload}
-          />
-          {/* ------------ Select Auto Reload ----------------- */}
+            {/* ------------ Select Card ----------------- */}
 
-         
-        </ScrollView>
-        <View style={styles.container_button_submit}>
-            <ButtonSubmit
-              title="Add"
-              width={350}
-              onSubmit={onSubmit}
-              disabled={isFullFill() ? false : true}
-              backgroundColor={isFullFill() ? "#0764B0" : "#EEEEEE"}
-              textColor={isFullFill() ? "#FFF" : "#585858"}
+            {/* ------------ Select Amount ----------------- */}
+            <View style={styles.space} />
+            {/* <ButtonSelect
+              title="Amount"
+              value={`$ ${formatMoney(amount)}`}
+              onPress={openShowModal(0)}
+            /> */}
+            <View>
+            <Text style={styles.textTitle}>Amount</Text>
+            <View style={styles.input}>
+              <TextInputMask
+                type="money"
+                options={{
+                  unit: "$ ",
+                  precision: 2,
+                  separator: ".",
+                }}
+                style={styles.text_input}
+                value={formatMoney(amount)}
+                onChangeText={(value) => onChangeText(value)}
+                keyboardType="numeric"
+              />
+            </View>
+            </View>
+
+            {/* ------------ Select Amount ----------------- */}
+
+            {/* ------------ Select Payment ----------------- */}
+            <View style={styles.space} />
+            {!isEmpty(payments) ? (
+              <ButtonSelectCard
+                title="Payment"
+                value={cardNumber}
+                icon={getImageCard(url_payment)}
+                onPress={openShowModal(2)}
+              />
+            ) : (
+              <EmptyList title="Payment" onPress={goToAddPayment} />
+            )}
+            {/* ------------ Select Payment ----------------- */}
+
+            {/* ------------ Select Auto Reload ----------------- */}
+            <View style={styles.space} />
+            <AutoReloadComponent
+              amount={formatMoney(amount_reload)}
+              balance={formatMoney(balance)}
+              selectAmount={setAmountReload}
+              selectBalance={setBalance}
+              isShow={isShowReload}
+              onShow={setShowReload}
             />
-        </View>
+            {/* ------------ Select Auto Reload ----------------- */}
+
+          
+          </KeyboardAwareScrollView>
+
+          <View style={[styles.container_button_submit, {bottom: keyboardHeight + 30}]}>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <View style={styles.view_choose_money}>
+
+              </View>
+              <ButtonSubmit
+                title="Add"
+                width={350}
+                onSubmit={onSubmit}
+                disabled={isFullFill() ? false : true}
+                backgroundColor={isFullFill() ? "#0764B0" : "#EEEEEE"}
+                textColor={isFullFill() ? "#FFF" : "#585858"}
+              />
+            </View>
+              
+          </View>
+    
         
         <ModalBottomSelect2
           title="Payment"
