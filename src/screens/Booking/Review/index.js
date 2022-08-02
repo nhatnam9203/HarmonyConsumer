@@ -195,10 +195,19 @@ export default function index(props) {
             .format('YYYY-MM-DD')
         : moment().format('YYYY-MM-DD');
 
-    if (moment().format('YYYY-MM-DD') == date_tz) {
+    let currentTime = moment();
+    if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
+      currentTime = moment().tz(merchant_detail.timezone.substring(12));
+    }
+
+    let startTime = moment(fromTime);
+    if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
+      startTime = moment(fromTime).tz(merchant_detail.timezone.substring(12));
+    }
+
+    if (currentTime.format('YYYY-MM-DD') == date_tz) {
       if (staffId !== -1) {
-        const startTime = moment(fromTime);
-        if (moment().isAfter(startTime)) {
+        if (currentTime.isAfter(startTime)) {
           return false;
         }
       }
@@ -237,7 +246,7 @@ export default function index(props) {
         ),
       );
     } else {
-      alert('Your time selectec is over now. Please booking to another time!');
+      alert('Your time selected is over now. Please booking to another time!');
       getStaffAvailableTime();
       RootNavigation.navigate('SelectDate');
     }
@@ -300,7 +309,7 @@ export default function index(props) {
         createAppointment(body);
       } else {
         alert(
-          'Your time selectec is over now. Please booking to another time!',
+          'Your time selected is over now. Please booking to another time!',
         );
         getStaffAvailableTime();
         RootNavigation.navigate('SelectDate');

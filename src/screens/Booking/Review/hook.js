@@ -103,8 +103,9 @@ export default function index(props) {
       date: moment(day).format('YYYY-MM-DD'),
       merchantId,
       appointmentId: 0,
-      timezone,
+      timezone:  timezone,
     };
+
     dispatch(actions.staffAction.staffGetAvaiableTime(staffId, token, body));
   };
 
@@ -156,7 +157,7 @@ export default function index(props) {
         ),
       );
     } else {
-      alert('Your time selectec is over now. Please booking to another time!');
+      alert('Your time selected is over now. Please booking to another time!');
       getStaffAvailableTime();
       RootNavigation.navigate('SelectDate');
     }
