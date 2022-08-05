@@ -16,7 +16,12 @@ const styles = StyleSheet.create({
   view_choose_money:{
     backgroundColor: '#f1f1f1',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    flex: 1,
+    marginTop: scaleSize(10),
+    paddingBottom: scaleSize(10),
+    paddingTop: scaleSize(10),
+    width: windowWidth
   },
 
   container_item_card: {
