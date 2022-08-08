@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleSize(15),
   },
   container_button_submit: {
-    position: "absolute",
-    bottom: scaleSize(30),
+    // position: "absolute",
+    // bottom: scaleSize(30),
     width: windowWidth,
   },
   view_choose_money:{
@@ -63,6 +63,13 @@ const styles = StyleSheet.create({
     color: "#404040",
     fontWeight: "bold",
     paddingVertical: 10,
+  },
+  container_item: {
+    width: scaleSize(382),
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: scaleSize(15),
   },
 });
 

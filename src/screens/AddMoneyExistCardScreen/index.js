@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, ScrollView, Button, Keyboard } from "react-native";
+import { View, Image, ScrollView, Switch, Keyboard } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -33,13 +33,15 @@ export default function index(props) {
   const card_reload = useSelector((state) => state.cardReducer.card_reload);
 
   const refAddMoney = React.useRef(null);
+  const refAmountReload = React.useRef(null);
+  const refBalance = React.useRef(null);
 
   //const loading_card = useSelector((state) => state.creditAndBankReducer.loading_card);
 
   const [isShowReload, setShowReload] = React.useState(false);
   const [isShows, setShow] = React.useState([false, false, false]);
   const [amount_reload, setAmountReload] = React.useState(0);
-  const [amount, setAmount] = React.useState(10);
+  const [amount, setAmount] = React.useState(20);
   const [payment, setPayment] = React.useState(null);
   const [card, setCard] = React.useState(null);
   const [balance, setBalance] = React.useState(0);
@@ -141,13 +143,13 @@ export default function index(props) {
     );
   };
 
-  const ItemReload = ({ item, index }) => {
-    return (
-      <Text fontSize={17} style={{ fontWeight: Platform.OS === "android" ? "bold" : "600" }}>
-        $ {formatMoney(item)}
-      </Text>
-    );
-  };
+  // const ItemReload = ({ item, index }) => {
+  //   return (
+  //     <Text fontSize={17} style={{ fontWeight: Platform.OS === "android" ? "bold" : "600" }}>
+  //       $ {formatMoney(item)}
+  //     </Text>
+  //   );
+  // };
 
   const onChangeText = (value) => {
     if (value) {
@@ -156,7 +158,6 @@ export default function index(props) {
   }
 
   const handleKeyBoardShow = (e) => {
-    console.log('handleKeyBoardShow', e.endCoordinates.height)
     setKeyboardHeight(e.endCoordinates.height);
   }
 
@@ -165,9 +166,18 @@ export default function index(props) {
   }
 
   const onPressAddAmount = (amount) => {
-    console.log('amount', amount)
-    refAddMoney.current.value = formatMoney(amount);
-    setAmount(amount)
+    console.log(refAddMoney)
+    if (refAddMoney.current?._inputElement.isFocused()) {
+      refAddMoney.current.value = formatMoney(amount);
+      setAmount(amount)
+    } else if (refAmountReload.current?._inputElement.isFocused()) {
+      refAmountReload.current.value = formatMoney(amount);
+      setAmountReload(amount)
+    } else if (refBalance.current?._inputElement.isFocused()) {
+      refBalance.current.value = formatMoney(amount);
+      setBalance(amount)
+    }
+    
   }
 
   return (
@@ -241,22 +251,65 @@ export default function index(props) {
             {/* ------------ Select Amount ----------------- */}
 
             {/* ------------ Select Auto Reload ----------------- */}
-            <View style={styles.space} />
-            <AutoReloadComponent
+            {/* <View style={styles.space} /> */}
+            {/* <AutoReloadComponent
               amount={formatMoney(amount_reload)}
               balance={formatMoney(balance)}
               selectAmount={setAmountReload}
               selectBalance={setBalance}
               isShow={isShowReload}
               onShow={setShowReload}
-            />
-            {/* ------------ Select Auto Reload ----------------- */}
+            /> */}
+            <View style={styles.container_item}>
+              <Text fontSize={20} color="#585858" style={{ fontWeight: "500" }}>
+                Auto reload
+              </Text>
 
-          
+              <Switch value={isShowReload} onValueChange={value => setShowReload(value)} />
+            </View>
+            { isShowReload && 
+            <View>
+              <View style={styles.space} />
+              <Text style={styles.textTitle}>Reload amount</Text>
+              <View style={styles.input}>
+                <TextInputMask
+                  ref={refAmountReload}
+                  type="money"
+                  options={{
+                    unit: "$ ",
+                    precision: 2,
+                    separator: ".",
+                  }}
+                  style={styles.text_input}
+                  value={formatMoney(amount_reload)}
+                  onChangeText={(value) => setAmountReload(value)}
+                  keyboardType="numeric"
+                />
+              </View>
+
+              <View style={styles.space} />
+              <Text style={styles.textTitle}>When balance is below</Text>
+              <View style={styles.input}>
+                <TextInputMask
+                  ref={refBalance}
+                  type="money"
+                  options={{
+                    unit: "$ ",
+                    precision: 2,
+                    separator: ".",
+                  }}
+                  style={styles.text_input}
+                  value={formatMoney(balance)}
+                  onChangeText={(value) => setBalance(value)}
+                  keyboardType="numeric"
+                />
+              </View>
+            </View>
+            }
           </KeyboardAwareScrollView>
-
-          <View style={[styles.container_button_submit, {bottom: keyboardHeight > 0 ? keyboardHeight : 30}]}>
-            <View style={{flex: 1, alignItems: 'center'}}>
+          <View style={[styles.container_button_submit, 
+            {bottom: keyboardHeight + 30}]}>
+            <View style={{alignItems: 'center'}}>
               
               <ButtonSubmit
                 title="Add"
@@ -286,10 +339,8 @@ export default function index(props) {
 
               }
             </View>
-              
           </View>
-    
-        
+         
         <ModalBottomSelect2
           title="Payment"
           isVisible={isShows[2]}
@@ -301,6 +352,8 @@ export default function index(props) {
           renderItem={(item) => <ItemPayment item={item} />}
         />
       </View>
+      
+     
     </React.Fragment>
   );
 }
