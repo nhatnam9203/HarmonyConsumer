@@ -181,29 +181,27 @@ export default function index(props) {
   }
 
   return (
-    <React.Fragment>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />
-      <View style={styles.container}>
-        <View style={{ backgroundColor: "#f8f8f8" }}>
-          <StatusBar />
-          <Header
-            title="Add money"
-            headerLeft={true}
-            iconLeft={ICONS["arrow_back_ios"]}
-            onBack={onBack}
-          />
-        </View>
-
-          <KeyboardAwareScrollView
-            style={styles.container_center}
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={{ flex: 1 }}
-            onKeyboardWillShow={handleKeyBoardShow}
-            onKeyboardWillHide={handleKeyBoardHide}>
-          {/* <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={styles.container_center}
-            contentContainerStyle={{ alignItems: "center", flexGrow: 1 }}> */}
+    <View style={styles.container}>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="always"
+        contentContainerStyle={{ flex: 1 }}
+        extraScrollHeight={scaleSize(120)}
+        onKeyboardWillShow={handleKeyBoardShow}
+        onKeyboardWillHide={handleKeyBoardHide}
+        enableOnAndroid={true}
+        >
+          <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />
+          <View style={{ backgroundColor: "#f8f8f8" }}>
+            <StatusBar />
+            <Header
+              title="Add money"
+              headerLeft={true}
+              iconLeft={ICONS["arrow_back_ios"]}
+              onBack={onBack}
+            />
+          </View>
+        <ScrollView style={styles.container}>
+          <View style={styles.container_center}>
             {/* ------------ Select Card ----------------- */}
             <View style={styles.space} />
             <ButtonSelectCard
@@ -249,17 +247,6 @@ export default function index(props) {
             </View>
 
             {/* ------------ Select Amount ----------------- */}
-
-            {/* ------------ Select Auto Reload ----------------- */}
-            {/* <View style={styles.space} /> */}
-            {/* <AutoReloadComponent
-              amount={formatMoney(amount_reload)}
-              balance={formatMoney(balance)}
-              selectAmount={setAmountReload}
-              selectBalance={setBalance}
-              isShow={isShowReload}
-              onShow={setShowReload}
-            /> */}
             <View style={styles.container_item}>
               <Text fontSize={20} color="#585858" style={{ fontWeight: "500" }}>
                 Auto reload
@@ -306,54 +293,54 @@ export default function index(props) {
               </View>
             </View>
             }
-          </KeyboardAwareScrollView>
-          <View style={[styles.container_button_submit, 
-            {bottom: keyboardHeight + 30}]}>
-            <View style={{alignItems: 'center'}}>
-              
-              <ButtonSubmit
-                title="Add"
-                width={350}
-                onSubmit={onSubmit}
-                disabled={isFullFill() ? false : true}
-                backgroundColor={isFullFill() ? "#0764B0" : "#EEEEEE"}
-                textColor={isFullFill() ? "#FFF" : "#585858"}
-              />
-              { keyboardHeight > 0 && 
-                <View style={styles.view_choose_money}>
-                  <View style={{flexDirection: 'row'}}>
-                    <MoneyButton 
-                      amount="20"
-                      onPress={onPressAddAmount}/>
-                    <MoneyButton 
-                      amount="50"
-                      onPress={onPressAddAmount}/>
-                    <MoneyButton 
-                      amount="100"
-                      onPress={onPressAddAmount}/>
-                    <MoneyButton 
-                      amount="500"
-                      onPress={onPressAddAmount}/>
-                  </View>
-              </View>
-
-              }
-            </View>
+          {/* </KeyboardAwareScrollView> */}
           </View>
-         
-        <ModalBottomSelect2
-          title="Payment"
-          isVisible={isShows[2]}
-          onRequestClose={openShowModal(2)}
-          onCloseModal={openShowModal(2)}
-          data={payments}
-          onSelect={handleOnChangePayment}
-          value={payment}
-          renderItem={(item) => <ItemPayment item={item} />}
-        />
+        </ScrollView>
+      </KeyboardAwareScrollView>
+      <View style={[styles.container_button_submit, 
+        {bottom: keyboardHeight ? keyboardHeight : 30}]}>
+        <View style={{alignItems: 'center'}}>
+          
+          <ButtonSubmit
+            title="Add"
+            width={350}
+            onSubmit={onSubmit}
+            disabled={isFullFill() ? false : true}
+            backgroundColor={isFullFill() ? "#0764B0" : "#EEEEEE"}
+            textColor={isFullFill() ? "#FFF" : "#585858"}
+          />
+          { keyboardHeight > 0 && 
+            <View style={styles.view_choose_money}>
+              <View style={{flexDirection: 'row'}}>
+                <MoneyButton 
+                  amount="20"
+                  onPress={onPressAddAmount}/>
+                <MoneyButton 
+                  amount="50"
+                  onPress={onPressAddAmount}/>
+                <MoneyButton 
+                  amount="100"
+                  onPress={onPressAddAmount}/>
+                <MoneyButton 
+                  amount="500"
+                  onPress={onPressAddAmount}/>
+              </View>
+          </View>
+
+          }
+        </View>
       </View>
-      
-     
-    </React.Fragment>
+        
+      <ModalBottomSelect2
+        title="Payment"
+        isVisible={isShows[2]}
+        onRequestClose={openShowModal(2)}
+        onCloseModal={openShowModal(2)}
+        data={payments}
+        onSelect={handleOnChangePayment}
+        value={payment}
+        renderItem={(item) => <ItemPayment item={item} />}
+      />
+    </View>
   );
 }
