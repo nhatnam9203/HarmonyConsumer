@@ -223,7 +223,7 @@ export default function index(props) {
       />
 
       {!loading_card_detail ? (
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.container_center}>
 
             <HarmonyCard cardId={userCardId} />

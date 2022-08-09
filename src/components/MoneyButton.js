@@ -10,8 +10,6 @@ const amounts = [10, 20, 50, 100, 500];
 const balances = [10, 20, 50, 100];
 
 const MoneyButton = ({ amount, onPress }) => {
-
-  
   return (
     <TouchableOpacity
      style={styles.container}

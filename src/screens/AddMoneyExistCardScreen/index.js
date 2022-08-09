@@ -13,8 +13,9 @@ import {
   StatusBar,
   FocusAwareStatusBar,
   ModalBottomSelect2,
+  MoneyButton
 } from "components";
-import { AutoReloadComponent, EmptyLis, MoneyButton } from "./widget";
+import { AutoReloadComponent, EmptyLis } from "./widget";
 import { getImageCard, formatMoney, isEmpty, scaleSize } from "utils";
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
@@ -40,11 +41,11 @@ export default function index(props) {
 
   const [isShowReload, setShowReload] = React.useState(false);
   const [isShows, setShow] = React.useState([false, false, false]);
-  const [amount_reload, setAmountReload] = React.useState(0);
+  const [amount_reload, setAmountReload] = React.useState(20);
   const [amount, setAmount] = React.useState(20);
   const [payment, setPayment] = React.useState(null);
   const [card, setCard] = React.useState(null);
-  const [balance, setBalance] = React.useState(0);
+  const [balance, setBalance] = React.useState(20);
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
 
   const payments = [...credits, ...banks];
@@ -166,7 +167,6 @@ export default function index(props) {
   }
 
   const onPressAddAmount = (amount) => {
-    console.log(refAddMoney)
     if (refAddMoney.current?._inputElement.isFocused()) {
       refAddMoney.current.value = formatMoney(amount);
       setAmount(amount)

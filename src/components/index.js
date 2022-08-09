@@ -31,7 +31,7 @@ import ButtonSelectCard from './ButtonSelectCard';
 import ButtonSelect from './ButtonSelect';
 import ModalTransfer from './ModalTransfer';
 import ModalAutoReload from './ModalAutoReload';
-
+import MoneyButton from './MoneyButton';
 import ProgressiveImage from './ProgressiveImage';
 import InputOTP from './InputOTP';
 import PhoneInput from './PhoneInput';
@@ -42,6 +42,7 @@ import ModalBottomSelect2 from './ModalBottomSelect2';
 import { HarmonyCard } from './HarmonyCard';
 
 export {
+  MoneyButton,
   Text,
   Button,
   StatusBar,

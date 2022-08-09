@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Image } from "react-native";
+import { StyleSheet, Dimensions, View, Image, ScrollView, Keyboard } from "react-native";
 
 import * as RootNavigation from "navigations/RootNavigation";
 import { formatMoney, isEmpty, scaleSize, getImageCard } from "utils";
@@ -12,12 +12,16 @@ import {
   ButtonSelect,
   ButtonSelectCard,
   Switch,
+  MoneyButton,
 } from "components";
 import { ButtonSubmit } from "./Form";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { TextInputMask } from "react-native-masked-text";
 
-const amounts = [10, 20, 50, 100, 500];
-const balances = [10, 20, 50, 100];
+// const amounts = [10, 20, 50, 100, 500];
+// const balances = [10, 20, 50, 100];
 const { width } = Dimensions.get("window");
+const heightPopup = 453;
 
 export default function ModalAutoReload({
   isVisible,
@@ -31,20 +35,24 @@ export default function ModalAutoReload({
   isAutoReload,
   paymentSelect,
 }) {
+  const refAmountReload = React.useRef(null);
+  const refBalance = React.useRef(null);
+
   const [isVisibleAmount, setIsVisibleAmount] = React.useState(false);
   const [isVisibleBalance, setIsVisibleBalance] = React.useState(false);
   const [isVisiblePayment, setIsVisiblePayment] = React.useState(false);
-  const [amount, setAmount] = React.useState(amounts[0]);
-  const [balance, setBalance] = React.useState(balances[0]);
+  const [amount, setAmount] = React.useState(20);
+  const [balance, setBalance] = React.useState(20);
   const [payment, setPayment] = React.useState(null);
+  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
 
   const cardNumber = payment ? `x${payment.cardNumber}` : "Select payment";
   const url_payment = payment ? (payment.bankAcountId ? "bank" : payment.type) : "";
   const disabled_submit = payment ? false : true;
 
   React.useEffect(() => {
-    setAmount(isAutoReload == 1 ? autoReloadAmount : amounts[0]);
-    setBalance(isAutoReload == 1 ? autoReloadBelow : balances[0]);
+    setAmount(isAutoReload == 1 ? autoReloadAmount : 20);
+    setBalance(isAutoReload == 1 ? autoReloadBelow : 20);
     setPayment(paymentSelect ? paymentSelect : null);
   }, [isAutoReload]);
 
@@ -60,25 +68,13 @@ export default function ModalAutoReload({
     setIsVisiblePayment(!isVisiblePayment);
   };
 
-  const handleOnChangeSelectAmount = React.useCallback(
-    (index, item) => {
-      setAmount(item);
-      setTimeout(() => {
-        setIsVisibleAmount(false);
-      }, 200);
-    },
-    [amount],
-  );
+  const handleOnChangeSelectAmount = (value) => {
+      setAmount(value);
+  };
 
-  const handleOnChangeSelectBalance = React.useCallback(
-    (index, item) => {
+  const handleOnChangeSelectBalance = (value) => {
       setBalance(item);
-      setTimeout(() => {
-        setIsVisibleBalance(false);
-      }, 200);
-    },
-    [balance],
-  );
+  };
 
   const handleOnChangeSelectPayment = React.useCallback(
     (index, item) => {
@@ -93,6 +89,15 @@ export default function ModalAutoReload({
   const handleOnChange = (value) => {
     onChangeValueAuto(value);
   };
+
+  const handleKeyBoardShow = (e) => {
+    console.log('handleKeyBoardShow')
+    setKeyboardHeight(e.endCoordinates.height);
+  }
+
+  const handleKeyBoardHide = (e) => {
+    setKeyboardHeight(0);
+  }
 
   const onHandleSubmit = () => {
     let body = {
@@ -112,91 +117,152 @@ export default function ModalAutoReload({
     }, 250);
   };
 
+  const onPressAddAmount = (amount) => {
+    if (refAmountReload.current?._inputElement.isFocused()) {
+      refAmountReload.current.value = formatMoney(amount);
+      setAmount(amount)
+    } else if (refBalance.current?._inputElement.isFocused()) {
+      refBalance.current.value = formatMoney(amount);
+      setBalance(amount)
+    }
+    
+  }
+
+  const onRequestClosePopup = () => {
+    Keyboard.dismiss();
+    setTimeout(() => {
+      onRequestClose();
+    }, 200)
+    
+  }
+
   return (
-    <Modal onRequestClose={onRequestClose} isVisible={isVisible}>
+    <Modal onRequestClose={onRequestClosePopup} isVisible={isVisible}>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text fontSize={20} fontFamily="bold">
-            Edit auto reload
-          </Text>
-          <Button onPress={onRequestClose}>
-            <Image source={ICONS["close_header"]} style={styles.icon_close} />
-          </Button>
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ height: scaleSize(heightPopup) }}
+          enableOnAndroid={true}
+          extraScrollHeight={scaleSize(200)}
+          onKeyboardWillShow={handleKeyBoardShow}
+          onKeyboardWillHide={handleKeyBoardHide}
+          >
+        <ScrollView style={styles.containerScrollview}
+          keyboardShouldPersistTaps="handled">
+            <View style={styles.header}>
+              <Text fontSize={20} fontFamily="bold">
+                Edit auto reload
+              </Text>
+              <Button onPress={onRequestClosePopup}>
+                <Image source={ICONS["close_header"]} style={styles.icon_close} />
+              </Button>
+            </View>
+
+            {/* ------------ Switch auto reload ----------------- */}
+            {/* <View style={{marginLeft: scaleSize(20)}}> */}
+            <View style={styles.container_switch}>
+              <Text fontSize={17} color="#585858" fontFamily="bold">
+                Auto reload
+              </Text>
+
+              <Switch value={statusAuto} onValueChange={handleOnChange} />
+            </View>
+
+            {/* ------------ Payment ----------------- */}
+            <View style={styles.space} />
+            {!isEmpty(payments) ? (
+              <ButtonSelectCard
+                title="Payment"
+                value={cardNumber}
+                icon={getImageCard(url_payment)}
+                onPress={togglePayment}
+              />
+            ) : (
+              <EmptyCard onPress={goToAddNewPayment} />
+            )}
+            <ModalBottomSelect
+              title="Payment"
+              isVisible={isVisiblePayment}
+              onRequestClose={togglePayment}
+              onCloseModal={togglePayment}
+              data={payments}
+              onSelect={handleOnChangeSelectPayment}
+              value={payment}
+              renderItem={(item) => <ItemPayment item={item} />}
+            />
+
+            {/* ------------ Select Reload amount ----------------- */}
+            <View>
+              <View style={styles.space} />
+              <Text style={styles.textTitle}>Reload amount</Text>
+              <View style={styles.input}>
+                <TextInputMask
+                  ref={refAmountReload}
+                  type="money"
+                  options={{
+                    unit: "$ ",
+                    precision: 2,
+                    separator: ".",
+                  }}
+                  style={styles.text_input}
+                  value={formatMoney(amount)}
+                  onChangeText={(value) => handleOnChangeSelectAmount(value)}
+                  keyboardType="numeric"
+                />
+              </View>
+
+              <View style={styles.space} />
+              <Text style={styles.textTitle}>When balance is below</Text>
+              <View style={styles.input}>
+                <TextInputMask
+                  ref={refBalance}
+                  type="money"
+                  options={{
+                    unit: "$ ",
+                    precision: 2,
+                    separator: ".",
+                  }}
+                  style={styles.text_input}
+                  value={formatMoney(balance)}
+                  onChangeText={(value) => handleOnChangeSelectBalance(value)}
+                  keyboardType="numeric"
+                />
+              </View>
+              {/* </View> */}
+            </View>
+
+        </ScrollView>
+
+        </KeyboardAwareScrollView>
+      </View>
+
+      <View style={[styles.containerViewMoneySelect, 
+        {bottom: keyboardHeight > 0 
+        ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(40) 
+        : 40}]}>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />
+
+          { keyboardHeight > 0 && 
+            <View style={styles.view_choose_money}>
+
+              <View style={{flexDirection: 'row'}}>
+                <MoneyButton 
+                  amount="20"
+                  onPress={onPressAddAmount}/>
+                <MoneyButton 
+                  amount="50"
+                  onPress={onPressAddAmount}/>
+                <MoneyButton 
+                  amount="100"
+                  onPress={onPressAddAmount}/>
+                <MoneyButton 
+                  amount="500"
+                  onPress={onPressAddAmount}/>
+              </View>
+            </View>
+          }
         </View>
-
-        {/* ------------ Switch auto reload ----------------- */}
-        <View style={styles.container_switch}>
-          <Text fontSize={17} color="#585858" fontFamily="bold">
-            Auto reload
-          </Text>
-
-          <Switch value={statusAuto} onValueChange={handleOnChange} />
-        </View>
-        {/* ------------ Switch auto reload ----------------- */}
-
-        {/* ------------ Select Reload amount ----------------- */}
-        <View style={styles.space} />
-        <ButtonSelect
-          title="Reload amount"
-          value={`$ ${formatMoney(amount)}`}
-          onPress={toggleAmount}
-        />
-        <ModalBottomSelect
-          title="Reload amount"
-          isVisible={isVisibleAmount}
-          onRequestClose={toggleAmount}
-          onCloseModal={toggleAmount}
-          data={amounts}
-          onSelect={handleOnChangeSelectAmount}
-          value={amount}
-          renderItem={(item) => <ItemAmount item={item} />}
-        />
-        {/* ------------ Select Reload amount ----------------- */}
-
-        {/* ------------ Select balance ----------------- */}
-        <View style={styles.space} />
-        <ButtonSelect
-          title="When balance below"
-          value={`$ ${formatMoney(balance)}`}
-          onPress={toggleBalance}
-        />
-        <ModalBottomSelect
-          title="When balance below"
-          isVisible={isVisibleBalance}
-          onRequestClose={toggleBalance}
-          onCloseModal={toggleBalance}
-          data={balances}
-          onSelect={handleOnChangeSelectBalance}
-          value={balance}
-          renderItem={(item) => <ItemAmount item={item} />}
-        />
-        {/* ------------ Select balance ----------------- */}
-
-        {/* ------------ Payment ----------------- */}
-        <View style={styles.space} />
-        {!isEmpty(payments) ? (
-          <ButtonSelectCard
-            title="Payment"
-            value={cardNumber}
-            icon={getImageCard(url_payment)}
-            onPress={togglePayment}
-          />
-        ) : (
-          <EmptyCard onPress={goToAddNewPayment} />
-        )}
-        <ModalBottomSelect
-          title="Payment"
-          isVisible={isVisiblePayment}
-          onRequestClose={togglePayment}
-          onCloseModal={togglePayment}
-          data={payments}
-          onSelect={handleOnChangeSelectPayment}
-          value={payment}
-          renderItem={(item) => <ItemPayment item={item} />}
-        />
-        {/* ------------ Payment ----------------- */}
-
-        <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />
       </View>
     </Modal>
   );
@@ -258,10 +324,16 @@ const EmptyCard = ({ onPress }) => {
 const styles = StyleSheet.create({
   container: {
     width,
-    height: scaleSize(453),
+    height: scaleSize(heightPopup),
     backgroundColor: "#FFF",
     alignItems: "center",
     borderRadius: scaleSize(10),
+
+  },
+  containerScrollview: {
+    height: scaleSize(heightPopup),
+    backgroundColor: "white",
+    marginLeft: scaleSize(15)
   },
   header: {
     width: "100%",
@@ -300,8 +372,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     justifyContent: "center",
-    alignItems: "flex-end",
-    paddingRight: scaleSize(16),
+    alignItems: "center",
   },
 
   container_select_amount: {
@@ -341,5 +412,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: scaleSize(15),
+  },
+  space: {
+    marginVertical: scaleSize(12),
+  },
+  textTitle: {
+    fontSize: scaleSize(17),
+    color: "#888888"
+  },
+  input: {
+    width: scaleSize(382),
+    height: scaleSize(36),
+  },
+  text_input: {
+    fontSize: scaleSize(17),
+    color: "#404040",
+    fontWeight: "bold",
+    paddingVertical: 10,
+  },
+  containerViewMoneySelect: {
+    width: width,
+  },
+  view_choose_money:{
+    backgroundColor: '#f1f1f1',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: scaleSize(30),
+    paddingBottom: scaleSize(10),
+    paddingTop: scaleSize(10),
+    width: width,
   },
 });
