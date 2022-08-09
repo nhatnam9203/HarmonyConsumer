@@ -102,7 +102,6 @@ export default function useHook() {
   };
   /** */
   const reviewConfirmAction = () => {
-
     let date = moment(day).format('YYYY-MM-DD');
     date = `${date}T${timePicker}`;
     dispatch(actions.bookingAction.selectDate(date));
