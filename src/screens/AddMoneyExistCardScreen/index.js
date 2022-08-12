@@ -16,7 +16,7 @@ import {
   MoneyButton
 } from "components";
 import { AutoReloadComponent, EmptyLis } from "./widget";
-import { getImageCard, formatMoney, isEmpty, scaleSize } from "utils";
+import { getImageCard, formatMoney, isEmpty, scaleSize, FormatPrice } from "utils";
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
 import ICONS from "assets";
@@ -239,8 +239,8 @@ export default function index(props) {
                     separator: ".",
                   }}
                   style={styles.text_input}
-                  value={formatMoney(amount)}
-                  onChangeText={(value) => onChangeText(value)}
+                  value={amount}
+                  onChangeText={(value) => onChangeText(FormatPrice(formatMoney(value)))}
                   keyboardType="numeric"
                 />
               </View>
@@ -268,8 +268,8 @@ export default function index(props) {
                     separator: ".",
                   }}
                   style={styles.text_input}
-                  value={formatMoney(amount_reload)}
-                  onChangeText={(value) => setAmountReload(value)}
+                  value={amount_reload}
+                  onChangeText={(value) => setAmountReload(FormatPrice(formatMoney(value)))}
                   keyboardType="numeric"
                 />
               </View>
@@ -286,8 +286,8 @@ export default function index(props) {
                     separator: ".",
                   }}
                   style={styles.text_input}
-                  value={formatMoney(balance)}
-                  onChangeText={(value) => setBalance(value)}
+                  value={balance}
+                  onChangeText={(value) => setBalance(FormatPrice(formatMoney(value)))}
                   keyboardType="numeric"
                 />
               </View>
