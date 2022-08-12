@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Dimensions, View, Image, ScrollView, Keyboard } from "react-native";
 
 import * as RootNavigation from "navigations/RootNavigation";
-import { formatMoney, isEmpty, scaleSize, getImageCard } from "utils";
+import { formatMoney, isEmpty, scaleSize, getImageCard, FormatPrice } from "utils";
 import ICONS from "assets";
 import {
   Modal,
@@ -69,11 +69,13 @@ export default function ModalAutoReload({
   };
 
   const handleOnChangeSelectAmount = (value) => {
-      setAmount(value);
+    const amount = FormatPrice(formatMoney(value))
+    setAmount(amount);
   };
 
   const handleOnChangeSelectBalance = (value) => {
-      setBalance(item);
+    const amount = FormatPrice(formatMoney(value))
+    setBalance(amount);
   };
 
   const handleOnChangeSelectPayment = React.useCallback(
@@ -91,7 +93,6 @@ export default function ModalAutoReload({
   };
 
   const handleKeyBoardShow = (e) => {
-    console.log('handleKeyBoardShow')
     setKeyboardHeight(e.endCoordinates.height);
   }
 
@@ -100,14 +101,19 @@ export default function ModalAutoReload({
   }
 
   const onHandleSubmit = () => {
-    let body = {
-      autoReloadAmount: amount,
-      autoReloadBankId: payment.bankAcountId ? payment.userCardTokenId : 0,
-      autoReloadBelow: balance,
-      autoReloadCardId: !payment.bankAcountId ? payment.userCardTokenId : 0,
-      isAutoReload: Number(statusAuto),
-    };
-    onSubmit(body);
+    Keyboard.dismiss();
+
+    setTimeout(() => {
+      let body = {
+        autoReloadAmount: amount,
+        autoReloadBankId: payment.bankAcountId ? payment.userCardTokenId : 0,
+        autoReloadBelow: balance,
+        autoReloadCardId: !payment.bankAcountId ? payment.userCardTokenId : 0,
+        isAutoReload: Number(statusAuto),
+      };
+      onSubmit(body);
+    }, 200)
+    
   };
 
   const goToAddNewPayment = () => {
@@ -205,7 +211,7 @@ export default function ModalAutoReload({
                     separator: ".",
                   }}
                   style={styles.text_input}
-                  value={formatMoney(amount)}
+                  value={amount}
                   onChangeText={(value) => handleOnChangeSelectAmount(value)}
                   keyboardType="numeric"
                 />
@@ -223,7 +229,7 @@ export default function ModalAutoReload({
                     separator: ".",
                   }}
                   style={styles.text_input}
-                  value={formatMoney(balance)}
+                  value={balance}
                   onChangeText={(value) => handleOnChangeSelectBalance(value)}
                   keyboardType="numeric"
                 />
