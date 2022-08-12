@@ -16,7 +16,7 @@ import {
   MoneyButton
 } from "components";
 import { AutoReloadComponent, EmptyLis } from "./widget";
-import { getImageCard, formatMoney, isEmpty, scaleSize, FormatPrice } from "utils";
+import { getImageCard, formatMoney, isEmpty, scaleSize, FormatPrice, formatNumberFromCurrency } from "utils";
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
 import ICONS from "assets";
@@ -153,6 +153,7 @@ export default function index(props) {
   // };
 
   const onChangeText = (value) => {
+    console.log('value', value)
     if (value) {
       setAmount(value)
     }
@@ -237,11 +238,15 @@ export default function index(props) {
                     unit: "$ ",
                     precision: 2,
                     separator: ".",
+                    delimiter: ",",
                   }}
                   style={styles.text_input}
                   value={amount}
-                  onChangeText={(value) => onChangeText(FormatPrice(formatMoney(value)))}
+                  onChangeText={(_, rawText) => {
+                    console.log('onchangfe text', formatMoney(rawText))
+                    onChangeText(FormatPrice(formatMoney(rawText)))}}
                   keyboardType="numeric"
+                  includeRawValueInChangeText={true}
                 />
               </View>
             </View>
@@ -266,11 +271,15 @@ export default function index(props) {
                     unit: "$ ",
                     precision: 2,
                     separator: ".",
+                    delimiter: ",",
                   }}
                   style={styles.text_input}
                   value={amount_reload}
-                  onChangeText={(value) => setAmountReload(FormatPrice(formatMoney(value)))}
+                  onChangeText={(_, rawText) => {
+                    setAmountReload(rawText)
+                  }}
                   keyboardType="numeric"
+                  includeRawValueInChangeText={true}
                 />
               </View>
 
@@ -284,11 +293,13 @@ export default function index(props) {
                     unit: "$ ",
                     precision: 2,
                     separator: ".",
+                    delimiter: ",",
                   }}
                   style={styles.text_input}
                   value={balance}
-                  onChangeText={(value) => setBalance(FormatPrice(formatMoney(value)))}
+                  onChangeText={(_, rawText) => setBalance(FormatPrice(formatMoney(rawText)))}
                   keyboardType="numeric"
+                  includeRawValueInChangeText={true}
                 />
               </View>
             </View>

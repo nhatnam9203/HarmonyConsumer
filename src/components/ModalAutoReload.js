@@ -69,13 +69,11 @@ export default function ModalAutoReload({
   };
 
   const handleOnChangeSelectAmount = (value) => {
-    const amount = FormatPrice(formatMoney(value))
-    setAmount(amount);
+    setAmount(value);
   };
 
   const handleOnChangeSelectBalance = (value) => {
-    const amount = FormatPrice(formatMoney(value))
-    setBalance(amount);
+    setBalance(value);
   };
 
   const handleOnChangeSelectPayment = React.useCallback(
@@ -209,11 +207,13 @@ export default function ModalAutoReload({
                     unit: "$ ",
                     precision: 2,
                     separator: ".",
+                    delimiter: ",",
                   }}
                   style={styles.text_input}
                   value={amount}
-                  onChangeText={(value) => handleOnChangeSelectAmount(value)}
+                  onChangeText={(_, value) => handleOnChangeSelectAmount(value)}
                   keyboardType="numeric"
+                  includeRawValueInChangeText={true}
                 />
               </View>
 
@@ -227,11 +227,13 @@ export default function ModalAutoReload({
                     unit: "$ ",
                     precision: 2,
                     separator: ".",
+                    delimiter: ",",
                   }}
                   style={styles.text_input}
                   value={balance}
-                  onChangeText={(value) => handleOnChangeSelectBalance(value)}
+                  onChangeText={(_, value) => handleOnChangeSelectBalance(value)}
                   keyboardType="numeric"
+                  includeRawValueInChangeText={true}
                 />
               </View>
               {/* </View> */}
