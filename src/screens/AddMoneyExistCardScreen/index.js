@@ -186,7 +186,7 @@ export default function index(props) {
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="always"
         contentContainerStyle={{ flex: 1 }}
-        extraScrollHeight={scaleSize(120)}
+        // extraScrollHeight={scaleSize(120)}
         onKeyboardWillShow={handleKeyBoardShow}
         onKeyboardWillHide={handleKeyBoardHide}
         enableOnAndroid={true}
@@ -201,7 +201,10 @@ export default function index(props) {
               onBack={onBack}
             />
           </View>
-        <ScrollView style={styles.container}>
+        <ScrollView 
+        style={styles.container}
+        contentContainerStyle={{flex: 1}}
+        >
           <View style={styles.container_center}>
             {/* ------------ Select Card ----------------- */}
             <View style={styles.space} />
