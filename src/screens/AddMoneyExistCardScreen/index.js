@@ -242,9 +242,7 @@ export default function index(props) {
                   }}
                   style={styles.text_input}
                   value={amount}
-                  onChangeText={(_, rawText) => {
-                    console.log('onchangfe text', formatMoney(rawText))
-                    onChangeText(FormatPrice(formatMoney(rawText)))}}
+                  onChangeText={(_, rawText) => {setAmount(rawText)}}
                   keyboardType="numeric"
                   includeRawValueInChangeText={true}
                 />
@@ -297,7 +295,7 @@ export default function index(props) {
                   }}
                   style={styles.text_input}
                   value={balance}
-                  onChangeText={(_, rawText) => setBalance(FormatPrice(formatMoney(rawText)))}
+                  onChangeText={(_, rawText) => setBalance(rawText)}
                   keyboardType="numeric"
                   includeRawValueInChangeText={true}
                 />
