@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, ScrollView, Switch, Keyboard } from "react-native";
+import { View, Image, ScrollView, Switch, Keyboard, Dimensions } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -23,7 +23,7 @@ import ICONS from "assets";
 import { TextInputMask } from "react-native-masked-text";
 
 const { ButtonSubmit } = Form;
-
+const windowHeight = Dimensions.get('window').height;
 const amounts = [10, 20, 50, 100, 500];
 
 export default function index(props) {
@@ -203,7 +203,6 @@ export default function index(props) {
           </View>
         <ScrollView 
         style={styles.container}
-        contentContainerStyle={{flex: 1}}
         >
           <View style={styles.container_center}>
             {/* ------------ Select Card ----------------- */}
