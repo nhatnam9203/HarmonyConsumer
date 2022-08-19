@@ -107,7 +107,7 @@ export default function index(props) {
         {renderHeader()}
         {renderInput()}
         {renderButtonSubmit()}
-        {/* {renderSocialButton()} */}
+        {renderSocialButton()}
       </View>
       <Modal2 onRequestClose={hidePopup} isVisible={isModal}>
         <PopupAccepTerm
