@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleSize(15),
   },
   container_button_submit: {
-    // position: "absolute",
+    position: "absolute",
     // bottom: scaleSize(0),
     width: windowWidth,
   },

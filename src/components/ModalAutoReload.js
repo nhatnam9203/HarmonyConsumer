@@ -172,18 +172,6 @@ export default function ModalAutoReload({
               <Switch value={statusAuto} onValueChange={handleOnChange} />
             </View>
 
-            {/* ------------ Payment ----------------- */}
-            <View style={styles.space} />
-            {!isEmpty(payments) ? (
-              <ButtonSelectCard
-                title="Payment"
-                value={cardNumber}
-                icon={getImageCard(url_payment)}
-                onPress={togglePayment}
-              />
-            ) : (
-              <EmptyCard onPress={goToAddNewPayment} />
-            )}
             <ModalBottomSelect
               title="Payment"
               isVisible={isVisiblePayment}
@@ -239,6 +227,18 @@ export default function ModalAutoReload({
               {/* </View> */}
             </View>
 
+            {/* ------------ Payment ----------------- */}
+            <View style={styles.space} />
+            {!isEmpty(payments) ? (
+              <ButtonSelectCard
+                title="Payment"
+                value={cardNumber}
+                icon={getImageCard(url_payment)}
+                onPress={togglePayment}
+              />
+            ) : (
+              <EmptyCard onPress={goToAddNewPayment} />
+            )}
         </ScrollView>
 
         </KeyboardAwareScrollView>
