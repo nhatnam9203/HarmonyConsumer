@@ -32,6 +32,7 @@ export default function index(props) {
   const credits = useSelector((state) => state.creditAndBankReducer.credits);
   const banks = useSelector((state) => state.creditAndBankReducer.banks);
   const card_reload = useSelector((state) => state.cardReducer.card_reload);
+  const card_detail = useSelector(state => state.cardReducer.card_detail);
 
   const refAddMoney = React.useRef(null);
   const refAmountReload = React.useRef(null);
@@ -59,10 +60,22 @@ export default function index(props) {
     return false;
   };
 
+  const findPaymentReload = () => {
+    const { autoReloadCardId, autoReloadBankId } = card_detail;
+    const query =
+      autoReloadCardId != 0
+        ? item => item.userCardTokenId == autoReloadCardId
+        : item => item.bankAcountId == autoReloadBankId;
+    if (!payments.find(query)) return null;
+    return payments.find(query);
+  };
+
   React.useEffect(() => {
     let item = card_reload;
+    const cardReload = findPaymentReload();
     if (item) {
       setCard(item);
+      setPayment(cardReload);
       setShowReload(item.isAutoReload == 1 ? true : false);
       if (item.isAutoReload == 1) {
         setAmountReload(item.autoReloadAmount);
@@ -214,19 +227,7 @@ export default function index(props) {
               disabled={true}
               // onPress={openShowModal(1)}
             />
-            {/* ------------ Select Payment ----------------- */}
-            <View style={styles.space} />
-            {!isEmpty(payments) ? (
-              <ButtonSelectCard
-                title="Payment"
-                value={cardNumber}
-                icon={getImageCard(url_payment)}
-                onPress={openShowModal(2)}
-              />
-            ) : (
-              <EmptyList title="Payment" onPress={goToAddPayment} />
-            )}
-            {/* ------------ Select Card ----------------- */}
+          
 
             {/* ------------ Select Amount ----------------- */}
             <View style={styles.space} />
@@ -304,6 +305,18 @@ export default function index(props) {
               </View>
             </View>
             }
+            {/* ------------ Select Payment ----------------- */}
+            <View style={styles.space} />
+            {!isEmpty(payments) ? (
+              <ButtonSelectCard
+                title="Payment"
+                value={cardNumber}
+                icon={getImageCard(url_payment)}
+                onPress={openShowModal(2)}
+              />
+            ) : (
+              <EmptyList title="Payment" onPress={goToAddPayment} />
+            )}
           {/* </KeyboardAwareScrollView> */}
           </View>
         </ScrollView>
