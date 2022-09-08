@@ -20,7 +20,7 @@ import { TextInputMask } from "react-native-masked-text";
 
 // const amounts = [10, 20, 50, 100, 500];
 // const balances = [10, 20, 50, 100];
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 const heightPopup = 453;
 
 export default function ModalAutoReload({
@@ -91,7 +91,6 @@ export default function ModalAutoReload({
   };
 
   const handleKeyBoardShow = (e) => {
-    console.log('handleKeyBoardShow', e)
     setKeyboardHeight(e.endCoordinates.height);
   }
 
@@ -124,11 +123,11 @@ export default function ModalAutoReload({
 
   const onPressAddAmount = (amount) => {
     if (refAmountReload.current?._inputElement.isFocused()) {
-      refAmountReload.current.value = formatMoney(amount);
-      setAmount(amount)
+      refAmountReload.current.value = Number(amount);
+      setAmount(Number(amount))
     } else if (refBalance.current?._inputElement.isFocused()) {
-      refBalance.current.value = formatMoney(amount);
-      setBalance(amount)
+      refBalance.current.value = Number(amount);
+      setBalance(Number(amount))
     }
     
   }
@@ -146,11 +145,11 @@ export default function ModalAutoReload({
       <View style={styles.container}>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ height: scaleSize(heightPopup) }}
+          contentContainerStyle={{ flex: 1 }}//height: scaleSize(heightPopup)
           enableOnAndroid={true}
-          extraScrollHeight={Platform.OS === 'ios' ? scaleSize(200) : -scaleSize(keyboardHeight+100)}
-          onKeyboardWillShow={handleKeyBoardShow}
-          onKeyboardWillHide={handleKeyBoardHide}
+          extraScrollHeight={Platform.OS === 'ios' ? scaleSize(200) : 0}
+          onKeyboardDidShow={handleKeyBoardShow}
+          onKeyboardDidHide={handleKeyBoardHide}
           >
         <ScrollView style={styles.containerScrollview}
           keyboardShouldPersistTaps="handled">
@@ -240,18 +239,21 @@ export default function ModalAutoReload({
             ) : (
               <EmptyCard onPress={goToAddNewPayment} />
             )}
-            <Text>{keyboardHeight}</Text>
+            <View style={styles.space} />
+            {Platform.OS == 'android' && <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />}
         </ScrollView>
 
         </KeyboardAwareScrollView>
       </View>
 
       <View style={[styles.containerViewMoneySelect, 
-        {bottom: keyboardHeight > 0 
-        ? caleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(40) 
+        {bottom: keyboardHeight > 0
+        ? Platform.OS == 'ios' 
+        ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(30) 
+        : - scaleSize(10) 
         : 40}]}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />
+        {Platform.OS == 'ios' && <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />}
 
           { keyboardHeight > 0 && 
             <View style={styles.view_choose_money}>
@@ -343,7 +345,8 @@ const styles = StyleSheet.create({
   containerScrollview: {
     height: scaleSize(heightPopup),
     backgroundColor: "white",
-    marginLeft: scaleSize(15)
+    marginLeft: scaleSize(15),
+    borderRadius: scaleSize(10),
   },
   header: {
     width: "100%",
