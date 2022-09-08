@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: scaleSize(17),
     color: "#404040",
     fontWeight: "bold",
-    paddingVertical: 10,
+    paddingVertical: 0,
   },
   container_item: {
     width: scaleSize(382),

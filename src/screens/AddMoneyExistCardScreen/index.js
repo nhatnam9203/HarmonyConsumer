@@ -61,6 +61,8 @@ export default function index(props) {
   };
 
   const findPaymentReload = () => {
+    if(!card_detail) return null;
+
     const { autoReloadCardId, autoReloadBankId } = card_detail;
     const query =
       autoReloadCardId != 0
@@ -200,8 +202,8 @@ export default function index(props) {
         keyboardShouldPersistTaps="always"
         contentContainerStyle={{ flex: 1 }}
         // extraScrollHeight={scaleSize(120)}
-        onKeyboardWillShow={handleKeyBoardShow}
-        onKeyboardWillHide={handleKeyBoardHide}
+        onKeyboardDidShow={handleKeyBoardShow}
+        onKeyboardDidHide={handleKeyBoardHide}
         enableOnAndroid={true}
         >
           <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" />

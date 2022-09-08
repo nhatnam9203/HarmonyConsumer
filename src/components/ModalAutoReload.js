@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Image, ScrollView, Keyboard } from "react-native";
+import { StyleSheet, Dimensions, View, Image, ScrollView, Keyboard, Platform } from "react-native";
 
 import * as RootNavigation from "navigations/RootNavigation";
 import { formatMoney, isEmpty, scaleSize, getImageCard, FormatPrice } from "utils";
@@ -91,6 +91,7 @@ export default function ModalAutoReload({
   };
 
   const handleKeyBoardShow = (e) => {
+    console.log('handleKeyBoardShow', e)
     setKeyboardHeight(e.endCoordinates.height);
   }
 
@@ -147,7 +148,7 @@ export default function ModalAutoReload({
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ height: scaleSize(heightPopup) }}
           enableOnAndroid={true}
-          extraScrollHeight={scaleSize(200)}
+          extraScrollHeight={Platform.OS === 'ios' ? scaleSize(200) : -scaleSize(keyboardHeight+100)}
           onKeyboardWillShow={handleKeyBoardShow}
           onKeyboardWillHide={handleKeyBoardHide}
           >
@@ -239,6 +240,7 @@ export default function ModalAutoReload({
             ) : (
               <EmptyCard onPress={goToAddNewPayment} />
             )}
+            <Text>{keyboardHeight}</Text>
         </ScrollView>
 
         </KeyboardAwareScrollView>
@@ -246,7 +248,7 @@ export default function ModalAutoReload({
 
       <View style={[styles.containerViewMoneySelect, 
         {bottom: keyboardHeight > 0 
-        ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(40) 
+        ? caleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(40) 
         : 40}]}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />
@@ -436,7 +438,7 @@ const styles = StyleSheet.create({
     fontSize: scaleSize(17),
     color: "#404040",
     fontWeight: "bold",
-    paddingVertical: 10,
+    paddingVertical: 0,
   },
   containerViewMoneySelect: {
     width: width,
