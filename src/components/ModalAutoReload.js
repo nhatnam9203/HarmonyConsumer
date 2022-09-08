@@ -20,7 +20,7 @@ import { TextInputMask } from "react-native-masked-text";
 
 // const amounts = [10, 20, 50, 100, 500];
 // const balances = [10, 20, 50, 100];
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 const heightPopup = 453;
 
 export default function ModalAutoReload({
@@ -123,11 +123,11 @@ export default function ModalAutoReload({
 
   const onPressAddAmount = (amount) => {
     if (refAmountReload.current?._inputElement.isFocused()) {
-      refAmountReload.current.value = formatMoney(amount);
-      setAmount(amount)
+      refAmountReload.current.value = Number(amount);
+      setAmount(Number(amount))
     } else if (refBalance.current?._inputElement.isFocused()) {
-      refBalance.current.value = formatMoney(amount);
-      setBalance(amount)
+      refBalance.current.value = Number(amount);
+      setBalance(Number(amount))
     }
     
   }
@@ -246,7 +246,7 @@ export default function ModalAutoReload({
 
       <View style={[styles.containerViewMoneySelect, 
         {bottom: keyboardHeight > 0 
-        ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(40) 
+        ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(30) 
         : 40}]}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />

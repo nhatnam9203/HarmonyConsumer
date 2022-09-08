@@ -21,7 +21,7 @@ import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
 import ICONS from "assets";
 import { TextInputMask } from "react-native-masked-text";
-
+import { EmptyList } from "./widget";
 const { ButtonSubmit } = Form;
 const windowHeight = Dimensions.get('window').height;
 const amounts = [10, 20, 50, 100, 500];
@@ -60,22 +60,10 @@ export default function index(props) {
     return false;
   };
 
-  const findPaymentReload = () => {
-    const { autoReloadCardId, autoReloadBankId } = card_detail;
-    const query =
-      autoReloadCardId != 0
-        ? item => item.userCardTokenId == autoReloadCardId
-        : item => item.bankAcountId == autoReloadBankId;
-    if (!payments.find(query)) return null;
-    return payments.find(query);
-  };
-
   React.useEffect(() => {
     let item = card_reload;
-    const cardReload = findPaymentReload();
     if (item) {
       setCard(item);
-      setPayment(cardReload);
       setShowReload(item.isAutoReload == 1 ? true : false);
       if (item.isAutoReload == 1) {
         setAmountReload(item.autoReloadAmount);
@@ -166,7 +154,6 @@ export default function index(props) {
   // };
 
   const onChangeText = (value) => {
-    console.log('value', value)
     if (value) {
       setAmount(value)
     }
@@ -182,14 +169,14 @@ export default function index(props) {
 
   const onPressAddAmount = (amount) => {
     if (refAddMoney.current?._inputElement.isFocused()) {
-      refAddMoney.current.value = formatMoney(amount);
-      setAmount(amount)
+      refAddMoney.current.value = Number(amount);
+      setAmount(Number(amount))
     } else if (refAmountReload.current?._inputElement.isFocused()) {
-      refAmountReload.current.value = formatMoney(amount);
-      setAmountReload(amount)
+      refAmountReload.current.value = Number(amount);
+      setAmountReload(Number(amount))
     } else if (refBalance.current?._inputElement.isFocused()) {
-      refBalance.current.value = formatMoney(amount);
-      setBalance(amount)
+      refBalance.current.value = Number(amount);
+      setBalance(Number(amount))
     }
     
   }
