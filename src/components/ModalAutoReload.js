@@ -147,7 +147,7 @@ export default function ModalAutoReload({
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ flex: 1 }}//height: scaleSize(heightPopup)
           enableOnAndroid={true}
-          extraScrollHeight={Platform.OS === 'ios' ? scaleSize(200) : 0}
+          extraScrollHeight={Platform.OS === 'ios' ? scaleSize(200) : -scaleSize(keyboardHeight+100)}
           onKeyboardDidShow={handleKeyBoardShow}
           onKeyboardDidHide={handleKeyBoardHide}
           >
