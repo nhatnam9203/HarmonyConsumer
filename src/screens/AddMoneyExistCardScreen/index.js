@@ -186,7 +186,7 @@ export default function index(props) {
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="always"
         contentContainerStyle={{ flex: 1 }}
-        // extraScrollHeight={scaleSize(120)}
+        extraScrollHeight={ Platform.OS == 'android' ? scaleSize(150) : 0}
         onKeyboardDidShow={handleKeyBoardShow}
         onKeyboardDidHide={handleKeyBoardHide}
         enableOnAndroid={true}
@@ -304,13 +304,12 @@ export default function index(props) {
             ) : (
               <EmptyList title="Payment" onPress={goToAddPayment} />
             )}
-          {/* </KeyboardAwareScrollView> */}
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
       <View style={[styles.container_button_submit, 
         {bottom: keyboardHeight ? Platform.OS == 'ios' 
-        ? scaleSize(keyboardHeight + 20) : scaleSize(keyboardHeight+60) 
+        ? scaleSize(keyboardHeight + 20) : scaleSize(keyboardHeight) + 50 
         : 30}]}>
         <View style={{alignItems: 'center'}}>
           

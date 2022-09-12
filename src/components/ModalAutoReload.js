@@ -250,7 +250,7 @@ export default function ModalAutoReload({
         {bottom: keyboardHeight > 0
         ? Platform.OS == 'ios' 
         ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(30) 
-        : - scaleSize(10) 
+        : scaleSize(keyboardHeight) - scaleSize(190)
         : 40}]}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
         {Platform.OS == 'ios' && <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />}

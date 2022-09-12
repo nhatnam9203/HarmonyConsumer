@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     marginRight: scaleSize(15),
   },
   space: {
-    marginVertical: scaleSize(12),
+    marginVertical: scaleSize(8),
   },
   container: {
     flex: 1,
