@@ -91,6 +91,8 @@ export default function ModalAutoReload({
   };
 
   const handleKeyBoardShow = (e) => {
+    console.log('height', height)
+    console.log('handleKeyBoardShow', e)
     setKeyboardHeight(e.endCoordinates.height);
   }
 
@@ -145,9 +147,9 @@ export default function ModalAutoReload({
       <View style={styles.container}>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}//height: scaleSize(heightPopup)
+          // contentContainerStyle={{ flex: 1 }}//height: scaleSize(heightPopup)
           enableOnAndroid={true}
-          extraScrollHeight={Platform.OS === 'ios' ? scaleSize(200) : -scaleSize(keyboardHeight+100)}
+          // extraScrollHeight={Platform.OS === 'ios' ? 0 : keyboardHeight}
           onKeyboardDidShow={handleKeyBoardShow}
           onKeyboardDidHide={handleKeyBoardHide}
           >
@@ -248,9 +250,9 @@ export default function ModalAutoReload({
 
       <View style={[styles.containerViewMoneySelect, 
         {bottom: keyboardHeight > 0
-        ? Platform.OS == 'ios' 
-        ? scaleSize(heightPopup) - scaleSize(keyboardHeight) - scaleSize(30) 
-        : scaleSize(keyboardHeight) - scaleSize(190)
+        ? Platform.OS === 'ios'?
+        keyboardHeight - (height - heightPopup)/2 + 25
+        : keyboardHeight - (height - heightPopup)
         : 40}]}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
         {Platform.OS == 'ios' && <Save onSubmit={onHandleSubmit} disabled={disabled_submit} />}
