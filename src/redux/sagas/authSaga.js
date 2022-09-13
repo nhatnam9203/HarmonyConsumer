@@ -56,6 +56,7 @@ function* loginSocial(action) {
       case 200:
         const { isVerified } = response.data;
         if (isVerified == 1) {
+          yield call(saveAuthToken, response?.data?.token);
           yield put({
             type: 'LOGIN_SUCCESS',
             token: response.data.token,
@@ -86,6 +87,7 @@ function* quickLogin(action) {
 
     switch (parseInt(response.codeNumber)) {
       case 200:
+        yield call(saveAuthToken, response?.data?.token);
         yield put({
           type: 'QUICK_LOGIN_SUCCESS',
           token: response.data.token,
