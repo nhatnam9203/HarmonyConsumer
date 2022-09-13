@@ -309,7 +309,8 @@ export default function index(props) {
       </KeyboardAwareScrollView>
       <View style={[styles.container_button_submit, 
         {bottom: keyboardHeight ? Platform.OS == 'ios' 
-        ? scaleSize(keyboardHeight + 20) : scaleSize(keyboardHeight) + 50 
+        ? scaleSize(keyboardHeight + 20)
+        : scaleSize(keyboardHeight + 30) 
         : 30}]}>
         <View style={{alignItems: 'center'}}>
           
