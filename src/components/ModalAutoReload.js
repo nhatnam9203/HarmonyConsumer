@@ -249,7 +249,7 @@ export default function ModalAutoReload({
       <View style={[styles.containerViewMoneySelect, 
         {bottom: keyboardHeight > 0
         ? Platform.OS === 'ios'?
-        keyboardHeight - (height - heightPopup)/2 + 25
+        keyboardHeight - (height - heightPopup)/2 + 30
         : scaleSize(keyboardHeight - 185) 
         : 40}]}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
