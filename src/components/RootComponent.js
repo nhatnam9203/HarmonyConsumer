@@ -25,7 +25,8 @@ import IMAGES from 'assets';
 import messaging from '@react-native-firebase/messaging';
 import { app } from '@redux/slices';
 import { CodePushContext } from '@shared/providers/CodePushProvider';
-
+import * as RootNavigation from 'navigations/RootNavigation';
+import ReviewPaymentForm from './ReviewPaymentForm';
 import PushNotification from 'react-native-push-notification';
 
 const signalR = require('@microsoft/signalr');
@@ -37,7 +38,8 @@ const RootComponent = ({ children }) => {
   const userInfo = useSelector(state => state.datalocalReducer.userInfo);
   const isInbox = useSelector(state => state.authReducer.isInbox);
   const [isUpdate, setUpdate] = useState(false);
-  const { contentError, isPopupError } = general;
+  const { contentError, isPopupError, showReviewForm } = general;
+
   const appointment_detail_customer = useSelector(
     state => state.appointmentReducer.appointment_detail_customer,
   );
@@ -345,6 +347,7 @@ const RootComponent = ({ children }) => {
       if (messageJson.type === 'appointment_add') {
         getMyAppointmentList();
       }
+
       if (messageJson.type === 'pay' || messageJson.type === 'update_pay') {
         const { id } = messageJson;
         dispatch(actions.appointmentAction?.getGroupAppointmentById(token, id));
@@ -353,11 +356,13 @@ const RootComponent = ({ children }) => {
 
         // dispatch(actions.generalAction.set_tips(tips));
       }
+
       if (messageJson.type === 'cancel_pay') {
         const { id } = messageJson;
         // dispatch(actions.appointmentAction.getGroupAppointmentById(token, id));
         dispatch(actions.paymentAction.get_number_invoice(token));
       }
+
       if (
         messageJson.type === 'order' ||
         messageJson.type === 'appointment_update_status'
@@ -369,14 +374,17 @@ const RootComponent = ({ children }) => {
           actions.customerAction?.getPointUsed(1, timezone, token, () => {}),
         );
         dispatch(actions.customerAction?.getRewardProfile(token));
+
         getMyAppointmentList();
       }
+
       if (messageJson.type === 'userCard_update') {
         dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
         dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
         dispatch(actions.customerAction?.getRewardProfile(token));
       }
+
       if (messageJson.type == 'appointment_checkout') {
         dispatch(actions.appointmentAction?.setCheckOut(true));
         if (messageJson.id) {
@@ -388,6 +396,19 @@ const RootComponent = ({ children }) => {
               ),
             );
           }
+        }
+      }
+
+      if (messageJson.type === 'harmony_pay_review_form') {
+        const { id, merchantId, businessName } = messageJson || {};
+        if (id) {
+          dispatch(
+            actions.generalAction.visibleReviewForm({
+              id,
+              merchantId,
+              businessName,
+            }),
+          );
         }
       }
     }
@@ -438,6 +459,20 @@ const RootComponent = ({ children }) => {
       </Modal>
     );
   }
+  function renderReviewPaymentPopup() {
+    const hidePopupError = () => {
+      dispatch(actions.generalAction.visibleReviewForm(null));
+    };
+
+    return (
+      <Modal
+        animationType="none"
+        onRequestClose={hidePopupError}
+        isVisible={!!showReviewForm}>
+        <ReviewPaymentForm appointmentId={showReviewForm} />
+      </Modal>
+    );
+  }
 
   return waitingLoadApp ? (
     <View style={styles.containerAwaitingLoad}>
@@ -459,6 +494,7 @@ const RootComponent = ({ children }) => {
       {children}
       {renderPopupUpdate()}
       {renderCustomPopupError()}
+      {renderReviewPaymentPopup()}
     </View>
   );
 };
