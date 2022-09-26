@@ -188,30 +188,23 @@ export default function index(props) {
   };
 
   const conditionBooking = () => {
-    const date_tz =
-      merchant_detail.timezone && merchant_detail.timezone !== '0'
-        ? moment()
-            .tz(merchant_detail.timezone.substring(12))
-            .format('YYYY-MM-DD')
-        : moment().format('YYYY-MM-DD');
-
     let currentTime = moment();
     if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
       currentTime = moment().tz(merchant_detail.timezone.substring(12));
     }
-
+    // console.log(currentTime.format('LLL'));
     let startTime = moment(fromTime);
-    if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
-      startTime = moment(fromTime).tz(merchant_detail.timezone.substring(12));
-    }
+    // if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
+    //   startTime = moment(fromTime).tz(merchant_detail.timezone.substring(12));
+    // }
+    // console.log(startTime.format('LLL'));
 
-    if (currentTime.format('YYYY-MM-DD') == date_tz) {
-      if (staffId !== -1) {
-        if (currentTime.isAfter(startTime)) {
-          return false;
-        }
+    if (staffId !== -1) {
+      if (currentTime.isAfter(startTime, 'dates')) {
+        return false;
       }
     }
+
     return true;
   };
 

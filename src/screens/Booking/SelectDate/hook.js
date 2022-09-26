@@ -92,6 +92,7 @@ export default function useHook() {
 
   const onChangeDay = date => {
     dispatch(actions.bookingAction.selectDay(date.dateString));
+
     const body = {
       date: date.dateString,
       merchantId,
@@ -104,6 +105,7 @@ export default function useHook() {
   const reviewConfirmAction = () => {
     let date = moment(day).format('YYYY-MM-DD');
     date = `${date}T${timePicker}`;
+    console.log(date);
     dispatch(actions.bookingAction.selectDate(date));
 
     dispatch(actions.bookingAction.setReview(true));
