@@ -53,6 +53,7 @@ export const HarmonyCard = ({ cardId }) => {
       duration: 350,
     }).start();
   };
+
   const flipToBack = () => {
     Animated.timing(flipAnimation, {
       toValue: 0,
@@ -79,6 +80,15 @@ export const HarmonyCard = ({ cardId }) => {
     timer.current = setInterval(() => {
       setCounter(prev => prev - 1);
     }, 1000);
+  };
+
+  const formatSecond = value => {
+    const min = Math.floor(value / 60);
+    if (min >= 1) {
+      return `${min}:${value - min * 60}`;
+    } else {
+      return `${value}`;
+    }
   };
 
   React.useEffect(() => {
@@ -163,12 +173,13 @@ export const HarmonyCard = ({ cardId }) => {
                 alignItems: 'center',
                 height: scaleHeight(20),
               }}>
-              <Text style={styles.codeExpireText}>{`expire in`}</Text>
+              <Text style={styles.codeExpireText}>{`expire in `}</Text>
               <View
                 style={{
-                  width: scaleWidth(25),
+                  // width: scaleWidth(50),
                   alignItems: 'center',
                   justifyContent: 'center',
+                  paddingHorizontal: scaleWidth(4),
                 }}>
                 <Text
                   style={[
@@ -178,7 +189,7 @@ export const HarmonyCard = ({ cardId }) => {
                       fontSize: scaleFont(14),
                       fontWeight: '500',
                     },
-                  ]}>{`${counter ?? 0}`}</Text>
+                  ]}>{`${formatSecond(counter ?? 0)}`}</Text>
               </View>
               <Text style={styles.codeExpireText}>{`seconds`}</Text>
             </View>

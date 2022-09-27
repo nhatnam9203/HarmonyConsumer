@@ -323,10 +323,6 @@ export default function index(props) {
 
   const isMakeDeposit = React.useCallback(() => {
     const total = totalPriceToFloat(services, extras, products);
-    console.log(total);
-    console.log(
-      formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit),
-    );
 
     return (
       isAppointmentDeposit &&
