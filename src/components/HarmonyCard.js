@@ -132,7 +132,7 @@ export const HarmonyCard = ({ cardId }) => {
               style={{
                 flex: 0,
               }}>
-              <QRCode value={`${token ?? 'none'}`} size={150} />
+              <QRCode value={`${token ?? 'none'}`} size={scaleHeight(150)} />
               {getUserCardLoading && (
                 <View
                   style={{
@@ -218,7 +218,7 @@ const NoticeText = React.memo(() => {
 const styles = StyleSheet.create({
   container: {
     width: scaleWidth(382),
-    height: scaleHeight(232),
+    height: scaleHeight(250),
     shadowColor: 'rgba(0, 0, 0, 0.16)',
     shadowOffset: {
       width: 0,
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 1,
     elevation: 3,
+    padding: 2,
   },
 
   imageCard: {
@@ -239,9 +240,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+
     overflow: 'hidden',
     borderRadius: scaleWidth(6),
-    backgroundColor: '#fff',
   },
 
   amountContent: {
@@ -269,9 +271,7 @@ const styles = StyleSheet.create({
     color: '#2ebe03',
   },
 
-  cardWrapper: {
-    margin: scaleWidth(5),
-  },
+  cardWrapper: {},
   cardFront: {
     // position: 'absolute',
     backfaceVisibility: 'hidden',
