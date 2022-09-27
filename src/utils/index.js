@@ -291,6 +291,26 @@ export function convertExtraInservice2(extras, service) {
   }
 }
 
+export const totalPriceToFloat = (
+  services = [],
+  extras = [],
+  products = [],
+) => {
+  let total = 0;
+  for (let i = 0; i < services.length; i++) {
+    total += parseFloat(services[i].price.toString().replace(',', ''));
+  }
+  for (let i = 0; i < extras.length; i++) {
+    total += parseFloat(extras[i].price.toString().replace(',', ''));
+  }
+  for (let i = 0; i < products.length; i++) {
+    total +=
+      parseFloat(products[i].price.toString().replace(',', '')) *
+      parseInt(products[i].quantity);
+  }
+  return parseFloat(total).toFixed(2);
+};
+
 export const totalPrice = (services = [], extras = [], products = []) => {
   let total = 0;
   for (let i = 0; i < services.length; i++) {
