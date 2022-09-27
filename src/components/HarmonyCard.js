@@ -65,7 +65,7 @@ export const HarmonyCard = ({ cardId }) => {
     enabled: false,
     onSuccess: (data, response) => {
       setCard(data);
-      startTimer(data?.expireTime ?? DEFAULT_TIMEOUT);
+      startTimer((data?.expireTime ?? DEFAULT_TIMEOUT) - MIN_COUNTER);
     },
   });
 
@@ -88,7 +88,7 @@ export const HarmonyCard = ({ cardId }) => {
   }, []);
 
   React.useEffect(() => {
-    if (counter <= MIN_COUNTER) {
+    if (counter <= 1) {
       clearTimer();
       if (cardId) {
         getUserCard();
