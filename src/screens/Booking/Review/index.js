@@ -15,7 +15,7 @@ import { adapterExtrasEdit, notesEdit } from './helper';
 import ItemList from './ItemList';
 import StoreInfo from './StoreInfo';
 import styles from './styles';
-import { totalPrice } from 'utils';
+import { totalPriceToFloat } from 'utils';
 import { formatNumberFromCurrency } from 'utils';
 import { useCancelAppointment } from '../useCancelAppointment';
 
@@ -322,7 +322,11 @@ export default function index(props) {
   };
 
   const isMakeDeposit = React.useCallback(() => {
-    const total = totalPrice(services, extras, products);
+    const total = totalPriceToFloat(services, extras, products);
+    console.log(total);
+    console.log(
+      formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit),
+    );
 
     return (
       isAppointmentDeposit &&
