@@ -14,6 +14,7 @@ import QRCode from 'react-native-qrcode-svg';
 import { useSelector } from 'react-redux';
 
 const DEFAULT_TIMEOUT = 5 * 60; // seconds
+const MIN_COUNTER = 10; // seconds
 
 export const HarmonyCard = ({ cardId }) => {
   const timer = React.useRef(null);
@@ -87,7 +88,7 @@ export const HarmonyCard = ({ cardId }) => {
   }, []);
 
   React.useEffect(() => {
-    if (counter <= 0) {
+    if (counter <= MIN_COUNTER) {
       clearTimer();
       if (cardId) {
         getUserCard();
