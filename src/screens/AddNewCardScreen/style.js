@@ -70,6 +70,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  viewMerchant: {
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+  },
+  textSelectMerchant: {
+    marginTop: scaleSize(10),
+    marginLeft: scaleSize(10)
+  },
+  search_bar: {
+    marginTop: scaleSize(15),
+    marginBottom: scaleSize(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
