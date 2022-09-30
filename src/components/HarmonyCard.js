@@ -1,12 +1,27 @@
 import { getUserCardById, useAxiosQuery } from '@apis';
 import ICONS from 'assets';
 import React from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Animated,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import QRCode from 'react-native-qrcode-svg';
 import { useSelector } from 'react-redux';
 
+const DEFAULT_TIMEOUT = 5 * 60; // seconds
+const MIN_COUNTER = 10; // seconds
+
 export const HarmonyCard = ({ cardId }) => {
+  const timer = React.useRef(null);
+  const card_detail = useSelector(state => state.cardReducer.card_detail);
+  const [card, setCard] = React.useState(null);
+  const [counter, setCounter] = React.useState(null);
+
   const flipAnimation = React.useRef(new Animated.Value(0)).current;
   let flipRotation = 0;
   flipAnimation.addListener(({ value }) => (flipRotation = value));
@@ -45,17 +60,41 @@ export const HarmonyCard = ({ cardId }) => {
     }).start();
   };
 
-  const [loading, getUserCard] = useAxiosQuery({
+  const [{ isLoading: getUserCardLoading }, getUserCard] = useAxiosQuery({
     ...getUserCardById(cardId),
     enabled: false,
     onSuccess: (data, response) => {
       setCard(data);
+      startTimer((data?.expireTime ?? DEFAULT_TIMEOUT) - MIN_COUNTER);
     },
   });
 
-  const card_detail = useSelector(state => state.cardReducer.card_detail);
+  const clearTimer = () => {
+    // Handle an undefined timer rather than null
+    timer.current !== undefined ? clearInterval(timer.current) : null;
+  };
 
-  const [card, setCard] = React.useState(null);
+  const startTimer = time => {
+    setCounter(time);
+    timer.current = setInterval(() => {
+      setCounter(prev => prev - 1);
+    }, 1000);
+  };
+
+  React.useEffect(() => {
+    return () => {
+      clearTimer();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (counter <= 1) {
+      clearTimer();
+      if (cardId) {
+        getUserCard();
+      }
+    }
+  }, [counter]);
 
   React.useEffect(() => {
     if (cardId) {
@@ -87,9 +126,63 @@ export const HarmonyCard = ({ cardId }) => {
         <Animated.View
           style={[styles.container, styles.cardBack, flipToBackStyle]}>
           <View style={styles.content}>
-            <QRCode value={`${token ?? 'none'}`} size={150} />
+            {/* <Text style={styles.paymentCodeText}>{'Payment code'}</Text>
+            <View style={styles.margin} /> */}
+
+            <View
+              style={{
+                flex: 0,
+              }}>
+              <QRCode value={`${token ?? 'none'}`} size={scaleHeight(150)} />
+              {getUserCardLoading && (
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: '#fffd',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <ActivityIndicator
+                    loading={getUserCardLoading}
+                    size={'small'}
+                    color={'#0764B0'}
+                  />
+                </View>
+              )}
+            </View>
             <View style={styles.margin} />
-            <Text style={styles.paymentCodeText}>{'Payment code'}</Text>
+            <Text style={styles.paymentCodeText}>Payment code</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: scaleHeight(20),
+              }}>
+              <Text style={styles.codeExpireText}>{`expire in`}</Text>
+              <View
+                style={{
+                  width: scaleWidth(25),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={[
+                    styles.codeExpireText,
+                    {
+                      color: counter <= 10 ? 'red' : '#0764B0',
+                      fontSize: scaleFont(14),
+                      fontWeight: '500',
+                    },
+                  ]}>{`${counter ?? 0}`}</Text>
+              </View>
+              <Text style={styles.codeExpireText}>{`seconds`}</Text>
+            </View>
+
             <View
               style={[
                 styles.amountContent,
@@ -126,7 +219,7 @@ const NoticeText = React.memo(() => {
 const styles = StyleSheet.create({
   container: {
     width: scaleWidth(382),
-    height: scaleHeight(232),
+    height: scaleHeight(250),
     shadowColor: 'rgba(0, 0, 0, 0.16)',
     shadowOffset: {
       width: 0,
@@ -135,6 +228,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 1,
     elevation: 3,
+    padding: 2,
   },
 
   imageCard: {
@@ -147,9 +241,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+
     overflow: 'hidden',
     borderRadius: scaleWidth(6),
-    backgroundColor: '#fff',
   },
 
   amountContent: {
@@ -186,13 +281,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backfaceVisibility: 'hidden',
   },
+
   paymentCodeText: {
-    fontSize: scaleFont(15),
+    fontSize: scaleFont(17),
     fontWeight: '500',
     fontStyle: 'normal',
     letterSpacing: 0,
     textAlign: 'center',
-    color: '#585858',
+    color: '#484848',
+  },
+
+  codeExpireText: {
+    fontSize: scaleFont(12),
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '#484848',
   },
 
   margin: {
