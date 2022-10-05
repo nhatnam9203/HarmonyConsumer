@@ -84,6 +84,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  rowText: {
+    fontSize: scaleSize(15)
+  },
+  rowView: {
+    margin: scaleSize(10),
+  },
+  flatlistView: {
+    height: scaleSize(200)
+  }
 });
 
 export default styles;

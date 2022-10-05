@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, TouchableOpacity, FlatList } from "react-native";
+import { View, Image, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +33,8 @@ export default function index(props) {
   const [page, setPage] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [listMerchant, setListMerchant] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [selectMerchant, setSelectMerchant] = React.useState(null);
 
   const typingTimeoutRef = React.useRef();
 
@@ -40,11 +42,18 @@ export default function index(props) {
     ...getMerchantList(key, page),
     enabled: false,
     onSuccess: (data, response) => {
+      console.log('page', page)
       console.log('onSuccess', data)
+      setIsLoading(false);
+      setTotalPage(response?.pages);
+      
       if(page == 1) {
+        console.log('data page 1')
         setListMerchant(data);
       } else {
-        const merchants = listMerchant.push(data);
+        let merchants = listMerchant
+        merchants.push(...data);
+        console.log('merchants', merchants)
         setListMerchant(merchants);
       }
     },
@@ -113,21 +122,46 @@ export default function index(props) {
       }
       typingTimeoutRef.current = setTimeout(() => {
         setPage(1);
-        getMerchantListData();
       }, 300);
     },
     [key],
   );
 
+  const onPressMerchant = (merchant) => {
+  }
+
   const renderItem = (item) =>{
     return(
-      <View>
-        {item?.businessName &&
-          <Text>
-            {item?.businessName}
+      <TouchableOpacity 
+        style={styles.rowView}
+        onPress={() => onPressMerchant(item?.item)}>
+        {item?.item?.businessName &&
+          <Text style={styles.rowText}>
+            {item?.item?.businessName}
           </Text>
         }
-      </View>
+      </TouchableOpacity>
+    )
+  }
+
+  React.useEffect(()=>{
+      getMerchantListData();
+  },[page])
+
+  const onLoadMoreMerchant = () => {
+    if (page == totalPage || isLoading) return;
+
+    setIsLoading(true);
+    const nextPage = page + 1;
+    setPage(nextPage);
+  }
+
+  const renderFooterMerchantList = () => {
+    return (
+      page != totalPage &&
+      <ActivityIndicator
+      size={'small'}
+      color={'#646464'}/>
     )
   }
 
@@ -189,14 +223,22 @@ export default function index(props) {
               width={382}
               value={key}
               onChangeText={onHandleChangeKey}
-              autoFocus={true}
+              autoFocus={false}
             />
           </View>
-          <FlatList
-            data={listMerchant || []}
-            renderItem={(item)=> renderItem(item)}
-            keyExtractor={(_, index) => index.toString()}
-          />
+            
+          <View 
+            style={styles.flatlistView}>
+            <FlatList
+              data={listMerchant || []}
+              renderItem={(item)=> renderItem(item)}
+              keyExtractor={(_, index) => index.toString()}
+              onEndReached={()=>{onLoadMoreMerchant()}}
+              ListFooterComponent={renderFooterMerchantList()}
+              onEndReachedThreshold={0.1}
+            />
+          </View>
+          
         </View>
         
         <TouchableOpacity
