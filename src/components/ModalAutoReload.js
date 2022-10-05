@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, Dimensions, View, Image, ScrollView, Keyboard, Platform } from "react-native";
-
 import * as RootNavigation from "navigations/RootNavigation";
 import { formatMoney, isEmpty, scaleSize, getImageCard, FormatPrice } from "utils";
 import ICONS from "assets";
@@ -100,7 +99,6 @@ export default function ModalAutoReload({
 
   const onHandleSubmit = () => {
     Keyboard.dismiss();
-
     setTimeout(() => {
       let body = {
         autoReloadAmount: amount,
@@ -134,6 +132,7 @@ export default function ModalAutoReload({
 
   const onRequestClosePopup = () => {
     Keyboard.dismiss();
+    setKeyboardHeight(0);
     setTimeout(() => {
       onRequestClose();
     }, 200)
