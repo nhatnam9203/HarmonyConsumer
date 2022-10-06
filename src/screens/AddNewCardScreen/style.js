@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     margin: scaleSize(10),
   },
   flatlistView: {
-    height: scaleSize(200)
+    
   }
 });
 

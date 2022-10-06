@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMerchantList, useAxiosQuery } from '@apis';
 import actions from "@redux/actions";
 import ICONS from "assets";
+import { scaleSize } from 'utils';
 import {
   Text,
   Button,
@@ -116,6 +117,7 @@ export default function index(props) {
 
   const onHandleChangeKey = React.useCallback(
     (value) => {
+      console.log('onHandleChangeKey', value)
       setKey(value);
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
@@ -146,7 +148,7 @@ export default function index(props) {
 
   React.useEffect(()=>{
       getMerchantListData();
-  },[page])
+  },[page, key])
 
   const onLoadMoreMerchant = () => {
     if (page == totalPage || isLoading) return;
@@ -164,6 +166,8 @@ export default function index(props) {
       color={'#646464'}/>
     )
   }
+
+  const heightFlatlist = listMerchant && listMerchant.length>0 ? 200 : 0;
 
   return (
     <View style={styles.container}>
@@ -226,9 +230,9 @@ export default function index(props) {
               autoFocus={false}
             />
           </View>
-            
+          
           <View 
-            style={styles.flatlistView}>
+            style={[styles.flatlistView, { height: scaleSize(heightFlatlist)}]}>
             <FlatList
               data={listMerchant || []}
               renderItem={(item)=> renderItem(item)}
