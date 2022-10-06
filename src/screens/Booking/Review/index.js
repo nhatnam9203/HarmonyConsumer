@@ -194,12 +194,7 @@ export default function index(props) {
     if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
       currentTime = moment().tz(merchant_detail.timezone.substring(12));
     }
-    // console.log(currentTime.format('LLL'));
     let startTime = moment(fromTime);
-    // if (merchant_detail.timezone && merchant_detail.timezone !== '0') {
-    //   startTime = moment(fromTime).tz(merchant_detail.timezone.substring(12));
-    // }
-    // console.log(startTime.format('LLL'));
 
     if (staffId !== -1) {
       if (currentTime.isAfter(startTime, 'dates')) {
@@ -280,7 +275,6 @@ export default function index(props) {
   const onButtonConfirmPress = () => {
     if (isMakeDeposit()) {
       if (isEditAppointment) {
-
         const end = moment(fromTime).add(
           totalDuration(services, extras),
           'minutes',

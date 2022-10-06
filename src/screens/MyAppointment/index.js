@@ -39,6 +39,15 @@ export default function index(props) {
     );
   }, []);
 
+  React.useEffect(() => {
+    if (
+      (appointmentUpcoming?.length > 0 || appointmentPast?.length > 0) &&
+      firstLoading
+    ) {
+      setFirstLoading(false);
+    }
+  }, [appointmentUpcoming, appointmentPast, firstLoading]);
+
   const afterLoadAppointment = status => {
     if (status == false) {
       setTimeout(() => {
