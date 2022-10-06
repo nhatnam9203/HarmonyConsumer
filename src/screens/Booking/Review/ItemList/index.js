@@ -1,29 +1,40 @@
-import React, { useState } from "react";
-import { Text, Loading } from "components";
-import images from "assets";
-import Image from "react-native-fast-image";
-import { useDispatch, useSelector } from "react-redux";
-import actions from "@redux/actions";
-import * as RootNavigation from "navigations/RootNavigation";
-import { findExtraEdit } from "../helper";
-import Service from "./Service";
-import Product from "./Product";
-import styles from "./styles";
+import React, { useState } from 'react';
+import { Text, Loading } from 'components';
+import images from 'assets';
+import Image from 'react-native-fast-image';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '@redux/actions';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { findExtraEdit } from '../helper';
+import Service from './Service';
+import Product from './Product';
+import styles from './styles';
 
 export default function index(props) {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const staff_by_merchant = useSelector((state) => state.staffReducer.staff_by_merchant);
-  const token = useSelector((state) => state.datalocalReducer.token);
+  const staff_by_merchant = useSelector(
+    state => state.staffReducer.staff_by_merchant,
+  );
+  const token = useSelector(state => state.datalocalReducer.token);
   const appointment_detail_customer = useSelector(
-    (state) => state.appointmentReducer.appointment_detail_customer,
+    state => state.appointmentReducer.appointment_detail_customer,
   );
   const { isDisabled } = appointment_detail_customer;
-  const bookingReducer = useSelector((state) => state.bookingReducer);
-  const { appointmentId } = appointment_detail_customer ? appointment_detail_customer : "";
-  const { services = [], products = [], extras = [], isEditAppointment } = props;
-  const services_store = useSelector((state) => state.appointmentReducer.services);
+  const bookingReducer = useSelector(state => state.bookingReducer);
+  const { appointmentId } = appointment_detail_customer
+    ? appointment_detail_customer
+    : '';
+  const {
+    services = [],
+    products = [],
+    extras = [],
+    isEditAppointment,
+  } = props;
+  const services_store = useSelector(
+    state => state.appointmentReducer.services,
+  );
 
   const deleteItemFromServer = (body, item) => {
     setLoading(true);
@@ -38,7 +49,7 @@ export default function index(props) {
     );
   };
 
-  const deleteItemSuccess = (item) => {
+  const deleteItemSuccess = item => {
     setLoading(false);
     if (item && item.serviceId) {
       dispatch(actions.bookingAction.deleteServiceSuccess(item));
@@ -50,7 +61,7 @@ export default function index(props) {
 
   const deleteItem = (item, type) => {
     switch (type) {
-      case "service":
+      case 'service':
         if (!isEditAppointment) {
           dispatch(actions.bookingAction.deleteService(item));
         } else {
@@ -63,7 +74,7 @@ export default function index(props) {
         }
         break;
 
-      case "product":
+      case 'product':
         if (!isEditAppointment) {
           dispatch(actions.bookingAction.deleteProduct(item));
         } else {
@@ -82,26 +93,28 @@ export default function index(props) {
   };
 
   /* navigate to Select Service, Extra  */
-  const editExtra = (sv) => {
+  const editExtra = sv => {
     const extrasOfService = isEditAppointment
-      ? findExtraEdit(sv, bookingReducer.extras, services_store)
-      : bookingReducer.extras.filter((ex) => ex.serviceId === sv.serviceId);
+      ? findExtraEdit(sv, bookingReducer.extras, [...services_store])
+      : bookingReducer.extras.filter(ex => ex.serviceId === sv.serviceId);
 
     let item = isEditAppointment
-      ? services_store.find((obj) => obj.serviceId === sv.serviceId)
+      ? services_store?.find(obj => obj.serviceId === sv.serviceId)
       : sv;
 
     dispatch(actions.bookingAction.setReview(true));
-    RootNavigation.navigate("ItemAppointment", { item, extrasOfService });
+    RootNavigation.navigate('ItemAppointment', { item, extrasOfService });
   };
 
   function renderProducts() {
     let productsMap = !isEditAppointment ? [...products] : products;
     return productsMap.map((pro, index) => {
-      const renderImg = pro.imageUrl ? { uri: pro.imageUrl } : images.service_holder;
+      const renderImg = pro.imageUrl
+        ? { uri: pro.imageUrl }
+        : images.service_holder;
       return (
         <Product
-          key={"product" + pro.productId + Math.random()}
+          key={'product' + pro.productId + Math.random()}
           sv={pro}
           renderImg={renderImg}
           index={index}
@@ -122,7 +135,7 @@ export default function index(props) {
 
       return (
         <Service
-          key={"service" + pro.serviceId + Math.random()}
+          key={'service' + pro.serviceId + Math.random()}
           sv={pro}
           renderImg={renderImg}
           index={index}

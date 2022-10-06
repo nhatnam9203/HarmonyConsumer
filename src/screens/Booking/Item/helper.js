@@ -21,7 +21,7 @@ export const totalDuration = (services = [], extras = []) => {
     total += services[i].duration;
   }
   for (let i = 0; i < extras.length; i++) {
-    if (extras?.length >= i && extras[i].isCheck) {
+    if (extras?.length >= i && extras[i]?.isCheck) {
       total += extras[i].duration;
     }
   }
@@ -58,7 +58,7 @@ export const extrasAdapter = (extras = [], extrasAdd = []) => {
     );
     if (index !== -1 && tempArr?.length > index) {
       tempArr[index] = Object.assign({}, tempArr[index], {
-        isCheck: extrasAdd[i].isCheck,
+        isCheck: extrasAdd[i]?.isCheck,
       });
     }
   }

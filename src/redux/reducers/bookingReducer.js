@@ -62,18 +62,17 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
       };
 
     case 'SELECT_DATE':
-      if (state.services.length > 0) {
-        let firstService = state.services[0];
-        if (firstService) {
-          firstService = Object.assign({}, firstService, {
-            fromTime: action.payload,
-          });
-          // services
-        }
-      }
+      // if (state.services.length > 0) {
+      //   let firstService = state.services[0];
+      //   if (firstService) {
+      //     firstService = Object.assign({}, firstService, {
+      //       fromTime: action.payload,
+      //     });
+      //   }
+      // }
       return {
         ...state,
-        services: state.services.map((x, idx) =>
+        services: [...(state.services ?? [])]?.map((x, idx) =>
           idx === 0 ? Object.assign({}, x, { fromTime: action.payload }) : x,
         ),
         fromTime: action.payload,

@@ -99,13 +99,14 @@ export default function useHook() {
       appointmentId: 0,
       timezone,
     };
+
     dispatch(actions.staffAction.staffGetAvaiableTime(staffId, token, body));
   };
   /** */
   const reviewConfirmAction = () => {
     let date = moment(day).format('YYYY-MM-DD');
     date = `${date}T${timePicker}`;
-    console.log(date);
+
     dispatch(actions.bookingAction.selectDate(date));
 
     dispatch(actions.bookingAction.setReview(true));

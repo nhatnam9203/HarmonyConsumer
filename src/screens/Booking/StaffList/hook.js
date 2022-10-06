@@ -14,7 +14,9 @@ export default function hook(props) {
   let _staffId = useSelector((state) => state.bookingReducer.staffId);
   const { isAddmore, status, day } = useSelector((state) => state.bookingReducer);
   const merchant_detail = useSelector((state) => state.storeReducer.merchant_detail);
-
+  const appointment_detail_customer = useSelector(
+    state => state.appointmentReducer.appointment_detail_customer,
+  );
   const { item, tempServices, isProduct } = props.route.params;
 
   const { merchantId } = merchant_detail;

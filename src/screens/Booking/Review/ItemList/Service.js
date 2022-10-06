@@ -37,12 +37,12 @@ export default function Service({
   ];
 
   const _extras = isEditAppointment
-    ? extras.filter(
+    ? extras?.filter(
         (obj) =>
           (obj.bookingServiceId === sv.bookingServiceId || obj.serviceId === sv.serviceId) &&
           obj.isCheck,
       )
-    : extras.filter((obj) => obj.serviceId === sv.serviceId && obj.isCheck);
+    : extras?.filter((obj) => obj.serviceId === sv.serviceId && obj.isCheck);
 
   const name = sv.name ? sv.name : sv.serviceName;
   const title = findStaffOfService(sv.staffId, staff_by_merchant);

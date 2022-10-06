@@ -106,7 +106,7 @@ function dataLocalReducer(state = initialState, action) {
     case "CHECK_EDIT":
       return {
         ...state,
-        isCheckEdit: action.isCheckEdit,
+        isCheckEdit: action?.isCheckEdit,
       };
 
     default:

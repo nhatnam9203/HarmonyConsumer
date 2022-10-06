@@ -136,7 +136,7 @@ export default function index(props) {
       const body = {
         services: [...services],
         products,
-        extras: extras.filter(obj => obj.isCheck === true),
+        extras: extras?.filter(obj => obj.isCheck === true),
         fromTime: staffId === -1 ? timezoneBooking : fromTime,
         merchantId: merchantId,
         userId,

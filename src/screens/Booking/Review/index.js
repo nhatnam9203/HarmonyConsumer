@@ -135,9 +135,11 @@ export default function index(props) {
     RootNavigation.navigate('AddNote');
   };
 
+  // add more service
   const addMore = () => {
     dispatch(actions.bookingAction.setReview(false));
     dispatch(actions.bookingAction.setAddmore(true));
+
     if (services.length + products.length + extras.length === 0) {
       if (appointment_detail_customer.status == 'waiting') {
         dispatch(
@@ -209,7 +211,6 @@ export default function index(props) {
   };
 
   const bookAppointment = () => {
-    // console.log("=======review====== bookAppointment");
     if (conditionBooking()) {
       const end = moment(fromTime).add(
         totalDuration(services, extras),
@@ -218,7 +219,7 @@ export default function index(props) {
       const body = {
         services: [...services],
         products,
-        extras: extras.filter(obj => obj.isCheck === true),
+        extras: extras?.filter(obj => obj.isCheck === true),
         fromTime: staffId === -1 ? timezoneBooking : fromTime,
         merchantId: merchantId,
         userId,
@@ -278,7 +279,40 @@ export default function index(props) {
 
   const onButtonConfirmPress = () => {
     if (isMakeDeposit()) {
-      if (conditionBooking()) {
+      if (isEditAppointment) {
+        console.log('isMakeDeposit edit ');
+
+        const end = moment(fromTime).add(
+          totalDuration(services, extras),
+          'minutes',
+        );
+        const body = {
+          staffId: appointment_detail_customer.staffId,
+          services: [...services],
+          products,
+          extras: adapterExtrasEdit(extras),
+          fromTime: fromTime,
+          toTime: `${moment(end).format('YYYY-MM-DD')}T${moment(end).format(
+            'HH:mm:ss',
+          )}`,
+          giftCards: appointment_detail_customer.giftCards,
+          notes: notesEdit(appointment_detail_customer.notes, noteValue),
+          merchantId: merchantId,
+          status: staffId === -1 ? 'waiting' : 'unconfirm',
+        };
+
+        dispatch({ type: 'START_FETCH_API' });
+        dispatch(
+          actions.appointmentAction.updateAppointment(
+            body,
+            token,
+            appointment_detail_customer.appointmentId,
+            () => {
+              getAppointment(appointment_detail_customer.appointmentId);
+            },
+          ),
+        );
+      } else if (conditionBooking()) {
         const end = moment(fromTime).add(
           totalDuration(services, extras),
           'minutes',
@@ -286,7 +320,7 @@ export default function index(props) {
         const body = {
           services: [...services],
           products,
-          extras: extras.filter(obj => obj.isCheck === true),
+          extras: extras?.filter(obj => obj.isCheck === true),
           fromTime: staffId === -1 ? timezoneBooking : fromTime,
           merchantId: merchantId,
           userId,
@@ -316,17 +350,20 @@ export default function index(props) {
 
   const isMakeDeposit = React.useCallback(() => {
     const total = totalPriceToFloat(services, extras, products);
-    console.log(total);
-    console.log(
-      formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit),
-    );
 
     return (
       isAppointmentDeposit &&
-      !isEditAppointment &&
+      parseFloat(appointment_detail_customer?.depositAmount ?? 0) <= 0 &&
       total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
     );
-  }, [isAppointmentDeposit, isEditAppointment, services, extras, products]);
+  }, [
+    isAppointmentDeposit,
+    isEditAppointment,
+    services,
+    extras,
+    products,
+    appointment_detail_customer?.depositAmount,
+  ]);
 
   return (
     <View style={{ flex: 1 }}>

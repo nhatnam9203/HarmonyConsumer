@@ -76,7 +76,7 @@ export default function hook(props) {
       let extraUpdate = [...tempExtras];
       const isExistExtra = extraUpdate[index];
       const newExtra = Object.assign({}, isExistExtra, {
-        isCheck: !isExistExtra.isCheck,
+        isCheck: !isExistExtra?.isCheck,
       });
       extraUpdate[index] = newExtra;
       setExtras(extraUpdate);
@@ -123,6 +123,7 @@ export default function hook(props) {
       ...item,
       status: 1,
     };
+
     let tempServices = [...services];
     if (tempServices.length <= 0 && !service.fromTime) {
       service = Object.assign({}, service, { fromTime: fromTime });
@@ -135,7 +136,6 @@ export default function hook(props) {
     } else {
       dispatch(actions.bookingAction.addService(tempServices));
     }
-    // dispatch(actions.bookingAction.addService(tempServices));
   };
 
   const getStaffList = (serviceId, date = null) => {
@@ -193,10 +193,10 @@ export default function hook(props) {
       RootNavigationn.navigate('Review');
       dispatch(actions.bookingAction.setReview(false));
     } else {
-      RootNavigationn.navigate('StaffList', { item }); // add item with staff available
       if (item.serviceId) {
         getStaffList(item.serviceId);
       }
+      RootNavigationn.navigate('StaffList', { item }); // add item with staff available
     }
   };
 

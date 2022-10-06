@@ -13,18 +13,22 @@ export const totalDuration = (services, extras) => {
 //extrasOfService : tìm extra của service onPress
 export const findExtraEdit = (sv, extras, services_store) => {
   let extrasOfService = extras.filter(
-    (ex) =>
-      (ex.bookingServiceId === sv.bookingServiceId || ex.serviceId === sv.serviceId) && ex.isCheck,
+    ex =>
+      (ex.bookingServiceId === sv.bookingServiceId ||
+        ex.serviceId === sv.serviceId) &&
+      ex.isCheck,
   );
 
-  let item = services_store.find((obj) => obj.serviceId === sv.serviceId);
+  let item = services_store.find(obj => obj.serviceId === sv.serviceId);
   let extras_edit = [];
 
   if (item) {
     extras_edit = item.extras;
 
     for (let i = 0; i < item.extras.length; i++) {
-      const index = extrasOfService.findIndex((obj) => obj.extraId === item.extras[i].extraId);
+      const index = extrasOfService.findIndex(
+        obj => obj.extraId === item.extras[i].extraId,
+      );
       if (index !== -1) {
         extras_edit[i].isCheck = true;
       } else {
@@ -48,9 +52,9 @@ export const adapterExtrasEdit = (extras = []) => {
   return tempArr;
 };
 
-export const notesEdit = (notesAppointment = [], noteEdit = "") => {
+export const notesEdit = (notesAppointment = [], noteEdit = '') => {
   let arrTemp = [];
-  if (noteEdit.toString().trim() == "") {
+  if (noteEdit.toString().trim() == '') {
     arrTemp = notesAppointment;
   } else {
     arrTemp = [
