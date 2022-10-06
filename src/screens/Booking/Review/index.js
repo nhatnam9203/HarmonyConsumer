@@ -280,7 +280,6 @@ export default function index(props) {
   const onButtonConfirmPress = () => {
     if (isMakeDeposit()) {
       if (isEditAppointment) {
-        console.log('isMakeDeposit edit ');
 
         const end = moment(fromTime).add(
           totalDuration(services, extras),
