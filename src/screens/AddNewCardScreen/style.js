@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   button_submit: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     flex: 1,
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     marginBottom: scaleSize(30),
   },
   container: {
@@ -92,6 +92,17 @@ const styles = StyleSheet.create({
   },
   flatlistView: {
     
+  },
+  viewSelectMerchant: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: scaleSize(35),
+    marginTop: scaleSize(15),
+  },
+  textSelectMerchant: {
+    fontSize: scaleSize(15),
+    color:"#646464",
+    marginLeft: 10
   }
 });
 

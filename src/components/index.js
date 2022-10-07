@@ -40,8 +40,11 @@ import ImageProgressive from './ImageProgressive';
 import FocusAwareStatusBar from './FocusAwareStatusBar';
 import ModalBottomSelect2 from './ModalBottomSelect2';
 import { HarmonyCard } from './HarmonyCard';
+import CheckedBox from './CheckedBox';
+import SearchListMerchant from './SearchListMerchant';
 
 export {
+  SearchListMerchant,
   MoneyButton,
   Text,
   Button,
@@ -83,4 +86,5 @@ export {
   FocusAwareStatusBar,
   ModalBottomSelect2,
   HarmonyCard,
+  CheckedBox,
 };

@@ -7,6 +7,7 @@ import { getMerchantList, useAxiosQuery } from '@apis';
 import actions from "@redux/actions";
 import ICONS from "assets";
 import { scaleSize } from 'utils';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   Text,
   Button,
@@ -16,7 +17,8 @@ import {
   StatusBar,
   FocusAwareStatusBar,
   SearchBar,
-  CheckBox,
+  CheckedBox,
+  SearchListMerchant,
 } from "components";
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
@@ -36,43 +38,46 @@ export default function index(props) {
   const [listMerchant, setListMerchant] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [selectMerchant, setSelectMerchant] = React.useState(null);
+  const [isSearch, setIsSearch] = React.useState(false);
 
   const typingTimeoutRef = React.useRef();
+  const refSearchInput = React.useRef();
 
-  const [, getMerchantListData] = useAxiosQuery({
-    ...getMerchantList(key, page),
-    enabled: false,
-    onSuccess: (data, response) => {
-      console.log('page', page)
-      console.log('onSuccess', data)
-      setIsLoading(false);
-      setTotalPage(response?.pages);
+  // const [, getMerchantListData] = useAxiosQuery({
+  //   ...getMerchantList(key, page),
+  //   enabled: false,
+  //   onSuccess: (data, response) => {
+  //     console.log('page', page)
+  //     console.log('onSuccess', data)
+  //     setIsLoading(false);
+  //     setTotalPage(response?.pages);
       
-      if(page == 1) {
-        console.log('data page 1')
-        setListMerchant(data);
-      } else {
-        let merchants = listMerchant
-        merchants.push(...data);
-        console.log('merchants', merchants)
-        setListMerchant(merchants);
-      }
-    },
-  });
+  //     if(page == 1) {
+  //       console.log('data page 1')
+  //       setListMerchant(data);
+  //     } else {
+  //       let merchants = listMerchant
+  //       merchants.push(...data);
+  //       console.log('merchants', merchants)
+  //       setListMerchant(merchants);
+  //     }
+  //   },
+  // });
 
   const { values, touched, errors, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
       serialNumber: "",
     },
     validationSchema: yup.object().shape({
-      serialNumber: yup.string().required("enter your Serial number"),
+      serialNumber: isSelectGiftCard && 
+        yup.string().required("enter your Serial number"),
     }),
 
     onSubmit: (values) => onHandleSubmit(values),
   });
 
   const onHandleSubmit = (values) => {
-    let body = { ...values, isPrimaryCard: isPrimary ? 1 : 0 };
+    let body = { ...values, isPrimaryCard: isPrimary ? 1 : 0, merchantId: selectMerchant?.merchantId };
     dispatch(actions.cardAction.add_card(token, body));
   };
 
@@ -130,6 +135,7 @@ export default function index(props) {
   );
 
   const onPressMerchant = (merchant) => {
+    setSelectMerchant(merchant);
   }
 
   const renderItem = (item) =>{
@@ -146,28 +152,36 @@ export default function index(props) {
     )
   }
 
-  React.useEffect(()=>{
-      getMerchantListData();
-  },[page, key])
+  // React.useEffect(()=>{
+  //   if(searchFocus) {
+  //     getMerchantListData();
+  //   }
+  // },[page, key, searchFocus])
 
-  const onLoadMoreMerchant = () => {
-    if (page == totalPage || isLoading) return;
+  // const onLoadMoreMerchant = () => {
+  //   if (page == totalPage || isLoading) return;
 
-    setIsLoading(true);
-    const nextPage = page + 1;
-    setPage(nextPage);
+  //   setIsLoading(true);
+  //   const nextPage = page + 1;
+  //   setPage(nextPage);
+  // }
+
+  // const renderFooterMerchantList = () => {
+  //   return (
+  //     page != totalPage &&
+  //     <ActivityIndicator
+  //     size={'small'}
+  //     color={'#646464'}/>
+  //   )
+  // }
+
+  const onSearch = () => {
+    // console.log('refSearchInput', refSearchInput)
+    // refSearchInput?.current?.focus();
+    setIsSearch(true);
   }
 
-  const renderFooterMerchantList = () => {
-    return (
-      page != totalPage &&
-      <ActivityIndicator
-      size={'small'}
-      color={'#646464'}/>
-    )
-  }
-
-  const heightFlatlist = listMerchant && listMerchant.length>0 ? 200 : 0;
+  // const heightFlatlist = listMerchant && listMerchant.length>0 ? 200 : 0;
 
   return (
     <View style={styles.container}>
@@ -219,8 +233,18 @@ export default function index(props) {
           <Text style={[styles.textSelectMerchant, {color: isSelectStore ? "#0000" : "#bfbfbf"}]}>
             Select store to create card
           </Text>
-          <View style={styles.search_bar}>
+          <TouchableOpacity
+            onPress={onSearch}
+            activeOpacity={1}
+            style={styles.viewSelectMerchant}>
+            <Text style={styles.textSelectMerchant}>
+              {selectMerchant ? selectMerchant?.businessName : "Select store"}
+            </Text>
+            <Image source={ICONS.arrow_down}/>
+          </TouchableOpacity>
+          {/* <View style={styles.search_bar}>
             <SearchBar
+              refInput={refSearchInput}
               placeholder="Select store"
               placeholderTextColor="#646464"
               iconLeft={ICONS["searchbar"]}
@@ -230,26 +254,26 @@ export default function index(props) {
               autoFocus={false}
             />
           </View>
-          
-          <View 
-            style={[styles.flatlistView, { height: scaleSize(heightFlatlist)}]}>
-            <FlatList
-              data={listMerchant || []}
-              renderItem={(item)=> renderItem(item)}
-              keyExtractor={(_, index) => index.toString()}
-              onEndReached={()=>{onLoadMoreMerchant()}}
-              ListFooterComponent={renderFooterMerchantList()}
-              onEndReachedThreshold={0.1}
-            />
-          </View>
-          
+          {refSearchInput?.current?.isFocused &&
+            <View 
+              style={[styles.flatlistView, { height: scaleSize(heightFlatlist)}]}>
+              <FlatList
+                data={listMerchant || []}
+                renderItem={(item)=> renderItem(item)}
+                keyExtractor={(_, index) => index.toString()}
+                onEndReached={()=>{onLoadMoreMerchant()}}
+                ListFooterComponent={renderFooterMerchantList()}
+                onEndReachedThreshold={0.1}
+              />
+            </View>
+          } */}
         </View>
         
         <TouchableOpacity
           onPress={handleOnChangeValue}
           activeOpacity={1}
           style={styles.container_radio_button}>
-          <RadioButton onChangeValue={handleOnChangeValue} active={isPrimary} />
+          <CheckedBox onValueChange={handleOnChangeValue} checked={isPrimary} />
           <Text color="#0764B0" style={{ marginLeft: 10 }}>
             Make primary card
           </Text>
@@ -259,6 +283,10 @@ export default function index(props) {
           <ButtonSubmit title="Add card" onSubmit={handleSubmit} width={160} />
         </View>
       </View>
+      <SearchListMerchant
+        isVisible={isSearch}
+        onRequestClose={()=>{setIsSearch(false)}}
+        onSubmit={(merchant) => {onPressMerchant(merchant)}}/>
     </View>
   );
 }

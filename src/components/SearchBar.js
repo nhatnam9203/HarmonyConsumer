@@ -16,6 +16,7 @@ export default function SearchBar({
   onPressRight,
   onPressSearchList,
   isEditSelectCredit = 1,
+  refInput,
   ...props
 }) {
   return (
@@ -40,6 +41,7 @@ export default function SearchBar({
 
       {!onPressSearchList && (
         <TextInput
+          ref={refInput}
           style={{ fontSize: scaleSize(15), flex: 1, paddingVertical: scaleSize(0.5) }}
           value={value}
           onChangeText={onChangeText}
