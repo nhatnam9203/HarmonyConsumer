@@ -11,6 +11,7 @@ const ButtonList = ({
   invoice,
   onAddMoney,
   onAddCard,
+  isShowAddMoney,
 }) => {
   return (
     <View style={styleButtonList.container}>
@@ -19,7 +20,7 @@ const ButtonList = ({
         hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
         <Card
           height={scaleHeight(70)}
-          width={scaleWidth(120)}
+          width={isShowAddMoney ? scaleWidth(120) : scaleWidth(180)}
           borderRadius={6}
           style={styleButtonList.card}>
           <Image
@@ -30,25 +31,27 @@ const ButtonList = ({
         </Card>
       </Button>
 
-      <Button
-        onPress={onAddMoney}
-        hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-        <Card
-          height={scaleHeight(70)}
-          width={scaleWidth(120)}
-          borderRadius={6}
-          style={styleButtonList.card}>
-          <Image style={styleButtonList.icon} source={ICONS['addMoney']} />
-          <Text style={styleButtonList.textStyle}>Add money</Text>
-        </Card>
-      </Button>
+      {isShowAddMoney &&
+        <Button
+          onPress={onAddMoney}
+          hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
+          <Card
+            height={scaleHeight(70)}
+            width={scaleWidth(120)}
+            borderRadius={6}
+            style={styleButtonList.card}>
+            <Image style={styleButtonList.icon} source={ICONS['addMoney']} />
+            <Text style={styleButtonList.textStyle}>Add money</Text>
+          </Card>
+        </Button>
+      }
 
       <Button
         onPress={onAddCard}
         hitSlop={{ top: 0, left: 0, right: 0, bottom: 0 }}>
         <Card
           height={scaleHeight(70)}
-          width={scaleWidth(120)}
+          width={isShowAddMoney ? scaleWidth(120) : scaleWidth(180)}
           borderRadius={6}
           style={styleButtonList.card}>
           <Image style={styleButtonList.icon} source={ICONS['addCard']} />

@@ -37,12 +37,12 @@ export default function index(props) {
   const { values, touched, errors, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
       serialNumber: "",
-      merchantId: "",
+      merchantId: -1,
     },
     validationSchema: yup.object().shape({
       serialNumber: isSelectGiftCard && 
         yup.string().required("enter your Serial number"),
-      merchantId: isSelectStore && yup.string().required("Select store to create card"),
+      merchantId: isSelectStore && yup.number(-1).positive("Select store to create card"),
     }),
 
     onSubmit: (values) => onHandleSubmit(values),
@@ -51,7 +51,7 @@ export default function index(props) {
   const onHandleSubmit = (values) => {
     let body = { ...values, 
       isPrimaryCard: isPrimary ? 1 : 0, 
-      merchantId: isSelectStore ? selectMerchant?.merchantId : "",
+      merchantId: isSelectStore ? selectMerchant?.merchantId : -1,
       serialNumber: isSelectGiftCard ? values?.serialNumber : "" };
     dispatch(actions.cardAction.add_card(token, body));
   };
@@ -110,7 +110,7 @@ export default function index(props) {
 
   const onPressMerchant = (merchant) => {
     setSelectMerchant(merchant);
-    setFieldValue("merchantId", merchant?.businessName);
+    setFieldValue("merchantId", merchant?.merchantId);
   }
 
   const onSearch = () => {

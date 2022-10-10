@@ -228,6 +228,8 @@ export default function index(props) {
 
             <HarmonyCard cardId={userCardId} />
 
+            <Text style={styles.storeText}>Store: </Text>
+
             {/* ------------------ primary card ------------------ */}
             <BoxClick
               disabled={true}

@@ -85,6 +85,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  storeText: {
+    width: "100%",
+    textAlign: 'left',
+    fontSize: scaleSize(17)
+  },
+  merchantNameText: {
+    fontSize: scaleSize(17),
+    color: "#0764B0"
+  }
 });
 
 export default styles;

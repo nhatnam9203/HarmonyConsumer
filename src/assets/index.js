@@ -196,6 +196,7 @@ export default {
   mery_xmax: require('./BuyGifts/mery_xmax.png'),
   iloveyou: require('./BuyGifts/iloveyou.png'),
   thankyou: require('./BuyGifts/thankyou.png'),
+  welcome: require('./BuyGifts/welcome.png'),
 
   //-------------- Inbox ------------------//
   invoice_inbox: require('./Inbox/invoice_inbox.png'),
