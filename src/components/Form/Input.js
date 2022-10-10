@@ -22,6 +22,7 @@ export default function Input(props) {
     children,
     styleTextInput = {},
     styleLabel = {},
+    styleTextLable = {},
     contentContainerInput = {
       justifyContent: 'space-between',
       borderBottomWidth: 1,
@@ -47,7 +48,7 @@ export default function Input(props) {
           },
           contentContainerInput,
         ]}>
-        <Label label={label} isRequire={isRequire} style={styleLabel} />
+        <Label label={label} isRequire={isRequire} style={styleLabel} styleTextLable={styleTextLable}/>
         {type ? (
           <TextInputMask
             type={type}

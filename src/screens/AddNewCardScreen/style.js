@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
   viewMerchant: {
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
+    marginTop: scaleSize(15),
+    marginLeft: scaleSize(10),
   },
   textSelectMerchant: {
     marginTop: scaleSize(10),
@@ -96,13 +98,31 @@ const styles = StyleSheet.create({
   viewSelectMerchant: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: scaleSize(35),
     marginTop: scaleSize(15),
+    marginBottom: scaleSize(5),
+    width: '100%'
   },
   textSelectMerchant: {
     fontSize: scaleSize(15),
     color:"#646464",
-    marginLeft: 10
+  },
+  separatorLine: {
+    height: scaleSize(1),
+    backgroundColor: '#bfbfbf',
+    width: '100%',
+    marginLeft: scaleSize(10),
+  },
+  titleText: {
+    color: "#0764B0",
+    marginLeft: 10,
+    fontSize: scaleSize(15),
+  },
+  errorText:{
+    color: "red",
+    marginLeft: 10,
+    fontSize: scaleSize(13),
+    textAlign: 'left',
+    width: '100%'
   }
 });
 

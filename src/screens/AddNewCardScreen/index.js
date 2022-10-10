@@ -1,13 +1,10 @@
 import React from "react";
-import { View, Image, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
+import { View, Image, TouchableOpacity, } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { getMerchantList, useAxiosQuery } from '@apis';
 import actions from "@redux/actions";
 import ICONS from "assets";
-import { scaleSize } from 'utils';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   Text,
   Button,
@@ -16,7 +13,6 @@ import {
   RadioButton,
   StatusBar,
   FocusAwareStatusBar,
-  SearchBar,
   CheckedBox,
   SearchListMerchant,
 } from "components";
@@ -33,51 +29,30 @@ export default function index(props) {
   const [isSelectGiftCard, setIsSelectGiftCard] = React.useState(true);
   const [isSelectStore, setIsSelectStore] = React.useState(false);
   const [key, setKey] = React.useState("");
-  const [page, setPage] = React.useState(1);
-  const [totalPage, setTotalPage] = React.useState(0);
-  const [listMerchant, setListMerchant] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
   const [selectMerchant, setSelectMerchant] = React.useState(null);
   const [isSearch, setIsSearch] = React.useState(false);
 
   const typingTimeoutRef = React.useRef();
-  const refSearchInput = React.useRef();
-
-  // const [, getMerchantListData] = useAxiosQuery({
-  //   ...getMerchantList(key, page),
-  //   enabled: false,
-  //   onSuccess: (data, response) => {
-  //     console.log('page', page)
-  //     console.log('onSuccess', data)
-  //     setIsLoading(false);
-  //     setTotalPage(response?.pages);
-      
-  //     if(page == 1) {
-  //       console.log('data page 1')
-  //       setListMerchant(data);
-  //     } else {
-  //       let merchants = listMerchant
-  //       merchants.push(...data);
-  //       console.log('merchants', merchants)
-  //       setListMerchant(merchants);
-  //     }
-  //   },
-  // });
 
   const { values, touched, errors, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
       serialNumber: "",
+      merchantId: "",
     },
     validationSchema: yup.object().shape({
       serialNumber: isSelectGiftCard && 
         yup.string().required("enter your Serial number"),
+      merchantId: isSelectStore && yup.string().required("Select store to create card"),
     }),
 
     onSubmit: (values) => onHandleSubmit(values),
   });
 
   const onHandleSubmit = (values) => {
-    let body = { ...values, isPrimaryCard: isPrimary ? 1 : 0, merchantId: selectMerchant?.merchantId };
+    let body = { ...values, 
+      isPrimaryCard: isPrimary ? 1 : 0, 
+      merchantId: isSelectStore ? selectMerchant?.merchantId : "",
+      serialNumber: isSelectGiftCard ? values?.serialNumber : "" };
     dispatch(actions.cardAction.add_card(token, body));
   };
 
@@ -122,7 +97,6 @@ export default function index(props) {
 
   const onHandleChangeKey = React.useCallback(
     (value) => {
-      console.log('onHandleChangeKey', value)
       setKey(value);
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
@@ -136,52 +110,12 @@ export default function index(props) {
 
   const onPressMerchant = (merchant) => {
     setSelectMerchant(merchant);
+    setFieldValue("merchantId", merchant?.businessName);
   }
-
-  const renderItem = (item) =>{
-    return(
-      <TouchableOpacity 
-        style={styles.rowView}
-        onPress={() => onPressMerchant(item?.item)}>
-        {item?.item?.businessName &&
-          <Text style={styles.rowText}>
-            {item?.item?.businessName}
-          </Text>
-        }
-      </TouchableOpacity>
-    )
-  }
-
-  // React.useEffect(()=>{
-  //   if(searchFocus) {
-  //     getMerchantListData();
-  //   }
-  // },[page, key, searchFocus])
-
-  // const onLoadMoreMerchant = () => {
-  //   if (page == totalPage || isLoading) return;
-
-  //   setIsLoading(true);
-  //   const nextPage = page + 1;
-  //   setPage(nextPage);
-  // }
-
-  // const renderFooterMerchantList = () => {
-  //   return (
-  //     page != totalPage &&
-  //     <ActivityIndicator
-  //     size={'small'}
-  //     color={'#646464'}/>
-  //   )
-  // }
 
   const onSearch = () => {
-    // console.log('refSearchInput', refSearchInput)
-    // refSearchInput?.current?.focus();
     setIsSearch(true);
   }
-
-  // const heightFlatlist = listMerchant && listMerchant.length>0 ? 200 : 0;
 
   return (
     <View style={styles.container}>
@@ -199,7 +133,7 @@ export default function index(props) {
           <RadioButton 
           onChangeValue={selectAddSerialNumber} 
           active={isSelectGiftCard} />
-          <Text color="#0764B0" style={{ marginLeft: 10 }}>
+          <Text style={styles.titleText}>
             Add by serial number
           </Text>
         </TouchableOpacity>
@@ -207,15 +141,17 @@ export default function index(props) {
           <View style={{ flex: 1, padding: 12 }}>
             <View style={styles.wrapper_input}>
               <Input
+                styleTextLable={[styles.textSelectMerchant, {color: isSelectGiftCard ? "#4d4d4d" : "#bfbfbf"}]}
                 width={326}
                 placeHolder="serial number"
                 label="Gift card serial number"
-                onChangeText={handleChange("serialNumber")}
+                onChangeText={isSelectGiftCard? handleChange("serialNumber") : ()=>{}}
                 value={values.serialNumber}
                 error={errors.serialNumber}
                 touched={touched.serialNumber}
+                editable={isSelectGiftCard}
               />
-              <IconClick icon={ICONS["scan_barcode"]} onPress={onHandleScan("serialNumber")} />
+              <IconClick icon={ICONS["scan_barcode"]} onPress={isSelectGiftCard?onHandleScan("serialNumber"):()=>{}} />
             </View>
           </View>
           <View style={styles.line_bottom} />
@@ -225,56 +161,33 @@ export default function index(props) {
           activeOpacity={1}
           style={styles.container_radio_button}>
           <RadioButton onChangeValue={selectCheckboxStore} active={isSelectStore} />
-          <Text color="#0764B0" style={{ marginLeft: 10 }}>
+          <Text style={styles.titleText}>
             Add by selecting store
           </Text>
         </TouchableOpacity>
         <View style={styles.viewMerchant}>
-          <Text style={[styles.textSelectMerchant, {color: isSelectStore ? "#0000" : "#bfbfbf"}]}>
+          <Text style={[styles.textSelectMerchant, {color: isSelectStore ? "#4d4d4d" : "#bfbfbf"}]}>
             Select store to create card
           </Text>
           <TouchableOpacity
-            onPress={onSearch}
+            onPress={isSelectStore ? onSearch : ()=>{}} 
             activeOpacity={1}
             style={styles.viewSelectMerchant}>
-            <Text style={styles.textSelectMerchant}>
+            <Text style={[styles.textSelectMerchant, {color: isSelectStore ? "#4d4d4d" : "#bfbfbf"}]}>
               {selectMerchant ? selectMerchant?.businessName : "Select store"}
             </Text>
             <Image source={ICONS.arrow_down}/>
           </TouchableOpacity>
-          {/* <View style={styles.search_bar}>
-            <SearchBar
-              refInput={refSearchInput}
-              placeholder="Select store"
-              placeholderTextColor="#646464"
-              iconLeft={ICONS["searchbar"]}
-              width={382}
-              value={key}
-              onChangeText={onHandleChangeKey}
-              autoFocus={false}
-            />
-          </View>
-          {refSearchInput?.current?.isFocused &&
-            <View 
-              style={[styles.flatlistView, { height: scaleSize(heightFlatlist)}]}>
-              <FlatList
-                data={listMerchant || []}
-                renderItem={(item)=> renderItem(item)}
-                keyExtractor={(_, index) => index.toString()}
-                onEndReached={()=>{onLoadMoreMerchant()}}
-                ListFooterComponent={renderFooterMerchantList()}
-                onEndReachedThreshold={0.1}
-              />
-            </View>
-          } */}
         </View>
+        <View style={styles.separatorLine}/>
+        <Text style={styles.errorText}>{errors.merchantId}</Text>
         
         <TouchableOpacity
           onPress={handleOnChangeValue}
           activeOpacity={1}
           style={styles.container_radio_button}>
           <CheckedBox onValueChange={handleOnChangeValue} checked={isPrimary} />
-          <Text color="#0764B0" style={{ marginLeft: 10 }}>
+          <Text style={styles.titleText}>
             Make primary card
           </Text>
         </TouchableOpacity>

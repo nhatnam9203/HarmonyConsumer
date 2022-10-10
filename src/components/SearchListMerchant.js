@@ -34,18 +34,14 @@ export default function SearchListMerchant({isVisible,
     ...getMerchantList(key, page),
     enabled: false,
     onSuccess: (data, response) => {
-      console.log('page', page)
-      console.log('onSuccess', data)
       setIsLoading(false);
       setTotalPage(response?.pages);
       
       if(page == 1) {
-        console.log('data page 1')
         setListMerchant(data);
       } else {
         let merchants = listMerchant
         merchants.push(...data);
-        console.log('merchants', merchants)
         setListMerchant(merchants);
       }
     },
@@ -53,7 +49,6 @@ export default function SearchListMerchant({isVisible,
 
   const onHandleChangeKey = React.useCallback(
     (value) => {
-      console.log('onHandleChangeKey', value)
       setKey(value);
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
