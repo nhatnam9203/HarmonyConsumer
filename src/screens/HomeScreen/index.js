@@ -47,7 +47,6 @@ export default function index(props) {
       : 0;
 
   const handleAppStateChange = nextAppState => {
-    console.log(nextAppState);
     if (nextAppState === 'active') {
       dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
     }
