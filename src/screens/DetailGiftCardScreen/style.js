@@ -88,17 +88,17 @@ const styles = StyleSheet.create({
   },
   storeText: {
     textAlign: 'left',
-    fontSize: scaleSize(17)
+    fontSize: scaleSize(17),
   },
   merchantNameText: {
     fontSize: scaleSize(17),
     color: "#0764B0"
   },
   merchantListView: {
-    height: scaleSize(50),
-    marginTop: scaleSize(5),
     flex: 1,
-    flexDirection: 'row'
+    marginTop: scaleSize(5),
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
   viewMore: {
     backgroundColor: '#0764B0',

@@ -214,36 +214,16 @@ export default function index(props) {
     );
   };
 
-  // const getMerchantText = () => {
-  //   let merchantText = "";
-  //   let count = 0;
-  //   if(card_detail?.merchantNames) {
-  //     count = card_detail?.merchantNames.length > 3 ?
-  //     3 : card_detail?.merchantNames.length
-  //   }
-  //   for(let i = 0; i < count; i++) {
-  //     if(card_detail?.merchantNames[i]) {
-  //       merchantText = merchantText + card_detail?.merchantNames[i];
-  //       if(i < count-1) {
-  //         merchantText = merchantText + ", ";
-  //       }
-  //     }
-  //   }
-  //   return merchantText;
-  // }
-//test
   const getMerchantText = () => {
     let merchantText = "";
     let count = 0;
-    let test = ['ac cbic coaj cnajoc ncoan cao cnoanc ', 'cnonciod cnianic ncioani cnoanic ncoancic coanic'
-    , 'conc cnanc cnoanc coabc cnoanc cnoanc ncobc cnoac ncaobnc cnoanic cnaonocia', 'cabcu ca ncoabui cbaobcua bcoabcoa cboabcuabo']
-    if(test) {
-      count = test > 3 ?
-      3 : test.length
+    if(card_detail?.merchantNames) {
+      count = card_detail?.merchantNames.length > 3 ?
+      3 : card_detail?.merchantNames.length
     }
     for(let i = 0; i < count; i++) {
-      if(test[i]) {
-        merchantText = merchantText + test[i];
+      if(card_detail?.merchantNames[i]) {
+        merchantText = merchantText + card_detail?.merchantNames[i];
         if(i < count-1) {
           merchantText = merchantText + ", ";
         }
@@ -251,6 +231,7 @@ export default function index(props) {
     }
     return merchantText;
   }
+
   return (
     <Container barStyle="dark-content">
       <Header
@@ -268,33 +249,41 @@ export default function index(props) {
 
             {card_detail?.merchantNames 
               && card_detail?.merchantNames.length > 0 &&
-            <View  style={styles.merchantListView}>
+              <View  style={styles.merchantListView}>
+
               <TouchableOpacity 
-                style={{flexDirection:'row'}}
-                onPress={() => {card_detail?.merchantNames 
+              style={{flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'flex-end'}}
+                onPress={() => { card_detail?.merchantNames 
                   && card_detail?.merchantNames.length > 3 
                   ? setIsShowMerchantList(true)
                 : () => {}}}
               >
-                <Text 
-                  style={styles.storeText}
-                  numberOfLines={2}
-                  ellipsizeMode='tail'
-                >
-                  Store: 
-                  <Text style={styles.merchantNameText}>{` ${getMerchantText()}`}</Text>
+                <View style={card_detail?.merchantNames 
+                    && card_detail?.merchantNames.length > 3 
+                    ? {width: '80%'} : {width: '100%'}}>
+                  <Text 
+                    style={styles.storeText}
+                    numberOfLines={2}
+                    ellipsizeMode='tail'
+                  >
+                    Store: 
+                    <Text style={styles.merchantNameText}>{` ${getMerchantText()}`}</Text>
+                  </Text>
+                </View>
                   
-                </Text>
-                {card_detail?.merchantNames 
+                    
+                  {card_detail?.merchantNames 
                     && card_detail?.merchantNames.length > 3 &&
-                      <View style={styles.viewMore}>
-                        <Text style={{color: 'white'}}>
-                          View +{card_detail?.merchantNames.length - 3}
-                        </Text>
-                      </View>
-                    }
+                    <View style={styles.viewMore}>
+                      <Text style={{color: 'white'}}>
+                        View +{card_detail?.merchantNames.length - 3}
+                      </Text>
+                    </View>
+                  }
+
               </TouchableOpacity>
             </View>
+
             }
 
             {/* ------------------ primary card ------------------ */}
