@@ -8,6 +8,7 @@ import {
   BackHandler,
   ScrollView,
   View,
+  AppState,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
@@ -45,6 +46,13 @@ export default function index(props) {
       ? current_location.location
       : 0;
 
+  const handleAppStateChange = nextAppState => {
+    console.log(nextAppState);
+    if (nextAppState === 'active') {
+      dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
+    }
+  };
+
   React.useEffect(() => {
     dispatch(
       actions.storeAction.searchStore(
@@ -65,7 +73,9 @@ export default function index(props) {
     getCardByUser();
     updateAccount();
     getTopMerchant();
+
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    AppState.addEventListener('change', handleAppStateChange);
   }, []);
 
   const getTopMerchant = () => {
