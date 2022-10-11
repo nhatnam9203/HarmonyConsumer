@@ -19,9 +19,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatNumberFromCurrency, isEmpty, scaleSize } from 'utils';
 import styles from './style';
-import { BoxClick, PopupConditionRemove, PopupRemove } from './widget';
+import { BoxClick, PopupConditionRemove, PopupRemove, PopupMerchantList } from './widget';
 import QRCode from 'react-native-qrcode-svg';
 import { useApi } from './useApi';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { ButtonSubmit } = Form;
 
@@ -58,6 +59,7 @@ export default function index(props) {
     callBack: (key, data) => {
       switch (key) {
         case 'getUserCardById':
+          dispatch(actions.cardAction.set_card_detail(data));
           setQrcode(data?.token);
           break;
         default:
@@ -78,6 +80,7 @@ export default function index(props) {
   const [isVisibleAutoReload, setVisibleAutoReload] = React.useState(false);
   const [content, setContent] = React.useState('');
   const [qrCode, setQrcode] = React.useState(null);
+  const [isShowMerchantList, setIsShowMerchantList] = React.useState(false);
 
   const onChangeValuePrimary = React.useCallback(
     value => {
@@ -211,8 +214,43 @@ export default function index(props) {
     );
   };
 
-  // console.log(card_detail);
-
+  // const getMerchantText = () => {
+  //   let merchantText = "";
+  //   let count = 0;
+  //   if(card_detail?.merchantNames) {
+  //     count = card_detail?.merchantNames.length > 3 ?
+  //     3 : card_detail?.merchantNames.length
+  //   }
+  //   for(let i = 0; i < count; i++) {
+  //     if(card_detail?.merchantNames[i]) {
+  //       merchantText = merchantText + card_detail?.merchantNames[i];
+  //       if(i < count-1) {
+  //         merchantText = merchantText + ", ";
+  //       }
+  //     }
+  //   }
+  //   return merchantText;
+  // }
+//test
+  const getMerchantText = () => {
+    let merchantText = "";
+    let count = 0;
+    let test = ['ac cbic coaj cnajoc ncoan cao cnoanc ', 'cnonciod cnianic ncioani cnoanic ncoancic coanic'
+    , 'conc cnanc cnoanc coabc cnoanc cnoanc ncobc cnoac ncaobnc cnoanic cnaonocia', 'cabcu ca ncoabui cbaobcua bcoabcoa cboabcuabo']
+    if(test) {
+      count = test > 3 ?
+      3 : test.length
+    }
+    for(let i = 0; i < count; i++) {
+      if(test[i]) {
+        merchantText = merchantText + test[i];
+        if(i < count-1) {
+          merchantText = merchantText + ", ";
+        }
+      }
+    }
+    return merchantText;
+  }
   return (
     <Container barStyle="dark-content">
       <Header
@@ -228,7 +266,36 @@ export default function index(props) {
 
             <HarmonyCard cardId={userCardId} />
 
-            <Text style={styles.storeText}>Store: </Text>
+            {card_detail?.merchantNames 
+              && card_detail?.merchantNames.length > 0 &&
+            <View  style={styles.merchantListView}>
+              <TouchableOpacity 
+                style={{flexDirection:'row'}}
+                onPress={() => {card_detail?.merchantNames 
+                  && card_detail?.merchantNames.length > 3 
+                  ? setIsShowMerchantList(true)
+                : () => {}}}
+              >
+                <Text 
+                  style={styles.storeText}
+                  numberOfLines={2}
+                  ellipsizeMode='tail'
+                >
+                  Store: 
+                  <Text style={styles.merchantNameText}>{` ${getMerchantText()}`}</Text>
+                  
+                </Text>
+                {card_detail?.merchantNames 
+                    && card_detail?.merchantNames.length > 3 &&
+                      <View style={styles.viewMore}>
+                        <Text style={{color: 'white'}}>
+                          View +{card_detail?.merchantNames.length - 3}
+                        </Text>
+                      </View>
+                    }
+              </TouchableOpacity>
+            </View>
+            }
 
             {/* ------------------ primary card ------------------ */}
             <BoxClick
@@ -341,7 +408,6 @@ export default function index(props) {
                 />
               </Button>
             </BoxClick>
-
             <ModalTransfer
               isVisible={isVisibleTransfer}
               fromCards={card_more}
@@ -403,6 +469,11 @@ export default function index(props) {
         onRequestClose={onTogglePopupRemove}
         isVisible={isVisibleRemove}
         onRemove={removeCard}
+      />
+      <PopupMerchantList
+        isVisible={isShowMerchantList}
+        onRequestClose={()=>{setIsShowMerchantList(false)}}
+        merchantList={card_detail?.merchantNames}
       />
     </Container>
   );
