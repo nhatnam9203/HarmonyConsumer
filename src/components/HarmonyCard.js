@@ -8,6 +8,7 @@ import {
   Text,
   View,
   ActivityIndicator,
+  AppState,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import QRCode from 'react-native-qrcode-svg';
@@ -91,7 +92,18 @@ export const HarmonyCard = ({ cardId }) => {
     }
   };
 
+  const handleAppStateChange = nextAppState => {
+    if (nextAppState === 'active') {
+      clearTimer();
+      if (cardId) {
+        getUserCard();
+      }
+    }
+  };
+
   React.useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+
     return () => {
       clearTimer();
     };

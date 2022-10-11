@@ -227,6 +227,7 @@ const RootComponent = ({ children }) => {
     if (nextAppState === 'active') {
       // checkUpdate();
       checkNotification();
+
     }
   };
 
