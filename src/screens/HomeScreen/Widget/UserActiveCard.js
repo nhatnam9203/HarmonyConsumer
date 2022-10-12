@@ -38,7 +38,10 @@ export const UserActiveCard = ({ card, onPress }) => {
           To use the full functions, please add a Gift card by clicking 
           <Text style={styles.hightlightText}> Add a card </Text>below
         </Text>
-        <Image style={styles.iconWelcome} source={ICONS.welcome}/>
+        <Image 
+          style={styles.iconWelcome} 
+          source={ICONS.welcome}
+          resizeMode={'contain'}/>
       </View>
       }
     </TouchableOpacity>
@@ -90,17 +93,18 @@ const styles = StyleSheet.create({
     height: scaleHeight(224),
     padding: scaleWidth(16),
     backgroundColor: '#ffffff',
-    shadowColor: 'rgba(0, 0, 0, 0.16)',
+    shadowColor: '#C0C0C0',
     shadowOffset: {
       width: 0,
       height: scaleHeight(3),
     },
-    shadowRadius: 6,
+    shadowRadius: 10,
     shadowOpacity: 1,
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#ffffff',
-    alignItems: 'center'
+    alignItems: 'center',
+    elevation: 3,
   },
   welcomeText: {
     fontSize: scaleFont(15),

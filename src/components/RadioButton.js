@@ -6,7 +6,7 @@ import ICONS from "assets";
 import { scaleSize } from "utils";
 const RadioButton = ({ active = false, onChangeValue, activeColor = "#0764b0" }) => {
   const image_active = active ? "radio_button_active" : "radio_button_inactive";
-  const tintColor = active ? { tintColor: activeColor } : {};
+  const tintColor = active ? { tintColor: activeColor } : {tintColor: "#6a6a6a"};
   return (
     <Button hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} onPress={onChangeValue}>
       <Image style={[styles.container, tintColor]} source={ICONS[image_active]} />
