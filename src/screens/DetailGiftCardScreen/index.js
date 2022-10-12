@@ -250,14 +250,7 @@ export default function index(props) {
             {card_detail?.merchantNames 
               && card_detail?.merchantNames.length > 0 &&
               <View  style={styles.merchantListView}>
-
-              <TouchableOpacity 
-              style={{flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'flex-end'}}
-                onPress={() => { card_detail?.merchantNames 
-                  && card_detail?.merchantNames.length > 3 
-                  ? setIsShowMerchantList(true)
-                : () => {}}}
-              >
+            
                 <View style={card_detail?.merchantNames 
                     && card_detail?.merchantNames.length > 3 
                     ? {width: '80%'} : {width: '100%'}}>
@@ -271,18 +264,19 @@ export default function index(props) {
                   </Text>
                 </View>
                   
-                    
-                  {card_detail?.merchantNames 
-                    && card_detail?.merchantNames.length > 3 &&
-                    <View style={styles.viewMore}>
-                      <Text style={{color: 'white'}}>
-                        View +{card_detail?.merchantNames.length - 3}
-                      </Text>
-                    </View>
-                  }
+                {card_detail?.merchantNames 
+                  && card_detail?.merchantNames.length > 3 &&
+                  <TouchableOpacity style={styles.viewMore}
+                  onPress={() => {  
+                    setIsShowMerchantList(true)
+                  }}>
+                    <Text style={{color: 'white'}}>
+                      View +{card_detail?.merchantNames.length - 3}
+                    </Text>
+                  </TouchableOpacity>
+                }
 
-              </TouchableOpacity>
-            </View>
+              </View>
 
             }
 

@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     marginTop: scaleSize(5),
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: 'flex-end'
   },
   viewMore: {
     backgroundColor: '#0764B0',
