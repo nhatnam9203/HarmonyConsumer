@@ -143,6 +143,7 @@ export const HarmonyCard = ({ cardId }) => {
   }, [card_detail?.userCardId]);
 
   React.useEffect(() => {
+    clearTimer();
     getUserCard();
   }, [isPayComplete])
 

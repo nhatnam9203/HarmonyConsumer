@@ -364,7 +364,8 @@ export default function index(props) {
             {/* ------------------ auto reload card ------------------ */}
 
             {/* ------------------ Transfer card ------------------ */}
-            <BoxClick
+            {/* Hide for sprint 17 */}
+            {/* <BoxClick
               disabled={true}
               style={[
                 styles.container_row_space_between,
@@ -398,8 +399,7 @@ export default function index(props) {
               onRequestClose={onTogglePopupTransfer}
               onSubmit={transferCard}
               card_detail={card_detail}
-            />
-            {/* ------------------ Transfer card ------------------ */}
+            /> */}
 
             {/* ------------------ remove card ------------------ */}
             <BoxClick disabled={true} style={{ justifyContent: 'flex-start' }}>
