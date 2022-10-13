@@ -316,7 +316,6 @@ const RootComponent = ({ children }) => {
   };
 
   const receiveMessage = messageJson => {
-    console.log('receiveMessage', messageJson)
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === 'update_data' ||

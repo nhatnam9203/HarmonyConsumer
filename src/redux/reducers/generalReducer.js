@@ -32,7 +32,7 @@ function dataLocalReducer(state = initialState, action) {
     case "SET_IS_PAY_COMPLETE":
       return {
         ...state,
-        isPayComplete
+        isPayComplete: action.isComplete
       }
     default:
       return state;

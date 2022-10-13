@@ -1,4 +1,5 @@
 import { getUserCardById, useAxiosQuery } from '@apis';
+import actions from '@redux/actions';
 import ICONS from 'assets';
 import React from 'react';
 import {
@@ -12,12 +13,14 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import QRCode from 'react-native-qrcode-svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DEFAULT_TIMEOUT = 5 * 60; // seconds
 const MIN_COUNTER = 10; // seconds
 
 export const HarmonyCard = ({ cardId }) => {
+  const dispatch = useDispatch();
+
   const timer = React.useRef(null);
   const card_detail = useSelector(state => state.cardReducer.card_detail);
   const isPayComplete = useSelector(state => state.generalReducer.isPayComplete);
