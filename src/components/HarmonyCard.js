@@ -20,6 +20,7 @@ const MIN_COUNTER = 10; // seconds
 export const HarmonyCard = ({ cardId }) => {
   const timer = React.useRef(null);
   const card_detail = useSelector(state => state.cardReducer.card_detail);
+  const isPayComplete = useSelector(state => state.generalReducer.isPayComplete);
   const [card, setCard] = React.useState(null);
   const [counter, setCounter] = React.useState(null);
 
@@ -68,6 +69,11 @@ export const HarmonyCard = ({ cardId }) => {
     onSuccess: (data, response) => {
       setCard(data);
       startTimer((data?.expireTime ?? DEFAULT_TIMEOUT) - MIN_COUNTER);
+      if(isPayComplete) {
+        dispatch(
+          actions.generalAction.setPayComplete(false),
+        );
+      }
     },
   });
 
@@ -106,6 +112,9 @@ export const HarmonyCard = ({ cardId }) => {
 
     return () => {
       clearTimer();
+      dispatch(
+        actions.generalAction.setPayComplete(false)
+      );
     };
   }, []);
 
@@ -129,6 +138,10 @@ export const HarmonyCard = ({ cardId }) => {
       getUserCard();
     }
   }, [card_detail?.userCardId]);
+
+  React.useEffect(() => {
+    getUserCard();
+  }, [isPayComplete])
 
   const { amount = 0, userCardId, imageUrl, token } = card || {};
 

@@ -47,3 +47,10 @@ export function toggleBottomTabbar(payload) {
     payload,
   };
 }
+
+export function setPayComplete(isComplete) {
+  return {
+    type: "SET_IS_PAY_COMPLETE",
+    isComplete
+  }
+}

@@ -3,6 +3,7 @@ const initialState = {
   contentError: "",
   tips: {},
   isBottomTabbar: false,
+  isPayComplete: false,
 };
 
 function dataLocalReducer(state = initialState, action) {
@@ -28,6 +29,11 @@ function dataLocalReducer(state = initialState, action) {
         ...state,
         isBottomTabbar: action.payload,
       };
+    case "SET_IS_PAY_COMPLETE":
+      return {
+        ...state,
+        isPayComplete
+      }
     default:
       return state;
   }

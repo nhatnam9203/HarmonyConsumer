@@ -316,6 +316,7 @@ const RootComponent = ({ children }) => {
   };
 
   const receiveMessage = messageJson => {
+    console.log('receiveMessage', messageJson)
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === 'update_data' ||
@@ -390,6 +391,12 @@ const RootComponent = ({ children }) => {
             );
           }
         }
+      }
+
+      if (messageJson.type === 'harmony_pay_review_form') {
+        dispatch(
+          actions.generalAction.setPayComplete(true),
+        );
       }
     }
   };
