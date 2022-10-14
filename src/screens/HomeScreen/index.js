@@ -20,6 +20,7 @@ import {
   MerchantList,
   UserActiveCard,
 } from './Widget';
+import { useFocusEffect } from "@react-navigation/native";
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -69,13 +70,19 @@ export default function index(props) {
     dispatch(actions.paymentAction.get_number_invoice(token));
     dispatch(actions.appointmentAction.getAppointmentUpcoming(token, () => {}));
     fetchListCreditAndBankCard();
-    getCardByUser();
+    // getCardByUser();
     updateAccount();
     getTopMerchant();
 
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     AppState.addEventListener('change', handleAppStateChange);
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getCardByUser();
+    }, [])
+  );
 
   const getTopMerchant = () => {
     dispatch(actions.storeAction.getTopMerchant(token, lat, lng));
