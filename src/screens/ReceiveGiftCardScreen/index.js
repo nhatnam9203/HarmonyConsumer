@@ -14,7 +14,7 @@ const { ButtonSubmit, Input } = Form;
 
 export default function index(props) {
   const {
-    gifts: { amount, imageUrl, message, senderId, receiverId, giftcardId, notificationId },
+    gifts: { amount, imageUrl, message, senderId, receiverId, giftcardId, notificationId, merchantName },
   } = props.route.params;
 
   const dispatch = useDispatch();
@@ -84,6 +84,10 @@ export default function index(props) {
         </Text>
 
         <Receiver sender={sender} />
+
+        <Text style={[styles.header]} fontSize={17} color="#585858">
+          {`Store: ${merchantName}`}
+        </Text>
 
         <View style={{ marginTop: scaleSize(20) }}>
           <Input
