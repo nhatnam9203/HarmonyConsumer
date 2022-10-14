@@ -1,5 +1,5 @@
 import actions from '@redux/actions';
-import { harmonyApi } from '@shared/services';
+import { harmonyApi, useQueryCallback } from '@shared/services';
 import * as RootNavigation from 'navigations/RootNavigation';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,14 +34,27 @@ export const useProps = () => {
     appointment,
   } = useSelector(state => state.bookingReducer) || {};
 
-  const { card_primary } = useSelector(state => state.cardReducer) || {};
+  const { card_primary, cards } = useSelector(state => state.cardReducer) || {};
   const token = useSelector(state => state.datalocalReducer.token);
   const userInfo = useSelector(state => state.datalocalReducer.userInfo);
+  const [cardList, setCardList] = React.useState(null);
+  const [cardSelected, setCardSelected] = React.useState(null);
 
   const [
     depositAppointment,
     { data: appointmentDepositResponse, isLoading: isDepositAppointment },
   ] = harmonyApi.useDepositAppointmentMutation();
+
+  const [getUserCardByMerchant, { loading: getUserCardByMerchantLoading }] =
+    useQueryCallback(
+      harmonyApi.useLazyGetUserCardByMerchantQuery,
+      result => {
+        if (result?.data?.length > 0) setCardList(result?.data);
+      },
+      error => {
+        console.log(error);
+      },
+    );
 
   React.useEffect(() => {
     if (appointmentDepositResponse) {
@@ -56,6 +69,21 @@ export const useProps = () => {
     }
   }, [appointmentDepositResponse]);
 
+  React.useEffect(() => {
+    if (merchantId) {
+      getUserCardByMerchant(merchantId);
+    }
+  }, [merchantId]);
+
+  React.useEffect(() => {
+    if (cards?.length > 0 && merchantId) {
+      const temps = cards?.filter(x =>
+        x.merchants?.find(f => f.merchantId === merchantId),
+      );
+      setCardList(temps);
+    }
+  }, [cards, merchantId]);
+
   const calcDepositAmount = () => {
     let amount =
       (formatNumberFromCurrency(appointment?.total ?? 0) * depositPercent) /
@@ -64,10 +92,21 @@ export const useProps = () => {
     return amount;
   };
 
+  const _onHandleAddCard = () => {
+    RootNavigation.navigate('AddNewCard');
+  };
+
+  const _onHandleSelectCard = card => {
+    setCardSelected(card);
+  };
+
   return {
+    cardList: cardList,
+    cardSelected: cardSelected,
     isDepositAppointment,
     appointment,
-    loadingPage,
+    loadingPage:
+      loadingPage || getUserCardByMerchantLoading || isDepositAppointment,
     calcDepositAmount: calcDepositAmount,
     depositPercent,
     myCard: card_primary,
@@ -89,7 +128,13 @@ export const useProps = () => {
       RootNavigation.navigate('AddMoneyExistCard');
     },
     onPayment: () => {
-      depositAppointment(appointment?.appointmentId);
+      if (cardSelected)
+        depositAppointment({
+          appointmentId: appointment?.appointmentId,
+          userCardId: cardSelected.userCardId,
+        });
     },
+    onAddCard: _onHandleAddCard,
+    onSelectCard: _onHandleSelectCard,
   };
 };

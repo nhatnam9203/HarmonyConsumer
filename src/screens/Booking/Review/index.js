@@ -80,8 +80,10 @@ export default function index(props) {
   React.useEffect(() => {
     if (appointmentCreatedResponse) {
       const { data, codeNumber, message } = appointmentCreatedResponse;
-      if (data) getAppointment(data);
-      else {
+      if (data) {
+        // make deposit, flow book appointment no deposit in bookAppointment func
+        getAppointment(data);
+      } else {
         alert(message);
         getStaffAvailableTime();
         RootNavigation.navigate('SelectDate');
