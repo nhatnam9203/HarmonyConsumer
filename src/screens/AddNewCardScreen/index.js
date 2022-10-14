@@ -173,7 +173,7 @@ export default function index(props) {
             onPress={isSelectStore ? onSearch : ()=>{}} 
             activeOpacity={1}
             style={styles.viewSelectMerchant}>
-            <Text style={[styles.textSelectMerchant, {color: isSelectStore ? "#4d4d4d" : "#bfbfbf"}]}>
+            <Text style={[styles.textSelectMerchant, {color: isSelectStore && selectMerchant ? "#0764B0" : "#bfbfbf"}]}>
               {selectMerchant ? selectMerchant?.businessName : "Select store"}
             </Text>
             <Image source={ICONS.arrow_down}/>

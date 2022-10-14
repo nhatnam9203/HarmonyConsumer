@@ -16,7 +16,7 @@ export const PopupMerchantList = ({onRequestClose, isVisible, merchantList=[]}) 
         return (
             <>
                 <Text style={styles.textRow}>
-                    {item?.item}
+                    {item?.item?.businessName}
                 </Text>
                 <View style={styles.separatorLine}/>
             </>
