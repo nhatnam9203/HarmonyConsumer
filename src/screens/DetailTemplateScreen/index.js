@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, TouchableOpacity, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ImageResizer from 'react-native-image-resizer';
 
@@ -11,7 +11,7 @@ import {
   Form,
   Header,
   ProgressiveImage,
-  LazyImage,
+  SearchListMerchant,
 } from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import styles from './style';
@@ -39,6 +39,8 @@ export default function index(props) {
   const [message, setMessage] = React.useState('');
   const [file_id, setFileId] = React.useState(fileId);
   const [images, setImage] = React.useState(ICONS['camera_picker']);
+  const [selectMerchant, setSelectMerchant] = React.useState(null);
+  const [isSearch, setIsSearch] = React.useState(false);
   const onBack = () => {
     RootNavigation.back();
   };
@@ -89,7 +91,7 @@ export default function index(props) {
     let gift = {
       message,
       amount,
-      merchantId: 0,
+      merchantId: selectMerchant?.merchantId,
       isSpecificMerchant: 0,
       imageUrl: type == 'template_custom' ? images.uri : imageUrl,
       giftCardTemplateId,
@@ -118,6 +120,16 @@ export default function index(props) {
     setMessage(value);
   };
 
+  const onPressMerchant = (merchant) => {
+    setSelectMerchant(merchant);
+  }
+
+  const onSearch = () => {
+    setIsSearch(true);
+  }
+
+  const isDisableButton = amount == 0 || (type == 'template_custom' && !images.uri) || !selectMerchant
+
   return (
     <Container barStyle="dark-content">
       <Header title="Buy gift" headerLeft={true} onBack={onBack} />
@@ -141,6 +153,21 @@ export default function index(props) {
 
         <SelectAmount value={amount} onChangeValue={setAmount} />
 
+        <View style={styles.viewMerchant}>
+          <Text style={styles.textSelectMerchant}>
+            Select store:
+          </Text>
+          <TouchableOpacity
+            onPress={onSearch} 
+            activeOpacity={1}
+            style={styles.viewSelectMerchant}>
+            <Text style={styles.textSelectMerchant}>
+              {selectMerchant ? selectMerchant?.businessName : "Select store"}
+            </Text>
+            <Image source={ICONS.arrow_down}/>
+          </TouchableOpacity>
+        </View>
+
         <Input
           placeHolder="Say something … !"
           label="Message:"
@@ -160,23 +187,27 @@ export default function index(props) {
             title="Next"
             width={370}
             disabled={
-              amount == 0 || (type == 'template_custom' && !images.uri)
+              isDisableButton
                 ? true
                 : false
             }
             backgroundColor={
-              amount == 0 || (type == 'template_custom' && !images.uri)
+              isDisableButton
                 ? '#EEEEEE'
                 : '#0764B0'
             }
             textColor={
-              amount == 0 || (type == 'template_custom' && !images.uri)
+              isDisableButton
                 ? '#585858'
                 : '#FFF'
             }
           />
         </View>
       </View>
+      <SearchListMerchant
+        isVisible={isSearch}
+        onRequestClose={()=>{setIsSearch(false)}}
+        onSubmit={(merchant) => {onPressMerchant(merchant)}}/>
     </Container>
   );
 }
