@@ -92,6 +92,7 @@ export default function index(props) {
       message,
       amount,
       merchantId: selectMerchant?.merchantId,
+      merchantName: selectMerchant?.businessName,
       isSpecificMerchant: 0,
       imageUrl: type == 'template_custom' ? images.uri : imageUrl,
       giftCardTemplateId,

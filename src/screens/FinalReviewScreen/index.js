@@ -93,6 +93,10 @@ export default function index(props) {
 
         <Receiver infoReceiver={infoReceiver} receiver={gift_send.receiver} />
 
+        <Text style={[styles.header, {marginBottom: 15}]} fontSize={17} color="#585858">
+          {`Store: ${gift_send?.merchantName}`}
+        </Text>
+
         <Input
           width={382}
           label="Message:"
