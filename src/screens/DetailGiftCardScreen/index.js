@@ -217,13 +217,13 @@ export default function index(props) {
   const getMerchantText = () => {
     let merchantText = "";
     let count = 0;
-    if(card_detail?.merchantNames) {
-      count = card_detail?.merchantNames.length > 3 ?
-      3 : card_detail?.merchantNames.length
+    if(card_detail?.merchants) {
+      count = card_detail?.merchants.length > 3 ?
+      3 : card_detail?.merchants.length
     }
     for(let i = 0; i < count; i++) {
-      if(card_detail?.merchantNames[i]) {
-        merchantText = merchantText + card_detail?.merchantNames[i];
+      if(card_detail?.merchants[i]?.businessName) {
+        merchantText = merchantText + card_detail?.merchants[i]?.businessName;
         if(i < count-1) {
           merchantText = merchantText + ", ";
         }
@@ -247,12 +247,12 @@ export default function index(props) {
 
             <HarmonyCard cardId={userCardId} />
 
-            {card_detail?.merchantNames 
-              && card_detail?.merchantNames.length > 0 &&
+            {card_detail?.merchants 
+              && card_detail?.merchants.length > 0 &&
               <View  style={styles.merchantListView}>
             
-                <View style={card_detail?.merchantNames 
-                    && card_detail?.merchantNames.length > 3 
+                <View style={card_detail?.merchants 
+                    && card_detail?.merchants.length > 3 
                     ? {width: '80%'} : {width: '100%'}}>
                   <Text 
                     style={styles.storeText}
@@ -264,14 +264,14 @@ export default function index(props) {
                   </Text>
                 </View>
                   
-                {card_detail?.merchantNames 
-                  && card_detail?.merchantNames.length > 3 &&
+                {card_detail?.merchants 
+                  && card_detail?.merchants.length > 3 &&
                   <TouchableOpacity style={styles.viewMore}
                   onPress={() => {  
                     setIsShowMerchantList(true)
                   }}>
                     <Text style={{color: 'white'}}>
-                      View +{card_detail?.merchantNames.length - 3}
+                      View +{card_detail?.merchants.length - 3}
                     </Text>
                   </TouchableOpacity>
                 }
@@ -456,7 +456,7 @@ export default function index(props) {
       <PopupMerchantList
         isVisible={isShowMerchantList}
         onRequestClose={()=>{setIsShowMerchantList(false)}}
-        merchantList={card_detail?.merchantNames}
+        merchantList={card_detail?.merchants}
       />
     </Container>
   );
