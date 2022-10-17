@@ -35,8 +35,7 @@ export const UserActiveCard = ({ card, onPress }) => {
         <Text style={styles.welcomeText}>
           Welcome to 
           <Text style={styles.hightlightText}> HarmonyPay! </Text> 
-          To use the full functions, please add a Gift card by clicking 
-          <Text style={styles.hightlightText}> Add a card </Text>below
+          To use the full functions, please add a Gift card
         </Text>
         <Image 
           style={styles.iconWelcome} 
