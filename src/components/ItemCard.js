@@ -8,6 +8,7 @@ import actions from "@redux/actions";
 import Image from "react-native-fast-image";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export default function ItemCard(props) {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function ItemCard(props) {
     onPress,
     isSearchList = false,
     valueSearch = "",
+    isAddGiftCard,
   } = props;
 
   const {
@@ -56,6 +58,13 @@ export default function ItemCard(props) {
       dispatch(actions.storeAction.updateFavouriteMerchant(body, token));
     }
   };
+
+  const onSelectStore = () => {
+    RootNavigation.navigate("Main", {
+      screen: "BuyGift",
+      params: { merchant: item },
+    });
+  }
 
   return (
     <TouchableOpacity activeOpacity={1} onPress={() => onPress(item)}>
@@ -124,6 +133,17 @@ export default function ItemCard(props) {
               </Text>
             )}
           </View>
+          { isAddGiftCard && 
+            <View style={{ alignItems: 'center'}}>
+              <TouchableOpacity 
+                style={styles.buttonSelectView}
+                onPress={onSelectStore}>
+                <Text style={styles.buttonSelectText}>
+                  Select
+                </Text>
+              </TouchableOpacity>
+            </View>
+          }
         </View>
 
         {/* --------------like -------------------- */}
@@ -178,5 +198,19 @@ const styles = StyleSheet.create({
     top: scaleSize(10),
     right: scaleSize(15),
     elevation: 2,
+  },
+  buttonSelectText: {
+    fontSize: scaleSize(17),
+    color: "white",
+    fontWeight: "bold",
+  },
+  buttonSelectView: {
+    backgroundColor: "#0764B0",
+    height: scaleSize(45),
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: scaleSize(10),
+    marginTop: scaleSize(15)
   },
 });

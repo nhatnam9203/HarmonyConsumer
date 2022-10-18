@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { View, FlatList, RefreshControl } from 'react-native';
-import ScrollableTabView from 'components/react-native-scrollable-tab-view';
+import { View, FlatList, RefreshControl, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import actions from '@redux/actions';
-import { PrimaryCard, MoreCard, AddCard, BuyGiftTab } from './widget';
+import { PrimaryCard, MoreCard, AddCard } from './widget';
 import ICONS from 'assets';
 import {
   Header,
-  GiftCardTabBar,
   StatusBar,
   Text,
   FocusAwareStatusBar,
@@ -16,12 +14,6 @@ import {
 import * as RootNavigation from 'navigations/RootNavigation';
 import styles from './style';
 import { scaleSize } from 'utils';
-import { app } from '@redux/slices';
-
-const tabs = [
-  { name: 'My cards', url: ICONS['my_card_tab'] },
-  { name: 'Buy gift', url: ICONS['gift'] },
-];
 
 export default function index(props) {
   const { navigation } = props;
@@ -54,9 +46,9 @@ export default function index(props) {
     RootNavigation.navigate('DetailGiftCard');
   };
 
-  const goToDetailTemplate = (item = {}) => {
-    props.navigation.navigate('DetailTemplate', { template: item });
-  };
+  // const goToDetailTemplate = (item = {}) => {
+  //   props.navigation.navigate('DetailTemplate', { template: item });
+  // };
 
   const gotoAddNewCard = () => {
     RootNavigation.navigate('AddNewCard');
@@ -73,45 +65,56 @@ export default function index(props) {
     );
   };
 
+  const onHandleBuyGift = () => {
+    props.navigation.navigate('StoreScreen', { isAddGiftCard: true });
+  }
+
+
+
   return (
-    <View style={{ flex: 1, backgroundColor: '#F7F7F7' }}>
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-      />
-      <StatusBar barStyle="dark-content" />
-      <Header
-        title="Gift card"
-        headerLeft={true}
-        headerRight={true}
-        iconLeft={ICONS['drawer']}
-        onBack={openDrawer}
-        onPressRight={openInbox}
-      />
-      <ScrollableTabView
+    <View style={{ flex: 1, backgroundColor: '#F8F8F8' }}>
+        <FocusAwareStatusBar
+          barStyle="dark-content"
+          backgroundColor="transparent"
+        />
+        <StatusBar barStyle="dark-content" />
+        <Header
+          title="Gift card"
+          headerLeft={true}
+          headerRight={true}
+          iconLeft={ICONS['drawer']}
+          onBack={openDrawer}
+          onPressRight={openInbox}
+        />
+      {/* <ScrollableTabView
         locked
         initialPage={0}
         style={{ flex: 1, backgroundColor: 'white' }}
         prerenderingSiblingsNumber={1}
         renderTabBar={() => (
           <GiftCardTabBar tab={styles.default_tab} style={styles.tabs} />
-        )}>
-        <MyCard
-          isRefresh={isRefresh}
-          onRefresh={onRefresh}
-          tabLabel={tabs[0]}
-          card_primary={card_primary}
-          goToDetailCard={goToDetailCard}
-          getCardByUser={getCardByUser}
-          ListEmptyComponent={() => (
-            <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
-          )}
-          ItemSeparatorComponent={() => <ItemSeparatorComponent />}
-          _card_more={_card_more}
-          gotoAddNewCard={gotoAddNewCard}
-        />
-        <BuyGiftTab tabLabel={tabs[1]} onNextScreen={goToDetailTemplate} />
-      </ScrollableTabView>
+        )}> */}
+        <ScrollView
+          style={{ flex: 1, backgroundColor: 'white' }}
+        >
+          <MyCard
+            isRefresh={isRefresh}
+            onRefresh={onRefresh}
+            card_primary={card_primary}
+            goToDetailCard={goToDetailCard}
+            getCardByUser={getCardByUser}
+            ListEmptyComponent={() => (
+              <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
+            )}
+            ItemSeparatorComponent={() => <ItemSeparatorComponent />}
+            _card_more={_card_more}
+            gotoAddNewCard={gotoAddNewCard}
+            onHandleBuyGift={onHandleBuyGift}
+          />
+        </ScrollView>
+
+        {/* <BuyGiftTab tabLabel={tabs[1]} onNextScreen={goToDetailTemplate} /> */}
+      {/* </ScrollableTabView> */}
     </View>
   );
 }
@@ -127,6 +130,7 @@ const MyCard = ({
   ItemSeparatorComponent,
   _card_more,
   gotoAddNewCard,
+  onHandleBuyGift,
 }) => {
   return (
     <FlatList
@@ -140,7 +144,6 @@ const MyCard = ({
           tintColor="#0764B0"
         />
       }
-      tabLabel={tabLabel}
       contentContainerStyle={styles.content_flatlist}
       ListHeaderComponent={() =>
         card_primary && (
@@ -148,6 +151,7 @@ const MyCard = ({
             card={card_primary}
             onPress={goToDetailCard}
             onReload={getCardByUser}
+            onHandleBuyGift={onHandleBuyGift}
           />
         )
       }

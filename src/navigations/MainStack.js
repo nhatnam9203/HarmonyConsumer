@@ -36,6 +36,8 @@ import {
   PaymentInvoiceScreen,
   Rating,
   TransactionPayScanSuccess,
+  StoreScreen,
+  BuyGift,
 } from "screens";
 
 import { Payments } from "screens/Setting/widget";
@@ -108,6 +110,8 @@ export default function Main() {
           iconRight: false,
         }}
       />
+      <MainStack.Screen name="StoreScreen" component={StoreScreen} />
+      <MainStack.Screen name="BuyGift" component={BuyGift} />
       <MainStack.Screen
         options={{ gestureEnabled: false }}
         name="BookAppointmentStack"
