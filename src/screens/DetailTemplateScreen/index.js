@@ -12,6 +12,7 @@ import {
   Header,
   ProgressiveImage,
   SearchListMerchant,
+  HeaderCustom
 } from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import styles from './style';
@@ -40,7 +41,7 @@ export default function index(props) {
   const [file_id, setFileId] = React.useState(fileId);
   const [images, setImage] = React.useState(ICONS['camera_picker']);
   const [selectMerchant, setSelectMerchant] = React.useState(null);
-  const [isSearch, setIsSearch] = React.useState(false);
+  // const [isSearch, setIsSearch] = React.useState(false);
   const onBack = () => {
     RootNavigation.back();
   };
@@ -121,19 +122,31 @@ export default function index(props) {
     setMessage(value);
   };
 
-  const onPressMerchant = (merchant) => {
-    setSelectMerchant(merchant);
+  // const onPressMerchant = (merchant) => {
+  //   setSelectMerchant(merchant);
+  // }
+
+  // const onSearch = () => {
+  //   setIsSearch(true);
+  // }
+
+  const onCancel = () => {
+    props.navigation.popToTop();
   }
 
-  const onSearch = () => {
-    setIsSearch(true);
-  }
-
-  const isDisableButton = amount == 0 || (type == 'template_custom' && !images.uri) || !selectMerchant
+  const isDisableButton = amount == 0 || (type == 'template_custom' && !images.uri)
 
   return (
     <Container barStyle="dark-content">
-      <Header title="Buy gift" headerLeft={true} onBack={onBack} />
+      <HeaderCustom 
+        title="Buy gift" 
+        headerLeft={true} 
+        onBack={onBack}
+        onRightPress={onCancel}
+        headerRight={true}
+        textRight={'Cancel'}
+        textRightStyle={styles.textCancel}
+        colorTextRight={'red'} />
 
       <View style={styles.container_center}>
         <Text style={styles.title} fontSize={17}>
@@ -154,7 +167,7 @@ export default function index(props) {
 
         <SelectAmount value={amount} onChangeValue={setAmount} />
 
-        <View style={styles.viewMerchant}>
+        {/* <View style={styles.viewMerchant}>
           <Text style={styles.textSelectMerchant}>
             Select store:
           </Text>
@@ -167,7 +180,7 @@ export default function index(props) {
             </Text>
             <Image source={ICONS.arrow_down}/>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <Input
           placeHolder="Say something … !"
@@ -205,10 +218,10 @@ export default function index(props) {
           />
         </View>
       </View>
-      <SearchListMerchant
+      {/* <SearchListMerchant
         isVisible={isSearch}
         onRequestClose={()=>{setIsSearch(false)}}
-        onSubmit={(merchant) => {onPressMerchant(merchant)}}/>
+        onSubmit={(merchant) => {onPressMerchant(merchant)}}/> */}
     </Container>
   );
 }

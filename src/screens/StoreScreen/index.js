@@ -79,7 +79,7 @@ export default function index(props) {
   const [isShowSearchLocation, showSearchLocation] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    console.log('useLayoutEffect', isAddGiftCard)
+    console.log('useLayoutEffect', isAddGiftCard, props?.route)
     dispatch(
       actions.storeAction.searchStoreFavourite(
         '',
@@ -401,7 +401,10 @@ export default function index(props) {
         />
       )}
       {(isTabActive == 1 || isTabActive == 2) && (
-        <TabNearMe data={store_tab_near} />
+        <TabNearMe 
+          data={store_tab_near} 
+          isAddGiftCard={isAddGiftCard}
+        />
       )}
 
       {isTabActive == 0 && (

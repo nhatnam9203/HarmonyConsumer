@@ -42,8 +42,10 @@ import ModalBottomSelect2 from './ModalBottomSelect2';
 import { HarmonyCard } from './HarmonyCard';
 import CheckedBox from './CheckedBox';
 import SearchListMerchant from './SearchListMerchant';
+import HeaderCustom from './HeaderCustom';
 
 export {
+  HeaderCustom,
   SearchListMerchant,
   MoneyButton,
   Text,

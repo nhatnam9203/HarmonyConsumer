@@ -56,6 +56,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color:"#646464",
   },
+  textCancel: {  
+    color: 'red',
+    fontSize: scaleSize(17)
+  }
 });
 
 export default styles;

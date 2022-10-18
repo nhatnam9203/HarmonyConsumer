@@ -1,17 +1,17 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity } from "react-native";
 import styles from './style';
 import { buygifts } from "mocks";
-import { Text, Header, FocusAwareStatusBar, StatusBar } from "components";
+import { Text, HeaderCustom, FocusAwareStatusBar, StatusBar } from "components";
 import { scaleSize } from "utils";
 import Item_buygift from "./item_buygift";
 import Custom_template from "./custom_template";
-
+import { GIFT_CARD_SCREEN_KEY } from '@shared/utils';
 export default function index(props) {
 
   const ListFooterComponent = () => <Custom_template onPress={goToDetail} />;
   const onCancel = () => {
-    
+    props.navigation.popToTop();
   }
   const onBack = () => {
     props.navigation.goBack();
@@ -28,23 +28,26 @@ export default function index(props) {
       backgroundColor="transparent"
     />
     <StatusBar barStyle="dark-content" />
-    <Header
+    <HeaderCustom
       title="Select template"
       headerLeft={true}
-      headerRight={true}
       onBack={onBack}
-      onPressRight={onCancel}
+      onRightPress={onCancel}
+      headerRight={true}
+      textRight={'Cancel'}
+      textRightStyle={styles.textCancel}
+      colorTextRight={'red'}
     />
-    <FlatList
-      contentContainerStyle={styles.content_flatlist}
-      ListHeaderComponent={ListHeaderComponent}
-      ListEmptyComponent={ListEmptyComponent}
-      // ListFooterComponent={ListFooterComponent}
-      ItemSeparatorComponent={ItemSeparatorComponent}
-      data={buygifts}
-      keyExtractor={(_, index) => index + ""}
-      renderItem={({ item, index }) => <Item_buygift item={item} onPress={goToDetailTemplate} />}
-    />
+      <FlatList
+        contentContainerStyle={styles.content_flatlist}
+        ListHeaderComponent={ListHeaderComponent}
+        ListEmptyComponent={ListEmptyComponent}
+        // ListFooterComponent={ListFooterComponent}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        data={buygifts}
+        keyExtractor={(_, index) => index + ""}
+        renderItem={({ item, index }) => <Item_buygift item={item} onPress={goToDetailTemplate} />}
+      />
     </View>
   );
 }

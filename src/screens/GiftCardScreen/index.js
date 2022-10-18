@@ -46,10 +46,6 @@ export default function index(props) {
     RootNavigation.navigate('DetailGiftCard');
   };
 
-  // const goToDetailTemplate = (item = {}) => {
-  //   props.navigation.navigate('DetailTemplate', { template: item });
-  // };
-
   const gotoAddNewCard = () => {
     RootNavigation.navigate('AddNewCard');
   };
@@ -66,10 +62,8 @@ export default function index(props) {
   };
 
   const onHandleBuyGift = () => {
-    props.navigation.navigate('StoreScreen', { isAddGiftCard: true });
+    props.navigation.navigate({name: 'StoreScreen', params: { isAddGiftCard: true }});
   }
-
-
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F8F8' }}>
@@ -86,14 +80,6 @@ export default function index(props) {
           onBack={openDrawer}
           onPressRight={openInbox}
         />
-      {/* <ScrollableTabView
-        locked
-        initialPage={0}
-        style={{ flex: 1, backgroundColor: 'white' }}
-        prerenderingSiblingsNumber={1}
-        renderTabBar={() => (
-          <GiftCardTabBar tab={styles.default_tab} style={styles.tabs} />
-        )}> */}
         <ScrollView
           style={{ flex: 1, backgroundColor: 'white' }}
         >
@@ -112,9 +98,6 @@ export default function index(props) {
             onHandleBuyGift={onHandleBuyGift}
           />
         </ScrollView>
-
-        {/* <BuyGiftTab tabLabel={tabs[1]} onNextScreen={goToDetailTemplate} /> */}
-      {/* </ScrollableTabView> */}
     </View>
   );
 }

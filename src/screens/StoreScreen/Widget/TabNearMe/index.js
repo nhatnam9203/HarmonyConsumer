@@ -30,7 +30,7 @@ const adapterLocation = (location) => {
   };
 };
 
-export default function index({ data }) {
+export default function index({ data, isAddGiftCard }) {
   const dispatch = useDispatch();
   const { token, location_tab_store } = useSelector((state) => state.datalocalReducer);
   const coordinate_map = location_tab_store?.location
@@ -139,7 +139,11 @@ export default function index({ data }) {
           pagingEnabled
           data={data}
           renderItem={({ item, index }) => (
-            <ItemCard style={{ borderRadius: 5 }} onPress={navigateToStoreDetail} item={item} />
+            <ItemCard 
+              isAddGiftCard={isAddGiftCard}
+              style={{ borderRadius: 5 }} 
+              onPress={navigateToStoreDetail} 
+              item={item} />
           )}
           sliderWidth={width}
           itemWidth={scaleSize(CARD_WIDTH)}
