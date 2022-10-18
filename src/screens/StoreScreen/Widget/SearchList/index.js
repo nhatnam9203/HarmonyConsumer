@@ -22,6 +22,7 @@ export default function SearchList({
   onClearData,
   closeSearchList = () => {},
   storeSearch,
+  isAddGiftCard,
 }) {
   const dispatch = useDispatch();
 
@@ -113,6 +114,7 @@ export default function SearchList({
               }}>
               {storeSearch.map((item, index) => (
                 <ItemCard
+                  isAddGiftCard={isAddGiftCard}
                   isSearchList
                   valueSearch={valueSearchStore}
                   onPress={() => goToStoreDetail(item)}

@@ -45,6 +45,7 @@ const FILTERS_FAVOURITE = [
 
 export default function index(props) {
   const { navigation } = props;
+  const isAddGiftCard = props?.route?.params?.isAddGiftCard;
   const height = useRef(new Animated.Value(scaleSize(230))).current;
   const dispatch = useDispatch();
 
@@ -78,6 +79,7 @@ export default function index(props) {
   const [isShowSearchLocation, showSearchLocation] = React.useState(false);
 
   React.useLayoutEffect(() => {
+    console.log('useLayoutEffect', isAddGiftCard)
     dispatch(
       actions.storeAction.searchStoreFavourite(
         '',
@@ -346,6 +348,11 @@ export default function index(props) {
     );
   };
 
+  const goBack = () => {
+    props.navigation.goBack();
+  }
+
+
   return (
     <View style={{ flex: 1 }}>
       <FocusAwareStatusBar
@@ -355,7 +362,8 @@ export default function index(props) {
       <Animated.View style={[styles.container_header, { height }]}>
         <StatusBar />
         <Header
-          openDrawer={openDrawer}
+          icon={isAddGiftCard ? ICONS["arrow_back_ios"] : ICONS["drawer"]}
+          openDrawer={isAddGiftCard ? goBack : openDrawer}
           onfocusSearch={onShowSearchList}
           propInput={{
             onFocus: onShowSearchList,
@@ -386,9 +394,11 @@ export default function index(props) {
           </Animatable.View>
         )}
       </Animated.View>
-
       {isTabActive == 0 && (
-        <TabFavourite data={loading_store ? placeholders : favourite_stores} />
+        <TabFavourite
+          data={loading_store ? placeholders : favourite_stores} 
+          isAddGiftCard={isAddGiftCard}
+        />
       )}
       {(isTabActive == 1 || isTabActive == 2) && (
         <TabNearMe data={store_tab_near} />
@@ -420,6 +430,7 @@ export default function index(props) {
       )}
 
       <SearchList
+        isAddGiftCard={isAddGiftCard}
         isVisible={isShowSearchList}
         onRequestClose={onShowSearchList}
         onSubmit={onSubmit}

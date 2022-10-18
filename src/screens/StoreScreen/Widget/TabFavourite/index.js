@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
 import * as RootNavigation from "navigations/RootNavigation";
 
-export default function index({ data }) {
+export default function index({ data, isAddGiftCard }) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.datalocalReducer.token);
 
@@ -34,12 +34,14 @@ export default function index({ data }) {
             <React.Fragment>
               {item.merchantId ? (
                 <ItemCard
+                  isAddGiftCard={isAddGiftCard}
                   key={index + ""}
                   width={scaleSize(382)}
                   height={scaleSize(260)}
                   borderRadius={5}
                   item={item}
                   onPress={navigateToStoreDetail}
+                  style={{ marginVertical: scaleSize(15) }}
                 />
               ) : (
                 <ItemCardPlaceHolder

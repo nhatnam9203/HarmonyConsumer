@@ -55,7 +55,9 @@ import ForgotOTP from "./ForgotOTP";
 import ForgotNewPincode from "./ForgotNewPincode";
 
 import TransactionPayScanSuccess from "./TransactionPayScanSuccess";
+import BuyGift from "./BuyGift";
 export {
+  BuyGift,
   SigninScreen,
   WelComeScreen,
   SplashScreen,
