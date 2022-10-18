@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment-timezone";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment-timezone';
 
-import { useSelector, useDispatch } from "react-redux";
-import actions from "@redux/actions";
-import * as RootNavigation from "navigations/RootNavigation";
+import { useSelector, useDispatch } from 'react-redux';
+import actions from '@redux/actions';
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export default function hook(props) {
   const dispatch = useDispatch();
 
-  const [selectedStaffId, setStaffId] = useState("");
+  const [selectedStaffId, setStaffId] = useState('');
 
-  const token = useSelector((state) => state.datalocalReducer.token);
-  let _staffId = useSelector((state) => state.bookingReducer.staffId);
+  const token = useSelector(state => state.datalocalReducer.token);
+  let _staffId = useSelector(state => state.bookingReducer.staffId);
+
+  const { isAddmore, status, day } = useSelector(state => state.bookingReducer);
+  const merchant_detail = useSelector(
+    state => state.storeReducer.merchant_detail,
+  );
+
   const { isAddmore, status, day } = useSelector((state) => state.bookingReducer);
   const merchant_detail = useSelector((state) => state.storeReducer.merchant_detail);
   const appointment_detail_customer = useSelector(
@@ -24,9 +30,11 @@ export default function hook(props) {
 
   useEffect(() => {
     const date =
-      merchant_detail.timezone && merchant_detail.timezone !== "0"
-        ? moment().tz(merchant_detail.timezone.substring(12)).format("YYYY-MM-DD")
-        : moment().format("YYYY-MM-DD");
+      merchant_detail.timezone && merchant_detail.timezone !== '0'
+        ? moment()
+            .tz(merchant_detail.timezone.substring(12))
+            .format('YYYY-MM-DD')
+        : moment().format('YYYY-MM-DD');
 
     dispatch(actions.bookingAction.selectDay(date));
   }, []);
@@ -35,17 +43,14 @@ export default function hook(props) {
     setStaffId(_staffId);
   }, [_staffId]);
 
-  const selectStaff = React.useCallback(
-    (staffId) => {
-      if (staffId === -1) {
-        dispatch(actions.bookingAction.selectStatus("waiting"));
-      } else {
-        dispatch(actions.bookingAction.selectStatus("unconfirm"));
-      }
-      setStaffId(staffId);
-    },
-    [selectedStaffId],
-  );
+  const selectStaff = staffId => {
+    if (staffId === -1) {
+      dispatch(actions.bookingAction.selectStatus('waiting'));
+    } else {
+      dispatch(actions.bookingAction.selectStatus('unconfirm'));
+    }
+    setStaffId(staffId);
+  };
 
   const updateService = () => {
     if (item && item.serviceId) {
@@ -60,12 +65,12 @@ export default function hook(props) {
 
   const gotoReview = () => {
     dispatch(actions.bookingAction.setAddmore(false));
-    RootNavigation.navigate("Review");
+    RootNavigation.navigate('Review');
   };
 
   const getStaffAvaiable = () => {
-    dispatch({ type: "START_FETCH_API" });
-    const date = moment(day).format("YYYY-MM-DD");
+    dispatch({ type: 'START_FETCH_API' });
+    const date = moment(day).format('YYYY-MM-DD');
     dispatch(actions.bookingAction.selectDay(date));
     const body = {
       date,
@@ -73,7 +78,9 @@ export default function hook(props) {
       appointmentId: 0,
       timezone,
     };
-    dispatch(actions.staffAction.staffGetAvaiableTime(selectedStaffId, token, body));
+    dispatch(
+      actions.staffAction.staffGetAvaiableTime(selectedStaffId, token, body),
+    );
   };
 
   const selectDate = async () => {
@@ -84,12 +91,19 @@ export default function hook(props) {
     if (isAddmore || selectedStaffId === -1) {
       gotoReview();
     } else {
-      dispatch({ type: "START_FETCH_API" });
-      RootNavigation.navigate("SelectDate");
+      dispatch({ type: 'START_FETCH_API' });
+      RootNavigation.navigate('SelectDate');
       getStaffAvaiable();
     }
     dispatch(actions.bookingAction.selectStaff(selectedStaffId));
   };
 
-  return [status, selectedStaffId, selectStaff, selectDate, isProduct, tempServices];
+  return [
+    status,
+    selectedStaffId,
+    selectStaff,
+    selectDate,
+    isProduct,
+    tempServices,
+  ];
 }
