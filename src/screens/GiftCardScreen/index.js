@@ -73,24 +73,26 @@ export default function index(props) {
 
   const emptyCardView = () => {
     return(
-      <View style={styles.emptyCardView}>
-        <TouchableOpacity
-          style={styles.buyGiftButton}
-          onPress={onHandleBuyGift}>
-          <Text 
-            style={styles.buyGiftText}
+        <View style={styles.emptyCardView}>
+          <Text style={styles.titleText}>You haven't any gift card</Text>
+          <Text style={styles.normalText}>Please tap the button to Buy Gift or Add a Card to use for transactions</Text>
+          <TouchableOpacity
+            style={styles.buyGiftButton}
+            onPress={onHandleBuyGift}>
+            <Text 
+              style={styles.buyGiftText}
+            >
+              Buy gift
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{flexDirection:'row'}}
+            onPress={gotoAddNewCard}
           >
-            Buy gift
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{flexDirection:'row'}}
-          onPress={gotoAddNewCard}
-        >
-          <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
-          <Text style={styles.textAddCard}>Add a card</Text>
-        </TouchableOpacity>
-      </View>
+            <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+            <Text style={styles.textAddCard}>Add a card</Text>
+          </TouchableOpacity>
+        </View>
     )
     
   }
@@ -114,24 +116,24 @@ export default function index(props) {
           style={{ flex: 1, backgroundColor: 'white' }}
         >
           {
-            !card_primary && 
+            !card_primary ? 
             emptyCardView()
+            :
+            <MyCard
+              isRefresh={isRefresh}
+              onRefresh={onRefresh}
+              card_primary={card_primary}
+              goToDetailCard={goToDetailCard}
+              getCardByUser={getCardByUser}
+              ListEmptyComponent={() => (
+                <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
+              )}
+              ItemSeparatorComponent={() => <ItemSeparatorComponent />}
+              _card_more={_card_more}
+              gotoAddNewCard={gotoAddNewCard}
+              onHandleBuyGift={onHandleBuyGift}
+            />
           }
-
-          <MyCard
-            isRefresh={isRefresh}
-            onRefresh={onRefresh}
-            card_primary={card_primary}
-            goToDetailCard={goToDetailCard}
-            getCardByUser={getCardByUser}
-            ListEmptyComponent={() => (
-              <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
-            )}
-            ItemSeparatorComponent={() => <ItemSeparatorComponent />}
-            _card_more={_card_more}
-            gotoAddNewCard={gotoAddNewCard}
-            onHandleBuyGift={onHandleBuyGift}
-          />
         </ScrollView>
     </View>
   );

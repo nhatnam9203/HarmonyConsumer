@@ -59,10 +59,11 @@ const styles = StyleSheet.create({
   buyGiftButton: {
     backgroundColor: "#0764B0",
     height: scaleSize(45),
-    width: scaleSize(120),
+    width: '70%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: scaleSize(10)
+    borderRadius: scaleSize(10),
+    marginBottom: scaleSize(20)
   },
   buyGiftText: {
     fontSize: scaleSize(17),
@@ -70,11 +71,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   emptyCardView: {
-    flexDirection: 'row', 
-    justifyContent: 'space-around',
+    flex: 1,
+    justifyContent: 'center',
     margin: scaleSize(20),
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: scaleSize(50)
   },
+  titleText: {
+    fontSize: scaleSize(18),
+    fontWeight: "bold",
+    marginBottom: scaleSize(15)
+  },
+  normalText: {
+    fontSize: scaleSize(16),
+    textAlign: 'center',
+    marginBottom: scaleSize(20)
+  }
 });
 
 export default styles;
