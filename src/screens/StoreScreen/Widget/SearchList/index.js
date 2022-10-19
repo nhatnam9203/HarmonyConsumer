@@ -90,11 +90,13 @@ export default function SearchList({
       setTotalPage(response?.pages);
       
       if(page == 1) {
+        console.log('setListMerchant page 1', data)
         setListMerchant(data);
         // dispatch({ type: 'SET_STORE_SEARCH', payload: data });
       } else {
         let merchants = listMerchant
         merchants.push(...data);
+        console.log('set list merchant add more', merchants)
         setListMerchant(merchants);
         // dispatch({ type: 'SET_STORE_SEARCH', payload: data });
       }
@@ -206,8 +208,10 @@ export default function SearchList({
           />
         </View>
 
-        {!loading_search ? (
-          !(storeSearch.length === 0) ? (
+        {
+        // !loading_search ? 
+        (
+          !(listMerchant.length === 0) ? (
             <View 
                 style={styles.flatlistView}>
                 <FlatList
@@ -219,29 +223,14 @@ export default function SearchList({
                     onEndReachedThreshold={0.1}
                 />
             </View>
-            // <ScrollView
-            //   showsVerticalScrollIndicator={false}
-            //   contentContainerStyle={{
-            //     paddingHorizontal: scaleSize(18),
-            //     paddingBottom: scaleSize(15),
-            //   }}>
-            //   {storeSearch.map((item, index) => (
-            //     <ItemCard
-            //       isSearchList
-            //       valueSearch={valueSearchStore}
-            //       onPress={() => isAddGiftCard ? onSelectStore(item) : goToStoreDetail(item)}
-            //       key={index + "storeFavourite"}
-            //       item={item}
-            //       style={{ marginVertical: scaleSize(15) }}
-            //     />
-            //   ))}
-            // </ScrollView>
           ) : (
             <EmptyList />
           )
-        ) : (
-          renderPlaceholderList()
-        )}
+        )
+        //  : (
+        //   renderPlaceholderList()
+        // )
+        }
         {loading_app && <LoadingIndicator />}
       </View>
     </Modal>

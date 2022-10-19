@@ -7,7 +7,7 @@ import { Text, Button } from "components";
 import { scaleSize, formatMoney } from "utils";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const PrimaryCard = ({ onPress, card, onReload, onHandleBuyGift }) => {
+const PrimaryCard = ({ onPress, card, onReload, onHandleBuyGift, onPressAddCard }) => {
   const { amount, imageUrl } = card;
   const url = React.useMemo(() => {
     return imageUrl ? { uri: imageUrl } : ICONS["primary_card"];
@@ -49,17 +49,24 @@ const PrimaryCard = ({ onPress, card, onReload, onHandleBuyGift }) => {
             >
             Buy gift
           </Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
-
-      
 
       <Button onPress={onHandleOnPress}>
         <Image style={styles.img_card} source={url} />
       </Button>
-      <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
-        MORE CARDS
-      </Text>
+      <View style={styles.moreCardView}>
+        <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
+          MORE CARDS
+        </Text>
+        <TouchableOpacity
+          style={{flexDirection:'row'}}
+          onPress={onPressAddCard}
+        >
+          <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+          <Text style={styles.textAddCard}>Add a card</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -116,5 +123,17 @@ const styles = StyleSheet.create({
   textMoney: {
     fontSize: scaleSize(25),
     fontWeight: '600'
+  },
+  moreCardView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  textAddCard: {
+    color: '#0764B0',
+    fontSize: scaleSize(17),
+    fontWeight: '700',
+    marginLeft: scaleSize(5),
+    marginRight: scaleSize(10)
   }
 });

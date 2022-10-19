@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { View, FlatList, RefreshControl, ScrollView } from 'react-native';
+import { View, 
+  FlatList, 
+  RefreshControl, 
+  ScrollView, 
+  TouchableOpacity,
+ } from 'react-native';
+ import Image from "react-native-fast-image";
 import { useDispatch, useSelector } from 'react-redux';
 
 import actions from '@redux/actions';
@@ -65,6 +71,30 @@ export default function index(props) {
     props.navigation.navigate({name: 'StoreScreen', params: { isAddGiftCard: true }});
   }
 
+  const emptyCardView = () => {
+    return(
+      <View style={styles.emptyCardView}>
+        <TouchableOpacity
+          style={styles.buyGiftButton}
+          onPress={onHandleBuyGift}>
+          <Text 
+            style={styles.buyGiftText}
+          >
+            Buy gift
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{flexDirection:'row'}}
+          onPress={gotoAddNewCard}
+        >
+          <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+          <Text style={styles.textAddCard}>Add a card</Text>
+        </TouchableOpacity>
+      </View>
+    )
+    
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F8F8' }}>
         <FocusAwareStatusBar
@@ -83,6 +113,11 @@ export default function index(props) {
         <ScrollView
           style={{ flex: 1, backgroundColor: 'white' }}
         >
+          {
+            !card_primary && 
+            emptyCardView()
+          }
+
           <MyCard
             isRefresh={isRefresh}
             onRefresh={onRefresh}
@@ -135,6 +170,7 @@ const MyCard = ({
             onPress={goToDetailCard}
             onReload={getCardByUser}
             onHandleBuyGift={onHandleBuyGift}
+            onPressAddCard={gotoAddNewCard}
           />
         )
       }
@@ -147,16 +183,18 @@ const MyCard = ({
         const _marginLeft = index % 2 != 0 ? { marginLeft: scaleSize(15) } : {};
         return (
           <React.Fragment>
-            {item.giftCardId > -1 ? (
+            {item.giftCardId > -1 && (
               <MoreCard
                 item={item}
                 index={index}
                 style={_marginLeft}
                 onPress={goToDetailCard}
               />
-            ) : (
-              <AddCard onPress={gotoAddNewCard} style={_marginLeft} />
-            )}
+            ) 
+            // : (
+            //   <AddCard onPress={gotoAddNewCard} style={_marginLeft} />
+            // )
+          }
           </React.Fragment>
         );
       }}
