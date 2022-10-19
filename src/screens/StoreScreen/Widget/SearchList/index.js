@@ -63,19 +63,6 @@ export default function SearchList({
     },
     [key],
   );
-  // const onChangeText = React.useCallback(
-  //   (value) => {
-  //     dispatch(actions.storeAction.onChangeValueSearchStore(value));
-  //     if (!onSubmit) return;
-  //     if (typingTimeoutRef.current) {
-  //       clearTimeout(typingTimeoutRef.current);
-  //     }
-  //     typingTimeoutRef.current = setTimeout(() => {
-  //       getMerchantListData()
-  //     }, 300);
-  //   },
-  //   [valueSearchStore],
-  // );
 
   const [, getMerchantListData] = useAxiosQuery({
     ...getMerchantList( key,
@@ -157,8 +144,8 @@ export default function SearchList({
   }
 
   const renderItem = (item, index) => {
-    console.log('renderitem', item)
     return (
+      item && 
       <ItemCard
         isSearchList
         valueSearch={valueSearchStore}
@@ -171,7 +158,6 @@ export default function SearchList({
   }
 
   React.useEffect(()=>{
-    console.log('useEffect')
     getMerchantListData();
   },[page, key])
 
@@ -211,7 +197,7 @@ export default function SearchList({
         {
         // !loading_search ? 
         (
-          !(listMerchant.length === 0) ? (
+          listMerchant && !(listMerchant.length === 0) ? (
             <View 
                 style={styles.flatlistView}>
                 <FlatList

@@ -37,7 +37,7 @@ export default function ItemCard(props) {
   } = item;
 
   const renderImg =
-    banners.length > 0
+  banners && banners.length > 0
       ? { uri: banners[0].imageUrl, priority: Image.priority.high }
       : ICONS.bannerMerchant;
 
