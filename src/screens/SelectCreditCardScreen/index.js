@@ -9,7 +9,7 @@ import {
 } from '@redux/actions/creditAndBankAction';
 import { CreditCard, BankCard } from './widget';
 import ICONS from 'assets';
-import { Text, Container, Button, Header, Form } from 'components';
+import { Text, Container, Button, HeaderCustom, Form } from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import styles from './style';
 
@@ -115,14 +115,21 @@ export default function index(props) {
     </>
   );
 
+  const onCancel = () => {
+    props.navigation.popToTop();
+  }
+
   return (
     <Container barStyle="dark-content">
-      <Header
-        title="Buy gift"
-        headerLeft={true}
+      <HeaderCustom 
+        title="Buy gift" 
+        headerLeft={true} 
         onBack={onBack}
-        iconLeft={ICONS['arrow_back_ios']}
-      />
+        onRightPress={onCancel}
+        headerRight={true}
+        textRight={'Cancel'}
+        textRightStyle={styles.textCancel}
+        colorTextRight={'red'} />
 
       <FlatList
         contentContainerStyle={styles.container_center}

@@ -5,7 +5,7 @@ import Image from "react-native-fast-image";
 import actions from "@redux/actions";
 import { Receiver } from "./widget";
 import ICONS from "assets";
-import { Text, Button, Header, Form, CheckBox, StatusBar } from "components";
+import { Text, Button, HeaderCustom, Form, CheckBox, StatusBar } from "components";
 import * as RootNavigation from "navigations/RootNavigation";
 import styles from "./style";
 import { formatMoney, scaleHeight } from "utils";
@@ -56,16 +56,23 @@ export default function index(props) {
     </Button>
   );
 
+  const onCancel = () => {
+    props.navigation.popToTop();
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ backgroundColor: "#f8f8f8" }}>
         <StatusBar />
-        <Header
-          title="Buy gift"
-          headerLeft={true}
+        <HeaderCustom 
+          title="Buy gift" 
+          headerLeft={true} 
           onBack={onBack}
-          iconLeft={ICONS["arrow_back_ios"]}
-        />
+          onRightPress={onCancel}
+          headerRight={true}
+          textRight={'Cancel'}
+          textRightStyle={styles.textCancel}
+          colorTextRight={'red'} />
       </View>
 
       <ScrollView bounces={false} contentContainerStyle={styles.container_center}>
@@ -94,7 +101,7 @@ export default function index(props) {
         <Receiver infoReceiver={infoReceiver} receiver={gift_send.receiver} />
 
         <Text style={[styles.header, {marginBottom: 15}]} fontSize={17} color="#585858">
-          {`Store: ${gift_send?.merchantName}`}
+          {`Store: ${gift_send?.merchantName || ""}`}
         </Text>
 
         <Input

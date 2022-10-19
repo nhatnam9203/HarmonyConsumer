@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: scaleSize(20),
   },
+  textCancel: {  
+    color: 'red',
+    fontSize: scaleSize(17)
+  }
 });
 
 export default styles;

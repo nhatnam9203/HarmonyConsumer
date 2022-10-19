@@ -6,7 +6,6 @@ import { Text, HeaderCustom, FocusAwareStatusBar, StatusBar } from "components";
 import { scaleSize } from "utils";
 import Item_buygift from "./item_buygift";
 import Custom_template from "./custom_template";
-import { GIFT_CARD_SCREEN_KEY } from '@shared/utils';
 export default function index(props) {
 
   const ListFooterComponent = () => <Custom_template onPress={goToDetail} />;

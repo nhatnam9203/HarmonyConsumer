@@ -59,7 +59,8 @@ export default function ItemCard(props) {
     }
   };
 
-  const onSelectStore = () => {
+  const onSelectStore = (item) => {
+    console.log('onSelectStore', item)
     RootNavigation.navigate("Main", {
       screen: "BuyGift",
       params: { merchant: item },
@@ -67,7 +68,7 @@ export default function ItemCard(props) {
   }
 
   return (
-    <TouchableOpacity activeOpacity={1} onPress={() => onPress(item)}>
+    <TouchableOpacity activeOpacity={1} onPress={() => isAddGiftCard ? onSelectStore(item) : onPress(item)}>
       <Card
         width={width}
         height={height}
@@ -133,17 +134,6 @@ export default function ItemCard(props) {
               </Text>
             )}
           </View>
-          { isAddGiftCard && 
-            <View style={{ alignItems: 'center'}}>
-              <TouchableOpacity 
-                style={styles.buttonSelectView}
-                onPress={onSelectStore}>
-                <Text style={styles.buttonSelectText}>
-                  Select
-                </Text>
-              </TouchableOpacity>
-            </View>
-          }
         </View>
 
         {/* --------------like -------------------- */}
