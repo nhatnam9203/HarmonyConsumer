@@ -79,7 +79,6 @@ export default function index(props) {
   const [isShowSearchLocation, showSearchLocation] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    console.log('useLayoutEffect', isAddGiftCard, props?.route)
     dispatch(
       actions.storeAction.searchStoreFavourite(
         '',
@@ -232,25 +231,6 @@ export default function index(props) {
         { enableHighAccuracy: false, timeout: 20000 },
       );
     }
-  };
-
-  const onSubmit = key => {
-    if (key === '') {
-      dispatch({ type: 'SET_STORE_SEARCH', payload: [] });
-      return;
-    }
-    dispatch(
-      actions.storeAction.searchStore(
-        key,
-        'all',
-        'nearest',
-        lat,
-        lng,
-        1,
-        token,
-        (screen = 'SEARCH_STORE'),
-      ),
-    );
   };
 
   const afterSubmitFavouriteStore = data => {
@@ -436,7 +416,7 @@ export default function index(props) {
         isAddGiftCard={isAddGiftCard}
         isVisible={isShowSearchList}
         onRequestClose={onShowSearchList}
-        onSubmit={onSubmit}
+        // onSubmit={onSubmit}
         onClearData={clearSearchList}
         closeSearchList={closeSearchList}
         storeFavouriteSearch={storeFavouriteSearch}

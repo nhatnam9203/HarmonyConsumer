@@ -6,8 +6,8 @@ import { Text, HeaderCustom, FocusAwareStatusBar, StatusBar } from "components";
 import { scaleSize } from "utils";
 import Item_buygift from "./item_buygift";
 import Custom_template from "./custom_template";
-export default function index(props) {
 
+export default function index(props) {
   const ListFooterComponent = () => <Custom_template onPress={goToDetail} />;
   const onCancel = () => {
     props.navigation.popToTop();

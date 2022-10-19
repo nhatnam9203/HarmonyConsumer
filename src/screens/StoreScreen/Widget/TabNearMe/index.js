@@ -33,6 +33,7 @@ const adapterLocation = (location) => {
 export default function index({ data, isAddGiftCard }) {
   const dispatch = useDispatch();
   const { token, location_tab_store } = useSelector((state) => state.datalocalReducer);
+  const gift_send = useSelector(state => state.buygiftReducer.gift_send);
   const coordinate_map = location_tab_store?.location
     ? adapterLocation(location_tab_store.location)
     : location_address;
@@ -96,6 +97,19 @@ export default function index({ data, isAddGiftCard }) {
     });
   };
 
+  const onSelectStore = (item) => {
+    let _gift_send = Object.assign({}, gift_send, {
+      merchantId: item?.merchantId,
+      merchantName: item?.businessName,
+    });
+
+    dispatch(actions.buygiftAction.set_gift_send(_gift_send));
+    RootNavigation.navigate("Main", {
+      screen: "BuyGift",
+      params: { merchant: item },
+    });
+  }
+
   return (
     <View style={{ flex: 1, marginTop: scaleSize(3) }}>
       {loading_map ? (
@@ -140,9 +154,8 @@ export default function index({ data, isAddGiftCard }) {
           data={data}
           renderItem={({ item, index }) => (
             <ItemCard 
-              isAddGiftCard={isAddGiftCard}
               style={{ borderRadius: 5 }} 
-              onPress={navigateToStoreDetail} 
+              onPress={isAddGiftCard ? onSelectStore : navigateToStoreDetail} 
               item={item} />
           )}
           sliderWidth={width}

@@ -116,6 +116,7 @@ export default function index(props) {
   );
 
   const onCancel = () => {
+    dispatch(actions.buygiftAction.set_gift_send({}));
     props.navigation.popToTop();
   }
 

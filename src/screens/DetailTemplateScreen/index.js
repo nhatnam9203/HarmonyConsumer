@@ -24,7 +24,7 @@ const { Input, ButtonSubmit } = Form;
 export default function index(props) {
   const dispatch = useDispatch();
   const token = useSelector(state => state.datalocalReducer.token);
-  // const { merchant_name } = store_special;
+  const gift_send = useSelector(state => state.buygiftReducer.gift_send);
   const {
     template: {
       type,
@@ -40,8 +40,6 @@ export default function index(props) {
   const [message, setMessage] = React.useState('');
   const [file_id, setFileId] = React.useState(fileId);
   const [images, setImage] = React.useState(ICONS['camera_picker']);
-  const [selectMerchant, setSelectMerchant] = React.useState(null);
-  // const [isSearch, setIsSearch] = React.useState(false);
   const onBack = () => {
     RootNavigation.back();
   };
@@ -92,8 +90,6 @@ export default function index(props) {
     let gift = {
       message,
       amount,
-      merchantId: selectMerchant?.merchantId,
-      merchantName: selectMerchant?.businessName,
       isSpecificMerchant: 0,
       imageUrl: type == 'template_custom' ? images.uri : imageUrl,
       giftCardTemplateId,
@@ -103,7 +99,9 @@ export default function index(props) {
         type == 'template_custom' ? 'Your Template' : giftCardTemplateName,
     };
 
-    dispatch(actions.buygiftAction.set_gift_send(gift));
+    let _gift_send = Object.assign({}, gift_send, gift);
+
+    dispatch(actions.buygiftAction.set_gift_send(_gift_send));
 
     if (type == 'template_custom') {
       dispatch(
@@ -122,15 +120,8 @@ export default function index(props) {
     setMessage(value);
   };
 
-  // const onPressMerchant = (merchant) => {
-  //   setSelectMerchant(merchant);
-  // }
-
-  // const onSearch = () => {
-  //   setIsSearch(true);
-  // }
-
   const onCancel = () => {
+    dispatch(actions.buygiftAction.set_gift_send({}));
     props.navigation.popToTop();
   }
 
