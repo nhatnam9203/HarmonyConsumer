@@ -77,6 +77,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: scaleSize(50)
   },
+  viewButtonBuyGiftCard: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: scaleSize(30)
+  },
   titleText: {
     fontSize: scaleSize(18),
     fontWeight: "bold",

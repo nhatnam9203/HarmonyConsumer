@@ -72,7 +72,9 @@ export default function index(props) {
   }
 
   const emptyCardView = () => {
+console.log(' !card_primary && !_card_more',  !card_primary && !_card_more, card_primary, _card_more)
     return(
+      !card_primary && (!_card_more || _card_more.length == 1)?
         <View style={styles.emptyCardView}>
           <Text style={styles.titleText}>You haven't any gift card</Text>
           <Text style={styles.normalText}>Please tap the button to Buy Gift or Add a Card to use for transactions</Text>
@@ -93,6 +95,18 @@ export default function index(props) {
             <Text style={styles.textAddCard}>Add a card</Text>
           </TouchableOpacity>
         </View>
+      : !card_primary ? 
+      <View style={styles.viewButtonBuyGiftCard}>
+        <TouchableOpacity
+          style={styles.buyGiftButton}
+          onPress={onHandleBuyGift}>
+          <Text 
+            style={styles.buyGiftText}
+          >
+            Buy gift
+          </Text>
+        </TouchableOpacity>
+      </View> : <></>
     )
     
   }
@@ -115,22 +129,10 @@ export default function index(props) {
         <ScrollView
           style={{ flex: 1, backgroundColor: 'white' }}
         >
-          {
-            !card_primary && 
+          { 
             emptyCardView()
           }
-          <View style={styles.moreCardView}>
-            <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
-              MORE CARDS
-            </Text>
-            <TouchableOpacity
-              style={{flexDirection:'row'}}
-              onPress={gotoAddNewCard}
-            >
-              <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
-              <Text style={styles.textAddCard}>Add a card</Text>
-            </TouchableOpacity>
-          </View>
+          
           <MyCard
             isRefresh={isRefresh}
             onRefresh={onRefresh}
@@ -164,6 +166,8 @@ const MyCard = ({
   onHandleBuyGift,
 }) => {
   return (
+    
+    
     <FlatList
       refreshControl={
         <RefreshControl
@@ -176,16 +180,35 @@ const MyCard = ({
         />
       }
       contentContainerStyle={styles.content_flatlist}
-      ListHeaderComponent={() =>
-        card_primary && (
-          <PrimaryCard
-            card={card_primary}
-            onPress={goToDetailCard}
-            onReload={getCardByUser}
-            onHandleBuyGift={onHandleBuyGift}
-            onPressAddCard={gotoAddNewCard}
-          />
+      ListHeaderComponent={() => 
+        (<>
+          {card_primary && (
+            <PrimaryCard
+              card={card_primary}
+              onPress={goToDetailCard}
+              onReload={getCardByUser}
+              onHandleBuyGift={onHandleBuyGift}
+              onPressAddCard={gotoAddNewCard}
+            />
+          )}
+          {((_card_more && _card_more.length > 1) || card_primary) &&
+            <View style={styles.moreCardView}>
+              <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
+                MORE CARDS
+              </Text>
+              <TouchableOpacity
+                style={{flexDirection:'row'}}
+                onPress={gotoAddNewCard}
+              >
+                <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+                <Text style={styles.textAddCard}>Add a card</Text>
+              </TouchableOpacity>
+            </View>
+          }
+          
+        </>
         )
+      
       }
       ListEmptyComponent={ListEmptyComponent}
       ItemSeparatorComponent={ItemSeparatorComponent}
@@ -212,6 +235,7 @@ const MyCard = ({
         );
       }}
     />
+    
   );
 };
 
