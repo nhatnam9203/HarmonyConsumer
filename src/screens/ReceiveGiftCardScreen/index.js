@@ -15,6 +15,7 @@ const { ButtonSubmit, Input } = Form;
 export default function index(props) {
   const {
     gifts: { amount, imageUrl, message, senderId, receiverId, giftcardId, notificationId, merchantName },
+    type
   } = props.route.params;
 
   const dispatch = useDispatch();
@@ -102,9 +103,11 @@ export default function index(props) {
         </View>
       </View>
 
-      <View style={styles.button_submit}>
-        <ButtonSubmit onSubmit={onSubmit} title="Claim" width={350} />
-      </View>
+      {type != "buy_giftcard_myself" && 
+        <View style={styles.button_submit}>
+          <ButtonSubmit onSubmit={onSubmit} title="Claim" width={350} />
+        </View>
+      }
     </View>
   );
 }
