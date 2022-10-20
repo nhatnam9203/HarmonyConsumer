@@ -72,7 +72,6 @@ export default function index(props) {
   }
 
   const emptyCardView = () => {
-console.log(' !card_primary && !_card_more',  !card_primary && !_card_more, card_primary, _card_more)
     return(
       !card_primary && (!_card_more || _card_more.length == 1)?
         <View style={styles.emptyCardView}>
