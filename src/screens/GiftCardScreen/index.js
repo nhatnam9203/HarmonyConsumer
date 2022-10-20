@@ -116,24 +116,35 @@ export default function index(props) {
           style={{ flex: 1, backgroundColor: 'white' }}
         >
           {
-            !card_primary ? 
+            !card_primary && 
             emptyCardView()
-            :
-            <MyCard
-              isRefresh={isRefresh}
-              onRefresh={onRefresh}
-              card_primary={card_primary}
-              goToDetailCard={goToDetailCard}
-              getCardByUser={getCardByUser}
-              ListEmptyComponent={() => (
-                <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
-              )}
-              ItemSeparatorComponent={() => <ItemSeparatorComponent />}
-              _card_more={_card_more}
-              gotoAddNewCard={gotoAddNewCard}
-              onHandleBuyGift={onHandleBuyGift}
-            />
           }
+          <View style={styles.moreCardView}>
+            <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
+              MORE CARDS
+            </Text>
+            <TouchableOpacity
+              style={{flexDirection:'row'}}
+              onPress={gotoAddNewCard}
+            >
+              <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+              <Text style={styles.textAddCard}>Add a card</Text>
+            </TouchableOpacity>
+          </View>
+          <MyCard
+            isRefresh={isRefresh}
+            onRefresh={onRefresh}
+            card_primary={card_primary}
+            goToDetailCard={goToDetailCard}
+            getCardByUser={getCardByUser}
+            ListEmptyComponent={() => (
+              <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
+            )}
+            ItemSeparatorComponent={() => <ItemSeparatorComponent />}
+            _card_more={_card_more}
+            gotoAddNewCard={gotoAddNewCard}
+            onHandleBuyGift={onHandleBuyGift}
+          />
         </ScrollView>
     </View>
   );

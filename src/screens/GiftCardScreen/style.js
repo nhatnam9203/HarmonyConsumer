@@ -86,7 +86,16 @@ const styles = StyleSheet.create({
     fontSize: scaleSize(16),
     textAlign: 'center',
     marginBottom: scaleSize(20)
-  }
+  },
+  moreCardView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  txtMoreCard: {
+    marginBottom: scaleSize(15),
+    marginTop: scaleSize(25),
+  },
 });
 
 export default styles;

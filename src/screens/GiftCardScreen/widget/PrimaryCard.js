@@ -55,18 +55,7 @@ const PrimaryCard = ({ onPress, card, onReload, onHandleBuyGift, onPressAddCard 
       <Button onPress={onHandleOnPress}>
         <Image style={styles.img_card} source={url} />
       </Button>
-      <View style={styles.moreCardView}>
-        <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
-          MORE CARDS
-        </Text>
-        <TouchableOpacity
-          style={{flexDirection:'row'}}
-          onPress={onPressAddCard}
-        >
-          <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
-          <Text style={styles.textAddCard}>Add a card</Text>
-        </TouchableOpacity>
-      </View>
+      
     </View>
   );
 };
