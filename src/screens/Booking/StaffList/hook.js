@@ -18,8 +18,6 @@ export default function hook(props) {
     state => state.storeReducer.merchant_detail,
   );
 
-  const { isAddmore, status, day } = useSelector((state) => state.bookingReducer);
-  const merchant_detail = useSelector((state) => state.storeReducer.merchant_detail);
   const appointment_detail_customer = useSelector(
     state => state.appointmentReducer.appointment_detail_customer,
   );
