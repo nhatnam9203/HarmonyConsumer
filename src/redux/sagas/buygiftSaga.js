@@ -51,11 +51,6 @@ function* searchManually(action) {
       case 200:
         if (data.length == 0) {
           action.cb(true);
-        } else if (findYourself() > -1) {
-          yield put({
-            type: 'SHOW_POPUP_ERROR',
-            content: 'You can not send to yourself',
-          });
         } else {
           let user = data[0];
           yield put({

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import * as RootNavigation from "navigations/RootNavigation";
 const { width } = Dimensions.get("window");
 
-export default function Header({ openDrawer, propInput, onfocusSearch }) {
+export default function Header({ openDrawer, propInput, onfocusSearch, icon }) {
   const { count } = useSelector((state) => state.inboxReducer);
 
   const openInbox = () => {
@@ -17,7 +17,7 @@ export default function Header({ openDrawer, propInput, onfocusSearch }) {
   return (
     <View style={styles.container_header}>
       <Button onPress={openDrawer}>
-        <Image style={styles.icon_drawer} source={ICONS["drawer"]} />
+        <Image style={styles.icon_drawer} source={icon ? icon : ICONS["drawer"]} />
       </Button>
 
       <SearchBar
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   icon_drawer: {
     width: scaleSize(20),
     height: scaleSize(18),
-    // resizeMode: 'contain'
+    resizeMode: 'contain'
   },
   icon_tone: {
     width: scaleSize(16),

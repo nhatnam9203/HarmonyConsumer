@@ -1,4 +1,5 @@
 import { getUserCardById, useAxiosQuery } from '@apis';
+import actions from '@redux/actions';
 import ICONS from 'assets';
 import React from 'react';
 import {
@@ -12,14 +13,17 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import QRCode from 'react-native-qrcode-svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DEFAULT_TIMEOUT = 5 * 60; // seconds
 const MIN_COUNTER = 10; // seconds
 
 export const HarmonyCard = ({ cardId }) => {
+  const dispatch = useDispatch();
+
   const timer = React.useRef(null);
   const card_detail = useSelector(state => state.cardReducer.card_detail);
+  const isPayComplete = useSelector(state => state.generalReducer.isPayComplete);
   const [card, setCard] = React.useState(null);
   const [counter, setCounter] = React.useState(null);
 
@@ -68,6 +72,11 @@ export const HarmonyCard = ({ cardId }) => {
     onSuccess: (data, response) => {
       setCard(data);
       startTimer((data?.expireTime ?? DEFAULT_TIMEOUT) - MIN_COUNTER);
+      if(isPayComplete) {
+        dispatch(
+          actions.generalAction.setPayComplete(false),
+        );
+      }
     },
   });
 
@@ -106,6 +115,9 @@ export const HarmonyCard = ({ cardId }) => {
 
     return () => {
       clearTimer();
+      dispatch(
+        actions.generalAction.setPayComplete(false)
+      );
     };
   }, []);
 
@@ -129,6 +141,11 @@ export const HarmonyCard = ({ cardId }) => {
       getUserCard();
     }
   }, [card_detail?.userCardId]);
+
+  React.useEffect(() => {
+    clearTimer();
+    getUserCard();
+  }, [isPayComplete])
 
   const { amount = 0, userCardId, imageUrl, token } = card || {};
 

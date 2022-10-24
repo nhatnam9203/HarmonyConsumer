@@ -54,6 +54,10 @@ const styles = StyleSheet.create({
     borderRadius: scaleSize(5),
     marginTop: scaleSize(15),
   },
+  textCancel: {  
+    color: 'red',
+    fontSize: scaleSize(17)
+  }
 });
 
 export default styles;

@@ -411,6 +411,9 @@ const RootComponent = ({ children }) => {
             }),
           );
         }
+        dispatch(
+          actions.generalAction.setPayComplete(true),
+        );
       }
     }
   };

@@ -145,6 +145,14 @@ export function searchStore(
   };
 }
 
+export function setStoreSearch(data) {
+  return {
+    type: "SET_STORE_SEARCH",
+    payload: data,
+  }
+  
+}
+
 export function searchStoreFavourite(
   keyword,
   typeSearch,

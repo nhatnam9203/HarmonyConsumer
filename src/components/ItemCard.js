@@ -8,6 +8,7 @@ import actions from "@redux/actions";
 import Image from "react-native-fast-image";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export default function ItemCard(props) {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function ItemCard(props) {
   } = item;
 
   const renderImg =
-    banners.length > 0
+  banners && banners.length > 0
       ? { uri: banners[0].imageUrl, priority: Image.priority.high }
       : ICONS.bannerMerchant;
 
@@ -178,5 +179,19 @@ const styles = StyleSheet.create({
     top: scaleSize(10),
     right: scaleSize(15),
     elevation: 2,
+  },
+  buttonSelectText: {
+    fontSize: scaleSize(17),
+    color: "white",
+    fontWeight: "bold",
+  },
+  buttonSelectView: {
+    backgroundColor: "#0764B0",
+    height: scaleSize(45),
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: scaleSize(10),
+    marginTop: scaleSize(15)
   },
 });

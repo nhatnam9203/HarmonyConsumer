@@ -36,9 +36,10 @@ function Item(props) {
       viewDetailAppointment(appointmentId, merchantId);
     }
 
-    if (type === "giftcard") {
+    if (type === "giftcard" || type === "buy_giftcard_myself") {
       RootNavigation.navigate("ReceiveGiftCard", {
         gifts: item,
+        type
       });
     }
   };

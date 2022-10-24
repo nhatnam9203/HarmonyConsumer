@@ -240,7 +240,7 @@ export default function index(props) {
             </View>
 
             {/* ------------ Select Amount ----------------- */}
-            <View style={styles.container_item}>
+            {/* <View style={styles.container_item}>
               <Text fontSize={20} color="#585858" style={{ fontWeight: "500" }}>
                 Auto reload
               </Text>
@@ -291,7 +291,7 @@ export default function index(props) {
                 />
               </View>
             </View>
-            }
+            } */}
             {/* ------------ Select Payment ----------------- */}
             <View style={styles.space} />
             {!isEmpty(payments) ? (

@@ -19,9 +19,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatNumberFromCurrency, isEmpty, scaleSize } from 'utils';
 import styles from './style';
-import { BoxClick, PopupConditionRemove, PopupRemove } from './widget';
+import { BoxClick, PopupConditionRemove, PopupRemove, PopupMerchantList } from './widget';
 import QRCode from 'react-native-qrcode-svg';
 import { useApi } from './useApi';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { ButtonSubmit } = Form;
 
@@ -58,6 +59,7 @@ export default function index(props) {
     callBack: (key, data) => {
       switch (key) {
         case 'getUserCardById':
+          dispatch(actions.cardAction.set_card_detail(data));
           setQrcode(data?.token);
           break;
         default:
@@ -78,6 +80,7 @@ export default function index(props) {
   const [isVisibleAutoReload, setVisibleAutoReload] = React.useState(false);
   const [content, setContent] = React.useState('');
   const [qrCode, setQrcode] = React.useState(null);
+  const [isShowMerchantList, setIsShowMerchantList] = React.useState(false);
 
   const onChangeValuePrimary = React.useCallback(
     value => {
@@ -211,7 +214,23 @@ export default function index(props) {
     );
   };
 
-  // console.log(card_detail);
+  const getMerchantText = () => {
+    let merchantText = "";
+    let count = 0;
+    if(card_detail?.merchants) {
+      count = card_detail?.merchants.length > 3 ?
+      3 : card_detail?.merchants.length
+    }
+    for(let i = 0; i < count; i++) {
+      if(card_detail?.merchants[i]?.businessName) {
+        merchantText = merchantText + card_detail?.merchants[i]?.businessName;
+        if(i < count-1) {
+          merchantText = merchantText + ", ";
+        }
+      }
+    }
+    return merchantText;
+  }
 
   return (
     <Container barStyle="dark-content">
@@ -227,6 +246,39 @@ export default function index(props) {
           <View style={styles.container_center}>
 
             <HarmonyCard cardId={userCardId} />
+
+            {card_detail?.merchants 
+              && card_detail?.merchants.length > 0 &&
+              <View  style={styles.merchantListView}>
+            
+                <View style={card_detail?.merchants 
+                    && card_detail?.merchants.length > 3 
+                    ? {width: '80%'} : {width: '100%'}}>
+                  <Text 
+                    style={styles.storeText}
+                    numberOfLines={2}
+                    ellipsizeMode='tail'
+                  >
+                    Store: 
+                    <Text style={styles.merchantNameText}>{` ${getMerchantText()}`}</Text>
+                  </Text>
+                </View>
+                  
+                {card_detail?.merchants 
+                  && card_detail?.merchants.length > 3 &&
+                  <TouchableOpacity style={styles.viewMore}
+                  onPress={() => {  
+                    setIsShowMerchantList(true)
+                  }}>
+                    <Text style={{color: 'white'}}>
+                      View +{card_detail?.merchants.length - 3}
+                    </Text>
+                  </TouchableOpacity>
+                }
+
+              </View>
+
+            }
 
             {/* ------------------ primary card ------------------ */}
             <BoxClick
@@ -261,7 +313,7 @@ export default function index(props) {
             {/* ------------------ payment card ------------------ */}
 
             {/* ------------------ auto reload card ------------------ */}
-            <BoxClick
+            {/* <BoxClick
               disabled={true}
               style={styles.container_row_space_between}>
               <View style={styles.container_icon_title}>
@@ -308,11 +360,12 @@ export default function index(props) {
               onRequestClose={onTogglePopupAutoReload}
               onChangeValueAuto={setAutoReload}
               onSubmit={autoReloadCard}
-            />
+            /> */}
             {/* ------------------ auto reload card ------------------ */}
 
             {/* ------------------ Transfer card ------------------ */}
-            <BoxClick
+            {/* Hide for sprint 17 */}
+            {/* <BoxClick
               disabled={true}
               style={[
                 styles.container_row_space_between,
@@ -339,7 +392,6 @@ export default function index(props) {
                 />
               </Button>
             </BoxClick>
-
             <ModalTransfer
               isVisible={isVisibleTransfer}
               fromCards={card_more}
@@ -347,8 +399,7 @@ export default function index(props) {
               onRequestClose={onTogglePopupTransfer}
               onSubmit={transferCard}
               card_detail={card_detail}
-            />
-            {/* ------------------ Transfer card ------------------ */}
+            /> */}
 
             {/* ------------------ remove card ------------------ */}
             <BoxClick disabled={true} style={{ justifyContent: 'flex-start' }}>
@@ -401,6 +452,11 @@ export default function index(props) {
         onRequestClose={onTogglePopupRemove}
         isVisible={isVisibleRemove}
         onRemove={removeCard}
+      />
+      <PopupMerchantList
+        isVisible={isShowMerchantList}
+        onRequestClose={()=>{setIsShowMerchantList(false)}}
+        merchantList={card_detail?.merchants}
       />
     </Container>
   );

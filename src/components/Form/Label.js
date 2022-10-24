@@ -13,10 +13,11 @@ export default function Label({
   isRequire,
   fontSize,
   style = { height: scaleSize(20), flex: 1 },
+  styleTextLable={},
 }) {
   return (
     <View style={[{ flexDirection: 'row' }, style]}>
-      <Text fontSize={fontSize} color={BLACK}>
+      <Text fontSize={fontSize} color={BLACK} style={[styleTextLable]}>
         {label}
       </Text>
       {isRequire && (

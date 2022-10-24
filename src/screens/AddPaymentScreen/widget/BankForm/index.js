@@ -8,6 +8,7 @@ import { add_BankCard } from "@redux/actions/creditAndBankAction";
 import { Form, Text } from "components";
 import styles from "../../styles";
 const { Input, ButtonSubmit } = Form;
+import _ from "lodash";
 
 export default function index({ tabLabel }) {
   const dispatch = useDispatch();
@@ -31,7 +32,10 @@ export default function index({ tabLabel }) {
 
   //-------- variable ----------//
   let arrValues = Object.keys(values);
-  let isFullFill = arrValues.every((item) => values[item] != "");
+  const keyRequired = _.filter(arrValues, item => {
+    return item != "Address"
+  })
+  let isFullFill = keyRequired.every((item) => values[item] != "");
   //--------------------------//
 
   //-------- function ----------//

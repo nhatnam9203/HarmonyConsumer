@@ -1,9 +1,10 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { scaleSize } from "utils";
 import Configs from "@src/configs";
 const {
   COLORS: { COLOR_MAIN_APP },
 } = Configs;
+const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container_giftcard: {
     width: "100%",
@@ -85,6 +86,28 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  storeText: {
+    textAlign: 'left',
+    fontSize: scaleSize(17),
+  },
+  merchantNameText: {
+    fontSize: scaleSize(17),
+    color: "#0764B0"
+  },
+  merchantListView: {
+    flex: 1,
+    marginTop: scaleSize(5),
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end'
+  },
+  viewMore: {
+    backgroundColor: '#0764B0',
+    borderRadius: scaleSize(20),
+    paddingLeft: scaleSize(5),
+    paddingRight: scaleSize(5),
+    height: scaleSize(20)
+  }
 });
 
 export default styles;
