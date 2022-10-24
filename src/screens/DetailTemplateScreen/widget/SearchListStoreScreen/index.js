@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { search_store_list, pickup_store_special } from "@redux/actions/storeAction";
 import ICONS from "assets";
-import { result_store } from "mocks";
 import { Container, Header, SearchBar, Text } from "components";
 import * as RootNavigation from "navigations/RootNavigation";
 import ItemStore from "./ItemStore";
@@ -75,7 +74,7 @@ export default function index(props) {
       ) : (
         <FlatList
           contentContainerStyle={styles.container_center}
-          data={result_store}
+          data={[]}
           renderItem={renderListStore}
           keyExtractor={(_, index) => index + ""}
           ListEmptyComponent={EmpListComponent}
