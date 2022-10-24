@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import actions from '@redux/actions';
 import { ContactTab, ManuallyTab, PopupInvite } from './widget';
 import ICONS from 'assets';
-import { Text, Header, SearchBar, DefaultTabBar, StatusBar } from 'components';
+import { Text, 
+  HeaderCustom, 
+  SearchBar, 
+  DefaultTabBar, 
+  StatusBar 
+} from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import { Modal2 as Modal } from 'components';
 import styles from './style';
@@ -68,16 +73,24 @@ export default function index(props) {
     };
   }, []);
 
+  const onCancel = () => {
+    dispatch(actions.buygiftAction.set_gift_send({}));
+    props.navigation.popToTop();
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={{ backgroundColor: '#f8f8f8' }}>
         <StatusBar />
-        <Header
-          title="Buy gift"
-          headerLeft={true}
+        <HeaderCustom 
+          title="Buy gift" 
+          headerLeft={true} 
           onBack={onBack}
-          iconLeft={ICONS['arrow_back_ios']}
-        />
+          onRightPress={onCancel}
+          headerRight={true}
+          textRight={'Cancel'}
+          textRightStyle={styles.textCancel}
+          colorTextRight={'red'} />
       </View>
 
       <View style={styles.container_center}>

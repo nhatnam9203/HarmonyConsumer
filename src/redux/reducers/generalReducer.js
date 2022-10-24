@@ -4,6 +4,7 @@ const initialState = {
   tips: {},
   isBottomTabbar: false,
   showReviewForm: null,
+  isPayComplete: false,
 };
 
 function dataLocalReducer(state = initialState, action) {
@@ -35,6 +36,11 @@ function dataLocalReducer(state = initialState, action) {
         ...state,
         showReviewForm: action.payload,
       };
+    case "SET_IS_PAY_COMPLETE":
+      return {
+        ...state,
+        isPayComplete: action.isComplete
+      }
     default:
       return state;
   }

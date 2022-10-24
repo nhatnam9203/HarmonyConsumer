@@ -20,6 +20,7 @@ import {
   MerchantList,
   UserActiveCard,
 } from './Widget';
+import { useFocusEffect } from "@react-navigation/native";
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -35,7 +36,7 @@ export default function index(props) {
   );
   const invoice = useSelector(state => state.paymentReducer.invoice);
   const userInfo = useSelector(state => state.datalocalReducer.userInfo);
-  const { card_primary } = useSelector(state => state.cardReducer) || {};
+  const { card_primary, cards } = useSelector(state => state.cardReducer) || {};
 
   const userCard = card_primary ?? userInfo.userCard;
   const number_invoice = invoice.id ? 1 : 0;
@@ -69,13 +70,19 @@ export default function index(props) {
     dispatch(actions.paymentAction.get_number_invoice(token));
     dispatch(actions.appointmentAction.getAppointmentUpcoming(token, () => {}));
     fetchListCreditAndBankCard();
-    getCardByUser();
+    // getCardByUser();
     updateAccount();
     getTopMerchant();
 
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     AppState.addEventListener('change', handleAppStateChange);
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getCardByUser();
+    }, [])
+  );
 
   const getTopMerchant = () => {
     dispatch(actions.storeAction.getTopMerchant(token, lat, lng));
@@ -186,7 +193,7 @@ export default function index(props) {
         showsVerticalScrollIndicator={false}>
         <Header openDrawer={openDrawer} reloadView={_onRefresh} />
         {userCard ? (
-          <UserActiveCard card={userCard} onPress={goToDetailCard} />
+          <UserActiveCard card={userCard} onPress={cards && cards.length > 0 ? goToDetailCard : ()=>{}} />
         ) : (
           <GiftCardActive onPress={activeFirstCard} />
         )}
@@ -197,6 +204,7 @@ export default function index(props) {
           onAddMoney={addMoney}
           onAddCard={addCard}
           invoice={number_invoice}
+          isShowAddMoney={cards && cards.length > 0}
         />
 
         <Banner goToStoreDetail={goToStoreDetail} />

@@ -39,6 +39,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  viewMerchant: {
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    marginTop: scaleSize(15),
+    marginBottom: scaleSize(15),
+  },
+  viewSelectMerchant: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: scaleSize(15),
+    marginBottom: scaleSize(5),
+    width: '100%'
+  },
+  textSelectMerchant: {
+    fontSize: 15,
+    color:"#646464",
+  },
+  textCancel: {  
+    color: 'red',
+    fontSize: scaleSize(17)
+  }
 });
 
 export default styles;

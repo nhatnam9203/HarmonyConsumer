@@ -73,6 +73,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: scaleHeight(2),
   },
+  textCancel: {  
+    color: 'red',
+    fontSize: scaleSize(17)
+  }
 });
 
 export default styles;

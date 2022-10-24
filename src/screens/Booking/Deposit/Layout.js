@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { formatNumberFromCurrency, formatMoney } from 'utils';
@@ -23,12 +24,19 @@ export const Layout = ({
   onPayment,
   isDepositAppointment,
   loadingPage,
+  cardList,
+  onAddCard,
+  cardSelected,
+  onSelectCard,
 }) => {
-  const { amount, userCardId, imageUrl } = myCard || {};
   const depositAmount = calcDepositAmount();
 
   const isReload =
-    formatNumberFromCurrency(depositAmount) > formatNumberFromCurrency(amount);
+    cardSelected &&
+    formatNumberFromCurrency(depositAmount) >
+      formatNumberFromCurrency(cardSelected?.amount);
+
+  const isDisablePayment = !cardSelected || isReload;
 
   return (
     <View style={styles.container}>
@@ -126,93 +134,43 @@ export const Layout = ({
         <View style={styles.margin} />
         <View style={styles.margin} />
 
-        {/* Card */}
-        <View style={styles.bgContent}>
-          <Text>Primary Card</Text>
-          <View style={styles.margin} />
-
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <FastImage
-              style={styles.imageCard}
-              source={
-                imageUrl
-                  ? { uri: imageUrl, priority: FastImage.priority.high }
-                  : ICONS.primary_card
-              }
-            />
-            <View style={styles.margin} />
-            <View
-              style={{
-                alignItems: 'flex-start',
-                justifyContent: 'space-evenly',
-                flex: 1,
-              }}>
-              <Text
-                style={[
-                  styles.textCard,
-                  {
-                    fontWeight: '400',
-                    marginBottom: scaleHeight(5),
-                  },
-                ]}>{`My card - ${userCardId}`}</Text>
-              <Text
-                style={[
-                  styles.textCard,
-                  {
-                    fontWeight: '500',
-                  },
-                ]}>{`$ ${amount}`}</Text>
-            </View>
-            {isReload && (
-              <TouchableOpacity
-                onPress={onReloadCard}
-                style={{ flexDirection: 'row', padding: scaleWidth(10) }}>
-                <Image
-                  source={ICONS.auto_reload_detail}
-                  style={{
-                    width: scaleWidth(16),
-                    height: scaleHeight(16),
-                    tintColor: 'red',
-                  }}
-                />
-                <Text
-                  style={{
-                    marginLeft: scaleWidth(5),
-                    color: 'red',
-                    fontSize: scaleFont(13),
-                    fontWeight: '300',
-                  }}>
-                  Reload
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        <View style={styles.margin} />
-        <View style={styles.margin} />
-        {/* Notice */}
-        {isReload && (
-          <View style={[styles.bgContent, { backgroundColor: '#f662' }]}>
-            <Text
-              style={{
-                color: 'red',
-                fontSize: scaleFont(13),
-                fontWeight: '300',
-              }}>
-              Your card is not enough to pay, Please reload your card.
-            </Text>
-          </View>
+        {/* Cards Render */}
+        {cardList?.length > 0 ? (
+          <CardSelectionComponent
+            cardList={cardList}
+            depositAmount={depositAmount}
+            cardSelected={cardSelected}
+            onSelectCard={onSelectCard}
+            onReloadCard={onReloadCard}
+          />
+        ) : (
+          <NoCardsComponent onAddCard={onAddCard} />
         )}
+
+        <View style={styles.margin} />
       </View>
+      {/* Notice */}
+      {isReload && (
+        <View style={[styles.bgContent, { backgroundColor: '#f662' }]}>
+          <Text
+            style={{
+              color: 'red',
+              fontSize: scaleFont(13),
+              fontWeight: '300',
+            }}>
+            Your card is not enough to pay, Please reload your card.
+          </Text>
+        </View>
+      )}
 
       {/* Button Pay */}
       <View style={styles.bottom}>
         <TouchableOpacity
           style={[
             styles.button,
-            { backgroundColor: isReload ? '#ddd' : '#0764B0' },
+            { backgroundColor: isDisablePayment ? '#ddd' : '#0764B0' },
           ]}
-          disabled={isReload}
+          disabled={isDisablePayment}
           onPress={onPayment}>
           {isDepositAppointment || loadingPage ? (
             <ActivityIndicator size={'small'} color="white" />
@@ -220,7 +178,7 @@ export const Layout = ({
             <Text
               style={[
                 styles.textStyle,
-                { color: isReload ? 'black' : 'white' },
+                { color: isDisablePayment ? 'black' : 'white' },
               ]}>
               Pay
             </Text>
@@ -242,6 +200,222 @@ const Row = ({ children, style }) => {
         },
       ]}>
       {children}
+    </View>
+  );
+};
+
+const NoCardsComponent = ({ onAddCard }) => {
+  return (
+    <View
+      style={{
+        width: '100%',
+        height: '40%',
+        justifyContent: 'center',
+        paddingHorizontal: scaleWidth(20),
+      }}>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginVertical: scaleHeight(16),
+        }}>
+        <Text style={styles.title}>{'CARD NOT FOUND.'}</Text>
+      </View>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={styles.content} numberOfLines={2}>
+          {
+            'Please, click the button to add a card that you can use for future transactions.'
+          }
+        </Text>
+      </View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginVertical: scaleHeight(16),
+        }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            borderColor: '#0764B0',
+            borderWidth: 1,
+            borderRadius: scaleWidth(3),
+            padding: scaleWidth(10),
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={onAddCard}>
+          <Image
+            source={ICONS.add_payment}
+            style={{ width: scaleWidth(28), height: scaleHeight(28) }}
+          />
+          <View style={{ width: scaleWidth(8) }} />
+          <Text
+            style={{
+              fontSize: scaleFont(16),
+              color: '#0764B0',
+              fontWeight: '500',
+            }}>
+            {'Add a card'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const CardDetailComponent = ({
+  item,
+  depositAmount,
+  selected,
+  onSelectCard,
+  onReloadCard,
+}) => {
+  const { userCardId, amount, imageUrl } = item;
+  const isReload =
+    formatNumberFromCurrency(depositAmount) > formatNumberFromCurrency(amount);
+
+  const _onHandleSelectCard = () => {
+    if (onSelectCard && typeof onSelectCard === 'function') {
+      onSelectCard(item);
+    }
+  };
+
+  const _onHandleReloadCard = () => {
+    if (onReloadCard && typeof onReloadCard === 'function') {
+      onReloadCard(item);
+    }
+  };
+
+  return (
+    <TouchableOpacity
+      style={styles.cardContent}
+      onPress={_onHandleSelectCard}
+      activeOpacity={0.9}>
+      <View
+        style={{
+          width: scaleWidth(30),
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={
+            selected ? ICONS.radio_button_active : ICONS.radio_button_inactive
+          }
+          style={{
+            width: scaleWidth(20),
+            height: scaleHeight(20),
+            tintColor: selected ? '#0764B0' : '#7d7d7d',
+          }}
+        />
+      </View>
+      <View style={styles.margin} />
+
+      <FastImage
+        style={styles.imageCard}
+        source={
+          imageUrl
+            ? { uri: imageUrl, priority: FastImage.priority.high }
+            : ICONS.primary_card
+        }
+      />
+      <View style={styles.margin} />
+
+      <View style={{ alignItems: 'center', flex: 1 }}>
+        <View
+          style={{
+            alignItems: 'flex-start',
+            justifyContent: 'space-evenly',
+            flex: 1,
+          }}>
+          <Text
+            style={[
+              styles.textCard,
+              {
+                fontWeight: '400',
+                marginBottom: scaleHeight(5),
+              },
+            ]}>{`My card - ${userCardId}`}</Text>
+          <Text
+            style={[
+              styles.textCard,
+              {
+                fontWeight: '500',
+              },
+            ]}>{`$ ${amount}`}</Text>
+        </View>
+      </View>
+      {isReload && (
+        <TouchableOpacity
+          onPress={_onHandleReloadCard}
+          style={{
+            flexDirection: 'row',
+            padding: scaleWidth(6),
+            height: '100%',
+            alignItems: 'center',
+
+            borderRadius: scaleWidth(3),
+          }}>
+          <Image
+            source={ICONS.auto_reload_detail}
+            style={{
+              width: scaleWidth(20),
+              height: scaleHeight(20),
+              tintColor: 'red',
+            }}
+          />
+          <Text
+            style={{
+              marginLeft: scaleWidth(5),
+              color: 'red',
+              fontSize: scaleFont(13),
+              fontWeight: '300',
+            }}>
+            Reload
+          </Text>
+        </TouchableOpacity>
+      )}
+    </TouchableOpacity>
+  );
+};
+
+const CardSelectionComponent = ({
+  cardList,
+  depositAmount,
+  cardSelected,
+  onSelectCard,
+  onReloadCard,
+}) => {
+  return (
+    <View
+      style={{
+        width: '100%',
+        height: '40%',
+        paddingHorizontal: scaleWidth(10),
+      }}>
+      <View
+        style={{
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          marginVertical: scaleHeight(16),
+        }}>
+        <Text style={styles.title}>{'Select card to pay'}</Text>
+      </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          {cardList?.map(x => (
+            <CardDetailComponent
+              key={`${x.userCardId}`}
+              item={x}
+              depositAmount={depositAmount}
+              selected={x.userCardId === cardSelected?.userCardId}
+              onSelectCard={onSelectCard}
+              onReloadCard={onReloadCard}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -289,6 +463,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
 
+  cardContent: {
+    backgroundColor: '#eee',
+    marginHorizontal: scaleWidth(10),
+    borderRadius: scaleWidth(6),
+    padding: scaleHeight(10),
+    borderColor: '#ddd8',
+    borderWidth: 1,
+    flexDirection: 'row',
+    height: scaleHeight(80),
+    marginVertical: scaleWidth(10),
+  },
+
   margin: {
     height: scaleHeight(20),
     width: scaleWidth(10),
@@ -323,5 +509,18 @@ const styles = StyleSheet.create({
     height: scaleHeight(60),
     resizeMode: 'contain',
     borderRadius: scaleWidth(4),
+  },
+
+  title: {
+    fontSize: scaleFont(18),
+    fontWeight: '600',
+    color: '#4d4d4d',
+  },
+
+  content: {
+    fontSize: scaleFont(16),
+    fontWeight: 'normal',
+    color: '#4d4d4d',
+    textAlign: 'center',
   },
 });

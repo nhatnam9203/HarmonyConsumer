@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   button_submit: {
     justifyContent: 'flex-end',
     flex: 1,
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     marginBottom: scaleSize(30),
   },
   container: {

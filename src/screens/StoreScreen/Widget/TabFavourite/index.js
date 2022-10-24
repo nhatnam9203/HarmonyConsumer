@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
 import * as RootNavigation from "navigations/RootNavigation";
 
-export default function index({ data }) {
+export default function index({ data, isAddGiftCard }) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.datalocalReducer.token);
+  const gift_send = useSelector(state => state.buygiftReducer.gift_send);
 
   const navigateToStoreDetail = (item) => {
     dispatch(actions.storeAction.setDetailMerchant(item));
@@ -21,6 +22,19 @@ export default function index({ data }) {
     });
     dispatch(actions.bookingAction.resetBooking());
   };
+
+  const onSelectStore = (item) => {
+    let _gift_send = Object.assign({}, gift_send, {
+      merchantId: item?.merchantId,
+      merchantName: item?.businessName,
+    });
+
+    dispatch(actions.buygiftAction.set_gift_send(_gift_send));
+    RootNavigation.navigate("Main", {
+      screen: "BuyGift",
+      params: { merchant: item },
+    });
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -39,7 +53,8 @@ export default function index({ data }) {
                   height={scaleSize(260)}
                   borderRadius={5}
                   item={item}
-                  onPress={navigateToStoreDetail}
+                  onPress={isAddGiftCard ? onSelectStore : navigateToStoreDetail}
+                  style={{ marginVertical: scaleSize(15) }}
                 />
               ) : (
                 <ItemCardPlaceHolder

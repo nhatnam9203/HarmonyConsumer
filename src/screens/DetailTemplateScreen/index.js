@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, TouchableOpacity, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ImageResizer from 'react-native-image-resizer';
 
@@ -11,7 +11,8 @@ import {
   Form,
   Header,
   ProgressiveImage,
-  LazyImage,
+  SearchListMerchant,
+  HeaderCustom
 } from 'components';
 import * as RootNavigation from 'navigations/RootNavigation';
 import styles from './style';
@@ -23,7 +24,7 @@ const { Input, ButtonSubmit } = Form;
 export default function index(props) {
   const dispatch = useDispatch();
   const token = useSelector(state => state.datalocalReducer.token);
-  // const { merchant_name } = store_special;
+  const gift_send = useSelector(state => state.buygiftReducer.gift_send);
   const {
     template: {
       type,
@@ -89,7 +90,6 @@ export default function index(props) {
     let gift = {
       message,
       amount,
-      merchantId: 0,
       isSpecificMerchant: 0,
       imageUrl: type == 'template_custom' ? images.uri : imageUrl,
       giftCardTemplateId,
@@ -99,7 +99,9 @@ export default function index(props) {
         type == 'template_custom' ? 'Your Template' : giftCardTemplateName,
     };
 
-    dispatch(actions.buygiftAction.set_gift_send(gift));
+    let _gift_send = Object.assign({}, gift_send, gift);
+
+    dispatch(actions.buygiftAction.set_gift_send(_gift_send));
 
     if (type == 'template_custom') {
       dispatch(
@@ -118,9 +120,24 @@ export default function index(props) {
     setMessage(value);
   };
 
+  const onCancel = () => {
+    dispatch(actions.buygiftAction.set_gift_send({}));
+    props.navigation.popToTop();
+  }
+
+  const isDisableButton = amount == 0 || (type == 'template_custom' && !images.uri)
+
   return (
     <Container barStyle="dark-content">
-      <Header title="Buy gift" headerLeft={true} onBack={onBack} />
+      <HeaderCustom 
+        title="Buy gift" 
+        headerLeft={true} 
+        onBack={onBack}
+        onRightPress={onCancel}
+        headerRight={true}
+        textRight={'Cancel'}
+        textRightStyle={styles.textCancel}
+        colorTextRight={'red'} />
 
       <View style={styles.container_center}>
         <Text style={styles.title} fontSize={17}>
@@ -141,6 +158,21 @@ export default function index(props) {
 
         <SelectAmount value={amount} onChangeValue={setAmount} />
 
+        {/* <View style={styles.viewMerchant}>
+          <Text style={styles.textSelectMerchant}>
+            Select store:
+          </Text>
+          <TouchableOpacity
+            onPress={onSearch} 
+            activeOpacity={1}
+            style={styles.viewSelectMerchant}>
+            <Text style={[styles.textSelectMerchant, selectMerchant && {color: '#0764B0'}]}>
+              {selectMerchant ? selectMerchant?.businessName : "Select store"}
+            </Text>
+            <Image source={ICONS.arrow_down}/>
+          </TouchableOpacity>
+        </View> */}
+
         <Input
           placeHolder="Say something … !"
           label="Message:"
@@ -160,23 +192,27 @@ export default function index(props) {
             title="Next"
             width={370}
             disabled={
-              amount == 0 || (type == 'template_custom' && !images.uri)
+              isDisableButton
                 ? true
                 : false
             }
             backgroundColor={
-              amount == 0 || (type == 'template_custom' && !images.uri)
+              isDisableButton
                 ? '#EEEEEE'
                 : '#0764B0'
             }
             textColor={
-              amount == 0 || (type == 'template_custom' && !images.uri)
+              isDisableButton
                 ? '#585858'
                 : '#FFF'
             }
           />
         </View>
       </View>
+      {/* <SearchListMerchant
+        isVisible={isSearch}
+        onRequestClose={()=>{setIsSearch(false)}}
+        onSubmit={(merchant) => {onPressMerchant(merchant)}}/> */}
     </Container>
   );
 }

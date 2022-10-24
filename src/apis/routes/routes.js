@@ -445,6 +445,19 @@ export const deleteBannersMerchant = data => ({
   },
 });
 
+export const getMerchantList = (key="",
+  page=1,
+  typeSearch,
+  sort,
+  lat,
+  lng) => ({
+  queryId: 'getMerchantList',
+  params: {
+    url: `merchant/search?key=${key}&page=${page}&isDisabled=-1&type=${typeSearch}&sort=${sort}&latitude=${lat}&longitude=${lng}`,
+    method: 'GET',
+  },
+});
+
 /**
  * NOTIFICATION
  */

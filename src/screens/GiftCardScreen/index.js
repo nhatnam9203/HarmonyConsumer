@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { View, FlatList, RefreshControl } from 'react-native';
-import ScrollableTabView from 'components/react-native-scrollable-tab-view';
+import { View, 
+  FlatList, 
+  RefreshControl, 
+  ScrollView, 
+  TouchableOpacity,
+ } from 'react-native';
+ import Image from "react-native-fast-image";
 import { useDispatch, useSelector } from 'react-redux';
 
 import actions from '@redux/actions';
-import { PrimaryCard, MoreCard, AddCard, BuyGiftTab } from './widget';
+import { PrimaryCard, MoreCard, AddCard } from './widget';
 import ICONS from 'assets';
 import {
   Header,
-  GiftCardTabBar,
   StatusBar,
   Text,
   FocusAwareStatusBar,
@@ -16,12 +20,6 @@ import {
 import * as RootNavigation from 'navigations/RootNavigation';
 import styles from './style';
 import { scaleSize } from 'utils';
-import { app } from '@redux/slices';
-
-const tabs = [
-  { name: 'My cards', url: ICONS['my_card_tab'] },
-  { name: 'Buy gift', url: ICONS['gift'] },
-];
 
 export default function index(props) {
   const { navigation } = props;
@@ -54,10 +52,6 @@ export default function index(props) {
     RootNavigation.navigate('DetailGiftCard');
   };
 
-  const goToDetailTemplate = (item = {}) => {
-    props.navigation.navigate('DetailTemplate', { template: item });
-  };
-
   const gotoAddNewCard = () => {
     RootNavigation.navigate('AddNewCard');
   };
@@ -73,45 +67,86 @@ export default function index(props) {
     );
   };
 
+  const onHandleBuyGift = () => {
+    props.navigation.navigate({name: 'StoreScreen', params: { isAddGiftCard: true }});
+  }
+
+  const emptyCardView = () => {
+    return(
+      !card_primary && (!_card_more || _card_more.length == 1)?
+        <View style={styles.emptyCardView}>
+          <Text style={styles.titleText}>You haven't any gift card</Text>
+          <Text style={styles.normalText}>Please tap the button to Buy Gift or Add a Card to use for transactions</Text>
+          <TouchableOpacity
+            style={styles.buyGiftButton}
+            onPress={onHandleBuyGift}>
+            <Text 
+              style={styles.buyGiftText}
+            >
+              Buy gift
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{flexDirection:'row'}}
+            onPress={gotoAddNewCard}
+          >
+            <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+            <Text style={styles.textAddCard}>Add a card</Text>
+          </TouchableOpacity>
+        </View>
+      : !card_primary ? 
+      <View style={styles.viewButtonBuyGiftCard}>
+        <TouchableOpacity
+          style={styles.buyGiftButton}
+          onPress={onHandleBuyGift}>
+          <Text 
+            style={styles.buyGiftText}
+          >
+            Buy gift
+          </Text>
+        </TouchableOpacity>
+      </View> : <></>
+    )
+    
+  }
+
   return (
-    <View style={{ flex: 1, backgroundColor: '#F7F7F7' }}>
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-      />
-      <StatusBar barStyle="dark-content" />
-      <Header
-        title="Gift card"
-        headerLeft={true}
-        headerRight={true}
-        iconLeft={ICONS['drawer']}
-        onBack={openDrawer}
-        onPressRight={openInbox}
-      />
-      <ScrollableTabView
-        locked
-        initialPage={0}
-        style={{ flex: 1, backgroundColor: 'white' }}
-        prerenderingSiblingsNumber={1}
-        renderTabBar={() => (
-          <GiftCardTabBar tab={styles.default_tab} style={styles.tabs} />
-        )}>
-        <MyCard
-          isRefresh={isRefresh}
-          onRefresh={onRefresh}
-          tabLabel={tabs[0]}
-          card_primary={card_primary}
-          goToDetailCard={goToDetailCard}
-          getCardByUser={getCardByUser}
-          ListEmptyComponent={() => (
-            <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
-          )}
-          ItemSeparatorComponent={() => <ItemSeparatorComponent />}
-          _card_more={_card_more}
-          gotoAddNewCard={gotoAddNewCard}
+    <View style={{ flex: 1, backgroundColor: '#F8F8F8' }}>
+        <FocusAwareStatusBar
+          barStyle="dark-content"
+          backgroundColor="transparent"
         />
-        <BuyGiftTab tabLabel={tabs[1]} onNextScreen={goToDetailTemplate} />
-      </ScrollableTabView>
+        <StatusBar barStyle="dark-content" />
+        <Header
+          title="Gift card"
+          headerLeft={true}
+          headerRight={true}
+          iconLeft={ICONS['drawer']}
+          onBack={openDrawer}
+          onPressRight={openInbox}
+        />
+        <ScrollView
+          style={{ flex: 1, backgroundColor: 'white' }}
+        >
+          { 
+            emptyCardView()
+          }
+          
+          <MyCard
+            isRefresh={isRefresh}
+            onRefresh={onRefresh}
+            card_primary={card_primary}
+            goToDetailCard={goToDetailCard}
+            getCardByUser={getCardByUser}
+            ListEmptyComponent={() => (
+              <ListEmptyComponent gotoAddNewCard={gotoAddNewCard} />
+            )}
+            ItemSeparatorComponent={() => <ItemSeparatorComponent />}
+            _card_more={_card_more}
+            gotoAddNewCard={gotoAddNewCard}
+            onHandleBuyGift={onHandleBuyGift}
+          />
+        </ScrollView>
     </View>
   );
 }
@@ -127,8 +162,11 @@ const MyCard = ({
   ItemSeparatorComponent,
   _card_more,
   gotoAddNewCard,
+  onHandleBuyGift,
 }) => {
   return (
+    
+    
     <FlatList
       refreshControl={
         <RefreshControl
@@ -140,16 +178,36 @@ const MyCard = ({
           tintColor="#0764B0"
         />
       }
-      tabLabel={tabLabel}
       contentContainerStyle={styles.content_flatlist}
-      ListHeaderComponent={() =>
-        card_primary && (
-          <PrimaryCard
-            card={card_primary}
-            onPress={goToDetailCard}
-            onReload={getCardByUser}
-          />
+      ListHeaderComponent={() => 
+        (<>
+          {card_primary && (
+            <PrimaryCard
+              card={card_primary}
+              onPress={goToDetailCard}
+              onReload={getCardByUser}
+              onHandleBuyGift={onHandleBuyGift}
+              onPressAddCard={gotoAddNewCard}
+            />
+          )}
+          {((_card_more && _card_more.length > 1) || card_primary) &&
+            <View style={styles.moreCardView}>
+              <Text fontSize={15} color="#646464" fontFamily="medium" style={styles.txtMoreCard}>
+                MORE CARDS
+              </Text>
+              <TouchableOpacity
+                style={{flexDirection:'row'}}
+                onPress={gotoAddNewCard}
+              >
+                <Image style={styles.icon_reload} source={ICONS.add} tintColor='#0764B0'/>
+                <Text style={styles.textAddCard}>Add a card</Text>
+              </TouchableOpacity>
+            </View>
+          }
+          
+        </>
         )
+      
       }
       ListEmptyComponent={ListEmptyComponent}
       ItemSeparatorComponent={ItemSeparatorComponent}
@@ -160,20 +218,23 @@ const MyCard = ({
         const _marginLeft = index % 2 != 0 ? { marginLeft: scaleSize(15) } : {};
         return (
           <React.Fragment>
-            {item.giftCardId > -1 ? (
+            {item.giftCardId > -1 && (
               <MoreCard
                 item={item}
                 index={index}
                 style={_marginLeft}
                 onPress={goToDetailCard}
               />
-            ) : (
-              <AddCard onPress={gotoAddNewCard} style={_marginLeft} />
-            )}
+            ) 
+            // : (
+            //   <AddCard onPress={gotoAddNewCard} style={_marginLeft} />
+            // )
+          }
           </React.Fragment>
         );
       }}
     />
+    
   );
 };
 

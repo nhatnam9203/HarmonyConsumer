@@ -52,6 +52,8 @@ export default {
   searchbar: require('./general/searchbar.png'),
   placeholder_image: require('./general/placeholder_image.png'),
   checked: require('./general/checked.png'),
+  add: require('./general/add.png'),
+
   //-------------- Auth ------------------//
   baseline_cancel: require('./Auth/baseline-cancel.png'),
   arrow_down: require('./Auth/arrow-down.png'),
@@ -196,6 +198,7 @@ export default {
   mery_xmax: require('./BuyGifts/mery_xmax.png'),
   iloveyou: require('./BuyGifts/iloveyou.png'),
   thankyou: require('./BuyGifts/thankyou.png'),
+  welcome: require('./BuyGifts/welcome.png'),
 
   //-------------- Inbox ------------------//
   invoice_inbox: require('./Inbox/invoice_inbox.png'),
