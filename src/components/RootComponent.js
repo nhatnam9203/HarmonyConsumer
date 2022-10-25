@@ -317,6 +317,7 @@ const RootComponent = ({ children }) => {
   };
 
   const receiveMessage = messageJson => {
+    console.log('receiveMessage', messageJson)
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === 'update_data' ||
@@ -378,11 +379,14 @@ const RootComponent = ({ children }) => {
         getMyAppointmentList();
       }
 
-      if (messageJson.type === 'userCard_update') {
+      if (messageJson.type === 'usercard_update') {
         dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
         dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
         dispatch(actions.customerAction?.getRewardProfile(token));
+        dispatch(
+          actions.generalAction.setPayComplete(true),
+        );
       }
 
       if (messageJson.type == 'appointment_checkout') {
