@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "@redux/actions";
@@ -61,7 +61,7 @@ export default function index(props) {
         <Header title="Gift" headerLeft={true} onBack={onBack} iconLeft={ICONS["arrow_back_ios"]} />
       </View>
 
-      <View style={styles.container_center}>
+      <ScrollView style={styles.container_center}>
         <Text style={styles.header} fontSize={17} color="#666666">
           You received a gift card
         </Text>
@@ -90,23 +90,20 @@ export default function index(props) {
           {`Store: ${merchantName}`}
         </Text>
 
-        <View style={{ marginTop: scaleSize(20) }}>
-          <Input
-            width={382}
-            label="Message:"
-            height={90}
-            styleTextInput={styles.input}
-            contentContainerInput={{ borderBottomWidth: 0 }}
-            value={message}
-            editable={false}
-          />
-        </View>
-      </View>
+        <Text style={styles.input}>
+          {message}
+        </Text>
+
+      </ScrollView>
+
 
       {type != "buy_giftcard_myself" && 
+      <View>
+        <View style={styles.line_bottom}/>
         <View style={styles.button_submit}>
           <ButtonSubmit onSubmit={onSubmit} title="Claim" width={350} />
         </View>
+      </View>
       }
     </View>
   );

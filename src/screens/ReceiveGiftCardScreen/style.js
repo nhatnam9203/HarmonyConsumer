@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: scaleSize(30),
     alignItems: 'center',
+    marginTop: scaleSize(80),
   },
   txt_add: {
     marginLeft: scaleSize(10),
@@ -49,13 +50,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    borderBottomColor: '#DDDDDD',
-    borderRadius: scaleSize(5),
-    marginTop: scaleSize(15),
-    paddingLeft: scaleSize(15),
-    backgroundColor: 'white',
+    paddingRight: scaleSize(16),
+    paddingTop: scaleSize(10),
+    paddingBottom: scaleSize(10),
+    fontSize: scaleSize(15),
+    marginBottom: scaleSize(15)
   },
 });
 
