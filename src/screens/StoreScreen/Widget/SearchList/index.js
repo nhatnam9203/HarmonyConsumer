@@ -75,15 +75,15 @@ export default function SearchList({
     onSuccess: (data, response) => {
       setIsLoading(false);
       setTotalPage(response?.pages);
-      
+
       if(page == 1) {
-        console.log('setListMerchant page 1', data)
+        // console.log('setListMerchant page 1', data)
         setListMerchant(data);
         // dispatch({ type: 'SET_STORE_SEARCH', payload: data });
       } else {
         let merchants = listMerchant
         merchants.push(...data);
-        console.log('set list merchant add more', merchants)
+        // console.log('set list merchant add more', merchants)
         setListMerchant(merchants);
         // dispatch({ type: 'SET_STORE_SEARCH', payload: data });
       }
@@ -145,7 +145,7 @@ export default function SearchList({
 
   const renderItem = (item, index) => {
     return (
-      item && 
+      item &&
       <ItemCard
         isSearchList
         valueSearch={valueSearchStore}
@@ -195,10 +195,10 @@ export default function SearchList({
         </View>
 
         {
-        // !loading_search ? 
+        // !loading_search ?
         (
           listMerchant && !(listMerchant.length === 0) ? (
-            <View 
+            <View
                 style={styles.flatlistView}>
                 <FlatList
                     data={listMerchant || []}

@@ -9,17 +9,32 @@ import {
 } from 'react-native';
 import { Modal } from 'components';
 import ICONS from 'assets';
+import { harmonyApi, useQueryCallback } from '@shared/services';
+import { useSelector } from 'react-redux';
 
-export const DeleteAccountButton = ({ onDeleteAccount }) => {
+export const DeleteAccountButton = ({}) => {
+  const { userInfoLogin } = useSelector(state => state.authReducer);
+
   const [isShowConfirm, setShowConfirm] = React.useState(false);
 
-  //   const [deleteUser, {loading:deleteUserLoading }] =
+  const [deleteUser, { loading: deleteUserLoading }] = useQueryCallback(
+    harmonyApi.useDeleteUserAccountMutation,
+    result => {
+      const { data } = result;
+      console.log(data);
+    },
+    error => {
+      console.log(error);
+    },
+  );
 
   const _onHandleDeleteAccountConfirm = () => {
     setShowConfirm(true);
   };
 
-  const _onHandleDeleteAccount = () => {};
+  const _onHandleDeleteAccount = () => {
+    deleteUser(userInfoLogin?.userId);
+  };
 
   const _onHandleCloseConfirmModal = () => {
     setShowConfirm(false);

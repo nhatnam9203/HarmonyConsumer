@@ -542,4 +542,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  item: {
+    position: 'relative',
+    marginRight: scaleWidth(5),
+  },
 });

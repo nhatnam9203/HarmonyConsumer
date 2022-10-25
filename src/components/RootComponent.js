@@ -229,7 +229,6 @@ const RootComponent = ({ children }) => {
     if (nextAppState === 'active') {
       // checkUpdate();
       checkNotification();
-
     }
   };
 
@@ -403,17 +402,18 @@ const RootComponent = ({ children }) => {
       if (messageJson.type === 'harmony_pay_review_form') {
         const { id, merchantId, businessName } = messageJson || {};
         if (id) {
-          dispatch(
-            actions.generalAction.visibleReviewForm({
-              id,
-              merchantId,
-              businessName,
-            }),
-          );
+          // dispatch(
+          //   actions.generalAction.visibleReviewForm({
+          //     id,
+          //     merchantId,
+          //     businessName,
+          //   }),
+          // );
+          RootNavigation.navigate('Rating', {
+            data: messageJson,
+          });
         }
-        dispatch(
-          actions.generalAction.setPayComplete(true),
-        );
+        dispatch(actions.generalAction.setPayComplete(true));
       }
     }
   };

@@ -43,7 +43,7 @@ export const CodePushProvider = ({ children }) => {
 
   const codePushStatusChange = (status) => {
     try {
-      console.log(status);
+      // console.log(status);
       if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
         log(status, "CodePush Update Installed");
 

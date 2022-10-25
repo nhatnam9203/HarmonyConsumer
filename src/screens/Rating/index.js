@@ -1,19 +1,26 @@
-import React, { useState } from "react";
-import { View, ScrollView } from "react-native";
-import styles from "./styles";
-import { Header, StatusBar, Modal2 } from "components";
-import { Message, Stars, StaffList, ButtonSubmit, ImageList, PopupThanks } from "./widget";
-import * as RootNavigation from "navigations/RootNavigation";
-import { useSelector, useDispatch } from "react-redux";
-import actions from "@redux/actions";
-import * as ImagePicker from "react-native-image-picker";
+import React, { useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import styles from './styles';
+import { Header, StatusBar, Modal2 } from 'components';
+import {
+  Message,
+  Stars,
+  StaffList,
+  ButtonSubmit,
+  ImageList,
+  PopupThanks,
+} from './widget';
+import * as RootNavigation from 'navigations/RootNavigation';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from '@redux/actions';
+import * as ImagePicker from 'react-native-image-picker';
 
 const options = {
-  title: "Select Avatar",
-  customButtons: [{ name: "fb", title: "Choose Photo from Facebook" }],
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
   storageOptions: {
     skipBackup: true,
-    path: "images",
+    path: 'images',
   },
 };
 
@@ -41,24 +48,39 @@ const list = [
 ];
 
 export default function index(props) {
+  const { route } = props || {};
   const dispatch = useDispatch();
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isSubmit, setSubmit] = useState(false);
   const [rating, setRating] = useState(list);
   const [file_list, set_file_list] = useState([]);
   const [imgList, setImgList] = useState([]);
 
-  const { token } = useSelector((state) => state.datalocalReducer);
-  const { staff_appointment, staff_favourites } = useSelector((state) => state.staffReducer);
+  const { token } = useSelector(state => state.datalocalReducer);
+  const { staff_appointment, staff_favourites } = useSelector(
+    state => state.staffReducer,
+  );
 
-  const groupAppointment = useSelector((state) => state.appointmentReducer.groupAppointment);
-  let { appointments } = groupAppointment;
-  const { appointmentId } = appointments[0];
-  appointments = appointments ? appointments : null;
-  const merchant = appointments ? appointments[0].merchant : null;
+  let merchantId;
+  let businessName;
+  let appointmentId;
 
-  const { merchantId, businessName } = merchant;
+  if (route?.params?.data) {
+    merchantId = route?.params?.data?.merchantid;
+    businessName = route?.params?.data?.businessname;
+    appointmentId = route?.params?.data?.id;
+  } else {
+    const groupAppointment = useSelector(
+      state => state.appointmentReducer.groupAppointment,
+    );
+    let { appointments } = groupAppointment;
+    appointmentId = appointments[0]?.appointmentId;
+    appointments = appointments ? appointments : null;
+    const merchant = appointments ? appointments[0].merchant : null;
+    merchantId = merchant?.merchantId;
+    businessName = merchant?.businessName;
+  }
 
   React.useEffect(() => {
     if (merchantId) {
@@ -68,7 +90,7 @@ export default function index(props) {
     }
   }, []);
 
-  const responseCamera = (response) => {
+  const responseCamera = response => {
     if (response.didCancel) {
     } else if (response.error) {
     } else {
@@ -78,16 +100,19 @@ export default function index(props) {
     }
   };
 
-  const onSubmitImage = (response) => {
+  const onSubmitImage = response => {
     let fileName = response.fileName;
     if (fileName) {
-      if (Platform.OS === "ios" && (fileName.endsWith(".heic") || fileName.endsWith(".HEIC"))) {
-        fileName = `${fileName.split(".")[0]}.JPG`;
+      if (
+        Platform.OS === 'ios' &&
+        (fileName.endsWith('.heic') || fileName.endsWith('.HEIC'))
+      ) {
+        fileName = `${fileName.split('.')[0]}.JPG`;
       }
     }
     const body = {
       uri: response.uri,
-      fileName: fileName ? fileName : "photo",
+      fileName: fileName ? fileName : 'photo',
       type: response.type,
     };
 
@@ -97,7 +122,7 @@ export default function index(props) {
     dispatch(actions.authAction.uploadAvatar(data, afterSubmitImage));
   };
 
-  const afterSubmitImage = (file_id) => {
+  const afterSubmitImage = file_id => {
     set_file_list([
       ...file_list,
       {
@@ -107,29 +132,29 @@ export default function index(props) {
   };
 
   const pickGallery = () => {
-    ImagePicker.launchImageLibrary(options, (response) => {
+    ImagePicker.launchImageLibrary(options, response => {
       responseCamera(response);
     });
   };
 
   const launchCamera = () => {
-    ImagePicker.launchCamera(options, (response) => {
+    ImagePicker.launchCamera(options, response => {
       responseCamera(response);
     });
   };
 
   const onSkip = () => {
-    RootNavigation.navigate("Home");
-    dispatch({ type: "SET_STAFF_APPOINTMENT", payload: [] });
+    RootNavigation.navigate('Home');
+    dispatch({ type: 'SET_STAFF_APPOINTMENT', payload: [] });
   };
 
-  const deleteImage = (index) => {
+  const deleteImage = index => {
     set_file_list(file_list.filter((obj, key) => key !== index));
     setImgList(imgList.filter((obj, key) => key !== index));
   };
 
   const onSubmit = () => {
-    const count_rating = rating.filter((obj) => obj.isActive === true);
+    const count_rating = rating.filter(obj => obj.isActive === true);
     const body = {
       merchantId,
       rating: count_rating.length,
@@ -141,7 +166,7 @@ export default function index(props) {
 
   return (
     <View style={styles.container}>
-      <View style={{ backgroundColor: "#f8f8f8" }}>
+      <View style={{ backgroundColor: '#f8f8f8' }}>
         <StatusBar />
         <Header title="Rating" />
       </View>
@@ -153,14 +178,21 @@ export default function index(props) {
             staff_favourites={staff_favourites}
             staffList={staff_appointment}
           />
-          <Stars list={list} rating={rating} setRating={setRating} businessName={businessName} />
+          <Stars
+            list={list}
+            rating={rating}
+            setRating={setRating}
+            businessName={businessName}
+          />
           <Message
             pickGallery={pickGallery}
             launchCamera={launchCamera}
             message={message}
             setMessage={setMessage}
           />
-          {file_list.length > 0 && <ImageList imgList={imgList} deleteImage={deleteImage} />}
+          {file_list.length > 0 && (
+            <ImageList imgList={imgList} deleteImage={deleteImage} />
+          )}
           <ButtonSubmit onSubmit={onSubmit} skip={onSkip} />
         </ScrollView>
       </View>
