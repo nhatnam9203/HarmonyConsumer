@@ -316,6 +316,7 @@ const RootComponent = ({ children }) => {
   };
 
   const receiveMessage = messageJson => {
+    console.log('receiveMessage', messageJson)
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === 'update_data' ||
@@ -372,11 +373,14 @@ const RootComponent = ({ children }) => {
         dispatch(actions.customerAction?.getRewardProfile(token));
         getMyAppointmentList();
       }
-      if (messageJson.type === 'userCard_update') {
+      if (messageJson.type === 'usercard_update') {
         dispatch(actions.authAction?.getCustomerById(userInfo.userId, token));
         dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
         dispatch(actions.customerAction?.getRewardProfile(token));
+        dispatch(
+          actions.generalAction.setPayComplete(true),
+        );
       }
       if (messageJson.type == 'appointment_checkout') {
         dispatch(actions.appointmentAction?.setCheckOut(true));
@@ -390,12 +394,6 @@ const RootComponent = ({ children }) => {
             );
           }
         }
-      }
-
-      if (messageJson.type === 'harmony_pay_review_form') {
-        dispatch(
-          actions.generalAction.setPayComplete(true),
-        );
       }
     }
   };
