@@ -207,7 +207,6 @@ export const ModalConfirmDelete = ({
           />
           <Text style={styles.textFont}>{`    - Profile`}</Text>
           <Text style={styles.textFont}>{`    - Appointments`}</Text>
-          <Text style={styles.textFont}>{`    - Points`}</Text>
           <Text style={styles.textFont}>{`    - User card`}</Text>
           <View
             style={{
