@@ -313,7 +313,7 @@ export default function index(props) {
             {/* ------------------ payment card ------------------ */}
 
             {/* ------------------ auto reload card ------------------ */}
-            {/* <BoxClick
+            <BoxClick
               disabled={true}
               style={styles.container_row_space_between}>
               <View style={styles.container_icon_title}>
@@ -360,7 +360,7 @@ export default function index(props) {
               onRequestClose={onTogglePopupAutoReload}
               onChangeValueAuto={setAutoReload}
               onSubmit={autoReloadCard}
-            /> */}
+            />
             {/* ------------------ auto reload card ------------------ */}
 
             {/* ------------------ Transfer card ------------------ */}
