@@ -117,6 +117,7 @@ export default function index(props) {
   };
 
   const onChangeText = value => {
+    if(value && value.length > 500) return;
     setMessage(value);
   };
 
