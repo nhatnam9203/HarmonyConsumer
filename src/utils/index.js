@@ -663,3 +663,21 @@ export function isValidDate(dateString) {
 export function randomInteger(min = 1, max = 10000000) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export const getMerchantText = (card_detail) => {
+  let merchantText = "";
+  let count = 0;
+  if(card_detail?.merchants) {
+    count = card_detail?.merchants.length > 3 ?
+    3 : card_detail?.merchants.length
+  }
+  for(let i = 0; i < count; i++) {
+    if(card_detail?.merchants[i]?.businessName) {
+      merchantText = merchantText + card_detail?.merchants[i]?.businessName;
+      if(i < count-1) {
+        merchantText = merchantText + ", ";
+      }
+    }
+  }
+  return merchantText;
+}
