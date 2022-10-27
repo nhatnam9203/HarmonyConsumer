@@ -26,4 +26,12 @@ export const appointmentBuilder = builder => ({
       method: 'PUT',
     }),
   }),
+
+  reviewAppointment: builder.mutation({
+    query: ({ appointmentId, data }) => ({
+      url: `appointment/reaction/${appointmentId}`,
+      method: 'POST',
+      data,
+    }),
+  }),
 });

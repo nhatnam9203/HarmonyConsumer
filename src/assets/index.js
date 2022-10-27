@@ -210,12 +210,11 @@ export default {
   addMoney: require('./images/maskGroup179.png'),
   addCard: require('./images/maskGroup180.png'),
 
-  notGood: require('./images/Not_Good-1.png'),
-  notGood_active: require('./images/Not_Good.png'),
+  notGood: require('./images/Not_Good.png'),
 
-  justOk: require('./images/Just_Okey-1.png'),
-  justOk_active: require('./images/Just_Okey.png'),
+  justOk: require('./images/Just_Okey.png'),
 
-  awesome: require('./images/Awesome-1.png'),
-  awesome_active: require('./images/Awesome.png'),
+  awesome: require('./images/Awesome.png'),
+  deleteMedia: require('./images/Group7493.png'),
+  icon_check: require('./images/Group.png'),
 };

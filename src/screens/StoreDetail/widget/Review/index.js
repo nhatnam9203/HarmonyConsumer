@@ -1,24 +1,27 @@
-import React from "react";
-import { View } from "react-native";
-import { useSelector } from "react-redux";
-import Summary from "./Summary";
-import Comments from "./Comments";
-import styles from "./styles";
-import SlideImage from "./SlideImage";
-import Modal from "react-native-modal";
-import { isEmpty } from "lodash";
-import { LoadMore } from "components";
-import { scaleHeight } from "utils";
+import React from 'react';
+import { View } from 'react-native';
+import { useSelector } from 'react-redux';
+import Summary from './Summary';
+import Comments from './Comments';
+import styles from './styles';
+import SlideImage from './SlideImage';
+import Modal from 'react-native-modal';
+import { isEmpty } from 'lodash';
+import { LoadMore } from 'components';
+import { scaleHeight } from 'utils';
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export default function Review({ isLoadMoreReview, pageReview, maxPage }) {
   const [isModal, setModal] = React.useState(false);
   const [slideImages, setSlideImages] = React.useState([]);
   const [indexStart, setIndexStart] = React.useState(0);
   const { rating_merchant_detail, summary_merchant_detail } = useSelector(
-    (state) => state.storeReducer,
+    state => state.storeReducer,
   );
 
-  const { count, rating } = summary_merchant_detail ? summary_merchant_detail : "";
+  const { count, rating } = summary_merchant_detail
+    ? summary_merchant_detail
+    : '';
 
   const toggleModal = React.useCallback(
     (images, index) => {
@@ -35,17 +38,34 @@ export default function Review({ isLoadMoreReview, pageReview, maxPage }) {
     [isModal],
   );
 
+  const _onHandleAddReview = () => {
+    RootNavigation.navigate('Rating');
+  };
+
   return (
     <View style={styles.container}>
-      <Summary rating={rating} count={count} />
+      <Summary
+        rating={rating}
+        count={count}
+        onHandleAddReview={_onHandleAddReview}
+      />
       <Comments toggleModal={toggleModal} />
       {isLoadMoreReview && <LoadMore />}
-      {rating_merchant_detail.length === 0 && <View style={{ height: scaleHeight(85) }} />}
+      {rating_merchant_detail.length === 0 && (
+        <View style={{ height: scaleHeight(85) }} />
+      )}
       {rating_merchant_detail.length > 0 && maxPage == pageReview && (
         <View style={{ height: scaleHeight(60) }} />
       )}
-      <Modal animationIn="zoomInUp" animationOut="slideOutDown" isVisible={isModal}>
-        <SlideImage slideImages={slideImages} toggleModal={toggleModal} indexStart={indexStart} />
+      <Modal
+        animationIn="zoomInUp"
+        animationOut="slideOutDown"
+        isVisible={isModal}>
+        <SlideImage
+          slideImages={slideImages}
+          toggleModal={toggleModal}
+          indexStart={indexStart}
+        />
       </Modal>
     </View>
   );

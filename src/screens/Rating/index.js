@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import styles from './styles';
 import { Header, StatusBar, Modal2 } from 'components';
 import {
@@ -14,6 +21,9 @@ import * as RootNavigation from 'navigations/RootNavigation';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from '@redux/actions';
 import * as ImagePicker from 'react-native-image-picker';
+import ICONS from 'assets';
+import FastImage from 'react-native-fast-image';
+import { FormThankYou } from '@shared/components';
 
 const options = {
   title: 'Select Avatar',
@@ -58,37 +68,9 @@ export default function index(props) {
   const [imgList, setImgList] = useState([]);
 
   const { token } = useSelector(state => state.datalocalReducer);
-  const { staff_appointment, staff_favourites } = useSelector(
-    state => state.staffReducer,
-  );
 
-  let merchantId;
-  let businessName;
-  let appointmentId;
-
-  if (route?.params?.data) {
-    merchantId = route?.params?.data?.merchantid;
-    businessName = route?.params?.data?.businessname;
-    appointmentId = route?.params?.data?.id;
-  } else {
-    const groupAppointment = useSelector(
-      state => state.appointmentReducer.groupAppointment,
-    );
-    let { appointments } = groupAppointment;
-    appointmentId = appointments[0]?.appointmentId;
-    appointments = appointments ? appointments : null;
-    const merchant = appointments ? appointments[0].merchant : null;
-    merchantId = merchant?.merchantId;
-    businessName = merchant?.businessName;
-  }
-
-  React.useEffect(() => {
-    if (merchantId) {
-      dispatch(actions.staffAction.getStaffAppointment(token, appointmentId));
-      dispatch(actions.staffAction.staffGetByMerchant(merchantId, token));
-      dispatch(actions.staffAction.getFavouriteStaffMerchant(token));
-    }
-  }, []);
+  const merchant = useSelector(state => state.storeReducer.merchant_detail);
+  const { merchantId, businessName } = merchant || {};
 
   const responseCamera = response => {
     if (response.didCancel) {
@@ -143,12 +125,7 @@ export default function index(props) {
     });
   };
 
-  const onSkip = () => {
-    RootNavigation.navigate('Home');
-    dispatch({ type: 'SET_STAFF_APPOINTMENT', payload: [] });
-  };
-
-  const deleteImage = index => {
+  const _onHandleRemoveImage = index => {
     set_file_list(file_list.filter((obj, key) => key !== index));
     setImgList(imgList.filter((obj, key) => key !== index));
   };
@@ -164,42 +141,168 @@ export default function index(props) {
     dispatch(actions.storeAction.updateRatingMerchant(token, body, setSubmit));
   };
 
+  const _onHandleBack = () => {
+    RootNavigation.back();
+  };
+
+  const _onHandleRenderMediaItem = ({ item, index }) => {
+    return (
+      <MediaItem image={item} index={index} onRemove={_onHandleRemoveImage} />
+    );
+  };
+
+  const _onHandleSubmitDone = () => {
+    RootNavigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
       <View style={{ backgroundColor: '#f8f8f8' }}>
         <StatusBar />
-        <Header title="Rating" />
+        <Header
+          title="Rating"
+          iconRight={ICONS['close_header']}
+          headerRight={true}
+          onPressRight={_onHandleBack}
+        />
       </View>
 
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <StaffList
-            businessName={businessName}
-            staff_favourites={staff_favourites}
-            staffList={staff_appointment}
-          />
+          <View style={{ height: scaleHeight(10) }} />
+
+          <Text
+            style={{ fontSize: 24, fontWeight: '600', textAlign: 'center' }}>
+            Store Review
+          </Text>
+
           <Stars
             list={list}
             rating={rating}
             setRating={setRating}
             businessName={businessName}
           />
+          <View style={{ height: scaleHeight(10) }} />
+          <View style={{ height: 1, backgroundColor: '#E7E7E7' }} />
           <Message
             pickGallery={pickGallery}
             launchCamera={launchCamera}
             message={message}
             setMessage={setMessage}
           />
-          {file_list.length > 0 && (
+          {/* {file_list.length > 0 && (
             <ImageList imgList={imgList} deleteImage={deleteImage} />
-          )}
-          <ButtonSubmit onSubmit={onSubmit} skip={onSkip} />
+          )} */}
+          <View style={{ height: scaleHeight(15) }} />
+          <FlatList
+            style={{
+              height: scaleHeight(95),
+            }}
+            contentContainerStyle={{ paddingHorizontal: scaleWidth(10) }}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={imgList}
+            initialScrollIndex={imgList?.length - 1}
+            renderItem={_onHandleRenderMediaItem}
+            ItemSeparatorComponent={() => (
+              <View style={{ width: scaleWidth(10) }} />
+            )}
+            ListFooterComponent={() => (
+              <TouchableOpacity
+                style={{
+                  width: scaleWidth(103),
+                  height: scaleHeight(95),
+                  backgroundColor: '#F2F2F2',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: scaleWidth(11),
+                  marginHorizontal: scaleWidth(10),
+                }}
+                onPress={pickGallery}>
+                <Image
+                  source={ICONS.camera_rating}
+                  style={{
+                    width: scaleWidth(24),
+                    height: scaleHeight(18),
+                    tintColor: '#5A5A5A',
+                  }}
+                />
+                <View style={{ height: scaleHeight(1) }} />
+                <Text
+                  style={{
+                    fontSize: scaleWidth(14),
+                    color: '#5A5A5A',
+                  }}>
+                  Add photos
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
         </ScrollView>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            height: scaleHeight(90),
+            elevation: 3,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 1,
+              height: 2,
+            },
+            shadowOpacity: 0.13,
+            shadowRadius: 2.82,
+            backgroundColor: 'white',
+            paddingBottom: scaleHeight(30),
+          }}>
+          <ButtonSubmit onSubmit={onSubmit} />
+        </View>
       </View>
 
-      <Modal2 isVisible={isSubmit} onRequestClose={() => {}}>
-        <PopupThanks />
-      </Modal2>
+      {isSubmit && <FormThankYou onHandleSubmitDone={_onHandleSubmitDone} />}
     </View>
   );
 }
+
+const MediaItem = ({ index, image, onRemove }) => {
+  const _onHandleRemoveItem = () => {
+    if (onRemove && typeof onRemove === 'function') {
+      onRemove(index);
+    }
+  };
+  return (
+    <TouchableOpacity
+      style={{
+        width: scaleWidth(103),
+        height: scaleHeight(95),
+        borderRadius: scaleWidth(11),
+        overflow: 'hidden',
+      }}>
+      <FastImage
+        key={index + 'imgList' + Math.random()}
+        source={{ uri: image, priority: FastImage.priority.normal }}
+        style={{
+          flex: 1,
+        }}
+      />
+      <TouchableOpacity
+        style={{
+          flex: 0,
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={_onHandleRemoveItem}>
+        <Image
+          source={ICONS.deleteMedia}
+          style={{ width: scaleWidth(30), height: scaleWidth(30) }}
+        />
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
+};

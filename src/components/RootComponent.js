@@ -317,7 +317,7 @@ const RootComponent = ({ children }) => {
   };
 
   const receiveMessage = messageJson => {
-    console.log('receiveMessage', messageJson)
+    console.log('receiveMessage', messageJson);
     if (messageJson && messageJson.type) {
       if (
         messageJson.type === 'update_data' ||
@@ -384,9 +384,7 @@ const RootComponent = ({ children }) => {
         dispatch(actions.cardAction?.get_card_by_user(token, userInfo.userId));
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
         dispatch(actions.customerAction?.getRewardProfile(token));
-        dispatch(
-          actions.generalAction.setPayComplete(true),
-        );
+        dispatch(actions.generalAction.setPayComplete(true));
       }
 
       if (messageJson.type == 'appointment_checkout') {
@@ -406,21 +404,32 @@ const RootComponent = ({ children }) => {
       if (messageJson.type === 'harmony_pay_review_form') {
         const { id, merchantId, businessName } = messageJson || {};
         if (id) {
-          // dispatch(
-          //   actions.generalAction.visibleReviewForm({
-          //     id,
-          //     merchantId,
-          //     businessName,
-          //   }),
-          // );
-          RootNavigation.navigate('Rating', {
-            data: messageJson,
-          });
+          dispatch(
+            actions.generalAction.visibleReviewForm({
+              id,
+              merchantId,
+              businessName,
+            }),
+          );
+          // RootNavigation.navigate('Rating', {
+          //   data: messageJson,
+          // });
         }
         dispatch(actions.generalAction.setPayComplete(true));
       }
     }
   };
+
+  // React.useEffect(() => {
+  //   const obj = {
+  //     businessname: 'Jenny Beauty And Spa Demo',
+  //     id: 165585,
+  //     merchantid: 258,
+  //     message: '',
+  //     type: 'harmony_pay_review_form',
+  //   };
+  //   dispatch(actions.generalAction.visibleReviewForm(obj));
+  // }, []);
 
   function renderCustomPopupError() {
     const hidePopupError = () => {

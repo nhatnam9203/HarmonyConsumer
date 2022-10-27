@@ -1,35 +1,42 @@
-import { StyleSheet } from "react-native";
-import { scaleWidth, scaleHeight } from "utils";
+import { StyleSheet } from 'react-native';
+import { scaleWidth, scaleHeight } from 'utils';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     minHeight: scaleHeight(50),
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingTop: scaleHeight(3),
   },
   summary: {
-    width: scaleWidth(100),
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: scaleWidth(4),
+    borderBottomWidth: 1,
+    borderBottomColor: '#eeeeee',
+    paddingBottom: scaleHeight(1),
   },
   txtRating: {
     fontSize: scaleWidth(6),
-    color: "#404040",
-    fontWeight: "bold",
+    color: '#404040',
+    fontWeight: 'normal',
+    fontWeight: '400',
   },
   txtCount: {
-    fontSize: scaleWidth(3.7),
-    color: "#585858",
+    fontSize: scaleWidth(4),
+    color: '#585858',
   },
   line: {
     borderBottomWidth: 1,
-    borderBottomColor: "#eeeeee",
-    width: "100%",
+    borderBottomColor: '#eeeeee',
+    width: '100%',
     marginTop: scaleHeight(1.3),
   },
   rowComment: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: scaleHeight(2.5),
   },
   imgAvatar: {
@@ -44,12 +51,12 @@ const styles = StyleSheet.create({
     marginLeft: scaleWidth(3),
   },
   txtCreateDate: {
-    color: "#666666",
+    color: '#666666',
     fontSize: scaleWidth(3.5),
   },
   message: {
     fontSize: scaleWidth(3.7),
-    color: "#404040",
+    color: '#404040',
     marginTop: scaleHeight(1),
   },
   imgStoreReview: {
@@ -60,16 +67,16 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(1),
   },
   containerImgComment: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: scaleHeight(1.5),
   },
   itemComment: {
     borderBottomWidth: 1,
-    borderBottomColor: "#eeeeee",
+    borderBottomColor: '#eeeeee',
     paddingBottom: scaleHeight(1.5),
     width: scaleWidth(94),
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });
 

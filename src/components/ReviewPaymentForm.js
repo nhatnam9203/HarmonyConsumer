@@ -10,6 +10,8 @@ import {
   TextInput,
   Linking,
   Alert,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import { scaleWidth, scaleHeight } from 'utils';
 import images from 'assets';
@@ -17,11 +19,12 @@ import * as RootNavigation from 'navigations/RootNavigation';
 import { useDispatch, useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import actions from '@redux/actions';
-import { harmonyApi } from '@shared/services';
+import { harmonyApi, useQueryCallback } from '@shared/services';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as ImagePicker from 'react-native-image-picker';
 import { slop } from 'utils';
 import { isEmpty } from 'lodash';
+import { FormThankYou } from '@shared/components';
 
 const REVIEW_TYPES = {
   NOT_GOOD: 1,
@@ -38,6 +41,8 @@ const options = {
   },
 };
 
+const IMAGE_ITEM_HEIGHT = scaleWidth(18);
+
 export default function ReviewPaymentForm(props) {
   const dispatch = useDispatch();
   const token = useSelector(state => state.datalocalReducer.token);
@@ -51,6 +56,18 @@ export default function ReviewPaymentForm(props) {
   const [file_list, set_file_list] = React.useState([]);
   const [imgList, setImgList] = React.useState([]);
   const [commentText, setCommentText] = React.useState(null);
+  const [isSubmit, setSubmit] = React.useState(false);
+
+  const [reviewAppointment, { loading: reviewAppointmentLoading }] =
+    useQueryCallback(
+      harmonyApi.useReviewAppointmentMutation,
+      result => {
+        setSubmit(true);
+      },
+      error => {
+        console.log(error);
+      },
+    );
 
   React.useEffect(() => {
     if (showReviewForm) {
@@ -78,14 +95,20 @@ export default function ReviewPaymentForm(props) {
       ratingImages: file_list,
     };
 
-    dispatch(
-      actions.storeAction.updateRatingMerchant(token, body, () => {
-        _onHandleCancel();
-      }),
-    );
+    const { id, merchantId } = showReviewForm;
+
+    reviewAppointment({
+      appointmentId: id,
+      data: {
+        message: commentText,
+        reaction: reviewType,
+        images: file_list,
+        staffReactions: [],
+      },
+    });
   };
 
-  const toggleLike = (staffId, isCheck) => {
+  const _onHandleStaffToggleLike = (staffId, isCheck) => {
     const body = {
       staffId: staffId,
       isFavorited: isCheck ? 1 : 0,
@@ -93,9 +116,9 @@ export default function ReviewPaymentForm(props) {
     dispatch(actions.staffAction.updateFavouriteStaff(token, body));
   };
 
-  const deleteImage = index => {
-    set_file_list(file_list.filter((obj, key) => key !== index));
-    setImgList(imgList.filter((obj, key) => key !== index));
+  const _onHandleRemoveImage = idx => {
+    set_file_list(file_list.filter((x, index) => index !== idx));
+    setImgList(imgList.filter((x, index) => idx !== index));
   };
 
   const afterSubmitImage = file_id => {
@@ -141,6 +164,7 @@ export default function ReviewPaymentForm(props) {
 
   const pickGallery = () => {
     ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
+      console.log(response);
       responseCamera(response);
     });
   };
@@ -185,185 +209,248 @@ export default function ReviewPaymentForm(props) {
     );
   };
 
+  const _onHandleRenderItem = ({ item, index }) => {
+    const isCheck = staff_favourites.find(obj => obj.staffId === item.staffId);
+    const _onHandleToggleLike = () => {
+      _onHandleStaffToggleLike(item?.staffId, !isCheck);
+    };
+
+    return (
+      <StaffFavoritesItem
+        isFavorite={isCheck}
+        staff={item}
+        key={'_staff' + item.staffId}
+        toggleLike={_onHandleToggleLike}
+      />
+    );
+  };
+
+  const _onHandleRenderMediaItem = ({ item, index }) => {
+    return (
+      <MediaItem image={item} index={index} onRemove={_onHandleRemoveImage} />
+    );
+  };
+
+  const _onHandleSubmitDone = () => {
+    _onHandleCancel();
+  };
+
   return (
     <TouchableOpacity style={styles.container} activeOpacity={1}>
-      <View style={{ height: scaleHeight(8) }} />
-      {/* <Image source={images.checked_transaction} style={styles.iconLogo} /> */}
-      {/* <View style={{ height: scaleHeight(2) }} /> */}
-      <Text style={styles.txtSuccess}>Transaction successful !</Text>
-      <View style={{ height: scaleHeight(2) }} />
-      <Text style={styles.textContent}>
-        Please tell us what you think of your service experience.
-      </Text>
-      <View style={{ height: scaleHeight(4) }} />
-      <View
-        style={{
-          width: '96%',
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}>
-        <ReviewItem
-          type={REVIEW_TYPES.NOT_GOOD}
-          imageNormal={images.notGood}
-          imageActive={images.notGood_active}
-          label={'Not Good'}
-          activeType={reviewType}
-          onPress={setReviewType}
-        />
-        <ReviewItem
-          type={REVIEW_TYPES.JUST_OK}
-          imageNormal={images.justOk}
-          imageActive={images.justOk_active}
-          label={'Just Okey'}
-          activeType={reviewType}
-          onPress={setReviewType}
-        />
-        <ReviewItem
-          type={REVIEW_TYPES.AWESOME}
-          imageNormal={images.awesome}
-          imageActive={images.awesome_active}
-          label={'Awesome'}
-          activeType={reviewType}
-          onPress={_onHandleSetTypeReview}
-        />
-      </View>
-      <View style={{ height: scaleHeight(4) }} />
-      <Text
-        style={{
-          fontSize: scaleWidth(4),
-          color: '#282828',
-          textAlign: 'center',
-          fontWeight: '400',
-        }}>
-        Do you satisfied with the staff at
-        <Text
-          style={{
-            color: '#0764B0',
-            fontWeight: Platform.OS === 'android' ? 'bold' : '600',
-            fontSize: scaleWidth(4.5),
-          }}>
-          {` ${showReviewForm?.businessName ?? ''} `}
-        </Text>
-        ?
-      </Text>
-      <View style={{ height: scaleHeight(2) }} />
-      <View
-        style={{
-          width: '92%',
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}>
-        {staff_appointment?.length > 0 && (
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {staff_appointment?.map(staff => {
-              const isCheck = staff_favourites.find(
-                obj => obj.staffId === staff.staffId,
-              );
-
-              return (
-                <StaffFavoritesItem
-                  isFavorite={isCheck}
-                  staff={staff}
-                  key={'staff' + staff.staffId}
-                  toggleLike={toggleLike}
-                />
-              );
-            })}
-          </ScrollView>
-        )}
-      </View>
-      <View style={{ height: scaleHeight(2) }} />
-      <View style={{ width: '92%' }}>
-        <Text
-          style={{
-            fontSize: scaleWidth(4),
-            color: '#282828',
-            textAlign: 'center',
-            fontWeight: '400',
-            textAlign: 'left',
-          }}>
-          Leave comment
-        </Text>
-        <View style={{ height: scaleHeight(1) }} />
-
-        <View
-          style={{
-            width: '100%',
-            height: scaleHeight(7),
-            backgroundColor: '#fff',
-            borderColor: '#dfdfdf',
-            borderWidth: 1,
-            paddingHorizontal: 6,
-            paddingTop: 6,
-            paddingBottom: 2,
-          }}>
-          <TextInput
+      <ScrollView>
+        <View style={styles.content}>
+          <View style={{ height: scaleHeight(6) }} />
+          {/* <Image source={images.checked_transaction} style={styles.iconLogo} /> */}
+          {/* <View style={{ height: scaleHeight(2) }} /> */}
+          {/* <Text style={styles.txtSuccess}>Transaction successful !</Text>
+      <View style={{ height: scaleHeight(2) }} /> */}
+          <Text style={styles.txtTitle}>Appointment Review</Text>
+          <View style={{ height: scaleHeight(1) }} />
+          <Text style={styles.textContent}>
+            Please tell us what you think of your service experience.
+          </Text>
+          <View style={{ height: scaleHeight(3) }} />
+          <View
             style={{
-              fontSize: scaleWidth(3.8),
-              color: '#3f3f3f',
-            }}
-            multiline
-            placeholder="Your comment"
-            value={commentText}
-            onChangeText={setCommentText}
-          />
-        </View>
-        <View style={{ height: scaleHeight(1) }} />
-        <View
-          style={{
-            width: '92%',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-          }}>
-          {imgList.map((image, index) => (
-            <MediaItem index={index} image={image} />
-          ))}
-        </View>
-
-        <TouchableOpacity
-          style={{
-            width: scaleWidth(14),
-            height: scaleWidth(14),
-            backgroundColor: '#fff',
-            borderColor: '#dfdfdf',
-            borderWidth: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={pickGallery}>
-          <Image
-            source={images.camera_rating}
-            style={{
-              width: scaleWidth(6),
-              height: scaleWidth(6),
-              tintColor: '#7d7d7d',
-            }}
-          />
+              width: '96%',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
+            <ReviewItem
+              type={REVIEW_TYPES.NOT_GOOD}
+              image={images.notGood}
+              label={'Bad'}
+              activeType={reviewType}
+              onPress={setReviewType}
+              colorActive={'#ED4343'}
+              colorNormal={'#6F6F6F'}
+            />
+            <ReviewItem
+              type={REVIEW_TYPES.JUST_OK}
+              image={images.justOk}
+              label={'Satisfied'}
+              activeType={reviewType}
+              onPress={setReviewType}
+              colorActive={'#FFA800'}
+              colorNormal={'#6F6F6F'}
+            />
+            <ReviewItem
+              type={REVIEW_TYPES.AWESOME}
+              image={images.awesome}
+              label={'Awesome'}
+              activeType={reviewType}
+              onPress={setReviewType}
+              colorActive={'#2AC267'}
+              colorNormal={'#6F6F6F'}
+            />
+          </View>
+          <View style={{ height: scaleHeight(4) }} />
           <Text
             style={{
-              fontSize: scaleWidth(2.2),
-              color: '#7d7d7d',
+              fontSize: scaleWidth(4),
+              color: '#282828',
+              textAlign: 'left',
+              fontWeight: '500',
             }}>
-            Add photos
+            Do you satisfied with the staff?
+            <Text
+              style={{
+                color: '#0764B0',
+                fontWeight: Platform.OS === 'android' ? 'bold' : '600',
+                fontSize: scaleWidth(4.5),
+              }}>
+              {` ${showReviewForm?.businessName ?? ''} `}
+            </Text>
+            ?
           </Text>
+          <View style={{ height: scaleHeight(2) }} />
+          {staff_appointment?.length > 0 && (
+            <FlatList
+              style={{
+                maxHeight: scaleHeight(20),
+                width: '100%',
+                flex: 0,
+              }}
+              contentContainerStyle={{ paddingHorizontal: scaleWidth(3) }}
+              data={staff_appointment}
+              renderItem={_onHandleRenderItem}
+            />
+          )}
+          <View style={{ height: scaleHeight(2) }} />
+          <View style={{ width: '92%' }}>
+            <Text
+              style={{
+                fontSize: scaleWidth(4),
+                color: '#282828',
+                textAlign: 'center',
+                fontWeight: '400',
+                textAlign: 'left',
+              }}>
+              Leave comment
+            </Text>
+            <View style={{ height: scaleHeight(1) }} />
+
+            <View
+              style={{
+                width: '100%',
+                height: scaleHeight(7),
+                backgroundColor: '#fff',
+                borderColor: '#dfdfdf',
+                borderWidth: 1,
+                paddingHorizontal: 6,
+                paddingTop: 6,
+                paddingBottom: 2,
+              }}>
+              <TextInput
+                style={{
+                  fontSize: scaleWidth(3.8),
+                  color: '#3f3f3f',
+                }}
+                multiline
+                placeholder="Your comment"
+                value={commentText}
+                onChangeText={setCommentText}
+              />
+            </View>
+            <View style={{ height: scaleHeight(1.5) }} />
+            <FlatList
+              style={{
+                height: scaleHeight(10),
+                width: '100%',
+              }}
+              contentContainerStyle={{
+                paddingVertical: scaleHeight(1),
+              }}
+              getItemLayout={(data, index) => {
+                return {
+                  length: IMAGE_ITEM_HEIGHT,
+                  offset: IMAGE_ITEM_HEIGHT * index,
+                  index,
+                };
+              }}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={imgList}
+              initialScrollIndex={imgList?.length - 1}
+              renderItem={_onHandleRenderMediaItem}
+              ItemSeparatorComponent={() => (
+                <View style={{ width: scaleWidth(2) }} />
+              )}
+              ListFooterComponent={() => (
+                <TouchableOpacity
+                  style={{
+                    width: scaleWidth(18),
+                    height: scaleWidth(18),
+                    backgroundColor: '#F2F2F2',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: scaleWidth(3),
+                    marginHorizontal: scaleWidth(3),
+                  }}
+                  onPress={pickGallery}>
+                  <Image
+                    source={images.camera_rating}
+                    style={{
+                      width: scaleWidth(6),
+                      height: scaleWidth(6),
+                      tintColor: '#5A5A5A',
+                    }}
+                  />
+                  <View style={{ height: scaleHeight(1) }} />
+                  <Text
+                    style={{
+                      fontSize: scaleWidth(2.8),
+                      color: '#5A5A5A',
+                    }}>
+                    Add photos
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </View>
+      </ScrollView>
+
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          paddingBottom: scaleHeight(3),
+          alignItems: 'center',
+        }}>
+        <TouchableOpacity onPress={_onHandleSendReview} style={styles.btnNext}>
+          <Text style={styles.txtNext}>Submit</Text>
+        </TouchableOpacity>
+        <View style={{ height: scaleHeight(1) }} />
+
+        <TouchableOpacity
+          onPress={_onHandleCancel}
+          style={{
+            height: scaleWidth(8),
+            width: scaleWidth(20),
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={styles.txtNotNow}> Skip </Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={_onHandleSendReview} style={styles.btnNext}>
-        <Text style={styles.txtNext}>Send Review</Text>
-      </TouchableOpacity>
-      <View style={{ height: scaleHeight(1) }} />
-
-      <TouchableOpacity
-        onPress={_onHandleCancel}
-        style={{
-          height: scaleWidth(8),
-          width: scaleWidth(20),
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={styles.txtNotNow}> Skip </Text>
-      </TouchableOpacity>
+      {isSubmit && <FormThankYou onHandleSubmitDone={_onHandleSubmitDone} />}
+      {reviewAppointmentLoading && (
+        <View
+          style={{
+            position: 'absolute',
+            zIndex: 500,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#0005',
+          }}>
+          <ActivityIndicator size={'large'} color="white" />
+        </View>
+      )}
     </TouchableOpacity>
   );
 }
@@ -371,10 +458,11 @@ export default function ReviewPaymentForm(props) {
 const ReviewItem = ({
   type,
   activeType,
-  imageNormal,
-  imageActive,
+  image,
   label,
   onPress,
+  colorNormal,
+  colorActive,
 }) => {
   const _onHandlePressItem = () => {
     if (onPress && typeof onPress === 'function') {
@@ -385,30 +473,35 @@ const ReviewItem = ({
   return (
     <TouchableOpacity
       onPress={_onHandlePressItem}
-      style={{
-        flex: 0,
-        height: scaleHeight(12),
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#dfdfdf',
-        borderWidth: 1,
-        borderRadius: 4,
-        width: scaleWidth(22),
-        backgroundColor: activeType === type ? '#0764B0' : '#ddd',
-      }}>
+      style={[
+        {
+          flex: 0,
+          height: scaleHeight(14),
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderColor: activeType === type ? colorActive : colorNormal,
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderRadius: 12,
+          width: scaleWidth(22),
+          backgroundColor: 'white',
+        },
+        styles.shadow,
+      ]}>
       <Image
-        source={activeType === type ? imageActive : imageNormal}
+        source={image}
         style={{
-          width: scaleWidth(14),
-          height: scaleWidth(14),
+          width: scaleWidth(13),
+          height: scaleWidth(13),
+          tintColor: activeType === type ? colorActive : colorNormal,
         }}
       />
-      <View style={{ height: scaleHeight(2) }} />
+      <View style={{ height: scaleHeight(1) }} />
 
       <Text
         style={{
           fontSize: scaleWidth(4),
-          color: activeType === type ? '#fff' : '#666',
+          color: activeType === type ? colorActive : colorNormal,
           textAlign: 'center',
         }}>
         {label}
@@ -431,23 +524,30 @@ const StaffFavoritesItem = ({ staff, isFavorite, toggleLike }) => {
   return (
     <View
       style={{
-        marginRight: scaleWidth(8),
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: scaleWidth(2),
+        borderWidth: 1,
+        borderColor: '#D2D2D2',
+        height: scaleHeight(7),
+        borderRadius: scaleWidth(3),
       }}>
       <Image
         source={renderImg}
         style={{
-          width: scaleWidth(14),
-          height: scaleWidth(14),
-          borderRadius: scaleWidth(80),
+          width: scaleHeight(5),
+          height: scaleHeight(5),
+          borderRadius: scaleHeight(3),
         }}
       />
+      <View style={{ width: scaleWidth(2) }} />
       <Text
         style={{
           fontSize: scaleWidth(3.8),
           color: '#404040',
           marginVertical: scaleHeight(1),
+          flex: 1,
         }}>{`${staff.displayName}`}</Text>
       <TouchableOpacity onPress={_onHandleToggleLike}>
         <AntDesign
@@ -460,27 +560,38 @@ const StaffFavoritesItem = ({ staff, isFavorite, toggleLike }) => {
   );
 };
 
-const MediaItem = ({ index, image }) => {
+const MediaItem = ({ index, image, onRemove }) => {
+  const _onHandleRemoveItem = () => {
+    if (onRemove && typeof onRemove === 'function') {
+      onRemove(index);
+    }
+  };
   return (
-    <View style={styles.item}>
-      <Image
+    <TouchableOpacity style={styles.item}>
+      <FastImage
         key={index + 'imgList' + Math.random()}
-        source={{ uri: image }}
+        source={{ uri: image, priority: FastImage.priority.normal }}
         style={{
-          width: scaleWidth(20),
-          height: scaleWidth(20),
-          marginBottom: scaleWidth(3),
+          flex: 1,
         }}
       />
       <TouchableOpacity
         style={{
-          width: 15,
-          height: 15,
+          width: scaleWidth(8),
+          height: scaleWidth(8),
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        hitSlop={slop}>
-        <AntDesign color="white" name="close" size={scaleWidth(3.5)} />
+        onPress={_onHandleRemoveItem}>
+        <Image
+          source={images.deleteMedia}
+          style={{ width: scaleWidth(6), height: scaleWidth(6) }}
+        />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -489,8 +600,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
     width: '100%',
-    alignItems: 'center',
   },
+
+  content: { flex: 1, width: '100%', alignItems: 'center' },
   iconLogo: {
     width: scaleWidth(17),
     height: scaleWidth(17),
@@ -498,6 +610,12 @@ const styles = StyleSheet.create({
   txtSuccess: {
     fontSize: scaleWidth(5),
     color: '#1C98C9',
+  },
+
+  txtTitle: {
+    fontSize: scaleWidth(6),
+    color: '#404040',
+    fontWeight: '600',
   },
   ratingNow: {
     color: '#2EBE03',
@@ -514,9 +632,9 @@ const styles = StyleSheet.create({
   },
   textContent: {
     fontSize: scaleWidth(4),
-    color: '#282828',
+    color: '#404040',
     textAlign: 'center',
-    fontWeight: '500',
+    fontWeight: '400',
   },
 
   txtNext: {
@@ -544,7 +662,20 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    position: 'relative',
-    marginRight: scaleWidth(5),
+    width: scaleWidth(18),
+    height: scaleWidth(18),
+    borderRadius: scaleWidth(3),
+    overflow: 'hidden',
+  },
+
+  shadow: {
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    shadowOpacity: 0.13,
+    shadowRadius: 2.82,
   },
 });
