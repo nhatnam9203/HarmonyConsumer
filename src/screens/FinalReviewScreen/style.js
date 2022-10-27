@@ -30,14 +30,17 @@ const styles = StyleSheet.create({
     // tintColor:'#707070'
   },
   line_bottom: {
-    width: "100%",
-    borderColor: "#eeeeee",
-    borderWidth: 1,
+    width: '100%',
+    height: scaleSize(1),
+    borderColor: '#eeeeee',
+    borderWidth: 0.7,
   },
   button_submit: {
-    position: "absolute",
-    left: scaleSize(34),
-    bottom: scaleSize(20),
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: scaleSize(30),
+    alignItems: 'center',
+    marginTop: scaleSize(80),
   },
   txt_add: {
     marginLeft: scaleSize(10),
@@ -48,11 +51,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#DDDDDD",
-    borderBottomColor: "#DDDDDD",
-    borderRadius: scaleSize(5),
-    marginTop: scaleSize(15),
+    paddingRight: scaleSize(16),
+    paddingTop: scaleSize(10),
+    paddingBottom: scaleSize(10),
+    fontSize: scaleSize(15),
+    marginBottom: scaleSize(15)
   },
   textCancel: {  
     color: 'red',

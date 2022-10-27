@@ -105,22 +105,18 @@ export default function index(props) {
           {`Store: ${gift_send?.merchantName || ""}`}
         </Text>
 
-        <Input
-          width={382}
-          label="Message:"
-          height={100}
-          styleTextInput={styles.input}
-          contentContainerInput={{ borderBottomWidth: 0 }}
-          value={gift_send.message}
-          editable={false}
-        />
+        <Text style={styles.input}>
+          {gift_send?.message || ""}
+        </Text>
 
         <AttachSender />
         <View style={{ height: scaleHeight(30) }} />
       </ScrollView>
-
-      <View style={styles.button_submit}>
-        <ButtonSubmit onSubmit={onSubmit} title="Send" width={350} />
+      <View>
+        <View style={styles.line_bottom}/>
+        <View style={styles.button_submit}>
+          <ButtonSubmit onSubmit={onSubmit} title="Send" width={350} />
+        </View>
       </View>
     </View>
   );
