@@ -27,9 +27,11 @@ import { isEmpty } from 'lodash';
 import { FormThankYou } from '@shared/components';
 
 const REVIEW_TYPES = {
+  NONE: 0,
   NOT_GOOD: 1,
   JUST_OK: 2,
   AWESOME: 3,
+  HEART: 4,
 };
 
 const options = {
@@ -45,6 +47,7 @@ const IMAGE_ITEM_HEIGHT = scaleWidth(18);
 
 export default function ReviewPaymentForm(props) {
   const dispatch = useDispatch();
+  const flatList = React.useRef(null);
   const token = useSelector(state => state.datalocalReducer.token);
   const { staff_appointment, staff_favourites } = useSelector(
     state => state.staffReducer,
@@ -52,7 +55,7 @@ export default function ReviewPaymentForm(props) {
   const merchant = useSelector(state => state.storeReducer.merchant_detail);
 
   const { showReviewForm } = useSelector(state => state.generalReducer);
-  const [reviewType, setReviewType] = React.useState(REVIEW_TYPES.JUST_OK);
+  const [reviewType, setReviewType] = React.useState(REVIEW_TYPES.NONE);
   const [file_list, set_file_list] = React.useState([]);
   const [imgList, setImgList] = React.useState([]);
   const [commentText, setCommentText] = React.useState(null);
@@ -88,14 +91,19 @@ export default function ReviewPaymentForm(props) {
   };
 
   const _onHandleSendReview = () => {
-    const body = {
-      merchantId: showReviewForm.merchantId,
-      rating: reviewType,
-      message: commentText,
-      ratingImages: file_list,
-    };
+    // const body = {
+    //   merchantId: showReviewForm.merchantId,
+    //   rating: reviewType,
+    //   message: commentText,
+    //   ratingImages: file_list,
+    // };
 
-    const { id, merchantId } = showReviewForm;
+    const { id } = showReviewForm || {};
+    if (!id) {
+      alert('Not found appointment id');
+      _onHandleCancel();
+      return;
+    }
 
     reviewAppointment({
       appointmentId: id,
@@ -103,7 +111,14 @@ export default function ReviewPaymentForm(props) {
         message: commentText,
         reaction: reviewType,
         images: file_list,
-        staffReactions: [],
+        staffReactions:
+          staff_appointment?.map(x => ({
+            staffId: x?.staffId,
+            reaction:
+              staff_favourites?.find(obj => obj?.staffId === x?.staffId) >= 0
+                ? REVIEW_TYPES.HEART
+                : REVIEW_TYPES.NONE,
+          })) ?? [],
       },
     });
   };
@@ -156,15 +171,17 @@ export default function ReviewPaymentForm(props) {
     if (response.didCancel) {
     } else if (response?.errorCode) {
       alert(response.errorCode);
-    } else if (response.uri) {
-      setImgList([...imgList, response.uri]);
+    } else if (response?.uri) {
+      setImgList([...imgList, response?.uri]);
       onSubmitImage(response);
     }
   };
 
   const pickGallery = () => {
+    // responseCamera({
+    //   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaPZ-AkoWA-OIYNNBS1hW1NPd5gb2mhp8MPbFvplsyATNL0YyJ7aGh-HI8VIERp3O2Ae4&usqp=CAU',
+    // });
     ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
-      console.log(response);
       responseCamera(response);
     });
   };
@@ -208,6 +225,18 @@ export default function ReviewPaymentForm(props) {
       },
     );
   };
+
+  React.useEffect(() => {
+    if (imgList?.length > 1) {
+      const wait = new Promise(resolve => setTimeout(resolve, 500));
+      wait.then(() => {
+        flatList.current?.scrollToIndex({
+          index: imgList?.length - 1,
+          animated: true,
+        });
+      });
+    }
+  }, [imgList]);
 
   const _onHandleRenderItem = ({ item, index }) => {
     const isCheck = staff_favourites.find(obj => obj.staffId === item.staffId);
@@ -354,6 +383,7 @@ export default function ReviewPaymentForm(props) {
             </View>
             <View style={{ height: scaleHeight(1.5) }} />
             <FlatList
+              ref={flatList}
               style={{
                 height: scaleHeight(10),
                 width: '100%',
@@ -427,8 +457,8 @@ export default function ReviewPaymentForm(props) {
         <TouchableOpacity
           onPress={_onHandleCancel}
           style={{
-            height: scaleWidth(8),
-            width: scaleWidth(20),
+            height: scaleWidth(10),
+            width: scaleWidth(30),
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -466,7 +496,7 @@ const ReviewItem = ({
 }) => {
   const _onHandlePressItem = () => {
     if (onPress && typeof onPress === 'function') {
-      onPress(type);
+      onPress(activeType === type ? REVIEW_TYPES.NONE : type);
     }
   };
 
@@ -645,7 +675,7 @@ const styles = StyleSheet.create({
 
   txtNotNow: {
     color: '#0764B0',
-    fontSize: scaleWidth(3.8),
+    fontSize: scaleWidth(4),
     marginTop: scaleHeight(1),
     textDecorationLine: 'underline',
     fontWeight: '500',

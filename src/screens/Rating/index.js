@@ -60,6 +60,7 @@ const list = [
 export default function index(props) {
   const { route } = props || {};
   const dispatch = useDispatch();
+  const flatList = React.useRef(null);
 
   const [message, setMessage] = useState('');
   const [isSubmit, setSubmit] = useState(false);
@@ -77,7 +78,6 @@ export default function index(props) {
     } else if (response.error) {
     } else {
       setImgList([...imgList, response.uri]);
-
       onSubmitImage(response);
     }
   };
@@ -114,6 +114,11 @@ export default function index(props) {
   };
 
   const pickGallery = () => {
+    // onSubmitImage({
+    //   fileName: 'test.heic',
+    //   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBmNyK5FXbYrMhKrD9szqcn4naSokfa4NY2zrbg-sox8HHRMKTCJRHVVF4R63epT-A8R8&usqp=CAU',
+    //   type: 'image',
+    // });
     ImagePicker.launchImageLibrary(options, response => {
       responseCamera(response);
     });
@@ -131,6 +136,7 @@ export default function index(props) {
   };
 
   const onSubmit = () => {
+    console.log(file_list);
     const count_rating = rating.filter(obj => obj.isActive === true);
     const body = {
       merchantId,
@@ -154,6 +160,18 @@ export default function index(props) {
   const _onHandleSubmitDone = () => {
     RootNavigation.navigate('Home');
   };
+
+  React.useEffect(() => {
+    if (imgList?.length > 1) {
+      const wait = new Promise(resolve => setTimeout(resolve, 500));
+      wait.then(() => {
+        flatList.current?.scrollToIndex({
+          index: imgList?.length - 1,
+          animated: true,
+        });
+      });
+    }
+  }, [imgList]);
 
   return (
     <View style={styles.container}>
@@ -195,6 +213,7 @@ export default function index(props) {
           )} */}
           <View style={{ height: scaleHeight(15) }} />
           <FlatList
+            ref={flatList}
             style={{
               height: scaleHeight(95),
             }}
@@ -202,7 +221,6 @@ export default function index(props) {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={imgList}
-            initialScrollIndex={imgList?.length - 1}
             renderItem={_onHandleRenderMediaItem}
             ItemSeparatorComponent={() => (
               <View style={{ width: scaleWidth(10) }} />
