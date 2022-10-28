@@ -4,6 +4,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useSelector } from 'react-redux';
+import { getMerchantText } from 'utils';
 
 export const UserActiveCard = ({ card, onPress }) => {
   const { amount = 0, userCardId, imageUrl } = card || {};
@@ -29,6 +30,14 @@ export const UserActiveCard = ({ card, onPress }) => {
         <View style={styles.amountContent}>
           <Text style={styles.amountText}>{`$ ${amount}`}</Text>
         </View>
+        {getMerchantText(card) 
+          ? <Text style={styles.merchantText}
+            numberOfLines={1}
+            ellipsizeMode={'tail'}>
+            {getMerchantText(card)}
+            </Text> 
+          : <></>
+        }
       </View>
       : 
       <View style={styles.viewWelcome}>
@@ -50,7 +59,7 @@ export const UserActiveCard = ({ card, onPress }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
-    height: scaleHeight(264),
+    // height: scaleHeight(264),
     padding: scaleWidth(16),
   },
   imageCard: {
@@ -108,6 +117,15 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: scaleFont(15),
     fontStyle: 'normal',
+  },
+  merchantText: {
+    fontSize: scaleFont(15),
+    fontStyle: 'normal',
+    color: '#646464',
+    marginTop: scaleHeight(10),
+    marginBottom: scaleHeight(15),
+    marginLeft: scaleWidth(10),
+    marginRight: scaleWidth(10)
   },
   hightlightText: {
     fontSize: scaleFont(15),

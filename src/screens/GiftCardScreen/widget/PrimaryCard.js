@@ -133,6 +133,8 @@ const styles = StyleSheet.create({
   },
   textMerchant: {
     color: "#646464",
-    marginTop: scaleSize(10)
+    marginTop: scaleSize(10),
+    marginLeft: scaleWidth(10),
+    marginRight: scaleWidth(10)
   }
 });
