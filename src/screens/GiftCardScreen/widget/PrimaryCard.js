@@ -4,7 +4,7 @@ import Image from "react-native-fast-image";
 
 import ICONS from "assets";
 import { Text, Button } from "components";
-import { scaleSize, formatMoney } from "utils";
+import { scaleSize, formatMoney, getMerchantText } from "utils";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const PrimaryCard = ({ onPress, card, onReload, onHandleBuyGift, onPressAddCard }) => {
@@ -55,7 +55,13 @@ const PrimaryCard = ({ onPress, card, onReload, onHandleBuyGift, onPressAddCard 
       <Button onPress={onHandleOnPress}>
         <Image style={styles.img_card} source={url} />
       </Button>
-      
+      {getMerchantText(card) ?
+        <Text fontSize={16} 
+          style={styles.textMerchant}
+          numberOfLines={1}
+          ellipsizeMode={'tail'}>
+          {getMerchantText(card)}
+        </Text> : <></>}
     </View>
   );
 };
@@ -124,5 +130,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginLeft: scaleSize(5),
     marginRight: scaleSize(10)
+  },
+  textMerchant: {
+    color: "#646464",
+    marginTop: scaleSize(10)
   }
 });
