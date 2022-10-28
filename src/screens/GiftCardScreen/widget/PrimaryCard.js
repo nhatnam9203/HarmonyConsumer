@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     width: scaleSize(382),
     height: scaleSize(240),
     resizeMode: "cover",
+    borderRadius: scaleSize(6)
   },
   txtMoreCard: {
     marginBottom: scaleSize(15),
