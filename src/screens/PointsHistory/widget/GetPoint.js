@@ -5,6 +5,7 @@ import Item from "./Item";
 import { LoadMore } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "@redux/actions";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function GetPoint(props) {
   const { points_customer } = props;
@@ -14,7 +15,7 @@ export default function GetPoint(props) {
   const dispatch = useDispatch();
 
   const [isLoadMore, setLoadMore] = React.useState(false);
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   const timezone = new Date().getTimezoneOffset();
 
   const updatePage = () => {
@@ -38,6 +39,14 @@ export default function GetPoint(props) {
       updatePage();
     }
   };
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setPage(1);
+      dispatch(actions.customerAction.getPoint(1, timezone, token, stopLoadMore));
+    }, [])
+  );
 
   return (
     <ScrollView onMomentumScrollEnd={updateLoadmore} showsVerticalScrollIndicator={false}>
