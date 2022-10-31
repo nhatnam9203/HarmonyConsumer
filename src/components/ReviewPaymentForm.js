@@ -84,6 +84,13 @@ export default function ReviewPaymentForm(props) {
     }
   }, [showReviewForm]);
 
+  const _isAllowReview = () => {
+    return (
+      commentText?.length === 0 &&
+      reviewType === REVIEW_TYPE.NONE &&
+      file_list?.length <= 0
+    );
+  };
   const _onHandleCancel = () => {
     dispatch(actions.generalAction.visibleReviewForm(null));
     dispatch({ type: 'SET_STAFF_APPOINTMENT', payload: [] });
@@ -456,7 +463,13 @@ export default function ReviewPaymentForm(props) {
           paddingBottom: scaleHeight(3),
           alignItems: 'center',
         }}>
-        <TouchableOpacity onPress={_onHandleSendReview} style={styles.btnNext}>
+        <TouchableOpacity
+          onPress={_onHandleSendReview}
+          style={[
+            styles.btnNext,
+            { backgroundColor: _isAllowReview() ? '#0764B0' : '#dddddd' },
+          ]}
+          disabled={!_isAllowReview()}>
           <Text style={styles.txtNext}>Submit</Text>
         </TouchableOpacity>
         <View style={{ height: scaleHeight(1) }} />

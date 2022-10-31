@@ -1,10 +1,10 @@
 export const userBuilder = builder => ({
   deleteUserAccount: builder.mutation({
-    query: userId => ({
+    query: ({ userId, message }) => ({
       url: `user/delete/${userId}`,
       method: 'PUT',
       data: {
-        reason: 'string',
+        reason: message,
       },
     }),
   }),
