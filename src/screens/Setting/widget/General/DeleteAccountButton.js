@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import * as RootNavigation from 'navigations/RootNavigation';
 
 export const DeleteAccountButton = ({}) => {
   const dispatch = useDispatch();
@@ -30,8 +31,8 @@ export const DeleteAccountButton = ({}) => {
       const { data } = result;
       if (data) {
         setShowPopupDelete(false);
-
         dispatch(actions.authAction.logout(token));
+        RootNavigation.reset('Welcome');
         setShowLoading(false);
       } else {
         alert('Delete account error unknown ...');
@@ -131,247 +132,245 @@ export const ModalConfirmDelete = ({
 
   return (
     <Modal onRequestClose={_onHandleClose} isVisible={isVisible}>
-      <KeyboardAvoidingView behavior={'position'}>
-        <TouchableOpacity
+      <TouchableOpacity
+        style={{
+          width: screenWidth(),
+          height: screenHeight(),
+          backgroundColor: 'white',
+        }}
+        activeOpacity={1}>
+        <View
           style={{
-            width: screenWidth(),
-            height: screenHeight(),
+            height: scaleHeight(100),
+            width: '100%',
             backgroundColor: 'white',
-          }}
-          activeOpacity={1}>
-          <View
-            style={{
-              height: scaleHeight(100),
-              width: '100%',
-              backgroundColor: 'white',
-              elevation: 3,
-              backgroundColor: '#FFF',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.13,
-              shadowRadius: 2.82,
-            }}>
-            <View style={{ height: scaleHeight(26) }} />
-            <View
-              style={{
-                flex: 1,
-                paddingTop: scaleHeight(10),
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <TouchableOpacity
-                style={{
-                  height: '100%',
-                  width: scaleWidth(60),
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                onPress={_onHandleClose}>
-                <Image
-                  source={ICONS.arrow_back_ios}
-                  style={{ height: scaleHeight(20), width: scaleWidth(20) }}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text style={{ fontSize: scaleFont(18), color: '#4d4d4d' }}>
-                  Delete Account
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={{
-                  height: '100%',
-                  width: scaleWidth(60),
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                onPress={_onHandleClose}>
-                <Text style={{ fontSize: scaleFont(16), color: 'red' }}>
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+            elevation: 3,
+            backgroundColor: '#FFF',
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.13,
+            shadowRadius: 2.82,
+          }}>
+          <View style={{ height: scaleHeight(26) }} />
           <View
             style={{
               flex: 1,
-              paddingTop: scaleHeight(20),
-              paddingHorizontal: scaleWidth(10),
-            }}>
-            <Text
-              style={{
-                fontSize: scaleFont(18),
-                color: '#373737',
-                fontWeight: '700',
-              }}>{`If you delete your account, you will permanently lose:`}</Text>
-            <View
-              style={{
-                height: scaleHeight(5),
-                width: '100%',
-              }}
-            />
-            <Text style={styles.textFont}>{`    - Profile`}</Text>
-            <Text style={styles.textFont}>{`    - Appointments`}</Text>
-            <Text style={styles.textFont}>{`    - User card`}</Text>
-            <View style={{ height: scaleHeight(50) }} />
-            <Text
-              style={
-                styles.textFont
-              }>{`Why do you want to delete your account?`}</Text>
-            <View
-              style={{
-                height: scaleHeight(15),
-                width: '100%',
-              }}
-            />
-            <View
-              style={{
-                borderColor: '#BABABA',
-                borderWidth: 1,
-                borderRadius: scaleWidth(3),
-                paddingVertical: scaleHeight(2),
-                paddingHorizontal: scaleHeight(5),
-              }}>
-              <TextInput
-                style={{
-                  fontSize: scaleFont(18),
-                  fontWeight: '500',
-                  paddingVertical: scaleWidth(10),
-                  color: '#646464',
-                  height: scaleHeight(100),
-                }}
-                value={confirmText}
-                onChangeText={_onHandleTypeConfirm}
-                multiline
-              />
-            </View>
-          </View>
-
-          <View
-            style={{
-              height: scaleHeight(150),
-              width: '100%',
-              justifyContent: 'center',
+              paddingTop: scaleHeight(10),
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              paddingVertical: scaleWidth(5),
             }}>
             <TouchableOpacity
               style={{
-                width: scaleWidth(300),
-                height: scaleHeight(44),
-                backgroundColor: 'blue',
+                height: '100%',
+                width: scaleWidth(60),
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderRadius: scaleWidth(3),
-                backgroundColor: '#ED1C24',
               }}
-              onPress={_onHandleConfirmDelete}>
-              <Text
-                style={{
-                  fontSize: scaleFont(16),
-                  color: 'white',
-                  fontWeight: '500',
-                }}>
-                Delete
+              onPress={_onHandleClose}>
+              <Image
+                source={ICONS.arrow_back_ios}
+                style={{ height: scaleHeight(20), width: scaleWidth(20) }}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{ fontSize: scaleFont(18), color: '#4d4d4d' }}>
+                Delete Account
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={{
+                height: '100%',
+                width: scaleWidth(60),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={_onHandleClose}>
+              <Text style={{ fontSize: scaleFont(16), color: 'red' }}>
+                Cancel
               </Text>
             </TouchableOpacity>
           </View>
-          {isShowConfirm && (
+        </View>
+        <View
+          style={{
+            flex: 1,
+            paddingTop: scaleHeight(20),
+            paddingHorizontal: scaleWidth(10),
+          }}>
+          <Text
+            style={{
+              fontSize: scaleFont(18),
+              color: '#373737',
+              fontWeight: '700',
+            }}>{`If you delete your account, you will permanently lose:`}</Text>
+          <View
+            style={{
+              height: scaleHeight(5),
+              width: '100%',
+            }}
+          />
+          <Text style={styles.textFont}>{`    - Profile`}</Text>
+          <Text style={styles.textFont}>{`    - Appointments`}</Text>
+          <Text style={styles.textFont}>{`    - User card`}</Text>
+          <View style={{ height: scaleHeight(50) }} />
+          <Text
+            style={
+              styles.textFont
+            }>{`Why do you want to delete your account?`}</Text>
+          <View
+            style={{
+              height: scaleHeight(15),
+              width: '100%',
+            }}
+          />
+          <View
+            style={{
+              borderColor: '#BABABA',
+              borderWidth: 1,
+              borderRadius: scaleWidth(3),
+              paddingVertical: scaleHeight(2),
+              paddingHorizontal: scaleHeight(5),
+            }}>
+            <TextInput
+              style={{
+                fontSize: scaleFont(18),
+                fontWeight: '500',
+                paddingVertical: scaleWidth(10),
+                color: '#646464',
+                height: scaleHeight(100),
+              }}
+              value={confirmText}
+              onChangeText={_onHandleTypeConfirm}
+              multiline
+            />
+          </View>
+        </View>
+
+        <View
+          style={{
+            height: scaleHeight(150),
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: scaleWidth(5),
+          }}>
+          <TouchableOpacity
+            style={{
+              width: scaleWidth(300),
+              height: scaleHeight(44),
+              backgroundColor: 'blue',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: scaleWidth(3),
+              backgroundColor: '#ED1C24',
+            }}
+            onPress={_onHandleConfirmDelete}>
+            <Text
+              style={{
+                fontSize: scaleFont(16),
+                color: 'white',
+                fontWeight: '500',
+              }}>
+              Delete
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {isShowConfirm && (
+          <View
+            style={{
+              position: 'absolute',
+              opacity: 1,
+              zIndex: 10000,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#0004',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+            }}>
             <View
               style={{
-                position: 'absolute',
-                opacity: 1,
-                zIndex: 10000,
+                width: scaleWidth(351),
+                height: scaleHeight(271),
+                backgroundColor: 'white',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: '#0004',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
+                borderRadius: scaleWidth(16),
+                paddingHorizontal: scaleWidth(12),
               }}>
-              <View
+              <View style={{ height: scaleHeight(10) }} />
+              <Text style={{ fontSize: scaleFont(24), fontWeight: '600' }}>
+                Confirm Delete
+              </Text>
+              <View style={{ height: scaleHeight(10) }} />
+
+              <Text
                 style={{
-                  width: scaleWidth(351),
-                  height: scaleHeight(271),
-                  backgroundColor: 'white',
+                  fontSize: scaleFont(16),
+                  fontWeight: '400',
+                  textAlign: 'center',
+                }}>
+                Are you sure you want to delete your account?
+              </Text>
+              <View style={{ height: scaleHeight(10) }} />
+
+              <TouchableOpacity
+                style={{
+                  height: scaleHeight(45),
+                  width: scaleWidth(288),
+                  backgroundColor: '#0764B0',
+                  borderRadius: scaleWidth(8),
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: scaleWidth(16),
-                  paddingHorizontal: scaleWidth(12),
-                }}>
-                <View style={{ height: scaleHeight(10) }} />
-                <Text style={{ fontSize: scaleFont(24), fontWeight: '600' }}>
-                  Confirm Delete
-                </Text>
-                <View style={{ height: scaleHeight(10) }} />
-
+                }}
+                onPress={_onHandleDeleteAccount}>
                 <Text
                   style={{
                     fontSize: scaleFont(16),
                     fontWeight: '400',
-                    textAlign: 'center',
+                    color: 'white',
+                    fontWeight: '700',
                   }}>
-                  Are you sure you want to delete your account?
+                  Confirm
                 </Text>
-                <View style={{ height: scaleHeight(10) }} />
+              </TouchableOpacity>
+              <View style={{ height: scaleHeight(10) }} />
 
-                <TouchableOpacity
+              <TouchableOpacity
+                style={{
+                  height: scaleHeight(45),
+                  width: scaleWidth(288),
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                onPress={() => {
+                  setShowConfirm(false);
+                }}>
+                <Text
                   style={{
-                    height: scaleHeight(45),
-                    width: scaleWidth(288),
-                    backgroundColor: '#0764B0',
-                    borderRadius: scaleWidth(8),
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={_onHandleDeleteAccount}>
-                  <Text
-                    style={{
-                      fontSize: scaleFont(16),
-                      fontWeight: '400',
-                      color: 'white',
-                      fontWeight: '700',
-                    }}>
-                    Confirm
-                  </Text>
-                </TouchableOpacity>
-                <View style={{ height: scaleHeight(10) }} />
-
-                <TouchableOpacity
-                  style={{
-                    height: scaleHeight(45),
-                    width: scaleWidth(288),
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => {
-                    setShowConfirm(false);
+                    fontWeight: '400',
+                    color: '#F81F1F',
+                    fontWeight: '700',
                   }}>
-                  <Text
-                    style={{
-                      fontWeight: '400',
-                      color: '#F81F1F',
-                      fontWeight: '700',
-                    }}>
-                    Cancel
-                  </Text>
-                </TouchableOpacity>
-                <View style={{ height: scaleHeight(10) }} />
-              </View>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+              <View style={{ height: scaleHeight(10) }} />
             </View>
-          )}
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+          </View>
+        )}
+      </TouchableOpacity>
     </Modal>
   );
 };
