@@ -136,7 +136,6 @@ export default function index(props) {
   };
 
   const onSubmit = () => {
-    console.log(file_list);
     const count_rating = rating.filter(obj => obj.isActive === true);
     const body = {
       merchantId,

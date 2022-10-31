@@ -254,15 +254,25 @@ export default function ReviewPaymentForm(props) {
     );
   };
 
-  const _onHandleRenderMediaItem = ({ item, index }) => {
+  const _onHandleRenderMediaItem = obj => {
+    const { item, index } = obj || {};
+    console.log(obj);
+    const key = `${index}-${item}`;
     return (
-      <MediaItem image={item} index={index} onRemove={_onHandleRemoveImage} />
+      <MediaItem
+        key={key}
+        image={item}
+        index={index}
+        onRemove={_onHandleRemoveImage}
+      />
     );
   };
 
   const _onHandleSubmitDone = () => {
     _onHandleCancel();
   };
+
+  console.log(imgList);
 
   return (
     <TouchableOpacity style={styles.container} activeOpacity={1}>
@@ -321,7 +331,7 @@ export default function ReviewPaymentForm(props) {
               textAlign: 'left',
               fontWeight: '500',
             }}>
-            Do you satisfied with the staff?
+            Do you satisfied with the staff
             <Text
               style={{
                 color: '#0764B0',
@@ -383,26 +393,23 @@ export default function ReviewPaymentForm(props) {
             </View>
             <View style={{ height: scaleHeight(1.5) }} />
             <FlatList
+              data={imgList}
               ref={flatList}
               style={{
                 height: scaleHeight(10),
-                width: '100%',
-              }}
-              contentContainerStyle={{
-                paddingVertical: scaleHeight(1),
+                flex: 1,
               }}
               getItemLayout={(data, index) => {
                 return {
-                  length: IMAGE_ITEM_HEIGHT,
+                  length: imgList?.length,
                   offset: IMAGE_ITEM_HEIGHT * index,
                   index,
                 };
               }}
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={imgList}
-              initialScrollIndex={imgList?.length - 1}
               renderItem={_onHandleRenderMediaItem}
+              keyExtractor={(item, index) => `${index}-${item}`}
               ItemSeparatorComponent={() => (
                 <View style={{ width: scaleWidth(2) }} />
               )}
@@ -596,13 +603,14 @@ const MediaItem = ({ index, image, onRemove }) => {
       onRemove(index);
     }
   };
+
   return (
     <TouchableOpacity style={styles.item}>
       <FastImage
-        key={index + 'imgList' + Math.random()}
         source={{ uri: image, priority: FastImage.priority.normal }}
         style={{
-          flex: 1,
+          width: scaleWidth(18),
+          height: scaleWidth(18),
         }}
       />
       <TouchableOpacity
