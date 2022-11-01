@@ -31,6 +31,7 @@ export default function hook(props) {
     isDisabled,
     depositAmount,
     // total,
+    reaction,
   } = appointment_detail_customer;
 
   let total =
@@ -132,6 +133,7 @@ export default function hook(props) {
   const back = () => {
     RootNavigation.back();
   };
+
   return [
     back,
     openInbox,
@@ -155,5 +157,6 @@ export default function hook(props) {
     goToAddNote,
     isDisabled,
     depositAmount,
+    reaction,
   ];
 }

@@ -9,6 +9,7 @@ import {
   StoreInfo,
 } from './widget';
 import { Text, Modal2 as Modal, Header, StatusBar } from 'components';
+import { AppointmentReview } from '@shared/components';
 
 import images from 'assets';
 import styles from './styles';
@@ -41,6 +42,7 @@ export default function index(props) {
     goToAddNote,
     isDisabled,
     depositAmount,
+    reaction,
   ] = useHook(props);
 
   if (isEmpty(appointment_detail_customer)) {
@@ -107,6 +109,9 @@ export default function index(props) {
                 tax={appointment_detail_customer.tax}
               />
               <Note goToAddNote={goToAddNote} notes={notes} />
+              <View style={{ height: scaleHeight(3) }} />
+
+              {reaction && <AppointmentReview reviewInfo={reaction} />}
               <View style={{ height: scaleHeight(50) }} />
             </View>
           </ScrollView>

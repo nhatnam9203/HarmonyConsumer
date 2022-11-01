@@ -85,11 +85,7 @@ export default function ReviewPaymentForm(props) {
   }, [showReviewForm]);
 
   const _isAllowReview = () => {
-    return (
-      commentText?.length > 0 ||
-      reviewType !== REVIEW_TYPES.NONE ||
-      file_list?.length > 0
-    );
+    return reviewType !== REVIEW_TYPES.NONE;
   };
   const _onHandleCancel = () => {
     dispatch(actions.generalAction.visibleReviewForm(null));
