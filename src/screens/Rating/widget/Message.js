@@ -23,12 +23,13 @@ export default function Message({ message, setMessage }) {
           style={styles.textInput}
           multiline
         />
+
         {/* <TouchableOpacity onPress={pickGallery}>
           <Image source={images.media_rating} style={styles.icon2} />
         </TouchableOpacity>
         <TouchableOpacity onPress={launchCamera}>
           <Image source={images.camera_rating} style={styles.icon} />
-        </TouchableOpacity> */}
+        </TouchableOpacity>  */}
       </View>
     </View>
   );
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     paddingVertical: scaleWidth(0.5),
     paddingHorizontal: scaleWidth(3),
     borderRadius: 5,
-    height: scaleHeight(10),
+    height: scaleHeight(12),
     marginTop: scaleHeight(1.5),
     backgroundColor: '#F8F8F8',
   },

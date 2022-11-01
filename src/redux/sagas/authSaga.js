@@ -392,7 +392,6 @@ function* uploadAvatar(action) {
         break;
     }
   } catch (e) {
-    console.log('uploadAvatar');
     console.log(e);
   } finally {
     yield put({ type: 'STOP_FETCH_API' });

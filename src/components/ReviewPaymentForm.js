@@ -375,7 +375,7 @@ export default function ReviewPaymentForm(props) {
             <View
               style={{
                 width: '100%',
-                height: scaleHeight(7),
+                height: scaleHeight(10),
                 backgroundColor: '#fff',
                 borderColor: '#dfdfdf',
                 borderWidth: 1,
@@ -385,8 +385,9 @@ export default function ReviewPaymentForm(props) {
               }}>
               <TextInput
                 style={{
-                  fontSize: scaleWidth(3.8),
+                  fontSize: scaleWidth(4),
                   color: '#3f3f3f',
+                  height: '100%',
                 }}
                 multiline
                 placeholder="Your comment"
@@ -394,7 +395,76 @@ export default function ReviewPaymentForm(props) {
                 onChangeText={setCommentText}
               />
             </View>
+            <View style={{ height: scaleHeight(1) }} />
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <TouchableOpacity
+                style={{
+                  width: scaleWidth(36),
+                  height: scaleWidth(10),
+                  backgroundColor: '#ECECEC',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: scaleWidth(1),
+                  marginHorizontal: scaleWidth(2),
+                  flexDirection: 'row',
+                }}
+                onPress={pickGallery}>
+                <Image
+                  source={images.media_rating}
+                  style={{
+                    width: scaleWidth(6),
+                    height: scaleWidth(4),
+                    tintColor: '#5A5A5A',
+                  }}
+                />
+                <View style={{ width: scaleWidth(1) }} />
+                <Text
+                  style={{
+                    fontSize: scaleWidth(4),
+                    color: '#5A5A5A',
+                  }}>
+                  Upload photo
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  width: scaleWidth(36),
+                  height: scaleWidth(10),
+                  backgroundColor: '#ECECEC',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: scaleWidth(1),
+                  marginHorizontal: scaleWidth(2),
+                  flexDirection: 'row',
+                }}
+                onPress={launchCamera}>
+                <Image
+                  source={images.camera_rating}
+                  style={{
+                    width: scaleWidth(6),
+                    height: scaleWidth(4),
+                    tintColor: '#5A5A5A',
+                  }}
+                />
+                <View style={{ width: scaleWidth(1) }} />
+                <Text
+                  style={{
+                    fontSize: scaleWidth(4),
+                    color: '#5A5A5A',
+                  }}>
+                  Take photo
+                </Text>
+              </TouchableOpacity>
+            </View>
             <View style={{ height: scaleHeight(1.5) }} />
+
             <FlatList
               data={imgList}
               ref={flatList}
@@ -416,36 +486,7 @@ export default function ReviewPaymentForm(props) {
               ItemSeparatorComponent={() => (
                 <View style={{ width: scaleWidth(2) }} />
               )}
-              ListFooterComponent={() => (
-                <TouchableOpacity
-                  style={{
-                    width: scaleWidth(18),
-                    height: scaleWidth(18),
-                    backgroundColor: '#F2F2F2',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: scaleWidth(3),
-                    marginHorizontal: scaleWidth(3),
-                  }}
-                  onPress={pickGallery}>
-                  <Image
-                    source={images.camera_rating}
-                    style={{
-                      width: scaleWidth(6),
-                      height: scaleWidth(6),
-                      tintColor: '#5A5A5A',
-                    }}
-                  />
-                  <View style={{ height: scaleHeight(1) }} />
-                  <Text
-                    style={{
-                      fontSize: scaleWidth(2.8),
-                      color: '#5A5A5A',
-                    }}>
-                    Add photos
-                  </Text>
-                </TouchableOpacity>
-              )}
+              ListFooterComponent={() => <View />}
             />
           </View>
         </View>

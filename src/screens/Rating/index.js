@@ -207,9 +207,74 @@ export default function index(props) {
             message={message}
             setMessage={setMessage}
           />
-          {/* {file_list.length > 0 && (
-            <ImageList imgList={imgList} deleteImage={deleteImage} />
-          )} */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: scaleWidth(20),
+            }}>
+            <TouchableOpacity
+              style={{
+                width: scaleWidth(166),
+                height: scaleHeight(41),
+                backgroundColor: '#ECECEC',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: scaleWidth(6),
+                marginHorizontal: scaleWidth(10),
+                flexDirection: 'row',
+              }}
+              onPress={pickGallery}>
+              <Image
+                source={ICONS.media_rating}
+                style={{
+                  width: scaleWidth(24),
+                  height: scaleHeight(18),
+                  tintColor: '#5A5A5A',
+                }}
+              />
+              <View style={{ height: scaleHeight(2), width: scaleWidth(10) }} />
+              <Text
+                style={{
+                  fontSize: scaleWidth(14),
+                  color: '#5A5A5A',
+                }}>
+                Upload photo
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                width: scaleWidth(166),
+                height: scaleHeight(41),
+                backgroundColor: '#ECECEC',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: scaleWidth(6),
+                marginHorizontal: scaleWidth(10),
+                flexDirection: 'row',
+              }}
+              onPress={launchCamera}>
+              <Image
+                source={ICONS.camera_rating}
+                style={{
+                  width: scaleWidth(24),
+                  height: scaleHeight(18),
+                  tintColor: '#5A5A5A',
+                }}
+              />
+              <View style={{ height: scaleHeight(2), width: scaleWidth(10) }} />
+              <Text
+                style={{
+                  fontSize: scaleWidth(14),
+                  color: '#5A5A5A',
+                }}>
+                Take photo
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <View style={{ height: scaleHeight(15) }} />
           <FlatList
             ref={flatList}
@@ -224,36 +289,7 @@ export default function index(props) {
             ItemSeparatorComponent={() => (
               <View style={{ width: scaleWidth(10) }} />
             )}
-            ListFooterComponent={() => (
-              <TouchableOpacity
-                style={{
-                  width: scaleWidth(103),
-                  height: scaleHeight(95),
-                  backgroundColor: '#F2F2F2',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: scaleWidth(11),
-                  marginHorizontal: scaleWidth(10),
-                }}
-                onPress={pickGallery}>
-                <Image
-                  source={ICONS.camera_rating}
-                  style={{
-                    width: scaleWidth(24),
-                    height: scaleHeight(18),
-                    tintColor: '#5A5A5A',
-                  }}
-                />
-                <View style={{ height: scaleHeight(1) }} />
-                <Text
-                  style={{
-                    fontSize: scaleWidth(14),
-                    color: '#5A5A5A',
-                  }}>
-                  Add photos
-                </Text>
-              </TouchableOpacity>
-            )}
+            ListFooterComponent={() => <View />}
           />
         </ScrollView>
         <View
