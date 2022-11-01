@@ -125,17 +125,21 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
     case 'DELETE_PRODUCT':
       return {
         ...state,
-        products: state.products.filter(
-          obj => obj.productId != action.product.productId,
-        ),
+        products: [
+          ...state.products.filter(
+            obj => obj.productId != action.product.productId,
+          ),
+        ],
       };
 
     case 'DELETE_PRODUCT_SUCCESS':
       return {
         ...state,
-        products: state.products.filter(
-          obj => obj.bookingProductId != action.product.bookingProductId,
-        ),
+        products: [
+          ...state.products.filter(
+            obj => obj.bookingProductId != action.product.bookingProductId,
+          ),
+        ],
       };
 
     case 'DELETE_EXTRA':
@@ -153,14 +157,17 @@ function dataLocalReducer(state = get_INITIAL_STATE(), action) {
       };
 
     case 'UPDATE_QUANTITY_IN_CART':
-      const index = state.products.findIndex(
+      const cloneArr = [...(state.products ?? [])];
+      const index = cloneArr.findIndex(
         pro => pro.productId === action.payload.productId,
       );
       if (index > -1) {
-        state.products[index] = action.payload;
+        cloneArr[index] = action.payload;
       }
+
       return {
         ...state,
+        products: cloneArr,
       };
 
     case 'UPDATE_SERVICE':

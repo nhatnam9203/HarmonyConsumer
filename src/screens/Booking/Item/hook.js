@@ -34,7 +34,7 @@ export default function hook(props) {
   } = bookingReducer;
 
   let isHaveService =
-    services.length + extras.length + products.length > 0 ? true : false;
+    services.length + extras.length + products?.length > 0 ? true : false;
   const { item, extrasOfService } = props.route.params;
 
   useEffect(() => {
@@ -89,12 +89,14 @@ export default function hook(props) {
       quantity: qty,
       status: 1,
     };
+
+    let cloneArr = [...products];
     if (isEditAppointment) {
-      products.unshift(product);
+      cloneArr.unshift(product);
     } else {
-      products.push(product);
+      cloneArr.push(product);
     }
-    dispatch(actions.bookingAction.addProduct(products));
+    dispatch(actions.bookingAction.addProduct(cloneArr));
   };
 
   const updateQty = product_update => {

@@ -59,9 +59,9 @@ export const useProps = () => {
   React.useEffect(() => {
     if (appointmentDepositResponse) {
       // dispatch(actions.appointmentAction.getAppointmentUpcoming(token));
-      // dispatch(actions.bookingAction.resetBooking());
+      dispatch(actions.bookingAction.resetBooking());
       dispatch(actions.cardAction.get_card_by_user(token, userInfo.userId));
-      // dispatch(actions.appointmentAction.getAppointmentPast(token, 1));
+      dispatch(actions.appointmentAction.setAppointmentDetail({}));
 
       setTimeout(() => {
         RootNavigation.navigate('Appointments');

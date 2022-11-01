@@ -20,7 +20,7 @@ export default function StoreInfo(props) {
     extras,
     status,
     isEditAppointment,
-  } = props;
+  } = props || {};
 
   const {
     businessName = "Store's name",

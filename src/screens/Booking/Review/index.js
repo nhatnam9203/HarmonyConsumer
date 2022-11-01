@@ -31,9 +31,10 @@ export default function index(props) {
 
   const userInfo = useSelector(state => state.datalocalReducer.userInfo);
   const token = useSelector(state => state.datalocalReducer.token);
-  const appointment_detail_customer = useSelector(
-    state => state.appointmentReducer.appointment_detail_customer,
-  );
+  const appointment_detail_customer =
+    useSelector(
+      state => state.appointmentReducer.appointment_detail_customer,
+    ) ?? {};
 
   let timezoneBooking =
     merchant_detail.timezone && merchant_detail.timezone !== '0'
@@ -143,10 +144,10 @@ export default function index(props) {
     dispatch(actions.bookingAction.setAddmore(true));
 
     if (services.length + products.length + extras.length === 0) {
-      if (appointment_detail_customer.status == 'waiting') {
+      if (appointment_detail_customer?.status == 'waiting') {
         dispatch(
           actions.bookingAction.selectStaff(
-            appointment_detail_customer.staffId,
+            appointment_detail_customer?.staffId,
           ),
         );
       } else {
@@ -345,6 +346,10 @@ export default function index(props) {
 
   const isMakeDeposit = React.useCallback(() => {
     const total = totalPriceToFloat(services, extras, products);
+    console.log(isAppointmentDeposit);
+    console.log(total);
+    console.log(appointment_detail_customer?.depositAmount);
+    console.log(minimumAppointmentAmountRequireDeposit);
 
     return (
       isAppointmentDeposit &&

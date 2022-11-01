@@ -32,7 +32,7 @@ export default function hook(props) {
     depositAmount,
     // total,
     reaction,
-  } = appointment_detail_customer;
+  } = appointment_detail_customer || {};
 
   let total =
     appointment_detail_customer?.total ??
@@ -131,6 +131,7 @@ export default function hook(props) {
   };
 
   const back = () => {
+    dispatch(actions.appointmentAction.setAppointmentDetail({}));
     RootNavigation.back();
   };
 
