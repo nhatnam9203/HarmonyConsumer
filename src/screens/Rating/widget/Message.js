@@ -18,7 +18,10 @@ export default function Message({ message, setMessage }) {
       <View style={styles.containerInput}>
         <TextInput
           value={message}
-          onChangeText={text => setMessage(text)}
+          onChangeText={text => {
+            if (text && text.length > 500) return;
+            setMessage(text)
+          }}
           placeholder="Your comment"
           style={styles.textInput}
           multiline

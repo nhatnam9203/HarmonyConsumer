@@ -275,7 +275,12 @@ export default function ReviewPaymentForm(props) {
     _onHandleCancel();
   };
 
-  console.log(imgList);
+  const onChangeReviewComment = (value) => {
+    if (value && value.length > 500) {
+      return
+    }
+    setCommentText(value);
+  }
 
   return (
     <TouchableOpacity style={styles.container} activeOpacity={1}>
@@ -392,7 +397,7 @@ export default function ReviewPaymentForm(props) {
                 multiline
                 placeholder="Your comment"
                 value={commentText}
-                onChangeText={setCommentText}
+                onChangeText={onChangeReviewComment}
               />
             </View>
             <View style={{ height: scaleHeight(1) }} />
