@@ -350,12 +350,13 @@ export default function index(props) {
     const total = totalPriceToFloat(services, extras, products);
     console.log(isAppointmentDeposit);
     console.log(total);
+    console.log('appointment_detail_customer', appointment_detail_customer)
     console.log(appointment_detail_customer?.depositAmount);
     console.log(minimumAppointmentAmountRequireDeposit);
 
     return (
       isAppointmentDeposit &&
-      // parseFloat(appointment_detail_customer?.depositAmount ?? 0) <= 0 &&
+      parseFloat(appointment_detail_customer?.depositAmount ?? 0) <= 0 &&
       total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
     );
   }, [
