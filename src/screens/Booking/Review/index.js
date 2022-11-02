@@ -36,6 +36,7 @@ export default function index(props) {
       state => state.appointmentReducer.appointment_detail_customer,
     ) ?? {};
 
+
   let timezoneBooking =
     merchant_detail.timezone && merchant_detail.timezone !== '0'
       ? moment().tz(merchant_detail.timezone.substring(12))
@@ -344,6 +345,7 @@ export default function index(props) {
     }
   };
 
+
   const isMakeDeposit = React.useCallback(() => {
     const total = totalPriceToFloat(services, extras, products);
     console.log(isAppointmentDeposit);
@@ -353,7 +355,7 @@ export default function index(props) {
 
     return (
       isAppointmentDeposit &&
-      parseFloat(appointment_detail_customer?.depositAmount ?? 0) <= 0 &&
+      // parseFloat(appointment_detail_customer?.depositAmount ?? 0) <= 0 &&
       total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
     );
   }, [
