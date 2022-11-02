@@ -114,11 +114,11 @@ export const useProps = () => {
       cancelAppointment();
       // Trường hợp tắt ngang ko deposit depositt-> cần gọi cancel appointment
       dispatch(actions.bookingAction.resetBooking());
+      dispatch(actions.appointmentAction.setAppointmentDetail({}));
       RootNavigation.navigate('BottomTab');
     },
     onBack: () => {
       setLoadingPage(true);
-      cancelAppointment();
       setTimeout(() => {
         RootNavigation.back();
       }, 1000);
