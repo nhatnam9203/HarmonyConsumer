@@ -5,6 +5,7 @@ import actions from '@redux/actions';
 import { totalPrice } from 'utils';
 import * as RootNavigation from 'navigations/RootNavigation';
 import { extrasAdapter } from './helper';
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function hook(props) {
   const dispatch = useDispatch();

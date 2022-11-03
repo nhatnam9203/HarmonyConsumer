@@ -190,6 +190,7 @@ export default function index(props) {
         token,
         appointment_detail_customer.appointmentId,
         editSuccess,
+        true
       ),
     );
   };

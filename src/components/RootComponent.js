@@ -331,12 +331,15 @@ const RootComponent = ({ children }) => {
           actions.appointmentAction?.getAppointmentUpcoming(token, () => {}),
         );
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
-        // dispatch(
-        //   actions.appointmentAction?.getDetailAppointment(
-        //     token,
-        //     messageJson.id,
-        //   ),
-        // );
+
+        if (RootNavigation.currentRoute()?.name == "MyAppointmentDetail") {
+          dispatch(
+            actions.appointmentAction?.getDetailAppointment(
+              token,
+              messageJson.id,
+            ),
+          );
+        }
       }
 
       if (messageJson.type === 'update_consumer') {
@@ -389,14 +392,16 @@ const RootComponent = ({ children }) => {
 
       if (messageJson.type == 'appointment_checkout') {
         dispatch(actions.appointmentAction?.setCheckOut(true));
-        if (messageJson.id) {
-          if (messageJson?.id && messageJson?.id == appointmentId) {
-            dispatch(
-              actions.appointmentAction?.getDetailAppointment(
-                token,
-                messageJson?.id,
-              ),
-            );
+        if (RootNavigation.currentRoute()?.name == "MyAppointmentDetail") {
+          if (messageJson.id) {
+            if (messageJson?.id && messageJson?.id == appointmentId) {
+              dispatch(
+                actions.appointmentAction?.getDetailAppointment(
+                  token,
+                  messageJson?.id,
+                ),
+              );
+            }
           }
         }
       }
