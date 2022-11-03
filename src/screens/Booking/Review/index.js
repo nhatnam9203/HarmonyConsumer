@@ -357,7 +357,7 @@ export default function index(props) {
     return (
       isAppointmentDeposit &&
       parseFloat(appointment_detail_customer?.depositAmount ?? 0) <= 0 &&
-      total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit)
+      total >= formatNumberFromCurrency(minimumAppointmentAmountRequireDeposit) 
     );
   }, [
     isAppointmentDeposit,

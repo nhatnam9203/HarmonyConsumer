@@ -331,12 +331,12 @@ const RootComponent = ({ children }) => {
           actions.appointmentAction?.getAppointmentUpcoming(token, () => {}),
         );
         dispatch(actions.appointmentAction?.getAppointmentPast(token, 1));
-        dispatch(
-          actions.appointmentAction?.getDetailAppointment(
-            token,
-            messageJson.id,
-          ),
-        );
+        // dispatch(
+        //   actions.appointmentAction?.getDetailAppointment(
+        //     token,
+        //     messageJson.id,
+        //   ),
+        // );
       }
 
       if (messageJson.type === 'update_consumer') {

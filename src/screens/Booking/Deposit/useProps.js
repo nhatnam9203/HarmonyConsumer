@@ -119,6 +119,7 @@ export const useProps = () => {
     },
     onBack: () => {
       setLoadingPage(true);
+      cancelAppointment();
       setTimeout(() => {
         RootNavigation.back();
       }, 1000);
