@@ -317,7 +317,10 @@ export const totalPrice = (services = [], extras = [], products = []) => {
     total += parseFloat(services[i].price.toString().replace(',', ''));
   }
   for (let i = 0; i < extras.length; i++) {
-    total += parseFloat(extras[i].price.toString().replace(',', ''));
+    const extra = extras[i];
+    if(extra?.isCheck) {
+      total += parseFloat(extra?.price.toString().replace(',', ''));
+    }
   }
   for (let i = 0; i < products.length; i++) {
     total +=
