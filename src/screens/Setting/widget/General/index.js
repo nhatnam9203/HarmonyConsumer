@@ -35,8 +35,8 @@ export default function index(props) {
         <Security />
         <Line />
         <Notification />
-        {/* <Line />
-        <DeleteAccountButton /> */}
+        <Line />
+        <DeleteAccountButton />
       </View>
     </View>
   );
