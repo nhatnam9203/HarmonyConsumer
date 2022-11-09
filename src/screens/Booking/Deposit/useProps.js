@@ -133,6 +133,7 @@ export const useProps = () => {
         depositAppointment({
           appointmentId: appointment?.appointmentId,
           userCardId: cardSelected.userCardId,
+          isAddAppointment: !isEditAppointment,
         });
     },
     onAddCard: _onHandleAddCard,

@@ -14,8 +14,8 @@ export const appointmentBuilder = builder => ({
   }),
 
   depositAppointment: builder.mutation({
-    query: ({ appointmentId, userCardId }) => ({
-      url: `UserCard/PayDeposit/${appointmentId}?userCardId=${userCardId}`,
+    query: ({ appointmentId, userCardId, isAddAppointment }) => ({
+      url: `UserCard/PayDeposit/${appointmentId}?userCardId=${userCardId}&isAddAppointment=${isAddAppointment}`,
       method: 'PUT',
     }),
   }),
