@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import actions from '@redux/actions';
 import images from 'assets';
 import * as RootNavigation from 'navigations/RootNavigation';
-import styles from './styles';
+import styles from './styles'
 
 export default function index(props) {
   const dispatch = useDispatch();
